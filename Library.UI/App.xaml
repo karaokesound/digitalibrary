@@ -1,0 +1,41 @@
+﻿<Application x:Class="Library.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodel="clr-namespace:Library.UI.ViewModel"
+             xmlns:view="clr-namespace:Library.UI.View"
+             xmlns:local="clr-namespace:Library.UI">
+    <Application.Resources>
+            <DataTemplate DataType="{x:Type viewmodel:AccountPanelViewModel}">
+                <view:AccountPanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:BookCollectionViewModel}">
+                <view:BookCollectionView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:LofiCollectionViewModel}">
+                <view:LofiCollectionView />
+            </DataTemplate>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="placeholder" />
+                            <!--// own hard-coded error text //--> 
+                            <!--<TextBlock Text="Error" />-->
+                            <!--// binded error text //-->
+                            <TextBlock Text="{Binding ElementName=placeholder, 
+                                Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError"
+                         Value="True">
+                    <Setter Property="Margin" Value="0 0 10 10" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Application.Resources>
+</Application>

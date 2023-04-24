@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Library.UI.View.BookCollectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.RowSpan="2"
+                Background="White" />
+        
+        <StackPanel Margin="15">
+            <TextBlock Text="Books"
+                       FontWeight="Bold"/>
+            <ListView ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Title"
+                      SelectedItem="{Binding SelectedBook}" />
+            <TextBlock Text="Select a book you want to borrow"
+                       Margin="0 15 0 0"
+                       FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedBook.Title,UpdateSourceTrigger=PropertyChanged}"
+                       Background="LightBlue"
+                       Height="25"
+                       FontSize="14"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Margin="15">
+            <TextBlock Text="Add books which you've read"
+                       FontSize="18" />
+            <TextBlock Text="Title" />
+            <TextBox Text="{Binding NewBookVM.Title, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Author" />
+            <TextBox Text="{Binding NewBookVM.Author}"/>
+            <TextBlock Text="Volume" />
+            <TextBox Text="{Binding NewBookVM.Volume}"/>
+            <TextBlock Text="Pages" />
+            <TextBox Text="{Binding NewBookVM.Pages}"/>
+            <Button Width="50"
+                    Content="Add"
+                    HorizontalAlignment="Left"
+                    Command="{Binding AddBookCommand}"/>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

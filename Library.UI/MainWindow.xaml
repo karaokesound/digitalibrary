@@ -1,0 +1,116 @@
+﻿<Window x:Class="Library.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:Library.UI.View"
+        mc:Ignorable="d"
+        AllowsTransparency="False"
+        WindowStyle="None" 
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        Height="550" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.13*" />
+            <RowDefinition Height="0.7*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--// MAIN BACKGROUND //-->
+        <Image Grid.Row="1"
+               Grid.RowSpan="2"
+               Grid.ColumnSpan="2"
+               Source="https://cdn.pixabay.com/photo/2018/07/14/11/33/earth-3537401_960_720.jpg"
+               Stretch="Fill" />
+        <!--// BORDERS //-->
+        <Border Grid.ColumnSpan="2"
+                Grid.RowSpan="3"
+                BorderThickness="0.3"
+                BorderBrush="White"/>
+        <Border Grid.ColumnSpan="2"
+                BorderThickness="0.3"
+                BorderBrush="White" />
+        
+        <!--// TOP BAR //-->
+        <Border Grid.ColumnSpan="2"
+                MouseDown="Border_MouseDown"
+                Background="Black" />
+
+        <!--// TOP BAR BUTTONS //-->
+        <StackPanel Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="-"
+                    Click="MinimizeButton_Click_1"
+                    Width="25"/>
+            <Button Content="X"
+                    Click="ExitButton_Click"
+                    Width="25"/>
+        </StackPanel>
+        
+        <!--// SUMMER LIBRARY //--> 
+        <TextBlock Text="Summer Library"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="20"
+                   Foreground="White" />
+        
+        <!--// CREATE ACCOUNT, SIGN IN //-->
+        <Border Background="White"
+                Grid.Row="2"
+                Width="200"
+                Height="50"
+                CornerRadius="10"
+                Opacity="0.75"/>
+        <TextBlock Grid.Row="2"
+                   FontSize="25"
+                   Text="Create account"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+        <Border Background="White"
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="200"
+                Height="50"
+                CornerRadius="10"
+                Opacity="0.75"/>
+        <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       FontSize="25"
+                       Text="Sign in"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+
+        <!--<StackPanel>
+            <TextBlock Grid.ColumnSpan="2"
+                       Text="Summer Library"
+                       Margin="15"
+                       HorizontalAlignment="Center"
+                       FontSize="20"/>
+            <StackPanel>
+                <Button Content="Lofi"
+                        Command="{Binding UpdateViewCommand}"
+                        CommandParameter="Lofi" />
+                <Button Content="Book Collection"
+                        Command="{Binding UpdateViewCommand}"
+                        CommandParameter="BookCollection" />
+            </StackPanel>
+        </StackPanel>-->
+
+        <!--<view:BookCollectionView Grid.ColumnSpan="2"
+                                 Grid.Row="1" />-->
+
+        <!--// CONTENT CONTROL //-->
+        <ContentControl Content="{Binding SelectedViewModel}"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="2" />
+    </Grid>
+</Window>
