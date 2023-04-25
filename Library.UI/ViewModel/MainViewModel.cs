@@ -22,6 +22,8 @@ namespace Library.UI.ViewModel
 
 		public AccountPanelViewModel AccountPanelVM { get; }
 
+		public SignUpViewModel SignUpVM { get; }
+
 		public LofiCollectionViewModel LofiCollectionVM { get; }
 
 		public ICommand UpdateViewCommand { get; }
@@ -29,7 +31,7 @@ namespace Library.UI.ViewModel
         public MainViewModel()
         {
 			UpdateViewCommand = new UpdateViewCommand(this);
-			//SelectedViewModel = new BookCollectionViewModel(new BookDataProvider());
+			SelectedViewModel = new BookCollectionViewModel(new BookDataProvider());
 		}
     }
 }

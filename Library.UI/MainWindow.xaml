@@ -11,39 +11,43 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         Height="550" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.13*" />
-            <RowDefinition Height="0.7*" />
+            <RowDefinition Height="0.92*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="0.77*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.77*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.77*" />
         </Grid.ColumnDefinitions>
 
         <!--// MAIN BACKGROUND //-->
-        <Image Grid.Row="1"
-               Grid.RowSpan="2"
-               Grid.ColumnSpan="2"
-               Source="https://cdn.pixabay.com/photo/2018/07/14/11/33/earth-3537401_960_720.jpg"
-               Stretch="Fill" />
-        <!--// BORDERS //-->
-        <Border Grid.ColumnSpan="2"
-                Grid.RowSpan="3"
-                BorderThickness="0.3"
-                BorderBrush="White"/>
-        <Border Grid.ColumnSpan="2"
-                BorderThickness="0.3"
-                BorderBrush="White" />
-        
+        <Border Grid.RowSpan="4"
+                Grid.ColumnSpan="3"
+                Background="White" />
+        <Image Grid.RowSpan="4"
+               Grid.ColumnSpan="3"
+               Source="https://cdn.pixabay.com/photo/2019/03/26/10/46/artificial-4082314_960_720.jpg" />
+
+        <!--// BORDER //-->
+        <Border Grid.ColumnSpan="3"
+                Grid.RowSpan="4"
+                BorderBrush="Black"
+                BorderThickness="0.3" />
+
         <!--// TOP BAR //-->
-        <Border Grid.ColumnSpan="2"
+        <Border Grid.ColumnSpan="3"
                 MouseDown="Border_MouseDown"
-                Background="Black" />
+                Background="White" />
 
         <!--// TOP BAR BUTTONS //-->
-        <StackPanel Grid.ColumnSpan="2"
+        <StackPanel Grid.ColumnSpan="3"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Content="-"
@@ -53,64 +57,58 @@
                     Click="ExitButton_Click"
                     Width="25"/>
         </StackPanel>
-        
-        <!--// SUMMER LIBRARY //--> 
-        <TextBlock Text="Summer Library"
-                   Grid.ColumnSpan="2"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="20"
-                   Foreground="White" />
-        
-        <!--// CREATE ACCOUNT, SIGN IN //-->
-        <Border Background="White"
-                Grid.Row="2"
-                Width="200"
-                Height="50"
-                CornerRadius="10"
-                Opacity="0.75"/>
-        <TextBlock Grid.Row="2"
-                   FontSize="25"
-                   Text="Create account"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
-        <Border Background="White"
-                Grid.Row="2"
-                Grid.Column="1"
-                Width="200"
-                Height="50"
-                CornerRadius="10"
-                Opacity="0.75"/>
-        <TextBlock Grid.Row="2"
-                       Grid.Column="1"
-                       FontSize="25"
-                       Text="Sign in"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
 
-        <!--<StackPanel>
-            <TextBlock Grid.ColumnSpan="2"
-                       Text="Summer Library"
-                       Margin="15"
-                       HorizontalAlignment="Center"
-                       FontSize="20"/>
-            <StackPanel>
-                <Button Content="Lofi"
-                        Command="{Binding UpdateViewCommand}"
-                        CommandParameter="Lofi" />
-                <Button Content="Book Collection"
-                        Command="{Binding UpdateViewCommand}"
-                        CommandParameter="BookCollection" />
-            </StackPanel>
-        </StackPanel>-->
-
-        <!--<view:BookCollectionView Grid.ColumnSpan="2"
-                                 Grid.Row="1" />-->
+        <!--// SIGN IN PANEL //-->
+        <view:SignUpView Grid.Column="1"
+                         Grid.Row="2"
+                         DataContext="{Binding SignUpVM}"/>
+            
+                <!--// CREATE ACCOUNT, SIGN IN //-->
+        <Grid Grid.Row="2"
+              Grid.ColumnSpan="3"
+              Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.41*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.41*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.94*" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="1"
+                    Width="150"
+                    Height="50"
+                    Opacity="0.45"
+                    Background="White"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"/>
+            <Button Grid.Row="1"
+                    Style="{StaticResource loginButton}"
+                    Content="Sign In"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"/>
+            <Border Grid.Column="2"
+                    Grid.Row="1"
+                    Width="150"
+                    Height="50"
+                    Opacity="0.45"
+                    Background="White"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"/>
+            <Button Grid.Column="2"
+                    Grid.Row="1"
+                    Command="{Binding SignUpVM.SignUpCommand}"
+                    Style="{StaticResource loginButton}"
+                    Content="Sign Up"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"/>
+        </Grid>
 
         <!--// CONTENT CONTROL //-->
         <ContentControl Content="{Binding SelectedViewModel}"
                         Grid.Row="1"
-                        Grid.RowSpan="2"
-                        Grid.ColumnSpan="2" />
+                        Grid.RowSpan="3"
+                        Grid.ColumnSpan="3" />
     </Grid>
 </Window>

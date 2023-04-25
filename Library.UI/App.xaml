@@ -1,10 +1,15 @@
 ﻿<Application x:Class="Library.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:viewmodel="clr-namespace:Library.UI.ViewModel"
              xmlns:view="clr-namespace:Library.UI.View"
-             xmlns:local="clr-namespace:Library.UI">
+             xmlns:viewmodel="clr-namespace:Library.UI.ViewModel">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
             <DataTemplate DataType="{x:Type viewmodel:AccountPanelViewModel}">
                 <view:AccountPanelView />
             </DataTemplate>
@@ -13,6 +18,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:LofiCollectionViewModel}">
                 <view:LofiCollectionView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:SignUpViewModel}">
+                <view:SignUpView />
             </DataTemplate>
 
         <Style TargetType="TextBox">
@@ -37,5 +45,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

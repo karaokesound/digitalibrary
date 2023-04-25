@@ -7,45 +7,72 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="0.15*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Border Grid.RowSpan="2"
                 Background="White" />
-        
-        <StackPanel Margin="15">
-            <TextBlock Text="Books"
-                       FontWeight="Bold"/>
-            <ListView ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"
-                      DisplayMemberPath="Title"
-                      SelectedItem="{Binding SelectedBook}" />
-            <TextBlock Text="Select a book you want to borrow"
+
+        <TextBlock Text="Vice City D-Library"
+                   FontSize="30"
+                   HorizontalAlignment="Center"
+                   Margin="0 10 0 0"/>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border Background="Yellow"
+                    Opacity="0.15"/>
+            <StackPanel Orientation="Horizontal">
+                <ListView ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedBook}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title}" />
+                                <TextBlock Text="{Binding Pages}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+           
+            <StackPanel Grid.Row="1"
+                    Margin="15">
+                <TextBlock Text="Select a book you want to borrow"
                        Margin="0 15 0 0"
                        FontWeight="Bold"/>
-            <TextBlock Text="{Binding SelectedBook.Title,UpdateSourceTrigger=PropertyChanged}"
+                <TextBlock Text="{Binding SelectedBook.Title,UpdateSourceTrigger=PropertyChanged}"
                        Background="LightBlue"
                        Height="25"
                        FontSize="14"/>
-        </StackPanel>
+            </StackPanel>
 
-        <StackPanel Grid.Row="1"
+            <StackPanel Grid.Row="1"
                     Margin="15">
-            <TextBlock Text="Add books which you've read"
+                <TextBlock Text="Add books which you've read"
                        FontSize="18" />
-            <TextBlock Text="Title" />
-            <TextBox Text="{Binding NewBookVM.Title, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Author" />
-            <TextBox Text="{Binding NewBookVM.Author}"/>
-            <TextBlock Text="Volume" />
-            <TextBox Text="{Binding NewBookVM.Volume}"/>
-            <TextBlock Text="Pages" />
-            <TextBox Text="{Binding NewBookVM.Pages}"/>
-            <Button Width="50"
+                <TextBlock Text="Title" />
+                <TextBox Text="{Binding NewBookVM.Title, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Author" />
+                <TextBox Text="{Binding NewBookVM.Author}"/>
+                <TextBlock Text="Volume" />
+                <TextBox Text="{Binding NewBookVM.Volume}"/>
+                <TextBlock Text="Pages" />
+                <TextBox Text="{Binding NewBookVM.Pages}"/>
+                <Button Width="50"
                     Content="Add"
                     HorizontalAlignment="Left"
                     Command="{Binding AddBookCommand}"/>
-        </StackPanel>
-        
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

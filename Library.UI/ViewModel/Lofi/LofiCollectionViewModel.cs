@@ -9,6 +9,8 @@ namespace Library.UI.ViewModel
 {
     public class LofiCollectionViewModel : BaseViewModel
     {
+        public ObservableCollection<LofiViewModel> Lofies { get; set; }
+
         private readonly ILofiDataProvider _lofiDataProvider;
 
         public LofiCollectionViewModel(ILofiDataProvider lofiDataProvider)
@@ -17,8 +19,6 @@ namespace Library.UI.ViewModel
             Lofies = new ObservableCollection<LofiViewModel>();
             GetAllLofi();
         }
-
-        public ObservableCollection<LofiViewModel> Lofies { get; set; }
 
         public void GetAllLofi()
         {

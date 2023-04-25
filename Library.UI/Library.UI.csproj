@@ -11,4 +11,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModel\SignUp\" />
+    <Folder Include="View\SignUp\" />
+  </ItemGroup>
+
 </Project>
