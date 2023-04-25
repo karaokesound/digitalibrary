@@ -47,9 +47,9 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public string? _volume;
+        public int? _volume;
 
-        public string Volume 
+        public int? Volume 
         {
             get => _volume;
             set

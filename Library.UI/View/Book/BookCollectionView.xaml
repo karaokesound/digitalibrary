@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:Library.UI.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -11,67 +12,54 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!--// BACKGROUND //-->
         <Border Grid.RowSpan="2"
                 Background="White" />
 
+        <!--// BORDER //-->
+        <Border Grid.RowSpan="2"
+                BorderBrush="Black"
+                BorderThickness="0.3" />
+
+        <!--// LIBRARY NAME //-->
         <TextBlock Text="Vice City D-Library"
                    FontSize="30"
                    HorizontalAlignment="Center"
                    Margin="0 10 0 0"/>
 
+        <!--// LISTVIEW, RENT PANEL //-->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.4*" />
+                <RowDefinition Height="0.8*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Border Background="Yellow"
-                    Opacity="0.15"/>
+
+            <!--// listview //-->
             <StackPanel Orientation="Horizontal">
-                <ListView ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedBook}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Title}" />
-                                <TextBlock Text="{Binding Pages}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
-           
-            <StackPanel Grid.Row="1"
-                    Margin="15">
-                <TextBlock Text="Select a book you want to borrow"
-                       Margin="0 15 0 0"
-                       FontWeight="Bold"/>
-                <TextBlock Text="{Binding SelectedBook.Title,UpdateSourceTrigger=PropertyChanged}"
-                       Background="LightBlue"
-                       Height="25"
-                       FontSize="14"/>
+                <components:BooksListview />
             </StackPanel>
 
+            <!--// rent a book panel //-->
             <StackPanel Grid.Row="1"
-                    Margin="15">
-                <TextBlock Text="Add books which you've read"
-                       FontSize="18" />
-                <TextBlock Text="Title" />
-                <TextBox Text="{Binding NewBookVM.Title, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Author" />
-                <TextBox Text="{Binding NewBookVM.Author}"/>
-                <TextBlock Text="Volume" />
-                <TextBox Text="{Binding NewBookVM.Volume}"/>
-                <TextBlock Text="Pages" />
-                <TextBox Text="{Binding NewBookVM.Pages}"/>
-                <Button Width="50"
-                    Content="Add"
-                    HorizontalAlignment="Left"
-                    Command="{Binding AddBookCommand}"/>
+                        Margin="15">
+                <TextBlock Text="Select a book you want to rent"
+                           Margin="0 15 0 5"
+                           FontSize="16" />
+                <TextBlock Text="{Binding SelectedBook.Title,UpdateSourceTrigger=PropertyChanged}"
+                           Background="LightBlue"
+                           Height="25"
+                           Width="300"
+                           HorizontalAlignment="Left"
+                           FontSize="14"
+                           FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Pages: " />
+                    <TextBlock Text="{Binding SelectedBook.Pages}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Volume: " />
+                    <TextBlock Text="{Binding SelectedBook.Volume}" />
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>

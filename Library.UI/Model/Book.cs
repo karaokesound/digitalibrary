@@ -10,7 +10,7 @@ namespace Library.UI.Model
 
         public Author Author { get; set; }
 
-        public string? Volume { get; set; }
+        public int? Volume { get; set; }
         
         public int Pages { get; set; }
     }
