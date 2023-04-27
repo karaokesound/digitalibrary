@@ -17,7 +17,9 @@ namespace Library.UI
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-            { this.DragMove(); }
+            { 
+                this.DragMove(); 
+            }
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
@@ -25,7 +27,7 @@ namespace Library.UI
             Close();
         }
 
-        private void MinimizeButton_Click_1(object sender, RoutedEventArgs e)
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }

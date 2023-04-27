@@ -16,11 +16,8 @@
             <DataTemplate DataType="{x:Type viewmodel:BookCollectionViewModel}">
                 <view:BookCollectionView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodel:LofiCollectionViewModel}">
-                <view:LofiCollectionView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodel:SignUpViewModel}">
-                <view:SignUpView />
+            <DataTemplate DataType="{x:Type viewmodel:SignUpPanelViewModel}">
+                <view:SignUpPanelView />
             </DataTemplate>
 
         <Style TargetType="TextBox">

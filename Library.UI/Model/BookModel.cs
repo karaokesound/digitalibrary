@@ -2,13 +2,13 @@
 
 namespace Library.UI.Model
 {
-    public class Book
+    public class BookModel
     {
         public Guid Id;
 
         public string Title { get; set; }
 
-        public Author Author { get; set; }
+        public AuthorModel Author { get; set; }
 
         public int? Volume { get; set; }
         

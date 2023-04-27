@@ -11,6 +11,9 @@
         <Setter Property="FontSize" Value="25" />
         <Setter Property="Width" Value="150" />
         <Setter Property="Height" Value="50" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <!--// do not past Margin value to <Border></Border> //-->
+        <Setter Property="Margin" Value="0 26 0 0" /> 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -19,6 +22,7 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
                             CornerRadius="3">
                         <ContentPresenter ContentSource="Content"
                                           TextBlock.Foreground="{TemplateBinding Foreground}"

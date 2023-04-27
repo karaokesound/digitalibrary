@@ -6,7 +6,6 @@ namespace Library.UI.ViewModel
     public class BookViewModel : ValidationBaseViewModel
     {
         public Guid _id;
-
         public Guid Id 
         {
             get => _id;
@@ -18,7 +17,6 @@ namespace Library.UI.ViewModel
         }
 
         public string _title;
-
         public string Title 
         {
             get => _title;
@@ -35,9 +33,8 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public Author _author;
-
-        public Author Author 
+        public AuthorModel _author;
+        public AuthorModel Author 
         {
             get => _author;
             set
@@ -48,7 +45,6 @@ namespace Library.UI.ViewModel
         }
 
         public int? _volume;
-
         public int? Volume 
         {
             get => _volume;
@@ -60,7 +56,6 @@ namespace Library.UI.ViewModel
         }
 
         public int _pages;
-
         public int Pages 
         {
             get => _pages;

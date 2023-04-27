@@ -6,7 +6,7 @@ namespace Library.UI.Services
     public static class MappingService
     {
         // BOOKS MAPPING SERVICE //
-        public static BookViewModel BookModelToViewModel (Book bookModel)
+        public static BookViewModel BookModelToViewModel (BookModel bookModel)
         {
             BookViewModel bookViewModel = new BookViewModel()
             {
@@ -18,9 +18,9 @@ namespace Library.UI.Services
             return bookViewModel;
         }
 
-        public static Book BookViewModelToModel (BookViewModel bookViewModel)
+        public static BookModel BookViewModelToModel (BookViewModel bookViewModel)
         {
-            Book bookModel = new Book()
+            BookModel bookModel = new BookModel()
             {
                 Id = bookViewModel.Id,
                 Title = bookViewModel.Title,
@@ -30,24 +30,28 @@ namespace Library.UI.Services
             return bookModel;
         }
 
-        // LOFI MAPPING SERVICE //
-        public static LofiViewModel LofiModelToViewModel (Lofi lofi)
+        // SIGN UP MAPPING SERVICE //
+        public static SignUpViewModel SignUpModelToViewModel(SignUpModel signUp)
         {
-            return new LofiViewModel
+            return new SignUpViewModel()
             {
-                Id = lofi.Id,
-                Title = lofi.Title,
-                Vibe = lofi.Vibe,
+                FirstName = signUp.FirstName,
+                LastName = signUp.LastName,
+                Email = signUp.Email,
+                City = signUp.City,
+                Library = signUp.Library,
             };
         }
 
-        public static Lofi LofiViewModelToModel(LofiViewModel lofiVM)
+        public static SignUpModel SignUpViewModelToModel(SignUpViewModel signUpVM)
         {
-            return new Lofi
+            return new SignUpModel()
             {
-                Id = lofiVM.Id,
-                Title = lofiVM.Title,
-                Vibe = lofiVM.Vibe,
+                FirstName = signUpVM.FirstName,
+                LastName = signUpVM.LastName,
+                Email = signUpVM.Email,
+                City = signUpVM.City,
+                Library = signUpVM.Library,
             };
         }
     }

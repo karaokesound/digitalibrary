@@ -18,10 +18,6 @@ namespace Library.UI.Commands
             {
                 _mainVM.SelectedViewModel = new BookCollectionViewModel(new BookDataProvider());
             }
-            else if (parameter.ToString() == "Lofi")
-            {
-                _mainVM.SelectedViewModel = new LofiCollectionViewModel(new LofiDataProvider());
-            }
         }
 
         public UpdateViewCommand(MainViewModel mainVM)

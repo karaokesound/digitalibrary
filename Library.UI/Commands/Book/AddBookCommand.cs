@@ -10,7 +10,7 @@ namespace Library.UI.Command
 
         public override void Execute(object parameter)
         { 
-            Book newBook = new Book()
+            BookModel newBook = new BookModel()
             {
                 Id = Guid.NewGuid(),
                 Title = _bookCollectionVM.NewBookVM.Title,

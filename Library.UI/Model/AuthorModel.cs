@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Library.UI.Model
 {
-    public class Author
+    public class AuthorModel
     {
         public Guid Id { get; set; }
 
@@ -11,11 +11,11 @@ namespace Library.UI.Model
 
         public string LastName { get; set; }
 
-        public List<Book>? WrittenBooks { get; set; }
+        public List<BookModel>? WrittenBooks { get; set; }
 
-        public Author()
+        public AuthorModel()
         {
-            WrittenBooks = new List<Book>();
+            WrittenBooks = new List<BookModel>();
         }
     }
 }

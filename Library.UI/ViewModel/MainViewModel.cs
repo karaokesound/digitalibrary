@@ -7,7 +7,6 @@ namespace Library.UI.ViewModel
     public class MainViewModel : BaseViewModel
     {
 		private BaseViewModel _selectedViewModel;
-
 		public BaseViewModel SelectedViewModel
 		{
 			get => _selectedViewModel;
@@ -22,16 +21,17 @@ namespace Library.UI.ViewModel
 
 		public AccountPanelViewModel AccountPanelVM { get; }
 
-		public SignUpViewModel SignUpVM { get; }
-
-		public LofiCollectionViewModel LofiCollectionVM { get; }
+        public SignUpPanelViewModel SignUpPanelVM { get; }
 
 		public ICommand UpdateViewCommand { get; }
 
-        public MainViewModel()
+        public MainViewModel(AccountPanelViewModel accountPanelVM, BookCollectionViewModel bookCollectionVM,
+			SignUpPanelViewModel signUpVM)
         {
 			UpdateViewCommand = new UpdateViewCommand(this);
-			SelectedViewModel = new BookCollectionViewModel(new BookDataProvider());
+			AccountPanelVM = accountPanelVM;
+			BookCollectionVM = bookCollectionVM;
+			SignUpPanelVM = signUpVM;
 		}
     }
 }

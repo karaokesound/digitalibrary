@@ -2,9 +2,9 @@
 
 namespace Library.UI.View
 {
-    public partial class LofiCollectionView : UserControl
+    public partial class SignUpPanelView : UserControl
     {
-        public LofiCollectionView()
+        public SignUpPanelView()
         {
             InitializeComponent();
         }

@@ -29,14 +29,13 @@
                                 Width="50"
                                 Height="80"
                                 Margin="0 0 0 15"/>
-                            <TextBlock Grid.Row="1"
+                        <TextBlock Grid.Row="1"
                                        Text="{Binding Title}"
                                        Width="100"
-                                       TextWrapping="Wrap"/>
-                            <TextBlock Grid.Row="2"
+                                   TextWrapping="WrapWithOverflow"/>
+                        <TextBlock Grid.Row="2"
                                        Text="{Binding Pages}"
-                                       Width="100"
-                                       TextWrapping="Wrap"/>
+                                       Width="100" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

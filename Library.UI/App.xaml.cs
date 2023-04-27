@@ -28,12 +28,10 @@ namespace Library.UI
             services.AddTransient<MainViewModel>();
             services.AddTransient<BookCollectionViewModel>();
             services.AddTransient<AccountPanelViewModel>();
-            services.AddTransient<LofiCollectionViewModel>();
-            services.AddTransient<SignUpViewModel>();
+            services.AddTransient<SignUpPanelViewModel>();
 
             // interfaces //
             services.AddTransient<IBookDataProvider, BookDataProvider>();
-            services.AddTransient<ILofiDataProvider, LofiDataProvider>();
         }
     }
 }

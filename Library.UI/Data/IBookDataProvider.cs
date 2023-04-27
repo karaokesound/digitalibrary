@@ -5,6 +5,6 @@ namespace Library.UI.Data
 {
     public interface IBookDataProvider
     {
-        public List<Book> GetAllBooks();
+        public List<BookModel> GetAllBooks();
     }
 }
