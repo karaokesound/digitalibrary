@@ -1,5 +1,4 @@
 ﻿using Library.UI.Commands;
-using Library.UI.Data;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -23,15 +22,18 @@ namespace Library.UI.ViewModel
 
         public SignUpPanelViewModel SignUpPanelVM { get; }
 
+        public SignInPanelViewModel SignInPanelVM { get; }
+
 		public ICommand UpdateViewCommand { get; }
 
         public MainViewModel(AccountPanelViewModel accountPanelVM, BookCollectionViewModel bookCollectionVM,
-			SignUpPanelViewModel signUpVM)
+			SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM)
         {
 			UpdateViewCommand = new UpdateViewCommand(this);
 			AccountPanelVM = accountPanelVM;
 			BookCollectionVM = bookCollectionVM;
-			SignUpPanelVM = signUpVM;
+			SignUpPanelVM = signUpPanelVM;
+			SignInPanelVM = signInPanelVM;
 		}
     }
 }

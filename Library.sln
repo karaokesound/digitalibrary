@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.UI", "Library.UI\Library.UI.csproj", "{CFE20C39-9142-47DB-B1C3-476BE913AAB5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WiredBrainCoffee.CustomersApp", "..\..\..\Downloads\wpf-6-fundamentals\13\demos\after\WiredBrainCoffee.CustomersApp\WiredBrainCoffee.CustomersApp.csproj", "{683B65CE-8AE1-4A3E-BE27-899E938ADAD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CFE20C39-9142-47DB-B1C3-476BE913AAB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFE20C39-9142-47DB-B1C3-476BE913AAB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFE20C39-9142-47DB-B1C3-476BE913AAB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683B65CE-8AE1-4A3E-BE27-899E938ADAD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683B65CE-8AE1-4A3E-BE27-899E938ADAD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683B65CE-8AE1-4A3E-BE27-899E938ADAD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683B65CE-8AE1-4A3E-BE27-899E938ADAD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

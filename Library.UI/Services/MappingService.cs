@@ -30,11 +30,14 @@ namespace Library.UI.Services
             return bookModel;
         }
 
-        // SIGN UP MAPPING SERVICE //
-        public static SignUpViewModel SignUpModelToViewModel(SignUpModel signUp)
+        // USER MAPPING SERVICE //
+        public static UserViewModel UserModelToViewModel(UserModel signUp)
         {
-            return new SignUpViewModel()
+            return new UserViewModel()
             {
+                Id = signUp.Id,
+                Username = signUp.Username,
+                Password = signUp.Password,
                 FirstName = signUp.FirstName,
                 LastName = signUp.LastName,
                 Email = signUp.Email,
@@ -43,10 +46,13 @@ namespace Library.UI.Services
             };
         }
 
-        public static SignUpModel SignUpViewModelToModel(SignUpViewModel signUpVM)
+        public static UserModel UserViewModelToModel(UserViewModel signUpVM)
         {
-            return new SignUpModel()
+            return new UserModel()
             {
+                Id = signUpVM.Id,
+                Username = signUpVM.Username,
+                Password = signUpVM.Password,
                 FirstName = signUpVM.FirstName,
                 LastName = signUpVM.LastName,
                 Email = signUpVM.Email,

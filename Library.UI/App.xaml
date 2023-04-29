@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Resources/Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
 
             <DataTemplate DataType="{x:Type viewmodel:AccountPanelViewModel}">
                 <view:AccountPanelView />
@@ -18,6 +19,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:SignUpPanelViewModel}">
                 <view:SignUpPanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:SignInPanelViewModel}">
+                <view:SignInPanelView />
             </DataTemplate>
 
         <Style TargetType="TextBox">
@@ -39,7 +43,9 @@
                 <Trigger Property="Validation.HasError"
                          Value="True">
                     <Setter Property="Margin" Value="0 0 10 10" />
-                </Trigger>
+                        <Setter Property="BorderThickness" Value="1.2" />
+                        <Setter Property="BorderBrush" Value="Red" />
+                    </Trigger>
             </Style.Triggers>
         </Style>
         </ResourceDictionary>

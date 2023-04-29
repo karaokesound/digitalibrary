@@ -1,6 +1,10 @@
 ﻿using Library.UI.Command;
 using Library.UI.Model;
+using Library.UI.Services;
 using Library.UI.ViewModel;
+using System;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Library.UI.Commands
@@ -11,8 +15,11 @@ namespace Library.UI.Commands
 
         public override void Execute(object parameter)
         {
-            SignUpModel newAccount = new SignUpModel()
+            UserModel newAccount = new UserModel()
             {
+                Id = Guid.NewGuid(),
+                Username = _signUpPanelVM.NewAccount.Username,
+                Password = _signUpPanelVM.NewAccount.Password,
                 FirstName = _signUpPanelVM.NewAccount.FirstName,
                 LastName = _signUpPanelVM.NewAccount.LastName,
                 Email = _signUpPanelVM.NewAccount.Email,
@@ -23,10 +30,22 @@ namespace Library.UI.Commands
             ComboBoxItem selectedItem = parameter as ComboBoxItem;
             if (selectedItem != null)
             {
-                // przypisz wartość Content wybranego elementu do zmiennej Library w SignUpItemViewModel
                 _signUpPanelVM.NewAccount.Library = selectedItem.Content.ToString();
             }
+
+            bool validOrNot = UserStoreService.AreUserDataValid(newAccount);
+            if (validOrNot == true)
+            {
+                UserStoreService.AddUser(newAccount);
+                _signUpPanelVM.SignUpPanelVisibility = false;
+                _signUpPanelVM.MainWindowButtonVisibility = true;
+            }
+            return;
         }
+
+       
+
+
 
         public RegisterButtonCommand(SignUpPanelViewModel signUpPanelVM)
         {

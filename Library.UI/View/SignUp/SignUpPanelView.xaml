@@ -5,15 +5,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
-    </UserControl.Resources>
     <Grid Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}"
           Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="0.4*" />
+            <RowDefinition Height="0.2*" />
         </Grid.RowDefinitions>
 
         <!--// BACKGROUND //-->
@@ -25,7 +22,7 @@
                 <DropShadowEffect Direction="-75"
                                   ShadowDepth="2"
                                   BlurRadius="27"
-                                  Color=" #222225 "/>
+                                  Color="#222225"/>
             </Border.Effect>
         </Border>
 
@@ -47,9 +44,10 @@
                 </Grid.ColumnDefinitions>
 
                 <!--// boxes //-->
-                <TextBlock Text="First name" />
+                <TextBlock Text="Username"
+                           FontWeight="Bold"/>
                 <TextBox Grid.Column="1"
-                         Text="{Binding NewAccount.FirstName}"
+                         Text="{Binding NewAccount.Username}"
                          Margin="10 0 0 20"/>
             </Grid>
 
@@ -66,32 +64,47 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <!--// boxes//-->
-                <TextBlock Text="Last name"
-                           Margin="0 0 0 20"/>
-                <TextBox Margin="10 0 0 20"
-                         Text="{Binding NewAccount.LastName}"
-                         Grid.Column="1"/>
-                <TextBlock Text="Email"
-                           Margin="0 0 0 20"
-                           Grid.Row="1"/>
+                <TextBlock Text="Password"
+                           FontWeight="Bold"/>
+                <TextBox Grid.Column="1"
+                         Text="{Binding NewAccount.Password, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="10 0 0 20"/>
+                <TextBlock Grid.Row="1"
+                           Text="First name" />
                 <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         Text="{Binding NewAccount.FirstName}"
+                         Margin="10 0 0 20"/>
+                <TextBlock Grid.Row="2"
+                           Text="Last name"
+                           Margin="0 0 0 20"/>
+                <TextBox Grid.Row="2"
+                         Grid.Column="1"
+                         Margin="10 0 0 20"
+                         Text="{Binding NewAccount.LastName}" />
+                <TextBlock Grid.Row="3"
+                           Text="Email"
+                           Margin="0 0 0 20" />
+                <TextBox Grid.Row="3"
                          Grid.Column="1"
                          Text="{Binding NewAccount.Email}"
                          Margin="10 0 0 20"/>
-                <TextBlock Text="City"
-                           Margin="0 0 0 20"
-                           Grid.Row="2"/>
-                <TextBox Grid.Row="2"
+                <TextBlock Grid.Row="4"
+                           Text="City"
+                           Margin="0 0 0 20" />
+                <TextBox Grid.Row="4"
                          Grid.Column="1"
                          Text="{Binding NewAccount.City}"
                          Margin="10 0 0 20" />
-                <TextBlock Grid.Row="3"
+                <TextBlock Grid.Row="5"
                            Text="Library"
                            Margin="0 0 0 20" />
-                <ComboBox Grid.Row="3"
+                <ComboBox Grid.Row="5"
                           Grid.Column="1"
                           Margin="10 0 0 0"
                           Height="25"
