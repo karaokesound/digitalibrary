@@ -40,7 +40,6 @@ namespace Library.UI.ViewModel
         }
 
         private ObservableCollection<string> _libraryList;
-
         public ObservableCollection<string> LibraryList
         {
             get => _libraryList;
@@ -56,7 +55,7 @@ namespace Library.UI.ViewModel
         public ICommand RegisterButtonCommand { get; }
 
         public ICommand ExitButtonCommand { get; }
-        
+
         public SignUpPanelViewModel()
         {
             SignUpButtonCommand = new SignUpButtonCommand(this);

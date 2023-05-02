@@ -12,7 +12,6 @@ namespace Library.UI.ViewModel
     public class BookCollectionViewModel : BaseViewModel
     {
         private BookViewModel? _selectedBook;
-
         public BookViewModel? SelectedBook
         {
             get => _selectedBook;

@@ -1,4 +1,5 @@
 ﻿using Library.UI.Commands;
+using Library.UI.Services;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -6,7 +7,7 @@ namespace Library.UI.ViewModel
     public class MainViewModel : BaseViewModel
     {
 		private BaseViewModel _selectedViewModel;
-		public BaseViewModel SelectedViewModel
+        public BaseViewModel SelectedViewModel
 		{
 			get => _selectedViewModel;
 			set 
@@ -24,7 +25,19 @@ namespace Library.UI.ViewModel
 
         public SignInPanelViewModel SignInPanelVM { get; }
 
-		public ICommand UpdateViewCommand { get; }
+		private bool _isUserAuthenticated;
+
+		public bool IsUserAuthenticated
+		{
+			get => _isUserAuthenticated;
+			set 
+			{ 
+				_isUserAuthenticated = value;
+				OnPropertyChanged();
+			}
+		}
+
+        public ICommand UpdateViewCommand { get; }
 
         public MainViewModel(AccountPanelViewModel accountPanelVM, BookCollectionViewModel bookCollectionVM,
 			SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM)
@@ -34,6 +47,6 @@ namespace Library.UI.ViewModel
 			BookCollectionVM = bookCollectionVM;
 			SignUpPanelVM = signUpPanelVM;
 			SignInPanelVM = signInPanelVM;
-		}
+        }
     }
 }

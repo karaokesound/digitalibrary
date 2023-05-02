@@ -3,8 +3,6 @@ using Library.UI.Model;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using System;
-using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace Library.UI.Commands

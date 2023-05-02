@@ -1,4 +1,6 @@
-﻿using Library.UI.Data;
+﻿using Library.UI.Commands.SignIn;
+using Library.UI.Data;
+using Library.UI.Services;
 using Library.UI.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
@@ -33,6 +35,7 @@ namespace Library.UI
 
             // interfaces //
             services.AddTransient<IBookDataProvider, BookDataProvider>();
+            services.AddTransient<IUserAuthenticationService, UserAuthenticationService>();
         }
     }
 }

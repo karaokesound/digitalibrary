@@ -16,7 +16,7 @@
             <RowDefinition Height="0.13*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="0.93*" />
-            <RowDefinition Height="0.04*" />
+            <RowDefinition Height="0.055*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.42*" />
@@ -38,14 +38,16 @@
         <DockPanel Grid.Row="1"
                    Grid.ColumnSpan="3"
                    Margin="0 40 0 0">
-            <Image VerticalAlignment="Bottom"
+            <Image VerticalAlignment="Top"
                    Stretch="UniformToFill"
-                   Source="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg" />
+                   Source="https://cdn.pixabay.com/photo/2017/06/18/02/55/library-2414380_960_720.jpg" />
         </DockPanel>
+
+        <!--// SLOGAN //-->
         <Border Grid.Row="1"
                 Grid.ColumnSpan="3"
                 Margin="0 40 0 0"
-                Background="White"
+                Background="Black"
                 Opacity="0.45"
                 Width="500"
                 Height="100"
@@ -54,6 +56,7 @@
                    Grid.ColumnSpan="3"
                    Margin="0 40 0 0"
                    Text="Open your library"
+                   Foreground="White"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="30" />
@@ -68,15 +71,12 @@
         <Border Grid.ColumnSpan="3"
                 MouseDown="Border_MouseDown"
                 Background="#212f3c" />
-        <Border Grid.ColumnSpan="3"
-                Grid.Row="3"
-                MouseDown="Border_MouseDown"
-                Background="#212f3c" />
 
         <!--// TOP BAR BUTTONS //-->
         <StackPanel Grid.ColumnSpan="3"
                     Orientation="Horizontal"
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
             <Button Content="-"
                     Style="{StaticResource exitButton}"
                     Click="MinimizeButton_Click"
@@ -87,34 +87,27 @@
                     Margin="0 0 2 0" />
         </StackPanel>
 
-        <!--// SIGN IN, SIGN UP BUTTONS //-->
+        <!--// BOTTOM BAR //-->
+        <Border Grid.ColumnSpan="3"
+                Grid.Row="3"
+                Background="#212f3c" />
 
-            <!--// sign in //-->
-
-            <StackPanel Grid.Row="2"
-                        VerticalAlignment="Bottom">
-            <Button Grid.Row="1"
-                    DataContext="{Binding SignInPanelVM}"
-                    Style="{StaticResource loginButton}"
-                    Command="{Binding SignInButtonCommand}"
-                    Content="Sign In" />
-
-            <!--// sign up //-->
-            <Button Grid.Row="1"
-                    DataContext="{Binding SignUpPanelVM}"
-                    Visibility="{Binding MainWindowButtonVisibility,Converter={StaticResource booleanToVisibilityConverter}}"
-                    Command="{Binding SignUpButtonCommand}"
-                    Style="{StaticResource loginButton}"
-                    Content="Sign Up" />
-        </StackPanel>
-            
+        <!--// SIGN UP BUTTON //-->
+        <Button Grid.Row="2"
+                Content="Sign Up"
+                DataContext="{Binding SignUpPanelVM}"
+                Command="{Binding SignUpButtonCommand}"
+                Style="{StaticResource loginButton}"
+                VerticalAlignment="Bottom"/>
 
         <!--// SIGN UP PANEL //-->
         <Grid Grid.Row="1"
               Grid.RowSpan="2"
               Grid.Column="1"
               DataContext="{Binding SignUpPanelVM}"
-              Margin="0 15 0 15">
+              Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}"
+              Margin="0 15 0 15"
+              HorizontalAlignment="Right">
             <view:SignUpPanelView/>
         </Grid>
 
@@ -122,7 +115,7 @@
         <Grid Grid.Column="1"
               Grid.Row="2"
               DataContext="{Binding SignInPanelVM}"
-              Margin="0 15 0 15">
+              Margin="0 5 0 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.19*" />
                 <ColumnDefinition Width="*" />
