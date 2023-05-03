@@ -125,7 +125,7 @@
         <!--// REGISTER BUTTON //-->
         <Button Grid.Row="2"
                 Content="Register"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Command="{Binding RegisterButtonCommand}"
                 Width="100"

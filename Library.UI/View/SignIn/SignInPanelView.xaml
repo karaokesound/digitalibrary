@@ -46,7 +46,6 @@
         <!--// LOGIN BUTTON //-->
         <Button Grid.Row="3"
                 Command="{Binding LoginButtonCommand}"
-                CommandParameter="Account"
                 Content="LOGIN"
                 Style="{StaticResource loginButton}"
                 HorizontalAlignment="Center"/>

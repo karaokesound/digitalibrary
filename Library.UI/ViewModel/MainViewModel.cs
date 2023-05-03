@@ -26,7 +26,6 @@ namespace Library.UI.ViewModel
         public SignInPanelViewModel SignInPanelVM { get; }
 
 		private bool _isUserAuthenticated;
-
 		public bool IsUserAuthenticated
 		{
 			get => _isUserAuthenticated;

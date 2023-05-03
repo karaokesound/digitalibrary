@@ -31,8 +31,8 @@ namespace Library.UI.Commands
                 _signUpPanelVM.NewAccount.Library = selectedItem.Content.ToString();
             }
 
-            bool validOrNot = UserStoreService.AreUserDataValid(newAccount);
-            if (validOrNot == true)
+            bool dataValidation = UserStoreService.AreUserDataValid(newAccount);
+            if (dataValidation == true)
             {
                 UserStoreService.AddUser(newAccount);
                 _signUpPanelVM.SignUpPanelVisibility = false;

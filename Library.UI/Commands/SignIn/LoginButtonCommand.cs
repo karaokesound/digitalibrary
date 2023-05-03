@@ -14,17 +14,17 @@ namespace Library.UI.Commands.SignIn
 
         public override void Execute(object parameter)
         {
-            bool authenticationResult = _userAuthenticationService.Authentication
-                (_signInPanelVM.SignInUsernamePassword.Username, _signInPanelVM.SignInUsernamePassword.Password);
+            bool authenticationResult = _userAuthenticationService.Authentication(
+                _signInPanelVM.SignInUsernamePassword.Username, _signInPanelVM.SignInUsernamePassword.Password);
             _mainVM.IsUserAuthenticated = authenticationResult;
         }
 
-        //public LoginButtonCommand(SignInPanelViewModel signInPanelVM, MainViewModel mainVM, IUserAuthenticationService
-        //    userAuthenticationService)
-        //{
-        //    _signInPanelVM = signInPanelVM;
-        //    _mainVM = mainVM;
-        //    _userAuthenticationService = userAuthenticationService;
-        //}
+        public LoginButtonCommand(SignInPanelViewModel signInPanelVM, MainViewModel mainVM, IUserAuthenticationService
+            userAuthenticationService)
+        {
+            _signInPanelVM = signInPanelVM;
+            _mainVM = mainVM;
+            _userAuthenticationService = userAuthenticationService;
+        }
     }
 }

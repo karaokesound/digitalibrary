@@ -40,12 +40,12 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public UserViewModel User;
+        public UserViewModel CurrentUser;
 
         public SignInPanelViewModel()
         {
             SignInUsernamePassword = new UserViewModel();
-            User = new UserViewModel();
+            CurrentUser = new UserViewModel();
             GetUsernameAndPassword();
         }
 
@@ -57,7 +57,7 @@ namespace Library.UI.ViewModel
                 return;
             }
             UserViewModel user = MappingService.UserModelToViewModel(userModel);
-            User = user;
+            CurrentUser = user;
         }
     }
 }

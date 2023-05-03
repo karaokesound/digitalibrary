@@ -43,6 +43,12 @@
                    Source="https://cdn.pixabay.com/photo/2017/06/18/02/55/library-2414380_960_720.jpg" />
         </DockPanel>
 
+        <Border Background="Green"
+                Grid.Row="2"
+                Width="100"
+                Height="100"
+                Visibility="{Binding IsUserAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}" />
+
         <!--// SLOGAN //-->
         <Border Grid.Row="1"
                 Grid.ColumnSpan="3"

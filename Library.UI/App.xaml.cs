@@ -27,15 +27,16 @@ namespace Library.UI
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddTransient<MainWindow>();
-            services.AddTransient<MainViewModel>();
+            services.AddSingleton<MainViewModel>();
             services.AddTransient<BookCollectionViewModel>();
             services.AddTransient<AccountPanelViewModel>();
             services.AddTransient<SignUpPanelViewModel>();
             services.AddTransient<SignInPanelViewModel>();
+            services.AddTransient<LoginButtonCommand>();
 
             // interfaces //
             services.AddTransient<IBookDataProvider, BookDataProvider>();
-            services.AddTransient<IUserAuthenticationService, UserAuthenticationService>();
+            services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
         }
     }
 }
