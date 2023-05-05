@@ -13,7 +13,7 @@ namespace Library.UI.Commands
             MessageBoxButton messageBoxButtons = MessageBoxButton.YesNo;
             string title = "Close";
             string message = "If you close this window, you will lost all data. Are you sure?";
-            MessageBoxResult result = MessageBox.Show(message, title, messageBoxButtons);
+            MessageBoxResult result = MessageBox.Show(message, title, messageBoxButtons, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 _signUpPanelVM.SignUpPanelVisibility = false;

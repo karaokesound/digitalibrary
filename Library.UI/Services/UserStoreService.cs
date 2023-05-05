@@ -1,17 +1,19 @@
 ﻿using Library.UI.Model;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Documents;
 
 namespace Library.UI.Services
 {
     public class UserStoreService
     {
-        private static UserStoreService _instance;
-
-        private static UserModel _user;
+        private UserModel _user = null;
 
         public UserStoreService()
         {
         }
 
+        private static UserStoreService _instance;
         public static UserStoreService Instance()
         {
             if (_instance == null)
@@ -23,12 +25,12 @@ namespace Library.UI.Services
 
         public static void AddUser(UserModel newUser)
         {
-            _user = newUser;
+            Instance()._user = newUser;
         }
 
         public static UserModel ReturnUser()
         {
-            return _user;
+            return Instance()._user;
         }
     }
 }

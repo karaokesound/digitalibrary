@@ -24,7 +24,7 @@ namespace Library.UI.ViewModel
             {
                 _username = value;
                 OnPropertyChanged();
-                bool validation = ValidationService.WhiteSpaceValidation(_username);
+                bool validation = ValidationService.LoginErrorInfoValidation(_username);
 
                 if (string.IsNullOrEmpty(_username))
                 {
@@ -36,9 +36,9 @@ namespace Library.UI.ViewModel
                 {
                     AddError("Enter your username");
                 }
-                else if (_username.Length < 3 || validation == false)
+                else if (validation == false)
                 {
-                    AddError("Username at least 3 characters");
+                    AddError("Incorrect username. Check requirements");
                 }
                 else ClearErrors();
             }
@@ -52,7 +52,7 @@ namespace Library.UI.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-                bool validation = ValidationService.WhiteSpaceValidation(_password);
+                bool validation = ValidationService.PasswordErrorInfoValidation(_password);
 
                 if (string.IsNullOrEmpty(Password))
                 {
@@ -66,7 +66,7 @@ namespace Library.UI.ViewModel
                 }
                 else if (Password.Length < 5 || validation == false)
                 {
-                    AddError("Password at least 5 characters");
+                    AddError("Incorrect password. Check requirements");
                 }
                 else ClearErrors();
             }
@@ -80,7 +80,7 @@ namespace Library.UI.ViewModel
             {
                 _firstName = value;
                 OnPropertyChanged();
-                bool validation = ValidationService.AtTheStartWhiteSpaceValidation(_firstName);
+                bool validation = ValidationService.OtherErrorInfoValidation(_firstName);
 
                 if (string.IsNullOrEmpty(_firstName))
                 {
@@ -94,7 +94,7 @@ namespace Library.UI.ViewModel
                 }
                 else if (validation == false)
                 {
-                    AddError("Invalid character");
+                    AddError("Incorrect first name. Check requirements");
                 }
                 else ClearErrors();
             }
@@ -108,7 +108,7 @@ namespace Library.UI.ViewModel
             {
                 _lastName = value;
                 OnPropertyChanged();
-                bool validation = ValidationService.AtTheStartWhiteSpaceValidation(_lastName);
+                bool validation = ValidationService.OtherErrorInfoValidation(_lastName);
 
                 if (string.IsNullOrEmpty(_lastName))
                 {
@@ -122,7 +122,7 @@ namespace Library.UI.ViewModel
                 }
                 else if (validation == false)
                 {
-                    AddError("Invalid character");
+                    AddError("Incorrect last name. Check requirements");
                 }
                 else ClearErrors();
             }
@@ -146,7 +146,7 @@ namespace Library.UI.ViewModel
 
                 if (string.IsNullOrWhiteSpace(_email) || validation == false)
                 {
-                    AddError("Check that you're email is correct");
+                    AddError("Incorrect email. Check requirements");
                 }
                 else ClearErrors();
             }
@@ -161,7 +161,7 @@ namespace Library.UI.ViewModel
                 _city = value;
                 OnPropertyChanged();
 
-                bool validation = ValidationService.AtTheStartWhiteSpaceValidation(_city);
+                bool validation = ValidationService.OtherErrorInfoValidation(_city);
 
                 if (string.IsNullOrEmpty(_city))
                 {
@@ -175,7 +175,7 @@ namespace Library.UI.ViewModel
                 }
                 else if (validation == false)
                 {
-                    AddError("Invalid character");
+                    AddError("Incorrect city name. Check requirements");
                 }
                 else ClearErrors();
             }

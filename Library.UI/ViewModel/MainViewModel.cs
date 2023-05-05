@@ -56,14 +56,8 @@ namespace Library.UI.ViewModel
 				{
 					SelectedViewModel = new AccountPanelViewModel();
 				}
-				else MessageBox.Show("Invalid username or password", "Error");
+				else return;
 			};
-
-			using (LibraryDbContext context = new LibraryDbContext())
-			{
-				context.Authors.Add(new Model.AuthorModel { Id = Guid.NewGuid(), FirstName = "Test32", LastName = "Test32" });
-				context.SaveChanges();
-			}
         }
     }
 }

@@ -14,15 +14,15 @@ namespace Library.UI.Commands.SignIn
 
         public override void Execute(object parameter)
         {
-            UserModel databaseUser = UserStoreService.ReturnUser();
-            if (databaseUser == null)
+            UserModel databaseUserModel = UserStoreService.ReturnUser();
+            UserViewModel user = _signInPanelVM.SignInUsernamePassword;
+            bool validation = ValidationService.SignInValidation(databaseUserModel, user);
+            if (validation == false)
             {
-                MessageBox.Show("Invalid username or password", "Error");
                 return;
             }
-            UserViewModel databaseUserVM = MappingService.UserModelToViewModel(databaseUser);
-            _userAuthenticationService.Authentication(_signInPanelVM.SignInUsernamePassword.Username, databaseUser.Username, _signInPanelVM.SignInUsernamePassword.Password,
-                databaseUser.Password);
+            _userAuthenticationService.Authentication(user.Username, databaseUserModel.Username, user.Password,
+                databaseUserModel.Password);
             _signInPanelVM.RaisePlaceOfUsageDeletedEvent();
         }
 
