@@ -2,6 +2,8 @@
 {
     public interface IUserAuthenticationService
     {
-        public bool Authentication(string username, string password);
+        public bool IsUserAuthenticated { get; }
+        public void Authentication(string loggingUsername, string databaseUsername, string loggingPassword,
+            string databasePassword);
     }
 }

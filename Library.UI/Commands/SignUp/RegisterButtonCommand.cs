@@ -31,19 +31,22 @@ namespace Library.UI.Commands
                 _signUpPanelVM.NewAccount.Library = selectedItem.Content.ToString();
             }
 
-            bool dataValidation = UserStoreService.AreUserDataValid(newAccount);
-            if (dataValidation == true)
+            bool dataValidation = ValidationService.SignUpValidation(newAccount);
+            if (dataValidation == false)
             {
-                UserStoreService.AddUser(newAccount);
-                _signUpPanelVM.SignUpPanelVisibility = false;
-                _signUpPanelVM.MainWindowButtonVisibility = true;
+                return;
             }
-            return;
+            UserStoreService.AddUser(newAccount);
+            _signUpPanelVM.SignUpPanelVisibility = false;
+            _signUpPanelVM.MainWindowButtonVisibility = true;
+            _signUpPanelVM.NewAccount.Username = string.Empty;
+            _signUpPanelVM.NewAccount.Password = string.Empty;
+            _signUpPanelVM.NewAccount.FirstName = string.Empty;
+            _signUpPanelVM.NewAccount.LastName = string.Empty;
+            _signUpPanelVM.NewAccount.Email = string.Empty;
+            _signUpPanelVM.NewAccount.City = string.Empty;
+            _signUpPanelVM.NewAccount.Library = string.Empty;
         }
-
-       
-
-
 
         public RegisterButtonCommand(SignUpPanelViewModel signUpPanelVM)
         {

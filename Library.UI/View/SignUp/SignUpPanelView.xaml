@@ -16,6 +16,7 @@
         <Border Grid.RowSpan="3"
                 Background="White"
                 BorderBrush="White"
+                CornerRadius="2"
                 BorderThickness="1">
             <Border.Effect>
                 <DropShadowEffect Direction="-75"
@@ -44,7 +45,8 @@
 
                 <!--// boxes //-->
                 <TextBlock Text="Username"
-                           FontWeight="Bold"/>
+                           FontWeight="Bold"
+                           IsEnabled="False"/>
                 <TextBox Grid.Column="1"
                          Text="{Binding NewAccount.Username}"
                          Margin="10 0 0 20"/>
@@ -116,19 +118,21 @@
 
         <!--// EXIT BUTTON //-->
         <Button Content="X"
+                Command="{Binding ExitButtonCommand}"
+                Style="{StaticResource loginButton}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
+                FontSize="10"
                 Margin="10"
                 Width="20"
-                Command="{Binding ExitButtonCommand}"/>
+                Height="20"/>
 
         <!--// REGISTER BUTTON //-->
         <Button Grid.Row="2"
-                Content="Register"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
+                Content="Sign Up"
                 Command="{Binding RegisterButtonCommand}"
-                Width="100"
-                Height="50" />
+                Style="{StaticResource loginButton}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
     </Grid>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿using Library.UI.Commands.SignIn;
+﻿using Library.Data;
 using Library.UI.Data;
 using Library.UI.Services;
 using Library.UI.ViewModel;
@@ -13,6 +13,11 @@ namespace Library.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            //using (LibraryDbContext context = new LibraryDbContext())
+            //{
+            //    context.Database.EnsureCreated();
+            //}
+
             MainWindow mainWindow = _serviceProvider.GetService<MainWindow>();
             mainWindow?.Show();
         }
@@ -32,7 +37,6 @@ namespace Library.UI
             services.AddTransient<AccountPanelViewModel>();
             services.AddTransient<SignUpPanelViewModel>();
             services.AddTransient<SignInPanelViewModel>();
-            services.AddTransient<LoginButtonCommand>();
 
             // interfaces //
             services.AddTransient<IBookDataProvider, BookDataProvider>();

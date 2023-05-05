@@ -1,6 +1,5 @@
 ﻿using Library.UI.Services;
 using System;
-using System.Windows.Controls;
 
 namespace Library.UI.ViewModel
 {
@@ -24,13 +23,24 @@ namespace Library.UI.ViewModel
             set
             {
                 _username = value;
-                if (Username.Length < 5 && string.IsNullOrEmpty(Username) && string.IsNullOrWhiteSpace(Username))
+                OnPropertyChanged();
+                bool validation = ValidationService.WhiteSpaceValidation(_username);
+
+                if (string.IsNullOrEmpty(_username))
                 {
-                    AddError("Enter your nickname");
+                    ClearErrors();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(Username))
+                {
+                    AddError("Enter your username");
+                }
+                else if (_username.Length < 3 || validation == false)
+                {
+                    AddError("Username at least 3 characters");
                 }
                 else ClearErrors();
-
-                OnPropertyChanged();
             }
         }
 
@@ -42,6 +52,23 @@ namespace Library.UI.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
+                bool validation = ValidationService.WhiteSpaceValidation(_password);
+
+                if (string.IsNullOrEmpty(Password))
+                {
+                    ClearErrors();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(Password))
+                {
+                    AddError("Enter your password");
+                }
+                else if (Password.Length < 5 || validation == false)
+                {
+                    AddError("Password at least 5 characters");
+                }
+                else ClearErrors();
             }
         }
 
@@ -53,6 +80,23 @@ namespace Library.UI.ViewModel
             {
                 _firstName = value;
                 OnPropertyChanged();
+                bool validation = ValidationService.AtTheStartWhiteSpaceValidation(_firstName);
+
+                if (string.IsNullOrEmpty(_firstName))
+                {
+                    ClearErrors();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(_firstName))
+                {
+                    AddError("Enter your first name");
+                }
+                else if (validation == false)
+                {
+                    AddError("Invalid character");
+                }
+                else ClearErrors();
             }
         }
 
@@ -64,6 +108,23 @@ namespace Library.UI.ViewModel
             {
                 _lastName = value;
                 OnPropertyChanged();
+                bool validation = ValidationService.AtTheStartWhiteSpaceValidation(_lastName);
+
+                if (string.IsNullOrEmpty(_lastName))
+                {
+                    ClearErrors();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(_lastName))
+                {
+                    AddError("Enter your last name");
+                }
+                else if (validation == false)
+                {
+                    AddError("Invalid character");
+                }
+                else ClearErrors();
             }
         }
 
@@ -75,6 +136,19 @@ namespace Library.UI.ViewModel
             {
                 _email = value;
                 OnPropertyChanged();
+                bool validation = ValidationService.EmailValidation(_email);
+
+                if (string.IsNullOrEmpty(_email))
+                {
+                    ClearErrors();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(_email) || validation == false)
+                {
+                    AddError("Check that you're email is correct");
+                }
+                else ClearErrors();
             }
         }
 
@@ -86,6 +160,24 @@ namespace Library.UI.ViewModel
             {
                 _city = value;
                 OnPropertyChanged();
+
+                bool validation = ValidationService.AtTheStartWhiteSpaceValidation(_city);
+
+                if (string.IsNullOrEmpty(_city))
+                {
+                    ClearErrors();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(_city))
+                {
+                    AddError("Enter your city");
+                }
+                else if (validation == false)
+                {
+                    AddError("Invalid character");
+                }
+                else ClearErrors();
             }
         }
 

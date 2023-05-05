@@ -1,10 +1,11 @@
 ﻿using Library.UI.Commands;
+using Library.UI.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
 {
-    public class SignUpPanelViewModel : BaseViewModel
+    public class SignUpPanelViewModel : ValidationBaseViewModel
     {
         private bool _signUpPanelVisibility;
         public bool SignUpPanelVisibility
@@ -56,8 +57,14 @@ namespace Library.UI.ViewModel
 
         public ICommand ExitButtonCommand { get; }
 
-        public SignUpPanelViewModel()
+        public SignInPanelViewModel SignInPanelViewModel { get; set; }
+
+        private readonly IUserAuthenticationService _userAuthenticationService;
+
+        public SignUpPanelViewModel(IUserAuthenticationService userAuthenticationService)
         {
+            _userAuthenticationService = userAuthenticationService;
+            SignInPanelViewModel = new SignInPanelViewModel(_userAuthenticationService);
             SignUpButtonCommand = new SignUpButtonCommand(this);
             ExitButtonCommand = new ExitButtonCommand(this);
             RegisterButtonCommand = new RegisterButtonCommand(this);

@@ -5,16 +5,15 @@ namespace Library.UI.Services
 {
     public class UserAuthenticationService : IUserAuthenticationService
     {
-        public bool Authentication(string username, string password)
+        public bool IsUserAuthenticated { get; private set; }
+        public void Authentication(string loggingUsername, string databaseUsername, string loggingPassword,
+            string databasePassword)
         {
-            UserModel user = UserStoreService.ReturnUser();
-            UserViewModel userVM = MappingService.UserModelToViewModel(user);
-
-            if (userVM.Username == username && userVM.Password == password)
+            if (loggingUsername == databaseUsername && loggingPassword == databasePassword)
             {
-                return true;
+                IsUserAuthenticated = true;
             }
-            else return false;
+            else IsUserAuthenticated = false;
         }
     }
 }

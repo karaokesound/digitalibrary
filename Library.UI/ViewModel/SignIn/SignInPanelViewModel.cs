@@ -7,7 +7,11 @@ namespace Library.UI.ViewModel
 {
     public class SignInPanelViewModel : BaseViewModel
     {
-        private bool _signInPanelVisibility;
+        public delegate void UserAuthenticationChangedEvent(bool userAuthentication);
+
+        public event UserAuthenticationChangedEvent UserAuthenticationChanged = null!;
+
+        private bool _signInPanelVisibility = true;
         public bool SignInPanelVisibility
         {
             get => _signInPanelVisibility;
@@ -41,13 +45,21 @@ namespace Library.UI.ViewModel
         }
 
         public UserViewModel CurrentUser;
+        
+        public ICommand LoginButtonCommand { get; }
 
-        public SignInPanelViewModel()
+        private readonly IUserAuthenticationService _userAuthenticationService;
+
+        public SignInPanelViewModel(IUserAuthenticationService userAuthenticationService)
         {
+            _userAuthenticationService = userAuthenticationService;
             SignInUsernamePassword = new UserViewModel();
             CurrentUser = new UserViewModel();
+            LoginButtonCommand = new LoginButtonCommand(this, _userAuthenticationService);
             GetUsernameAndPassword();
         }
+
+        public void RaisePlaceOfUsageDeletedEvent() => UserAuthenticationChanged?.Invoke(_userAuthenticationService.IsUserAuthenticated);
 
         public void GetUsernameAndPassword()
         {

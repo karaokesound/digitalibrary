@@ -40,14 +40,18 @@
                    Margin="0 40 0 0">
             <Image VerticalAlignment="Top"
                    Stretch="UniformToFill"
-                   Source="https://cdn.pixabay.com/photo/2017/06/18/02/55/library-2414380_960_720.jpg" />
+                   Source="https://www.wallpaperflare.com/static/244/642/475/telescope-books-photo-manipulation-landscape-wallpaper.jpg" />
         </DockPanel>
-
-        <Border Background="Green"
-                Grid.Row="2"
-                Width="100"
-                Height="100"
-                Visibility="{Binding IsUserAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}" />
+        <Border Grid.Row="2"
+                Grid.ColumnSpan="3">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,8">
+                    <GradientStop Color="White" Offset="0.0" />
+                    <GradientStop Color="Gray" Offset="0.30" />
+                    <GradientStop Color="White" Offset="0.77" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
 
         <!--// SLOGAN //-->
         <Border Grid.Row="1"
@@ -55,7 +59,6 @@
                 Margin="0 40 0 0"
                 Background="Black"
                 Opacity="0.45"
-                Width="500"
                 Height="100"
                 CornerRadius="10"/>
         <TextBlock Grid.Row="1"
@@ -106,21 +109,11 @@
                 Style="{StaticResource loginButton}"
                 VerticalAlignment="Bottom"/>
 
-        <!--// SIGN UP PANEL //-->
-        <Grid Grid.Row="1"
-              Grid.RowSpan="2"
-              Grid.Column="1"
-              DataContext="{Binding SignUpPanelVM}"
-              Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}"
-              Margin="0 15 0 15"
-              HorizontalAlignment="Right">
-            <view:SignUpPanelView/>
-        </Grid>
-
         <!--// SIGN IN PANEL //-->
         <Grid Grid.Column="1"
               Grid.Row="2"
               DataContext="{Binding SignInPanelVM}"
+              Visibility="{Binding SignInPanelVisibility,Converter={StaticResource booleanToVisibilityConverter}}"
               Margin="0 5 0 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.19*" />
@@ -128,6 +121,16 @@
                 <ColumnDefinition Width="0.19*" />
             </Grid.ColumnDefinitions>
             <view:SignInPanelView Grid.Column="1" />
+        </Grid>
+
+        <!--// SIGN UP PANEL //-->
+        <Grid Grid.Row="1"
+              Grid.RowSpan="2"
+              Grid.Column="1"
+              DataContext="{Binding SignUpPanelVM}"
+              Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}"
+              Margin="0 15 0 15">
+            <view:SignUpPanelView/>
         </Grid>
 
         <!--// FORGOT PASSWORD //-->

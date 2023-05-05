@@ -24,30 +24,32 @@
                 <view:SignInPanelView />
             </DataTemplate>
 
-        <Style TargetType="TextBox">
-            <Setter Property="Validation.ErrorTemplate">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <StackPanel>
-                            <AdornedElementPlaceholder x:Name="placeholder" />
-                            <!--// own hard-coded error text //--> 
-                            <!--<TextBlock Text="Error" />-->
-                            <!--// binded error text //-->
-                            <TextBlock Text="{Binding ElementName=placeholder, 
+
+            <!--// validation template //-->
+            <Style TargetType="TextBox">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="placeholder" />
+                                <!--// own hard-coded error text //-->
+                                <!--<TextBlock Text="Error" />-->
+                                <!--// binded error text //-->
+                                <TextBlock Text="{Binding ElementName=placeholder, 
                                 Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError"
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError"
                          Value="True">
-                    <Setter Property="Margin" Value="0 0 10 10" />
-                        <Setter Property="BorderThickness" Value="1.2" />
+                        <Setter Property="Margin" Value="0 0 10 10" />
+                        <Setter Property="BorderThickness" Value="1.3" />
                         <Setter Property="BorderBrush" Value="Red" />
                     </Trigger>
-            </Style.Triggers>
-        </Style>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

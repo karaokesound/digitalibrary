@@ -1,6 +1,8 @@
 ﻿using Library.UI.Command;
+using Library.UI.Model;
 using Library.UI.Services;
 using Library.UI.ViewModel;
+using System.Windows;
 
 namespace Library.UI.Commands.SignIn
 {
@@ -8,22 +10,26 @@ namespace Library.UI.Commands.SignIn
     {
         private readonly SignInPanelViewModel _signInPanelVM;
 
-        private readonly MainViewModel _mainVM;
-
         private readonly IUserAuthenticationService _userAuthenticationService;
 
         public override void Execute(object parameter)
         {
-            bool authenticationResult = _userAuthenticationService.Authentication(
-                _signInPanelVM.SignInUsernamePassword.Username, _signInPanelVM.SignInUsernamePassword.Password);
-            _mainVM.IsUserAuthenticated = authenticationResult;
+            UserModel databaseUser = UserStoreService.ReturnUser();
+            if (databaseUser == null)
+            {
+                MessageBox.Show("Invalid username or password", "Error");
+                return;
+            }
+            UserViewModel databaseUserVM = MappingService.UserModelToViewModel(databaseUser);
+            _userAuthenticationService.Authentication(_signInPanelVM.SignInUsernamePassword.Username, databaseUser.Username, _signInPanelVM.SignInUsernamePassword.Password,
+                databaseUser.Password);
+            _signInPanelVM.RaisePlaceOfUsageDeletedEvent();
         }
 
-        public LoginButtonCommand(SignInPanelViewModel signInPanelVM, MainViewModel mainVM, IUserAuthenticationService
+        public LoginButtonCommand(SignInPanelViewModel signInPanelVM, IUserAuthenticationService
             userAuthenticationService)
         {
             _signInPanelVM = signInPanelVM;
-            _mainVM = mainVM;
             _userAuthenticationService = userAuthenticationService;
         }
     }

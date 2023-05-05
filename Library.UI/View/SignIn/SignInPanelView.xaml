@@ -18,14 +18,14 @@
         
         <!--// PANEL BACKGROUND //-->
         <Border Grid.RowSpan="3"
-                BorderBrush=" #e5cde7 "
+                BorderBrush="White"
                 BorderThickness="2"
                 CornerRadius="6">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,5">
-                    <GradientStop Color=" #ffefe6 " Offset="0.0" />
-                    <GradientStop Color=" #ffe6f5 " Offset="0.30" />
-                    <GradientStop Color=" #e6f0ff " Offset="0.77" />
+                    <GradientStop Color="#dddddd" Offset="0.0" />
+                    <GradientStop Color="#e6e6e6" Offset="0.30" />
+                    <GradientStop Color="#c9c9c9" Offset="0.77" />
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
@@ -36,11 +36,11 @@
                     VerticalAlignment="Center">
             <TextBlock Text="Username"
                        Margin="0 0 0 5"/>
-            <TextBox Text="{Binding SignInUsernamePassword.Username}"
+            <TextBox Text="{Binding SignInUsernamePassword.Username, UpdateSourceTrigger=PropertyChanged}"
                      Margin="0 0 0 20"/>
             <TextBlock Text="Password"
                        Margin="0 0 0 5"/>
-            <TextBox Text="{Binding SignInUsernamePassword.Password}"/>
+            <TextBox Text="{Binding SignInUsernamePassword.Password, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <!--// LOGIN BUTTON //-->
@@ -49,9 +49,5 @@
                 Content="LOGIN"
                 Style="{StaticResource loginButton}"
                 HorizontalAlignment="Center"/>
-
-        <!--// CONTENT CONTROL //-->
-        <ContentControl Content="{Binding SelectedViewModel}"
-                        Grid.RowSpan="2" />
     </Grid>
 </UserControl>

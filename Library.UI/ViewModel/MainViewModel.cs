@@ -1,5 +1,8 @@
-﻿using Library.UI.Commands;
+﻿using Library.Data;
+using Library.UI.Commands;
 using Library.UI.Services;
+using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -46,6 +49,21 @@ namespace Library.UI.ViewModel
 			BookCollectionVM = bookCollectionVM;
 			SignUpPanelVM = signUpPanelVM;
 			SignInPanelVM = signInPanelVM;
+			SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
+			{
+				IsUserAuthenticated = isUserAuthenticated;
+				if (IsUserAuthenticated == true)
+				{
+					SelectedViewModel = new AccountPanelViewModel();
+				}
+				else MessageBox.Show("Invalid username or password", "Error");
+			};
+
+			using (LibraryDbContext context = new LibraryDbContext())
+			{
+				context.Authors.Add(new Model.AuthorModel { Id = Guid.NewGuid(), FirstName = "Test32", LastName = "Test32" });
+				context.SaveChanges();
+			}
         }
     }
 }

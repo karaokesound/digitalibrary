@@ -9,8 +9,10 @@ namespace Library.UI.Commands
 
         public override void Execute(object parameter)
         {
+            
             _signUpPanelVM.MainWindowButtonVisibility = false;
             _signUpPanelVM.SignUpPanelVisibility = true;
+            _signUpPanelVM.SignInPanelViewModel.SignInPanelVisibility = false;
         }
 
         public SignUpButtonCommand(SignUpPanelViewModel signUpPanelVM)
