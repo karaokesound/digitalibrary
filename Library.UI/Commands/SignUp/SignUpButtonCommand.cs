@@ -12,7 +12,6 @@ namespace Library.UI.Commands
             
             _signUpPanelVM.MainWindowButtonVisibility = false;
             _signUpPanelVM.SignUpPanelVisibility = true;
-            _signUpPanelVM.SignInPanelViewModel.SignInPanelVisibility = false;
         }
 
         public SignUpButtonCommand(SignUpPanelViewModel signUpPanelVM)

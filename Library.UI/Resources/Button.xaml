@@ -4,7 +4,7 @@
     <!--// LOGIN BUTTON //-->
     <Style TargetType="Button"
            x:Key="loginButton">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="  #f39b56   " />
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="BorderBrush" Value="#212f3c" />
         <Setter Property="BorderThickness" Value="1" />
@@ -62,13 +62,73 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!--// REGISTER BUTTON //-->
+    <Style TargetType="Button"
+           x:Key="registerButton">
+        <Setter Property="Background" Value="#58d68d" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="BorderBrush" Value=" #16a085 " />
+        <Setter Property="BorderThickness" Value="2.5" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="Width" Value="120" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Margin" Value="5" />
+        <!--// do not past Margin value to <Border></Border> //-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            CornerRadius="4">
+                        <ContentPresenter ContentSource="Content"
+                                          TextBlock.Foreground="{TemplateBinding Foreground}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                        To=" #a2d9ce "
+                                                        Duration="0:0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                        To="#58d68d"
+                                                        Duration="0:0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
+    <!--// EXIT BUTTON //-->
     <Style x:Key="exitButton"
            TargetType="Button">
         <Setter Property="Background" Value="White" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Width" Value="25" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="FontSize" Value="10" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Template">
             <Setter.Value>
@@ -115,25 +175,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <!--// button style example //--><!--
-    <Style x:Name="buttonBaseStyle"
-           TargetType="Button">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Ellipse Fill="Orange"
-                             x:Name="ellipse" />
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter Property="Fill"
-                                    Value="Blue"
-                                    TargetName="ellipse" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
 </ResourceDictionary>

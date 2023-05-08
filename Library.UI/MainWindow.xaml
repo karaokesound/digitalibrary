@@ -35,6 +35,8 @@
                                   Color="#222225"/>
             </Border.Effect>
         </Border>
+
+        <!--// IMAGE //-->
         <DockPanel Grid.Row="1"
                    Grid.ColumnSpan="3"
                    Margin="0 40 0 0">
@@ -42,7 +44,7 @@
                    Stretch="UniformToFill"
                    Source="https://www.wallpaperflare.com/static/244/642/475/telescope-books-photo-manipulation-landscape-wallpaper.jpg" />
         </DockPanel>
-        <Border Grid.Row="2"
+        <!--<Border Grid.Row="2"
                 Grid.ColumnSpan="3">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,8">
@@ -51,30 +53,32 @@
                     <GradientStop Color="White" Offset="0.77" />
                 </LinearGradientBrush>
             </Border.Background>
-        </Border>
+        </Border>-->
 
         <!--// SLOGAN //-->
-        <Border Grid.Row="1"
-                Grid.ColumnSpan="3"
-                Margin="0 40 0 0"
-                Background="Black"
-                Opacity="0.45"
-                Height="100"
-                CornerRadius="10"/>
-        <TextBlock Grid.Row="1"
-                   Grid.ColumnSpan="3"
-                   Margin="0 40 0 0"
-                   Text="Open your library"
-                   Foreground="White"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="30" />
-
-        <!--// BORDER //-->
-        <Border Grid.ColumnSpan="3"
-                Grid.RowSpan="4"
-                BorderBrush="Black"
-                BorderThickness="0.5" />
+        <Grid Grid.Row="1"
+              Grid.ColumnSpan="3"
+              Margin="0 40 0 0"
+              TextBlock.FontSize="30"
+              TextBlock.Foreground="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="2"
+                    Background="Black"
+                    Opacity="0.45"
+                    Height="100" />
+            <TextBlock Text="Access books"
+                       Margin="0 0 17 0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right" />
+            <TextBlock Grid.Column="1"
+                       Margin="25 0 0 0"
+                       Text="from anywhere"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" />
+        </Grid>
 
         <!--// TOP BAR //-->
         <Border Grid.ColumnSpan="3"
@@ -101,6 +105,16 @@
                 Grid.Row="3"
                 Background="#212f3c" />
 
+
+        <!--// SIGN IN PANEL //-->
+        <Grid Grid.ColumnSpan="3"
+              Grid.Row="2"
+              DataContext="{Binding SignInPanelVM}"
+              Visibility="{Binding SignInPanelVisibility,Converter={StaticResource booleanToVisibilityConverter}}"
+              >
+            <view:SignInPanelView />
+        </Grid>
+
         <!--// SIGN UP BUTTON //-->
         <Button Grid.Row="2"
                 Content="Sign Up"
@@ -108,20 +122,6 @@
                 Command="{Binding SignUpButtonCommand}"
                 Style="{StaticResource loginButton}"
                 VerticalAlignment="Bottom"/>
-
-        <!--// SIGN IN PANEL //-->
-        <Grid Grid.Column="1"
-              Grid.Row="2"
-              DataContext="{Binding SignInPanelVM}"
-              Visibility="{Binding SignInPanelVisibility,Converter={StaticResource booleanToVisibilityConverter}}"
-              Margin="0 5 0 5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.19*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="0.19*" />
-            </Grid.ColumnDefinitions>
-            <view:SignInPanelView Grid.Column="1" />
-        </Grid>
 
         <!--// SIGN UP PANEL //-->
         <Grid Grid.Row="1"
@@ -154,6 +154,12 @@
                    Margin="0 10 0 0"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"/>
+
+        <!--// BORDER //-->
+        <Border Grid.ColumnSpan="3"
+                Grid.RowSpan="4"
+                BorderBrush="Black"
+                BorderThickness="0.5" />
 
         <!--// CONTENT CONTROL //-->
         <ContentControl Content="{Binding SelectedViewModel}"

@@ -57,14 +57,11 @@ namespace Library.UI.ViewModel
 
         public ICommand ExitButtonCommand { get; }
 
-        public SignInPanelViewModel SignInPanelViewModel { get; set; }
-
         private readonly IUserAuthenticationService _userAuthenticationService;
 
         public SignUpPanelViewModel(IUserAuthenticationService userAuthenticationService)
         {
             _userAuthenticationService = userAuthenticationService;
-            SignInPanelViewModel = new SignInPanelViewModel(_userAuthenticationService);
             SignUpButtonCommand = new SignUpButtonCommand(this);
             ExitButtonCommand = new ExitButtonCommand(this);
             RegisterButtonCommand = new RegisterButtonCommand(this);

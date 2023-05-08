@@ -8,14 +8,13 @@ namespace Library.UI.Services
 {
     public class ValidationService
     {
+        public static Regex usernameValidationRegex = new Regex(@"^[a-zA-Z0-9][a-zA-Z0-9]{1,8}[a-zA-Z0-9]$");
+        public static Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]{0,23}[a-zA-Z]{1}$");
+        public static Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
+        public static Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");
+
         public static bool SignUpValidation(UserModel user)
         {
-            Regex usernameValidationRegex = new Regex(@"^[a-zA-Z0-9][a-zA-Z0-9]{1,8}[a-zA-Z0-9]$");
-            Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]{0,23}[a-zA-Z]{1}$");
-            Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
-            Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");
-
-
             if (string.IsNullOrEmpty(user.Username)
                 || !usernameValidationRegex.IsMatch(user.Username)
                 || user.Username.Length < 3)
@@ -42,7 +41,7 @@ namespace Library.UI.Services
                 return false;
             }
             else if (string.IsNullOrEmpty(user.Email)
-                || !emailValidationRegex.IsMatch(user.Username))
+                || !emailValidationRegex.IsMatch(user.Email))
             {
                 MessageBox.Show("Check that all fields are filled in correctly", "Sign Up");
                 return false;
@@ -97,25 +96,21 @@ namespace Library.UI.Services
 
         public static bool LoginErrorInfoValidation(string username)
         {
-            Regex usernameValidationRegex = new Regex(@"^[a-zA-Z0-9][a-zA-Z0-9]{1,8}[a-zA-Z0-9]$");
             return usernameValidationRegex.IsMatch(username);
         }
 
         public static bool PasswordErrorInfoValidation(string password)
         {
-            Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
             return passwordValidationRegex.IsMatch(password);
         }
 
         public static bool EmailValidation(string email)
         {
-            Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");
             return emailValidationRegex.IsMatch(email);
         }
 
         public static bool OtherErrorInfoValidation(string userData)
         {
-            Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]{0,23}[a-zA-Z]{1}$");
             return firstLastNameCityValidationRegex.IsMatch(userData);
         }
         //public static bool WhiteSpaceValidation(string userData)
@@ -144,7 +139,5 @@ namespace Library.UI.Services
         //    //}
         //    //return isValid;
         //}
-
-        
     }
 }
