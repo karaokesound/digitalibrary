@@ -1,0 +1,34 @@
+﻿<Application x:Class="Library.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:Library.UI.View"
+             xmlns:viewmodel="clr-namespace:Library.UI.ViewModel"
+             xmlns:local="clr-namespace:Library.UI">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Button.xaml" />
+                <ResourceDictionary Source="Resources/TextBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--// converters //-->
+            <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+            <local:StringEmptyConverter x:Key="stringEmptyConverter" />
+
+            <!--// views //-->
+            <DataTemplate DataType="{x:Type viewmodel:AccountPanelViewModel}">
+                <view:AccountPanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:BookCollectionViewModel}">
+                <view:BookCollectionView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:SignUpPanelViewModel}">
+                <view:SignUpPanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:SignInPanelViewModel}">
+                <view:SignInPanelView />
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

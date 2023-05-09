@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="Library.UI.View.SignInPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:components="clr-namespace:Library.UI.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--// BACKGROUND //-->
+        <Border Grid.RowSpan="4"
+                Background="White"
+                CornerRadius="20"
+                 />
+        <Image Grid.Row="1"
+               Source="/Resources/people.png"
+               Stretch="UniformToFill"
+               VerticalAlignment="Center"
+               Height="200"
+               Width="200"
+               Opacity="0.07"/>
+
+        <!--// SIGN IN TEXT //-->
+        <TextBlock Text="Sign In"
+                   Foreground="#2c3e50"
+                   Margin="0 25 0 0"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"  />
+
+        <!--// SIGN IN PANEL //-->
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    TextBlock.FontSize="17">
+            
+            <!--// username //-->
+            <TextBlock Text="Username"
+                       Margin="2 0 0 5"/>
+            <TextBox Text="{Binding SignInUsernamePassword.Username, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Username',Mode=TwoWay,UpdateSourceTrigger=LostFocus}"
+                     Style="{StaticResource signUpTextBox}"
+                     Margin="0 0 0 20"
+                     Width="250"/>
+            
+            <!--// password //-->
+            <TextBlock Text="Password"
+                           Margin="2 0 0 5"/>
+            <components:BindablePasswordBox
+                    Password="{Binding SignInUsernamePassword.Password, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Password', Mode=TwoWay,UpdateSourceTrigger=LostFocus}"
+                    Width="250" />
+        </StackPanel>
+
+        <Button Grid.Row="3"
+                Content="Login"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0 20 0 0"
+                Command="{Binding LoginButtonCommand}"
+                Style="{StaticResource registerButton}"
+                 />
+    </Grid>
+</UserControl>
