@@ -3,168 +3,89 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:view="clr-namespace:Library.UI.View"
+        xmlns:view="clr-namespace:Library.UI.View" xmlns:components="clr-namespace:Library.UI.Components"
         mc:Ignorable="d"
-        AllowsTransparency="False"
+        AllowsTransparency="True"
         WindowStyle="None" 
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         Height="550" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.13*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="0.93*" />
-            <RowDefinition Height="0.055*" />
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.42*" />
+            <ColumnDefinition Width="0.6*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="0.42*" />
         </Grid.ColumnDefinitions>
 
-        <!--// MAIN BACKGROUND //-->
-        <Border Grid.RowSpan="3"
-                Grid.ColumnSpan="3"
-                Background="White">
-            <Border.Effect>
-                <DropShadowEffect Direction="-75"
-                                  ShadowDepth="2"
-                                  BlurRadius="27"
-                                  Color="#222225"/>
-            </Border.Effect>
-        </Border>
+        <!--// LEFT BACKGROUND //-->
+        <Border Grid.ColumnSpan="2"
+                Background="White"
+                CornerRadius="20" />
+        <Image Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
+               Stretch="UniformToFill"
+               Margin="12 20 12 0" />
+        <Border Background="#f1c40f"
+                Opacity="0.8"
+                CornerRadius="20" />
 
-        <!--// IMAGE //-->
-        <DockPanel Grid.Row="1"
-                   Grid.ColumnSpan="3"
-                   Margin="0 40 0 0">
-            <Image VerticalAlignment="Top"
-                   Stretch="UniformToFill"
-                   Source="https://www.wallpaperflare.com/static/244/642/475/telescope-books-photo-manipulation-landscape-wallpaper.jpg" />
-        </DockPanel>
-        <!--<Border Grid.Row="2"
-                Grid.ColumnSpan="3">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,8">
-                    <GradientStop Color="White" Offset="0.0" />
-                    <GradientStop Color="Gray" Offset="0.30" />
-                    <GradientStop Color="White" Offset="0.77" />
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>-->
+        <!--// LEFT SIDE //-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <!--// SLOGAN //-->
-        <Grid Grid.Row="1"
-              Grid.ColumnSpan="3"
-              Margin="0 40 0 0"
-              TextBlock.FontSize="30"
-              TextBlock.Foreground="White">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Border Grid.ColumnSpan="2"
-                    Background="Black"
-                    Opacity="0.45"
-                    Height="100" />
-            <TextBlock Text="Access books"
-                       Margin="0 0 17 0"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Right" />
-            <TextBlock Grid.Column="1"
-                       Margin="25 0 0 0"
-                       Text="from anywhere"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left" />
+            <!--// SLOGAN //-->
+            <StackPanel TextBlock.Foreground="#2c3e50"
+                        VerticalAlignment="Center">
+                <TextBlock Text="Sign Up"
+                           FontSize="30"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Access your books from anywhere. Create an account and postum tal ea em rum tadam haiha tudu"
+                           TextWrapping="Wrap"
+                           Width="190"
+                           Margin="0 20 0 0 "/>
+            </StackPanel>
+
+            <!--// BUTTON //-->
+            <Button Grid.Row="1"
+                    Content="Sign Up"
+                    DataContext="{Binding SignUpPanelVM}"
+                    Command="{Binding SignUpButtonCommand}"
+                    Style="{StaticResource registerButton}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
         </Grid>
 
-        <!--// TOP BAR //-->
-        <Border Grid.ColumnSpan="3"
-                MouseDown="Border_MouseDown"
-                Background="#212f3c" />
+        <!--// SIGN IN PANEL //-->
+        <view:SignInPanelView Grid.Column="1"
+                              DataContext="{Binding SignInPanelVM}"/>
+    
+        <!--// SIGN UP PANEL //-->
+        <view:SignUpPanelView Grid.Column="1"
+                              DataContext="{Binding SignUpPanelVM}"
+                              Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}"
+                              />
 
-        <!--// TOP BAR BUTTONS //-->
-        <StackPanel Grid.ColumnSpan="3"
-                    Orientation="Horizontal"
+        <!--// EXIT, MINIMIZE BUTTON //-->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Top">
             <Button Content="-"
+                    FontWeight="Bold"
                     Style="{StaticResource exitButton}"
-                    Click="MinimizeButton_Click"
-                    Margin="0 0 4 0"/>
+                    Margin="0 0 0 5"
+                    Click="MinimizeButton_Click"/>
             <Button Content="X"
                     Style="{StaticResource exitButton}"
                     Click="ExitButton_Click"
-                    Margin="0 0 2 0" />
+                    Margin="15"  />
         </StackPanel>
-
-        <!--// BOTTOM BAR //-->
-        <Border Grid.ColumnSpan="3"
-                Grid.Row="3"
-                Background="#212f3c" />
-
-
-        <!--// SIGN IN PANEL //-->
-        <Grid Grid.ColumnSpan="3"
-              Grid.Row="2"
-              DataContext="{Binding SignInPanelVM}"
-              Visibility="{Binding SignInPanelVisibility,Converter={StaticResource booleanToVisibilityConverter}}"
-              >
-            <view:SignInPanelView />
-        </Grid>
-
-        <!--// SIGN UP BUTTON //-->
-        <Button Grid.Row="2"
-                Content="Sign Up"
-                DataContext="{Binding SignUpPanelVM}"
-                Command="{Binding SignUpButtonCommand}"
-                Style="{StaticResource loginButton}"
-                VerticalAlignment="Bottom"/>
-
-        <!--// SIGN UP PANEL //-->
-        <Grid Grid.Row="1"
-              Grid.RowSpan="2"
-              Grid.Column="1"
-              DataContext="{Binding SignUpPanelVM}"
-              Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}"
-              Margin="0 15 0 15">
-            <view:SignUpPanelView/>
-        </Grid>
-
-        <!--// FORGOT PASSWORD //-->
-        <Border Grid.Row="3"
-                Grid.Column="1"
-                DataContext="{Binding SignUpPanelVM}"
-                Visibility="{Binding MainWindowButtonVisibility,Converter={StaticResource booleanToVisibilityConverter}}"
-                Width="150"
-                Height="30"
-                Opacity="0.45"
-                Margin="0 10 0 0"
-                Background="White"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"/>
-        <TextBlock Grid.Row="3"
-                   Grid.Column="1"
-                   DataContext="{Binding SignUpPanelVM}"
-                   Visibility="{Binding MainWindowButtonVisibility,Converter={StaticResource booleanToVisibilityConverter}}"
-                   Text="Forgot password?"
-                   FontSize="17"
-                   Margin="0 10 0 0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"/>
-
-        <!--// BORDER //-->
-        <Border Grid.ColumnSpan="3"
-                Grid.RowSpan="4"
-                BorderBrush="Black"
-                BorderThickness="0.5" />
 
         <!--// CONTENT CONTROL //-->
         <ContentControl Content="{Binding SelectedViewModel}"
-                        Grid.Row="1"
-                        Grid.RowSpan="3"
-                        Grid.ColumnSpan="3" />
+                        Grid.ColumnSpan="2" />
     </Grid>
 </Window>

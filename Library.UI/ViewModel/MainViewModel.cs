@@ -29,7 +29,8 @@ namespace Library.UI.ViewModel
         public SignInPanelViewModel SignInPanelVM { get; }
 
 		private bool _isUserAuthenticated;
-		public bool IsUserAuthenticated
+
+        public bool IsUserAuthenticated
 		{
 			get => _isUserAuthenticated;
 			set 
@@ -49,7 +50,7 @@ namespace Library.UI.ViewModel
 			BookCollectionVM = bookCollectionVM;
 			SignUpPanelVM = signUpPanelVM;
 			SignInPanelVM = signInPanelVM;
-			SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
+            SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
 			{
 				IsUserAuthenticated = isUserAuthenticated;
 				if (IsUserAuthenticated == true)
@@ -58,6 +59,6 @@ namespace Library.UI.ViewModel
 				}
 				else return;
 			};
-        }
+		}
     }
 }

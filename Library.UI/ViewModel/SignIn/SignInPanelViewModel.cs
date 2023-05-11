@@ -50,26 +50,17 @@ namespace Library.UI.ViewModel
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
-        public SignInPanelViewModel(IUserAuthenticationService userAuthenticationService)
+        private readonly IUserRepository _userRepository;
+
+        public SignInPanelViewModel(IUserAuthenticationService userAuthenticationService, IUserRepository userRepository)
         {
             _userAuthenticationService = userAuthenticationService;
+            _userRepository = userRepository;
             SignInUsernamePassword = new UserViewModel();
             CurrentUser = new UserViewModel();
-            LoginButtonCommand = new LoginButtonCommand(this, _userAuthenticationService);
-            GetUsernameAndPassword();
+            LoginButtonCommand = new LoginButtonCommand(this, _userAuthenticationService, _userRepository);
         }
 
-        public void RaisePlaceOfUsageDeletedEvent() => UserAuthenticationChanged?.Invoke(_userAuthenticationService.IsUserAuthenticated);
-
-        public void GetUsernameAndPassword()
-        {
-            UserModel userModel = UserStoreService.ReturnUser();
-            if (userModel == null)
-            {
-                return;
-            }
-            UserViewModel user = MappingService.UserModelToViewModel(userModel);
-            CurrentUser = user;
-        }
+        public void RaiseUserAuthEvent() => UserAuthenticationChanged?.Invoke(_userAuthenticationService.IsUserAuthenticated);
     }
 }

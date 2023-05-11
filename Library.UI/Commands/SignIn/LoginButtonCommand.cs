@@ -1,7 +1,10 @@
-﻿using Library.UI.Command;
+﻿using Library.Data;
+using Library.UI.Command;
 using Library.UI.Model;
 using Library.UI.Services;
 using Library.UI.ViewModel;
+using System;
+using System.Linq;
 using System.Windows;
 
 namespace Library.UI.Commands.SignIn
@@ -12,25 +15,49 @@ namespace Library.UI.Commands.SignIn
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
+        private readonly IUserRepository _userRepository;
+
         public override void Execute(object parameter)
         {
-            UserModel databaseUserModel = UserStoreService.ReturnUser();
             UserViewModel user = _signInPanelVM.SignInUsernamePassword;
-            bool validation = ValidationService.SignInValidation(databaseUserModel, user);
+            UserModel dataBaseUser = null;
+
+            dataBaseUser = _userRepository.GetUserByUsername(user.Username) as UserModel;
+            if (dataBaseUser == null)
+            {
+                MessageBox.Show("Incorrect username or password. Forgot password?", "Login");
+                return;
+            }
+
+            //var users = _baseRepository.GetAll();
+            //foreach (var dbu in users)
+            //{
+            //    if (dbu.Username == user.Username) dataBaseUser = dbu;
+            //    MappingService.UserModelToViewModel(dbu);
+            //}
+
+            //if (dataBaseUser == null) 
+            //{
+            //    MessageBox.Show("Incorrect username or password. Forgot password?", "Login");
+            //    return;
+            //} 
+
+            bool validation = ValidationService.SignInValidation(dataBaseUser, user);
             if (validation == false)
             {
                 return;
             }
-            _userAuthenticationService.Authentication(user.Username, databaseUserModel.Username, user.Password,
-                databaseUserModel.Password);
-            _signInPanelVM.RaisePlaceOfUsageDeletedEvent();
+            _userAuthenticationService.Authentication(user.Username, dataBaseUser.Username, user.Password,
+                dataBaseUser.Password);
+            _signInPanelVM.RaiseUserAuthEvent();
         }
 
         public LoginButtonCommand(SignInPanelViewModel signInPanelVM, IUserAuthenticationService
-            userAuthenticationService)
+            userAuthenticationService, IUserRepository userRepository)
         {
             _signInPanelVM = signInPanelVM;
             _userAuthenticationService = userAuthenticationService;
+            _userRepository = userRepository;
         }
     }
 }

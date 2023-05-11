@@ -8,111 +8,61 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="0.4*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!--// BACKGROUND //-->
-        <Border Grid.RowSpan="2"
+        <Border Grid.RowSpan="4"
                 Background="White"
-                CornerRadius="6"/>
+                CornerRadius="20" />
+        <Image Grid.Row="1"
+               Source="/Resources/Images/people.png"
+               Stretch="UniformToFill"
+               VerticalAlignment="Center"
+               Height="200"
+               Width="200"
+               Opacity="0.07"/>
 
-        <!--// PANEL //-->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.7*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="0.7*" />
-            </Grid.ColumnDefinitions>
+        <!--// SIGN IN TEXT //-->
+        <TextBlock Text="Sign In"
+                   Foreground="#2c3e50"
+                   Margin="0 25 0 0"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"  />
 
-            <!--// BACKGROUND //-->
-            <Border Grid.Column="1"
-                    Grid.RowSpan="2"
-                    Background=" #ebedef "
+        <!--// SIGN IN PANEL //-->
+        <StackPanel Grid.Row="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Width="200"
-                    Height="150"
-                    Opacity="0.1"
-                    CornerRadius="20"/>
-            <Image Grid.Column="1"
-                   Grid.RowSpan="2"
-                   Source="/Resources/people.png"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   RenderOptions.BitmapScalingMode="Fant"
-                   Height="205"
-                   Width="200"
-                   Opacity="0.05"/>
-
-            <!--// USERNAME, PASSWORD //-->
-            <StackPanel Grid.RowSpan="2"
-                        Grid.Column="1"
-                        VerticalAlignment="Center"
-                        Margin="0 0 0 20">
-
-                <!--// username //-->
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Resources/userlog.png"
-                           HorizontalAlignment="Right"
-                           Margin="0 22 4 0"
-                           Width="30"
-                           Height="30"
-                           RenderOptions.BitmapScalingMode="Fant" />
-                    <StackPanel HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Width="270">
-                        <TextBlock Text="Username" 
-                                   FontSize="15"
-                                   FontWeight="Bold"
-                                   Margin="2 0 0 2"/>
-                        <TextBox Text="{Binding SignInUsernamePassword.Username}"
-                                 Style="{StaticResource signUpTextBox}"
-                                 Height="35"
-                                 FontSize="13.5"
-                                 />
-                    </StackPanel>
-                </StackPanel>
-
-                <!--// password //-->
-                <StackPanel Orientation="Horizontal"
-                            Margin="0 15 0 0">
-
-                    <Image Source="/Resources/lock.png"
-                           HorizontalAlignment="Right"
-                           Margin="0 22 4 0"
-                           Width="30"
-                           Height="30"
-                           RenderOptions.BitmapScalingMode="Fant" />
-                    <StackPanel Width="300"
-                                Grid.Column="1">
-                        <TextBlock Text="Password" 
-                                   FontSize="15"
-                                   FontWeight="Bold"
-                                   Margin="2 0 0 2"/>
-                        <components:BindablePasswordBox Password="{Binding SignInUsernamePassword.Password, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Password', Mode=TwoWay}" 
-                                                        Width="270"
-                                                        HorizontalAlignment="Left"
-                                                        Height="35"
-                                                        FontSize="13.5"
-                                                        />
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
-        </Grid>
+                    TextBlock.FontSize="17">
+            
+            <!--// username //-->
+            <TextBlock Text="Username"
+                       Margin="2 0 0 5"/>
+            <TextBox Text="{Binding SignInUsernamePassword.Username, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Username',Mode=TwoWay,UpdateSourceTrigger=LostFocus}"
+                     Style="{StaticResource signUpTextBox}"
+                     Margin="0 0 0 20"
+                     Width="250"/>
+            
+            <!--// password //-->
+            <TextBlock Text="Password"
+                           Margin="2 0 0 5"/>
+            <components:BindablePasswordBox
+                    Password="{Binding SignInUsernamePassword.Password, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Password', Mode=TwoWay,UpdateSourceTrigger=LostFocus}"
+                    Width="250" />
+        </StackPanel>
 
         <!--// LOGIN BUTTON //-->
-        <Button Grid.Row="1"
-                Grid.Column="1"
-                Content="LOGIN"
+        <Button Grid.Row="3"
+                Content="Login"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Height="30"
-                Width="100"
+                Margin="0 20 0 0"
                 Command="{Binding LoginButtonCommand}"
-                Style="{StaticResource loginButton}"
-                HorizontalAlignment="Center"/>
+                Style="{StaticResource registerButton}"
+                 />
     </Grid>
 </UserControl>

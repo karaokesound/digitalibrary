@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:view="clr-namespace:Library.UI.View"
              xmlns:viewmodel="clr-namespace:Library.UI.ViewModel"
+             xmlns:resources="clr-namespace:Library.UI.Resources.Converters"
              xmlns:local="clr-namespace:Library.UI">
     <Application.Resources>
         <ResourceDictionary>
@@ -13,7 +14,7 @@
 
             <!--// converters //-->
             <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
-            <local:StringEmptyConverter x:Key="stringEmptyConverter" />
+            <resources:StringEmptyConverter x:Key="stringEmptyConverter" />
 
             <!--// views //-->
             <DataTemplate DataType="{x:Type viewmodel:AccountPanelViewModel}">

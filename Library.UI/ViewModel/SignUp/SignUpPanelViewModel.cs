@@ -1,11 +1,12 @@
 ﻿using Library.UI.Commands;
+using Library.UI.Model;
 using Library.UI.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
 {
-    public class SignUpPanelViewModel : ValidationBaseViewModel
+    public class SignUpPanelViewModel : BaseViewModel
     {
         private bool _signUpPanelVisibility;
         public bool SignUpPanelVisibility
@@ -59,12 +60,15 @@ namespace Library.UI.ViewModel
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
-        public SignUpPanelViewModel(IUserAuthenticationService userAuthenticationService)
+        private readonly IBaseRepository<UserModel> _baseRepository;
+
+        public SignUpPanelViewModel(IUserAuthenticationService userAuthenticationService, IBaseRepository<UserModel> baseRepository)
         {
             _userAuthenticationService = userAuthenticationService;
+            _baseRepository = baseRepository;
             SignUpButtonCommand = new SignUpButtonCommand(this);
             ExitButtonCommand = new ExitButtonCommand(this);
-            RegisterButtonCommand = new RegisterButtonCommand(this);
+            RegisterButtonCommand = new RegisterButtonCommand(this, _baseRepository);
             NewAccount = new UserViewModel();
             LibraryList = new ObservableCollection<string>();
             _libraryList.Add("Vice ELibrary");

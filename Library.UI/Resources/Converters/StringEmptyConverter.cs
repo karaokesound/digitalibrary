@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace Library.UI
+namespace Library.UI.Resources.Converters
 {
     public class StringEmptyConverter : IValueConverter
     {

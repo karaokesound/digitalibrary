@@ -1,8 +1,10 @@
 ﻿using Library.Data;
 using Library.UI.Data;
+using Library.UI.Model;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System.Windows;
 
 namespace Library.UI
@@ -31,6 +33,7 @@ namespace Library.UI
 
         private void ConfigureServices(ServiceCollection services)
         {
+            services.AddDbContext<LibraryDbContext>();
             services.AddTransient<MainWindow>();
             services.AddSingleton<MainViewModel>();
             services.AddTransient<BookCollectionViewModel>();
@@ -39,8 +42,10 @@ namespace Library.UI
             services.AddTransient<SignInPanelViewModel>();
 
             // interfaces //
-            services.AddTransient<IBookDataProvider, BookDataProvider>();
+            services.AddSingleton<IBookDataProvider, BookDataProvider>();
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
+            services.AddSingleton<IBaseRepository<UserModel>, BaseRepository<UserModel>>();
+            services.AddSingleton<IUserRepository, UserRepository>();
         }
     }
 }
