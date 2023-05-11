@@ -1,6 +1,7 @@
 ﻿using Library.Data;
 using Library.UI.Data;
 using Library.UI.Model;
+using Library.UI.Service;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,8 +45,10 @@ namespace Library.UI
             // interfaces //
             services.AddSingleton<IBookDataProvider, BookDataProvider>();
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
+            services.AddSingleton<IValidationService, ValidationService>();
             services.AddSingleton<IBaseRepository<UserModel>, BaseRepository<UserModel>>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IMappingService, MappingService>();
         }
     }
 }

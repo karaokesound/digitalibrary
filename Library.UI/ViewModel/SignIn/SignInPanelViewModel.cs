@@ -1,5 +1,5 @@
 ﻿using Library.UI.Commands.SignIn;
-using Library.UI.Model;
+using Library.UI.Service;
 using Library.UI.Services;
 using System.Windows.Input;
 
@@ -22,13 +22,13 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private UserViewModel _signInUsernamePassword;
-        public UserViewModel SignInUsernamePassword
+        private UserViewModel _loggingUsernamePassword;
+        public UserViewModel LoggingUsernamePassword
         {
-            get => _signInUsernamePassword;
+            get => _loggingUsernamePassword;
             set 
             { 
-                _signInUsernamePassword = value;
+                _loggingUsernamePassword = value;
                 OnPropertyChanged();
             }
         }
@@ -44,21 +44,25 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public UserViewModel CurrentUser;
-        
         public ICommand LoginButtonCommand { get; }
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
+        private readonly IValidationService _validationService;
+
         private readonly IUserRepository _userRepository;
 
-        public SignInPanelViewModel(IUserAuthenticationService userAuthenticationService, IUserRepository userRepository)
+        private readonly IMappingService _mappingService;
+
+        public SignInPanelViewModel(IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
+            IUserRepository userRepository, IMappingService mappingService)
         {
             _userAuthenticationService = userAuthenticationService;
+            _validationService = validationService;
             _userRepository = userRepository;
-            SignInUsernamePassword = new UserViewModel();
-            CurrentUser = new UserViewModel();
-            LoginButtonCommand = new LoginButtonCommand(this, _userAuthenticationService, _userRepository);
+            _mappingService = mappingService;
+            LoggingUsernamePassword = new UserViewModel(_validationService);
+            LoginButtonCommand = new LoginButtonCommand(this, _userAuthenticationService, _validationService, _userRepository, _mappingService);
         }
 
         public void RaiseUserAuthEvent() => UserAuthenticationChanged?.Invoke(_userAuthenticationService.IsUserAuthenticated);

@@ -1,6 +1,6 @@
-﻿using Library.Data;
-using Library.UI.Command;
+﻿using Library.UI.Command;
 using Library.UI.Model;
+using Library.UI.Service;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using System;
@@ -11,7 +11,7 @@ namespace Library.UI.Commands
     public class RegisterButtonCommand : CommandBase
     {
         private readonly SignUpPanelViewModel _signUpPanelVM;
-
+        private readonly IValidationService _validationService;
         private readonly IBaseRepository<UserModel> _baseRepository;
 
         public override void Execute(object parameter)
@@ -34,12 +34,14 @@ namespace Library.UI.Commands
                 _signUpPanelVM.NewAccount.Library = selectedItem.Content.ToString();
             }
 
-            bool dataValidation = ValidationService.SignUpValidation(newAccount);
+            bool dataValidation = _validationService.SignUpValidation(newAccount);
             if (dataValidation == false)
             {
                 return;
             }
             _baseRepository.Insert(newAccount);
+            _baseRepository.Save();
+
             _signUpPanelVM.SignUpPanelVisibility = false;
             _signUpPanelVM.MainWindowButtonVisibility = true;
             _signUpPanelVM.NewAccount.Username = string.Empty;
@@ -51,9 +53,10 @@ namespace Library.UI.Commands
             _signUpPanelVM.NewAccount.Library = string.Empty;
         }
 
-        public RegisterButtonCommand(SignUpPanelViewModel signUpPanelVM, IBaseRepository<UserModel> baseRepository)
+        public RegisterButtonCommand(SignUpPanelViewModel signUpPanelVM, IValidationService validationService, IBaseRepository<UserModel> baseRepository)
         {
             _signUpPanelVM = signUpPanelVM;
+            _validationService = validationService;
             _baseRepository = baseRepository;
         }
     }

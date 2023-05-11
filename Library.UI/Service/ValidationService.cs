@@ -1,4 +1,5 @@
 ﻿using Library.UI.Model;
+using Library.UI.Service;
 using Library.UI.ViewModel;
 using System;
 using System.Text.RegularExpressions;
@@ -6,14 +7,14 @@ using System.Windows;
 
 namespace Library.UI.Services
 {
-    public class ValidationService
+    public class ValidationService : ValidationBaseViewModel, IValidationService
     {
-        public static Regex usernameValidationRegex = new Regex(@"^[a-zA-Z0-9][a-zA-Z0-9]{1,8}[a-zA-Z0-9]$");
-        public static Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]{0,23}[a-zA-Z]{1}$");
-        public static Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
-        public static Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");
+        public Regex usernameValidationRegex = new Regex(@"^[a-zA-Z0-9][a-zA-Z0-9]{1,8}[a-zA-Z0-9]$");
+        public Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]{0,23}[a-zA-Z]{1}$");
+        public Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
+        public Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");
 
-        public static bool SignUpValidation(UserModel user)
+        public bool SignUpValidation(UserModel user)
         {
             if (string.IsNullOrEmpty(user.Username)
                 || !usernameValidationRegex.IsMatch(user.Username)
@@ -60,84 +61,56 @@ namespace Library.UI.Services
             return true;
         }
 
-        public static bool SignInValidation(UserModel databaseUserModel, UserViewModel user)
+        public bool SignInValidation(UserModel dbUser, UserModel loggingUser)
         {
-            UserViewModel? databaseUser = null;
-
             bool isValid = true;
 
-            if (user == null)
+            
+            if (string.IsNullOrEmpty(loggingUser.Username) || string.IsNullOrEmpty(loggingUser.Password))
             {
                 MessageBox.Show("Enter your username and password", "Login");
                 isValid = false;
             }
-            else if (string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Password))
+            else if (loggingUser.Id == Guid.Empty && dbUser == null)
+            {
+                MessageBox.Show("There is no user with this username. Try again", "Login");
+                isValid = false;
+            }
+            else if (loggingUser == null)
             {
                 MessageBox.Show("Enter your username and password", "Login");
                 isValid = false;
             }
-            else if (user.Id == Guid.Empty && databaseUserModel == null)
+            else if (dbUser != null)
             {
-                MessageBox.Show("Incorrect username or password. Forgot password?", "Login");
-                isValid = false;
-            }
-            else if (databaseUserModel != null)
-            {
-                databaseUser = MappingService.UserModelToViewModel(databaseUserModel);
-                if (databaseUser.Username == user.Username && databaseUser.Password == user.Password)
+                if (dbUser.Username == loggingUser.Username && dbUser.Password == loggingUser.Password)
                 {
                     isValid = true;
                 }
-                else MessageBox.Show("Incorrect username or password. Forgot password?", "Login");
+                else MessageBox.Show("Incorrect password. Forgot password?", "Login");
             }
 
             return isValid;
         }
 
-        public static bool LoginErrorInfoValidation(string username)
+        public bool LoginErrorInfoValidation(string username)
         {
             return usernameValidationRegex.IsMatch(username);
         }
 
-        public static bool PasswordErrorInfoValidation(string password)
+        public bool PasswordErrorInfoValidation(string password)
         {
             return passwordValidationRegex.IsMatch(password);
         }
 
-        public static bool EmailValidation(string email)
+        public bool EmailValidation(string email)
         {
             return emailValidationRegex.IsMatch(email);
         }
 
-        public static bool OtherErrorInfoValidation(string userData)
+        public bool OtherErrorInfoValidation(string userData)
         {
             return firstLastNameCityValidationRegex.IsMatch(userData);
         }
-        //public static bool WhiteSpaceValidation(string userData)
-        //{
-        //    //bool isValid = true;
-        //    //for (int i = 0; i < userData.Length; i++)
-        //    //{
-        //    //    if (userData[i] == ' ')
-        //    //    {
-        //    //        isValid = false;
-        //    //    }
-        //    //}
-        //    //return isValid;
-        //}
-
-        //public static bool AtTheStartWhiteSpaceValidation(string userData)
-        //{
-        //    //bool isValid = true;
-        //    //for (int i = 0; i < userData.Length; i++)
-        //    //{
-        //    //    if (userData[i] == ' ')
-        //    //    {
-        //    //        isValid = false;
-        //    //    }
-        //    //    else break;
-        //    //}
-        //    //return isValid;
-        //}
     }
 }

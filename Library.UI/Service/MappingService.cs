@@ -1,12 +1,13 @@
 ﻿using Library.UI.Model;
+using Library.UI.Service;
 using Library.UI.ViewModel;
 
 namespace Library.UI.Services
 {
-    public static class MappingService
+    public class MappingService : IMappingService
     {
         // BOOKS MAPPING SERVICE //
-        public static BookViewModel BookModelToViewModel (BookModel bookModel)
+        public BookViewModel BookModelToViewModel (BookModel bookModel)
         {
             BookViewModel bookViewModel = new BookViewModel()
             {
@@ -18,7 +19,7 @@ namespace Library.UI.Services
             return bookViewModel;
         }
 
-        public static BookModel BookViewModelToModel (BookViewModel bookViewModel)
+        public BookModel BookViewModelToModel (BookViewModel bookViewModel)
         {
             BookModel bookModel = new BookModel()
             {
@@ -31,9 +32,9 @@ namespace Library.UI.Services
         }
 
         // USER MAPPING SERVICE //
-        public static UserViewModel UserModelToViewModel(UserModel signUp)
+        public UserViewModel UserModelToViewModel(UserModel signUp)
         {
-            return new UserViewModel()
+            return new UserViewModel(_validationService)
             {
                 Id = signUp.Id,
                 Username = signUp.Username,
@@ -46,7 +47,7 @@ namespace Library.UI.Services
             };
         }
 
-        public static UserModel UserViewModelToModel(UserViewModel signUpVM)
+        public UserModel UserViewModelToModel(UserViewModel signUpVM)
         {
             return new UserModel()
             {
@@ -59,6 +60,13 @@ namespace Library.UI.Services
                 City = signUpVM.City,
                 Library = signUpVM.Library,
             };
+        }
+
+        private readonly IValidationService _validationService;
+
+        public MappingService(IValidationService validationService)
+        {
+            _validationService = validationService;
         }
     }
 }

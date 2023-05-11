@@ -42,7 +42,7 @@
             <!--// username //-->
             <TextBlock Text="Username"
                        Margin="2 0 0 5"/>
-            <TextBox Text="{Binding SignInUsernamePassword.Username, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Username',Mode=TwoWay,UpdateSourceTrigger=LostFocus}"
+            <TextBox Text="{Binding LoggingUsernamePassword.Username, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Username',Mode=TwoWay,UpdateSourceTrigger=LostFocus}"
                      Style="{StaticResource signUpTextBox}"
                      Margin="0 0 0 20"
                      Width="250"/>
@@ -51,7 +51,7 @@
             <TextBlock Text="Password"
                            Margin="2 0 0 5"/>
             <components:BindablePasswordBox
-                    Password="{Binding SignInUsernamePassword.Password, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Password', Mode=TwoWay,UpdateSourceTrigger=LostFocus}"
+                    Password="{Binding LoggingUsernamePassword.Password, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Password', Mode=TwoWay,UpdateSourceTrigger=LostFocus}"
                     Width="250" />
         </StackPanel>
 
