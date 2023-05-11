@@ -16,6 +16,8 @@
             <ColumnDefinition Width="0.6*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        
+        <!--// develop branch //-->
 
         <!--// LEFT BACKGROUND //-->
         <Border Grid.ColumnSpan="2"
