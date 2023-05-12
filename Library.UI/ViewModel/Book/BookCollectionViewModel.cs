@@ -11,20 +11,20 @@ namespace Library.UI.ViewModel
 {
     public class BookCollectionViewModel : BaseViewModel
     {
-        private BookViewModel? _selectedBook;
-        public BookViewModel? SelectedBook
-        {
-            get => _selectedBook;
-            set 
-            { 
-                _selectedBook = value;
-                OnPropertyChanged();
-            }
-        }
+        //private BookViewModel? _selectedBook;
+        //public BookViewModel? SelectedBook
+        //{
+        //    get => _selectedBook;
+        //    set 
+        //    { 
+        //        _selectedBook = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
-        public BookViewModel NewBookVM { get; set; }
+        //public BookViewModel NewBookVM { get; set; }
 
-        public ObservableCollection<BookViewModel> Books { get; }
+        //public ObservableCollection<BookViewModel> Books { get; }
 
         public ICommand AddBookCommand { get; }
 
@@ -32,35 +32,35 @@ namespace Library.UI.ViewModel
 
         public BookCollectionViewModel(IBookDataProvider bookDataProvider)
         {
-            Books = new ObservableCollection<BookViewModel>();
-            NewBookVM = new BookViewModel();
+            //Books = new ObservableCollection<BookViewModel>();
+            //NewBookVM = new BookViewModel();
             AddBookCommand = new AddBookCommand(this);
             _bookDataProvider = bookDataProvider;
-            GetAllBooks();
+            //GetAllBooks();
         }
 
-        public void GetAllBooks()
-        {
-            //if (Books.Any())
-            //{
-            //    return;
-            //}
+        //public void GetAllBooks()
+        //{
+        //    if (Books.Any())
+        //    {
+        //        return;
+        //    }
 
-            //List<BookModel> books = _bookDataProvider.GetAllBooks();
-            //if (books != null)
-            //{
-            //    foreach (BookModel book in books)
-            //    {
-            //        BookViewModel bookVM = MappingService.BookModelToViewModel(book);
-            //        Books.Add(bookVM);
-            //    }
-            //}
-        }
+        //    List<BookModel> books = _bookDataProvider.GetAllBooks();
+        //    if (books != null)
+        //    {
+        //        foreach (BookModel book in books)
+        //        {
+        //            BookViewModel bookVM = MappingService.BookModelToViewModel(book);
+        //            Books.Add(bookVM);
+        //        }
+        //    }
+        //}
 
-        public void AddBook(BookModel newBook)
-        {
-            //BookViewModel newBookVM = MappingService.BookModelToViewModel(newBook);
-            //Books.Add(newBookVM);
-        }
+        //public void AddBook(BookModel newBook)
+        //{
+        //    BookViewModel newBookVM = MappingService.BookModelToViewModel(newBook);
+        //    Books.Add(newBookVM);
+        //}
     }
 }

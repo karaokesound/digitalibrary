@@ -14,10 +14,12 @@ namespace Library.UI.Command
             //{
             //    Id = Guid.NewGuid(),
             //    Title = _bookCollectionVM.NewBookVM.Title,
+            //    Author = _bookCollectionVM.NewBookVM.Author,
+            //    Volume = _bookCollectionVM.NewBookVM.Volume,
             //    Pages = _bookCollectionVM.NewBookVM.Pages
             //};
-            //_bookCollectionVM.AddBook(newBook);
-            //_bookCollectionVM.GetAllBooks();
+            ////_bookCollectionVM.AddBook(newBook);
+            ////_bookCollectionVM.GetAllBooks();
         }
 
         public AddBookCommand(BookCollectionViewModel bookCollectionVM)

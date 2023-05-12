@@ -69,7 +69,5 @@ namespace Library.UI.Services
         {
             _context.SaveChanges();
         }
-
-        
     }
 }

@@ -1,41 +1,42 @@
 ﻿using Library.UI.Model;
+using Library.UI.Service;
 using Library.UI.ViewModel;
 
 namespace Library.UI.Services
 {
-    public static class MappingService
+    public class MappingService : IMappingService
     {
         // BOOKS MAPPING SERVICE //
-        //public static BookViewModel BookModelToViewModel (BookModel bookModel)
-        //{
-        //    //BookViewModel bookViewModel = new BookViewModel()
-        //    //{
-        //    //    Id = bookModel.Id,
-        //    //    Title = bookModel.Title,
-        //    //    Volume = bookModel.Volume,
-        //    //    Pages = bookModel.Pages,
-        //    //};
-        //    //return bookViewModel;
-        //}
+        public BookViewModel BookModelToViewModel (BookModel bookModel)
+        {
+            BookViewModel bookViewModel = new BookViewModel()
+            {
+                Id = bookModel.Id,
+                Title = bookModel.Title,
+                Volume = bookModel.Volume,
+                Pages = bookModel.Pages,
+            };
+            return bookViewModel;
+        }
 
-        //public static BookModel BookViewModelToModel (BookViewModel bookViewModel)
-        //{
-        //    //BookModel bookModel = new BookModel()
-        //    //{
-        //    //    Id = bookViewModel.Id,
-        //    //    Title = bookViewModel.Title,
-        //    //    Volume = bookViewModel.Volume,
-        //    //    Pages = bookViewModel.Pages,
-        //    //};
-        //    //return bookModel;
-        //}
+        public BookModel BookViewModelToModel (BookViewModel bookViewModel)
+        {
+            BookModel bookModel = new BookModel()
+            {
+                Id = bookViewModel.Id,
+                Title = bookViewModel.Title,
+                Volume = bookViewModel.Volume,
+                Pages = bookViewModel.Pages,
+            };
+            return bookModel;
+        }
 
         // USER MAPPING SERVICE //
-        public static UserViewModel UserModelToViewModel(UserModel signUp)
+        public UserViewModel UserModelToViewModel(UserModel signUp)
         {
-            return new UserViewModel()
+            return new UserViewModel(_validationService)
             {
-                UserId = signUp.UserId,
+                Id = signUp.Id,
                 Username = signUp.Username,
                 Password = signUp.Password,
                 FirstName = signUp.FirstName,
@@ -46,11 +47,11 @@ namespace Library.UI.Services
             };
         }
 
-        public static UserModel UserViewModelToModel(UserViewModel signUpVM)
+        public UserModel UserViewModelToModel(UserViewModel signUpVM)
         {
             return new UserModel()
             {
-                UserId = signUpVM.UserId,
+                Id = signUpVM.Id,
                 Username = signUpVM.Username,
                 Password = signUpVM.Password,
                 FirstName = signUpVM.FirstName,
@@ -59,6 +60,13 @@ namespace Library.UI.Services
                 City = signUpVM.City,
                 Library = signUpVM.Library,
             };
+        }
+
+        private readonly IValidationService _validationService;
+
+        public MappingService(IValidationService validationService)
+        {
+            _validationService = validationService;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Library.UI.Services;
+﻿using Library.UI.Service;
 using System;
 
 namespace Library.UI.ViewModel
@@ -24,7 +24,7 @@ namespace Library.UI.ViewModel
             {
                 _username = value;
                 OnPropertyChanged();
-                bool validation = ValidationService.LoginErrorInfoValidation(_username);
+                bool validation = _validationService.LoginErrorInfoValidation(_username);
 
                 if (string.IsNullOrEmpty(_username))
                 {
@@ -52,7 +52,7 @@ namespace Library.UI.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-                bool validation = ValidationService.PasswordErrorInfoValidation(_password);
+                bool validation = _validationService.PasswordErrorInfoValidation(_password);
 
                 if (string.IsNullOrEmpty(Password))
                 {
@@ -80,7 +80,7 @@ namespace Library.UI.ViewModel
             {
                 _firstName = value;
                 OnPropertyChanged();
-                bool validation = ValidationService.OtherErrorInfoValidation(_firstName);
+                bool validation = _validationService.OtherErrorInfoValidation(_firstName);
 
                 if (string.IsNullOrEmpty(_firstName))
                 {
@@ -108,7 +108,7 @@ namespace Library.UI.ViewModel
             {
                 _lastName = value;
                 OnPropertyChanged();
-                bool validation = ValidationService.OtherErrorInfoValidation(_lastName);
+                bool validation = _validationService.OtherErrorInfoValidation(_lastName);
 
                 if (string.IsNullOrEmpty(_lastName))
                 {
@@ -136,7 +136,7 @@ namespace Library.UI.ViewModel
             {
                 _email = value;
                 OnPropertyChanged();
-                bool validation = ValidationService.EmailValidation(_email);
+                bool validation = _validationService.EmailValidation(_email);
 
                 if (string.IsNullOrEmpty(_email))
                 {
@@ -161,7 +161,7 @@ namespace Library.UI.ViewModel
                 _city = value;
                 OnPropertyChanged();
 
-                bool validation = ValidationService.OtherErrorInfoValidation(_city);
+                bool validation = _validationService.OtherErrorInfoValidation(_city);
 
                 if (string.IsNullOrEmpty(_city))
                 {
@@ -182,6 +182,8 @@ namespace Library.UI.ViewModel
         }
 
         private string _library;
+       
+
         public string Library
         {
             get => _library;
@@ -190,6 +192,13 @@ namespace Library.UI.ViewModel
                 _library = value;
                 OnPropertyChanged();
             }
+        }
+
+        private readonly IValidationService _validationService;
+
+        public UserViewModel(IValidationService validationService)
+        {
+            _validationService = validationService;
         }
     }
 }

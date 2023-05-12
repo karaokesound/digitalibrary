@@ -1,5 +1,6 @@
 ﻿using Library.UI.Commands;
 using Library.UI.Model;
+using Library.UI.Service;
 using Library.UI.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -58,18 +59,18 @@ namespace Library.UI.ViewModel
 
         public ICommand ExitButtonCommand { get; }
 
-        private readonly IUserAuthenticationService _userAuthenticationService;
+        private readonly IValidationService _validationService;
 
         private readonly IBaseRepository<UserModel> _baseRepository;
 
-        public SignUpPanelViewModel(IUserAuthenticationService userAuthenticationService, IBaseRepository<UserModel> baseRepository)
+        public SignUpPanelViewModel(IValidationService validationService, IBaseRepository<UserModel> baseRepository)
         {
-            _userAuthenticationService = userAuthenticationService;
+            _validationService = validationService;
             _baseRepository = baseRepository;
             SignUpButtonCommand = new SignUpButtonCommand(this);
             ExitButtonCommand = new ExitButtonCommand(this);
-            RegisterButtonCommand = new RegisterButtonCommand(this, _baseRepository);
-            NewAccount = new UserViewModel();
+            RegisterButtonCommand = new RegisterButtonCommand(this, _validationService, _baseRepository);
+            NewAccount = new UserViewModel(_validationService);
             LibraryList = new ObservableCollection<string>();
             _libraryList.Add("Vice ELibrary");
             _libraryList.Add("NightC -DLibrary");
