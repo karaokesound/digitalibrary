@@ -41,26 +41,26 @@ namespace Library.UI.ViewModel
 
         public void GetAllBooks()
         {
-            if (Books.Any())
-            {
-                return;
-            }
+            //if (Books.Any())
+            //{
+            //    return;
+            //}
 
-            List<BookModel> books = _bookDataProvider.GetAllBooks();
-            if (books != null)
-            {
-                foreach (BookModel book in books)
-                {
-                    BookViewModel bookVM = MappingService.BookModelToViewModel(book);
-                    Books.Add(bookVM);
-                }
-            }
+            //List<BookModel> books = _bookDataProvider.GetAllBooks();
+            //if (books != null)
+            //{
+            //    foreach (BookModel book in books)
+            //    {
+            //        BookViewModel bookVM = MappingService.BookModelToViewModel(book);
+            //        Books.Add(bookVM);
+            //    }
+            //}
         }
 
         public void AddBook(BookModel newBook)
         {
-            BookViewModel newBookVM = MappingService.BookModelToViewModel(newBook);
-            Books.Add(newBookVM);
+            //BookViewModel newBookVM = MappingService.BookModelToViewModel(newBook);
+            //Books.Add(newBookVM);
         }
     }
 }

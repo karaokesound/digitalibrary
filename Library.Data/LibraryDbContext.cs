@@ -1,4 +1,6 @@
-﻿using Library.UI.Model;
+﻿using Library.Data.Configuration;
+using Library.Models.Model;
+using Library.UI.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Data
@@ -7,12 +9,20 @@ namespace Library.Data
     {
         public DbSet<AuthorModel> Authors { get; set; }
         public DbSet<BookModel> Books { get; set; }
+        public DbSet<AuthorBook> AuthorBook { get; set; }
         public DbSet<UserModel> Users { get; set; }
 
-        //public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = LibraryDatabase;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuthorConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuthorBookConfiguration).Assembly);
         }
     }
 }

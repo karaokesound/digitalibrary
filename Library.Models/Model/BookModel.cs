@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Library.Models.Model;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Library.UI.Model
 {
     public class BookModel
     {
-        [Key]
-        public Guid Id { get; set; }
+        public Guid BookId { get; set; }
 
         public string Title { get; set; }
 
-        public AuthorModel Author { get; set; }
-
-        public int? Volume { get; set; }
-        
         public int Pages { get; set; }
+
+        public ICollection<AuthorBook> AuthorBook { get; set; }
     }
 }
