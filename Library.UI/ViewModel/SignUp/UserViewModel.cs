@@ -5,13 +5,13 @@ namespace Library.UI.ViewModel
 {
     public class UserViewModel : ValidationBaseViewModel
     {
-        private Guid _id;
-        public Guid Id
+        private Guid _userId;
+        public Guid UserId
         {
-            get => _id;
+            get => _userId;
             set
             {
-                _id = value;
+                _userId = value;
                 OnPropertyChanged();
             }
         }

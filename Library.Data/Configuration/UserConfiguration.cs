@@ -8,39 +8,18 @@ namespace Library.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<UserModel> builder)
         {
-            builder.HasKey(user => user.Id);
-
-            builder.Property(user => user.Username)
-                .IsRequired()
-                .HasMaxLength(25)
-                .HasColumnName("Username");
-
-            builder.Property(user => user.Password)
-                .IsRequired()
-                .HasMaxLength(25)
-                .HasColumnName("Password");
-
+            builder.ToTable("Users");
+            builder.HasKey(user => user.UserId);
+            builder.Property(user => user.Username);
+            builder.Property(user => user.Password);
             builder.Property(user => user.FirstName)
-                .HasMaxLength(25)
-                .HasColumnName("First_name");
-
+                .IsRequired(false);
             builder.Property(user => user.LastName)
-                .HasMaxLength(25)
-                .HasColumnName("Last_name");
-
-            builder.Property(user => user.Email)
-                .IsRequired()
-                .HasMaxLength(25)
-                .HasColumnName("Email");
-
+                .IsRequired(false);
+            builder.Property(user => user.Email);
             builder.Property(user => user.City)
-                .HasMaxLength(25)
-                .HasColumnName("City");
-
-            builder.Property(user => user.Library)
-                .IsRequired()
-                .HasMaxLength(25)
-                .HasColumnName("City");
+                .IsRequired(false);
+            builder.Property(user => user.Library);
         }
     }
 }

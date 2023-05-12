@@ -15,10 +15,10 @@ namespace Library.UI
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //using (LibraryDbContext context = new LibraryDbContext())
-            //{
-            //    context.Database.EnsureCreated();
-            //}
+            using (LibraryDbContext context = new LibraryDbContext())
+            {
+                context.Database.EnsureCreated();
+            }
 
             MainWindow mainWindow = _serviceProvider.GetService<MainWindow>();
             mainWindow?.Show();

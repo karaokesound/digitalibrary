@@ -76,7 +76,7 @@ namespace Library.UI.Services
                 MessageBox.Show("Enter your username and password", "Login");
                 isValid = false;
             }
-            else if (user.Id == Guid.Empty && databaseUserModel == null)
+            else if (user.UserId == Guid.Empty && databaseUserModel == null)
             {
                 MessageBox.Show("Incorrect username or password. Forgot password?", "Login");
                 isValid = false;

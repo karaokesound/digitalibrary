@@ -1,5 +1,4 @@
 ﻿using Library.Data.Configuration;
-using Library.Models.Model;
 using Library.UI.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +8,6 @@ namespace Library.Data
     {
         public DbSet<AuthorModel> Authors { get; set; }
         public DbSet<BookModel> Books { get; set; }
-        public DbSet<AuthorBook> AuthorBook { get; set; }
         public DbSet<UserModel> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,7 +20,6 @@ namespace Library.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuthorConfiguration).Assembly);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuthorBookConfiguration).Assembly);
         }
     }
 }

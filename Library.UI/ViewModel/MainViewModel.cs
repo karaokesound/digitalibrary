@@ -1,8 +1,5 @@
-﻿using Library.Data;
-using Library.UI.Commands;
-using Library.UI.Services;
-using System;
-using System.Windows;
+﻿using Library.UI.Commands;
+using Library.UI.Model;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel

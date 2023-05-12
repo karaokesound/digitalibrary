@@ -35,7 +35,7 @@ namespace Library.UI.Services
         {
             return new UserViewModel()
             {
-                Id = signUp.Id,
+                UserId = signUp.UserId,
                 Username = signUp.Username,
                 Password = signUp.Password,
                 FirstName = signUp.FirstName,
@@ -50,7 +50,7 @@ namespace Library.UI.Services
         {
             return new UserModel()
             {
-                Id = signUpVM.Id,
+                UserId = signUpVM.UserId,
                 Username = signUpVM.Username,
                 Password = signUpVM.Password,
                 FirstName = signUpVM.FirstName,

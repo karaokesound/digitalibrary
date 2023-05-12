@@ -8,22 +8,13 @@ namespace Library.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<AuthorModel> builder)
         {
-            builder.HasKey(author => author.AuthorId);
+            builder.ToTable("Authors");
+            builder.HasKey(a => a.AuthorId);
+            builder.Property(a => a.FirstName);
+            builder.Property(a => a.LastName);
 
-            builder.Property(author => author.FirstName)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("First_name");
-
-            builder.Property(author => author.LastName)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("Last_name");
-
-            builder.Property(author => author.AuthorBook)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("Books");
+            builder.HasMany(b => b.Books)
+                .WithMany(a => a.Authors);
         }
     }
 }

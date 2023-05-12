@@ -18,7 +18,7 @@ namespace Library.UI.Commands
         {
             UserModel newAccount = new UserModel()
             {
-                Id = Guid.NewGuid(),
+                UserId = Guid.NewGuid(),
                 Username = _signUpPanelVM.NewAccount.Username,
                 Password = _signUpPanelVM.NewAccount.Password,
                 FirstName = _signUpPanelVM.NewAccount.FirstName,
@@ -40,6 +40,7 @@ namespace Library.UI.Commands
                 return;
             }
             _baseRepository.Insert(newAccount);
+            _baseRepository.Save();
             _signUpPanelVM.SignUpPanelVisibility = false;
             _signUpPanelVM.MainWindowButtonVisibility = true;
             _signUpPanelVM.NewAccount.Username = string.Empty;

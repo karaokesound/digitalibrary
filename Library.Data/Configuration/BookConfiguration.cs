@@ -1,11 +1,6 @@
 ﻿using Library.UI.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Data.Configuration
 {
@@ -13,21 +8,15 @@ namespace Library.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<BookModel> builder)
         {
-            builder.HasKey(book => book.BookId);
+            builder.ToTable("Books");
+            builder.HasKey(b => b.BookId);
+            builder.Property(b => b.Title);
+            builder.Property(b => b.Pages);
 
-            builder.Property(book => book.Title)
-                .IsRequired()
-                .HasMaxLength(100)
-                .HasColumnName("Title");
-
-            builder.Property(book => book.AuthorBook)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("Author");
-
-            builder.Property(book => book.Pages)
-                .HasMaxLength(5)
-                .HasColumnName("Pages");
+            builder.Property(b => b.Category)
+                .HasConversion<string>();
+            builder.HasMany(a => a.Authors)
+                .WithMany(b => b.Books);
         }
     }
 }
