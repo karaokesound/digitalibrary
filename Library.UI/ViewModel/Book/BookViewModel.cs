@@ -1,17 +1,18 @@
 ﻿using Library.UI.Model;
 using System;
+using static Library.UI.Model.BookModel;
 
 namespace Library.UI.ViewModel
 {
     public class BookViewModel : ValidationBaseViewModel
     {
-        public Guid _id;
-        public Guid Id 
+        public Guid _bookId;
+        public Guid BookId 
         {
-            get => _id;
+            get => _bookId;
             set
             {
-                _id = value;
+                _bookId = value;
                 OnPropertyChanged();
             }
         }
@@ -44,13 +45,13 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public int? _volume;
-        public int? Volume 
+        public Genre? _category;
+        public Genre? Category 
         {
-            get => _volume;
+            get => _category;
             set
             {
-                _volume = value;
+                _category = value;
                 OnPropertyChanged();
             }
         }

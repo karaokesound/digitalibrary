@@ -71,7 +71,7 @@ namespace Library.UI.Services
                 MessageBox.Show("Enter your username and password", "Login");
                 isValid = false;
             }
-            else if (loggingUser.Id == Guid.Empty && dbUser == null)
+            else if (loggingUser.UserId == Guid.Empty && dbUser == null)
             {
                 MessageBox.Show("There is no user with this username. Try again", "Login");
                 isValid = false;

@@ -18,7 +18,7 @@ namespace Library.UI.Commands
         {
             UserModel newAccount = new UserModel()
             {
-                Id = Guid.NewGuid(),
+                UserId = Guid.NewGuid(),
                 Username = _signUpPanelVM.NewAccount.Username,
                 Password = _signUpPanelVM.NewAccount.Password,
                 FirstName = _signUpPanelVM.NewAccount.FirstName,

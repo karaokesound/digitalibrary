@@ -11,9 +11,9 @@ namespace Library.UI.Services
         {
             BookViewModel bookViewModel = new BookViewModel()
             {
-                Id = bookModel.Id,
+                BookId = bookModel.BookId,
                 Title = bookModel.Title,
-                Volume = bookModel.Volume,
+                Category = bookModel.Category,
                 Pages = bookModel.Pages,
             };
             return bookViewModel;
@@ -23,9 +23,9 @@ namespace Library.UI.Services
         {
             BookModel bookModel = new BookModel()
             {
-                Id = bookViewModel.Id,
+                BookId = bookViewModel.BookId,
                 Title = bookViewModel.Title,
-                Volume = bookViewModel.Volume,
+                Category = (BookModel.Genre)bookViewModel.Category,
                 Pages = bookViewModel.Pages,
             };
             return bookModel;
@@ -36,7 +36,7 @@ namespace Library.UI.Services
         {
             return new UserViewModel(_validationService)
             {
-                Id = signUp.Id,
+                UserId = signUp.UserId,
                 Username = signUp.Username,
                 Password = signUp.Password,
                 FirstName = signUp.FirstName,
@@ -51,7 +51,7 @@ namespace Library.UI.Services
         {
             return new UserModel()
             {
-                Id = signUpVM.Id,
+                UserId = signUpVM.UserId,
                 Username = signUpVM.Username,
                 Password = signUpVM.Password,
                 FirstName = signUpVM.FirstName,
