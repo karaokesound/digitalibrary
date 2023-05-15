@@ -20,14 +20,14 @@
             <DataTemplate DataType="{x:Type viewmodel:AccountPanelViewModel}">
                 <view:AccountPanelView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodel:BookCollectionViewModel}">
-                <view:BookCollectionView />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:SignUpPanelViewModel}">
                 <view:SignUpPanelView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:SignInPanelViewModel}">
                 <view:SignInPanelView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:LibraryViewModel}">
+                <view:LibraryView />
             </DataTemplate>
 
         </ResourceDictionary>

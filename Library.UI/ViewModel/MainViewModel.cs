@@ -1,5 +1,4 @@
 ﻿using Library.UI.Commands;
-using Library.UI.Model;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -16,14 +15,13 @@ namespace Library.UI.ViewModel
 				OnPropertyChanged();
 			}
 		}
-
-		public BookCollectionViewModel BookCollectionVM { get; }
-
 		public AccountPanelViewModel AccountPanelVM { get; }
 
         public SignUpPanelViewModel SignUpPanelVM { get; }
 
         public SignInPanelViewModel SignInPanelVM { get; }
+
+		public LibraryViewModel LibraryVM { get; }
 
 		private bool _isUserAuthenticated;
 
@@ -39,14 +37,18 @@ namespace Library.UI.ViewModel
 
         public ICommand UpdateViewCommand { get; }
 
-        public MainViewModel(AccountPanelViewModel accountPanelVM, BookCollectionViewModel bookCollectionVM,
-			SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM)
+        public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
+			LibraryViewModel libraryVM)
         {
 			UpdateViewCommand = new UpdateViewCommand(this);
 			AccountPanelVM = accountPanelVM;
-			BookCollectionVM = bookCollectionVM;
 			SignUpPanelVM = signUpPanelVM;
 			SignInPanelVM = signInPanelVM;
+			LibraryVM = libraryVM;
+
+			SelectedViewModel = new LibraryViewModel();
+
+			// login button //
             SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
 			{
 				IsUserAuthenticated = isUserAuthenticated;

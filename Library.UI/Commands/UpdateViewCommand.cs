@@ -1,5 +1,4 @@
 ﻿using Library.UI.Command;
-using Library.UI.Data;
 using Library.UI.ViewModel;
 
 namespace Library.UI.Commands
@@ -13,10 +12,6 @@ namespace Library.UI.Commands
             if (parameter.ToString() == "Account")
             {
                 _mainVM.SelectedViewModel = new AccountPanelViewModel();
-            }
-            else if (parameter.ToString() == "BookCollection")
-            {
-                _mainVM.SelectedViewModel = new BookCollectionViewModel(new BookDataProvider());
             }
         }
 

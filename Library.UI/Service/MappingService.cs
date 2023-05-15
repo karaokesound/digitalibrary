@@ -6,31 +6,6 @@ namespace Library.UI.Services
 {
     public class MappingService : IMappingService
     {
-        // BOOKS MAPPING SERVICE //
-        public BookViewModel BookModelToViewModel (BookModel bookModel)
-        {
-            BookViewModel bookViewModel = new BookViewModel()
-            {
-                BookId = bookModel.BookId,
-                Title = bookModel.Title,
-                Category = bookModel.Category,
-                Pages = bookModel.Pages,
-            };
-            return bookViewModel;
-        }
-
-        public BookModel BookViewModelToModel (BookViewModel bookViewModel)
-        {
-            BookModel bookModel = new BookModel()
-            {
-                BookId = bookViewModel.BookId,
-                Title = bookViewModel.Title,
-                Category = (BookModel.Genre)bookViewModel.Category,
-                Pages = bookViewModel.Pages,
-            };
-            return bookModel;
-        }
-
         // USER MAPPING SERVICE //
         public UserViewModel UserModelToViewModel(UserModel signUp)
         {

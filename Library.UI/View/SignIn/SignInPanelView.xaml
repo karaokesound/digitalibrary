@@ -63,6 +63,6 @@
                 Margin="0 20 0 0"
                 Command="{Binding LoginButtonCommand}"
                 Style="{StaticResource registerButton}"
-                 />
+                />
     </Grid>
 </UserControl>

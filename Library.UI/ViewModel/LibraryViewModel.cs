@@ -1,26 +1,26 @@
-﻿using Library.UI.Commands.Account;
+﻿using Library.UI.Commands.Library;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
 {
-    public class AccountPanelViewModel : BaseViewModel
+    public class LibraryViewModel : BaseViewModel
     {
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
             get => _selectedViewModel;
-            set 
-            { 
+            set
+            {
                 _selectedViewModel = value;
                 OnPropertyChanged();
             }
         }
 
-        public ICommand AccountUpdateViewCommand { get; }
+        public ICommand LibraryUpdateViewCommand { get; }
 
-        public AccountPanelViewModel()
+        public LibraryViewModel()
         {
-            AccountUpdateViewCommand = new AccountUpdateViewCommand(this);
+            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
         }
     }
 }
