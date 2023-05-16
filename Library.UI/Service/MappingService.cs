@@ -1,11 +1,37 @@
 ﻿using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.ViewModel;
+using Library.UI.ViewModel.Library;
 
 namespace Library.UI.Services
 {
     public class MappingService : IMappingService
     {
+        // BOOK MAPPING SERVICE //
+        public BookViewModel BookModelToViewModel(BookModel book)
+        {
+            return new BookViewModel
+            {
+                BookId = book.BookId,
+                Title = book.Title,
+                Category = book.Category,
+                Pages = book.Pages,
+                Authors = book.Authors,
+            };
+        }
+
+        public BookModel BookViewModelToModel(BookViewModel bookVM)
+        {
+            return new BookModel
+            {
+                BookId = bookVM.BookId,
+                Title = bookVM.Title,
+                Category = bookVM.Category,
+                Pages = bookVM.Pages,
+                Authors = bookVM.Authors,
+            };
+        }
+
         // USER MAPPING SERVICE //
         public UserViewModel UserModelToViewModel(UserModel signUp)
         {

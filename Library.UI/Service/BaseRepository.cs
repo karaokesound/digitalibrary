@@ -1,5 +1,6 @@
 ﻿using Library.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,6 +44,7 @@ namespace Library.UI.Services
         {
             _dbSet.Add(obj);
         }
+
 
         public virtual void Update(TEntity obj)
         {

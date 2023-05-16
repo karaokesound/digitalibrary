@@ -9,10 +9,10 @@ namespace Library.UI.Commands
 
         public override void Execute(object parameter)
         {
-            if (parameter.ToString() == "Account")
-            {
-                _mainVM.SelectedViewModel = new AccountPanelViewModel();
-            }
+            //if (parameter.ToString() == "Account")
+            //{
+            //    _mainVM.SelectedViewModel = new AccountPanelViewModel();
+            //}
         }
 
         public UpdateViewCommand(MainViewModel mainVM)

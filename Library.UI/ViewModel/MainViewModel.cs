@@ -1,4 +1,7 @@
 ﻿using Library.UI.Commands;
+using Library.UI.Model;
+using Library.UI.Service;
+using Library.UI.Services;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -35,18 +38,15 @@ namespace Library.UI.ViewModel
 			}
 		}
 
-        public ICommand UpdateViewCommand { get; }
-
         public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
 			LibraryViewModel libraryVM)
         {
-			UpdateViewCommand = new UpdateViewCommand(this);
 			AccountPanelVM = accountPanelVM;
 			SignUpPanelVM = signUpPanelVM;
 			SignInPanelVM = signInPanelVM;
 			LibraryVM = libraryVM;
 
-			SelectedViewModel = new LibraryViewModel();
+			//SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new BookDatabase(), new MappingService(new ValidationService()));
 
 			// login button //
             SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>

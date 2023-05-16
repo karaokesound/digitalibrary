@@ -61,7 +61,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Margin="0 20 0 0"
-                Command="{Binding LoginButtonCommand}"
+                Command="{Binding LoginCommand}"
                 Style="{StaticResource registerButton}"
                 />
     </Grid>

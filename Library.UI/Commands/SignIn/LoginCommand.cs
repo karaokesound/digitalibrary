@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Library.UI.Commands.SignIn
 {
-    public class LoginButtonCommand : CommandBase
+    public class LoginCommand : CommandBase
     {
         private readonly SignInPanelViewModel _signInPanelVM;
 
@@ -36,7 +36,7 @@ namespace Library.UI.Commands.SignIn
             _signInPanelVM.RaiseUserAuthEvent();
         }
 
-        public LoginButtonCommand(SignInPanelViewModel signInPanelVM, IUserAuthenticationService
+        public LoginCommand(SignInPanelViewModel signInPanelVM, IUserAuthenticationService
             userAuthenticationService, IValidationService validationService, IUserRepository userRepository, IMappingService mappingService)
         {
             _signInPanelVM = signInPanelVM;
