@@ -62,6 +62,7 @@
                     Background="Transparent"/>
         </StackPanel>
 
+        <!--// LIBRARY //--> 
         <Grid Grid.Row="1"
               Margin="15">
             <StackPanel>
@@ -70,12 +71,32 @@
                 <ComboBox SelectedValue="Book category">
                     <ComboBoxItem Content="Sci-fi" />
                     <ComboBoxItem Content="Adventure" />
-
                 </ComboBox>
                 
+                <Button Content="Get books"
+                        Command="{Binding GetBookBaseCommand}"
+                        Width="200"
+                        Height="100" />
+                <Button Content="Show books"
+                        Width="100"
+                        Height="30"
+                        Command="{Binding DisplayBookCommand}" />
+
+                <ListView ItemsSource="{Binding BookList}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text="{Binding Category, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="{Binding Pages,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
-            
         </Grid>
+        
         <!--// CONTENT CONTROL //-->
         <ContentControl Content="{Binding SelectedViewModel}"
                         Grid.RowSpan="2"/>

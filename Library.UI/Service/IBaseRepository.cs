@@ -18,6 +18,7 @@ namespace Library.UI.Services
 
         void Insert(TEntity entity);
 
+
         void Update(TEntity entityToUpdate);
 
         void Delete(TEntity entityToDelete);

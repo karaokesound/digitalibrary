@@ -44,7 +44,7 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public ICommand LoginButtonCommand { get; }
+        public ICommand LoginCommand { get; }
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
@@ -62,7 +62,7 @@ namespace Library.UI.ViewModel
             _userRepository = userRepository;
             _mappingService = mappingService;
             LoggingUsernamePassword = new UserViewModel(_validationService);
-            LoginButtonCommand = new LoginButtonCommand(this, _userAuthenticationService, _validationService, _userRepository, _mappingService);
+            LoginCommand = new LoginCommand(this, _userAuthenticationService, _validationService, _userRepository, _mappingService);
         }
 
         public void RaiseUserAuthEvent() => UserAuthenticationChanged?.Invoke(_userAuthenticationService.IsUserAuthenticated);

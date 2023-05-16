@@ -1,4 +1,7 @@
 ﻿using Library.UI.Command;
+using Library.UI.Model;
+using Library.UI.Service;
+using Library.UI.Services;
 using Library.UI.ViewModel;
 
 namespace Library.UI.Commands.Account
@@ -16,7 +19,7 @@ namespace Library.UI.Commands.Account
         {
             if (parameter.ToString() == "Library")
             {
-                _accountPanelVM.SelectedViewModel = new LibraryViewModel();
+                _accountPanelVM.SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new BookDatabase(), new MappingService(new ValidationService()));
             }
         }
     }

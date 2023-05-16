@@ -44,8 +44,11 @@ namespace Library.UI
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
             services.AddSingleton<IValidationService, ValidationService>();
             services.AddSingleton<IBaseRepository<UserModel>, BaseRepository<UserModel>>();
+            services.AddSingleton<IBaseRepository<BookModel>, BaseRepository<BookModel>>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IMappingService, MappingService>();
+            services.AddSingleton<IBookDatabase, BookDatabase>();
+
         }
     }
 }
