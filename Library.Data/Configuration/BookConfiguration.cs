@@ -12,7 +12,6 @@ namespace Library.Data.Configuration
             builder.HasKey(b => b.BookId);
             builder.Property(b => b.Title);
             builder.Property(b => b.Pages);
-
             builder.Property(b => b.Category)
                 .HasConversion<string>();
             builder.HasMany(a => a.Authors)

@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Library.UI.View"
+             xmlns:local="clr-namespace:Library.UI.View" 
+             xmlns:viewmodel="clr-namespace:Library.UI.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -62,21 +63,15 @@
                     Background="Transparent"/>
         </StackPanel>
 
-        <!--// LIBRARY //--> 
+        <!--// LIBRARY //-->
         <Grid Grid.Row="1"
               Margin="15">
             <StackPanel>
-                <TextBlock Text="Library"
-                       FontSize="30" />
-                <ComboBox SelectedValue="Book category">
-                    <ComboBoxItem Content="Sci-fi" />
-                    <ComboBoxItem Content="Adventure" />
-                </ComboBox>
-                
-                <Button Content="Get books"
-                        Command="{Binding GetBookBaseCommand}"
-                        Width="200"
-                        Height="100" />
+                <ComboBox ItemsSource="{Binding Path=Genres, Converter={viewmodel:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          SelectedValue="{Binding Path=Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
                 <Button Content="Show books"
                         Width="100"
                         Height="30"
@@ -96,7 +91,7 @@
                 </ListView>
             </StackPanel>
         </Grid>
-        
+
         <!--// CONTENT CONTROL //-->
         <ContentControl Content="{Binding SelectedViewModel}"
                         Grid.RowSpan="2"/>

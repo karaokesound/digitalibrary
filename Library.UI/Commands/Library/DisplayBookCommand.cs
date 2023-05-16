@@ -18,10 +18,16 @@ namespace Library.UI.Commands.Library
 
         public override void Execute(object parameter)
         {
-            List<BookModel> bookList = _baseRepository.GetAll().ToList();
-            foreach (var book in bookList)
+            //List<BookModel> bookList = _baseRepository.GetAll().ToList();
+            //foreach (var book in bookList)
+            //{
+            //    _libraryVM.BookList.Add(_mappingService.BookModelToViewModel(book));
+            //}
+            var books = _baseRepository.GetAll().ToList();
+            foreach (var book in books)
             {
-                _libraryVM.BookList.Add(_mappingService.BookModelToViewModel(book));
+                _baseRepository.Delete(book.BookId);
+                _baseRepository.Save();
             }
         }
 
