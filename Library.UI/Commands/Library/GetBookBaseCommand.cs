@@ -1,10 +1,6 @@
 ﻿using Library.UI.Command;
-using Library.UI.Model;
 using Library.UI.Service;
-using Library.UI.Services;
 using Library.UI.ViewModel;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Library.UI.Commands.Library
 {

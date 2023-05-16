@@ -46,10 +46,10 @@ namespace Library.UI.ViewModel
 			SignInPanelVM = signInPanelVM;
 			LibraryVM = libraryVM;
 
-			//SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new BookDatabase(), new MappingService(new ValidationService()));
+			SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new BookDatabase(), new MappingService(new ValidationService()));
 
 			// login button //
-            SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
+			SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
 			{
 				IsUserAuthenticated = isUserAuthenticated;
 				if (IsUserAuthenticated == true)
