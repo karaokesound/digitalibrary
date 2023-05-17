@@ -7,8 +7,8 @@ namespace Library.UI.ViewModel.Library
 {
     public class BookViewModel : BaseViewModel
     {
-        private Guid _bookId;
-        public Guid BookId 
+        private int _bookId;
+        public int BookId 
         {
             get => _bookId;
             set

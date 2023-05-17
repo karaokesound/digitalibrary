@@ -5,6 +5,7 @@ namespace Library.UI.Model
 {
     public class BookModel
     {
+
         public enum Genre
         {
             Adventure,
@@ -28,7 +29,7 @@ namespace Library.UI.Model
             Young_adult,
         }
 
-        public Guid BookId { get; set; }
+        public int BookId { get; set; }
 
         public string Title { get; set; }
 
