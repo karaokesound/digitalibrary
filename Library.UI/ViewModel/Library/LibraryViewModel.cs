@@ -56,19 +56,16 @@ namespace Library.UI.ViewModel
 
         private readonly IBaseRepository<BookModel> _baseRepository;
 
-        private readonly IBookDatabase _bookDatabase;
-
         private readonly IMappingService _mappingService;
 
-        public LibraryViewModel(IBaseRepository<BookModel> baseRepository, IBookDatabase bookDatabase, IMappingService mappingService)
+        public LibraryViewModel(IBaseRepository<BookModel> baseRepository, IMappingService mappingService)
         {
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
             BookList = new ObservableCollection<BookViewModel>();
 
             _baseRepository = baseRepository;
-            _bookDatabase = bookDatabase;
             _mappingService = mappingService;
-            GetBookBaseCommand = new GetBookBaseCommand(this, _bookDatabase, _mappingService);
+            GetBookBaseCommand = new GetBookBaseCommand(this, _mappingService);
             DisplayBookCommand = new DisplayBookCommand(this, _mappingService, _baseRepository);
         }
 

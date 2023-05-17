@@ -8,20 +8,15 @@ namespace Library.UI.Commands.Library
     {
         private readonly LibraryViewModel _libraryVM;
 
-
-        private readonly IBookDatabase _bookDatabase;
-
         private readonly IMappingService _mappingService;
 
         public override void Execute(object parameter)
         {
-            _bookDatabase.InsertsBooksToDatabase();
         }
 
-        public GetBookBaseCommand(LibraryViewModel libraryVM, IBookDatabase bookDatabase, IMappingService mappingService)
+        public GetBookBaseCommand(LibraryViewModel libraryVM, IMappingService mappingService)
         {
             _libraryVM = libraryVM;
-            _bookDatabase = bookDatabase;
             _mappingService = mappingService;
         }
     }

@@ -1,8 +1,9 @@
-﻿using Library.UI.Commands;
+﻿using Library.Data;
 using Library.UI.Model;
-using Library.UI.Service;
+using Library.UI.Service.API;
+using Library.UI.Service.Data;
 using Library.UI.Services;
-using System.Windows.Input;
+using System.Linq;
 
 namespace Library.UI.ViewModel
 {
@@ -26,6 +27,10 @@ namespace Library.UI.ViewModel
 
 		public LibraryViewModel LibraryVM { get; }
 
+        private readonly DataSeeder _dataSeeder;
+
+        private readonly LibraryDbContext _libraryDbContext;
+
 		private bool _isUserAuthenticated;
 
         public bool IsUserAuthenticated
@@ -39,16 +44,18 @@ namespace Library.UI.ViewModel
 		}
 
         public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
-			LibraryViewModel libraryVM)
+			LibraryViewModel libraryVM, DataSeeder dataSeeder, LibraryDbContext libraryDbContext)
         {
 			AccountPanelVM = accountPanelVM;
 			SignUpPanelVM = signUpPanelVM;
 			SignInPanelVM = signInPanelVM;
 			LibraryVM = libraryVM;
+            _dataSeeder = dataSeeder;
+            _libraryDbContext = libraryDbContext;
+            CheckDatabase();
 
-			SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new BookDatabase(), new MappingService(new ValidationService()));
-
-			// login button //
+            // login button //
+            SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new MappingService(new ValidationService()));
 			SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
 			{
 				IsUserAuthenticated = isUserAuthenticated;
@@ -58,6 +65,15 @@ namespace Library.UI.ViewModel
 				}
 				else return;
 			};
+		}
+		
+		public async void CheckDatabase()
+		{
+			if (_libraryDbContext.Books.Any())
+			{
+				return;
+			}
+			ApiBookBase apiBookBase = new ApiBookBase(new DataSeeder(new BaseRepository<BookModel>()));
 		}
     }
 }

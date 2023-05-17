@@ -1,7 +1,9 @@
 ﻿using Library.UI.Model;
 using Library.UI.Service;
+using Library.UI.Service.API.Dto;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
+using System.Threading.Tasks;
 
 namespace Library.UI.Services
 {
