@@ -7,8 +7,8 @@ namespace Library.UI.ViewModel.Library
 {
     public class BookViewModel : BaseViewModel
     {
-        private int _bookId;
-        public int BookId 
+        private Guid _bookId;
+        public Guid BookId 
         {
             get => _bookId;
             set
@@ -29,13 +29,13 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-        private ICollection<AuthorModel> _authors;
-        public ICollection<AuthorModel> Authors 
+        private AuthorModel _author;
+        public AuthorModel Author 
         {
-            get => _authors;
+            get => _author;
             set
             {
-                _authors = value;
+                _author = value;
                 OnPropertyChanged();
             }
         }

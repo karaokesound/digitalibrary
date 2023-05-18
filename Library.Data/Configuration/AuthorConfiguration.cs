@@ -15,7 +15,7 @@ namespace Library.Data.Configuration
             builder.Property(a => a.LastName);
 
             builder.HasMany(b => b.Books)
-                .WithMany(a => a.Authors);
+                .WithOne(a => a.Author);
         }
     }
 }

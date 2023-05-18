@@ -51,8 +51,8 @@ namespace Library.UI.ViewModel
             _dataSeeder = dataSeeder;
 			_dataSeeder.SeedDataBase();
 
-            // login button //
-            SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new MappingService(new ValidationService()));
+			// login button //
+			SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new MappingService(new ValidationService()));
 			SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
 			{
 				IsUserAuthenticated = isUserAuthenticated;
