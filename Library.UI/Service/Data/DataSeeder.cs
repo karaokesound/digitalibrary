@@ -27,8 +27,13 @@ namespace Library.UI.Service.Data
         {
             if (_libraryDbContext.Books.Any())
             {
-                return;
+                var bookList = _baseRepository.GetAll().ToList();
+                foreach (var book in bookList)
+                {
+                    _baseRepository.Delete(book);
+                }
             }
+
             var bookBaseApi = await _bookApiService.GetBooksAsync();
             FillDataBase(bookBaseApi.Results);
         }
@@ -42,6 +47,21 @@ namespace Library.UI.Service.Data
                     Title = bookApi.Title,
                 };
 
+                var authorApi = bookApi.Authors;
+                if (authorApi == null)
+                {
+                    book.Author = new AuthorModel() { FirstName = "Unknown" };
+                }
+
+                foreach (var details in authorApi)
+                {
+                    string[] fullNameSplit = details.Name.Split(',');
+                    book.Author = new AuthorModel()
+                    {
+                        FirstName = fullNameSplit[1],
+                        LastName = fullNameSplit[0]
+                    };
+                }
                 _baseRepository.Insert(book);
                 _baseRepository.Save();
             }
