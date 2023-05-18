@@ -8,8 +8,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Button.xaml" />
-                <ResourceDictionary Source="Resources/TextBox.xaml" />
+                <ResourceDictionary Source="Resources/Xaml/Button.xaml" />
+                <ResourceDictionary Source="Resources/Xaml/TextBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--// converters //-->

@@ -11,7 +11,7 @@ namespace Library.UI.Model
 
         public AuthorModel Author { get; set; }
 
-        public Genre Category { get; set; } 
+        public string Category { get; set; } 
 
         public int Pages { get; set; }
 

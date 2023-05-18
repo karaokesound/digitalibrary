@@ -3,8 +3,8 @@ using Library.UI.Model;
 using Library.UI.Service.API;
 using Library.UI.Service.API.Dto;
 using Library.UI.Services;
+using System;
 using System.Linq;
-using System.Windows.Documents;
 
 namespace Library.UI.Service.Data
 {
@@ -62,6 +62,12 @@ namespace Library.UI.Service.Data
                         LastName = fullNameSplit[0]
                     };
                 }
+
+                var categoryApi = bookApi.Subjects[0];
+                string[] categorySplit = categoryApi.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                int counter = categorySplit.Count();
+                book.Category = categorySplit[counter - 1];
+                
                 _baseRepository.Insert(book);
                 _baseRepository.Save();
             }
