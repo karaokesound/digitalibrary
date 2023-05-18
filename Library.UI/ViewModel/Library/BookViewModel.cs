@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using static Library.UI.Model.BookModel;
+using Library.Models.Model;
 
 namespace Library.UI.ViewModel.Library
 {
@@ -51,13 +52,13 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-        private int _pages;
-        public int Pages 
+        private ICollection<LanguageModel> _languages;
+        public ICollection<LanguageModel> Languages 
         {
-            get => _pages;
+            get => _languages;
             set
             {
-                _pages = value;
+                _languages = value;
                 OnPropertyChanged();
             }
         }
