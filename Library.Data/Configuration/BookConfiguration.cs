@@ -10,11 +10,13 @@ namespace Library.Data.Configuration
         {
             builder.ToTable("Books");
             builder.HasKey(b => b.BookId);
+            builder.Property(b => b.BookId).ValueGeneratedOnAdd();
             builder.Property(b => b.Title);
-            builder.Property(b => b.Pages);
             builder.Property(b => b.Category)
                 .HasConversion<string>();
-            builder.HasMany(a => a.Authors)
+            builder.HasOne(a => a.Author)
+                .WithMany(b => b.Books);
+            builder.HasMany(l => l.Languages)
                 .WithMany(b => b.Books);
         }
     }

@@ -17,8 +17,8 @@ namespace Library.UI.Services
                 BookId = book.BookId,
                 Title = book.Title,
                 Category = book.Category,
-                Pages = book.Pages,
-                Authors = book.Authors,
+                Languages = book.Languages,
+                Author = book.Author,
             };
         }
 
@@ -29,8 +29,8 @@ namespace Library.UI.Services
                 BookId = bookVM.BookId,
                 Title = bookVM.Title,
                 Category = bookVM.Category,
-                Pages = bookVM.Pages,
-                Authors = bookVM.Authors,
+                Languages = bookVM.Languages,
+                Author = bookVM.Author,
             };
         }
 

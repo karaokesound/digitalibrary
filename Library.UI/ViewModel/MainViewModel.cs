@@ -27,9 +27,7 @@ namespace Library.UI.ViewModel
 
 		public LibraryViewModel LibraryVM { get; }
 
-        private readonly DataSeeder _dataSeeder;
-
-        private readonly LibraryDbContext _libraryDbContext;
+        private readonly IDataSeeder _dataSeeder;
 
 		private bool _isUserAuthenticated;
 
@@ -44,18 +42,17 @@ namespace Library.UI.ViewModel
 		}
 
         public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
-			LibraryViewModel libraryVM, DataSeeder dataSeeder, LibraryDbContext libraryDbContext)
+			LibraryViewModel libraryVM, IDataSeeder dataSeeder)
         {
 			AccountPanelVM = accountPanelVM;
 			SignUpPanelVM = signUpPanelVM;
 			SignInPanelVM = signInPanelVM;
 			LibraryVM = libraryVM;
             _dataSeeder = dataSeeder;
-            _libraryDbContext = libraryDbContext;
-            CheckDatabase();
+			_dataSeeder.SeedDataBase();
 
-            // login button //
-            SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new MappingService(new ValidationService()));
+			// login button //
+			SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new MappingService(new ValidationService()));
 			SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
 			{
 				IsUserAuthenticated = isUserAuthenticated;
@@ -67,13 +64,6 @@ namespace Library.UI.ViewModel
 			};
 		}
 		
-		public async void CheckDatabase()
-		{
-			if (_libraryDbContext.Books.Any())
-			{
-				return;
-			}
-			ApiBookBase apiBookBase = new ApiBookBase(new DataSeeder(new BaseRepository<BookModel>()));
-		}
+	
     }
 }

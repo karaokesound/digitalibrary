@@ -1,7 +1,7 @@
 ﻿using Library.Data.Configuration;
+using Library.Models.Model;
 using Library.UI.Model;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace Library.Data
 {
@@ -10,10 +10,11 @@ namespace Library.Data
         public DbSet<AuthorModel> Authors { get; set; }
         public DbSet<BookModel> Books { get; set; }
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<LanguageModel> Languages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = LibraryDatabase;");
+            optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DigitalLibraryDb;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,6 +22,7 @@ namespace Library.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuthorConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(LanguageConfiguration).Assembly);
         }
     }
 }
