@@ -40,8 +40,8 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-        private Genre _category;
-        public Genre Category 
+        private string _category;
+        public string Category 
         {
             get => _category;
             set
