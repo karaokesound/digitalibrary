@@ -18,7 +18,7 @@ namespace Library.UI.Services
                 Title = book.Title,
                 Category = book.Category,
                 Pages = book.Pages,
-                Authors = book.Authors,
+                Author = book.Author,
             };
         }
 
@@ -30,7 +30,7 @@ namespace Library.UI.Services
                 Title = bookVM.Title,
                 Category = bookVM.Category,
                 Pages = bookVM.Pages,
-                Authors = bookVM.Authors,
+                Author = bookVM.Author,
             };
         }
 

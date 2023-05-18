@@ -4,6 +4,7 @@ using Library.UI.Service.API;
 using Library.UI.Service.API.Dto;
 using Library.UI.Services;
 using System.Linq;
+using System.Windows.Documents;
 
 namespace Library.UI.Service.Data
 {
@@ -40,6 +41,7 @@ namespace Library.UI.Service.Data
                 {
                     Title = bookApi.Title,
                 };
+
                 _baseRepository.Insert(book);
                 _baseRepository.Save();
             }

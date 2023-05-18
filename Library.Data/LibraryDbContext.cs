@@ -1,7 +1,6 @@
 ﻿using Library.Data.Configuration;
 using Library.UI.Model;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace Library.Data
 {
@@ -13,7 +12,7 @@ namespace Library.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = LibraryDb;");
+            optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DigitalLibraryDb;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

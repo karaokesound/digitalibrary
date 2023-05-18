@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Data.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20230512174053_book-enum")]
-    partial class bookenum
+    [Migration("20230518103546_initial-migration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,9 +47,11 @@ namespace Library.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AuthorId");
