@@ -13,6 +13,8 @@ namespace Library.Data.Configuration
             builder.Property(a => a.AuthorId).ValueGeneratedOnAdd();
             builder.Property(a => a.FirstName);
             builder.Property(a => a.LastName);
+            builder.Property(a => a.BirthYear);
+            builder.Property(a => a.DeathYear);
 
             builder.HasMany(b => b.Books)
                 .WithOne(a => a.Author);

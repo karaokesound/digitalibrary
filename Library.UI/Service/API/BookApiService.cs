@@ -20,21 +20,24 @@ namespace Library.UI.Service.API
 
         public async Task<GetBooksResponse> GetBooksAsync()
         {
-            var url = "/books";
             var result = new GetBooksResponse();
-            var response = await _http.GetAsync(url);
-
-            if (response.IsSuccessStatusCode)
+            for (int page = 1; page < 10; page++)
             {
-                var stringResponse = await response.Content.ReadAsStringAsync();
+                var url = ($"/books/page?={page}");
+               
+                var response = await _http.GetAsync(url);
 
-                result = JsonConvert.DeserializeObject<GetBooksResponse>(stringResponse);
-            }
-            else
-            {
-                throw new HttpRequestException(response.ReasonPhrase);
-            }
+                if (response.IsSuccessStatusCode)
+                {
+                    var stringResponse = await response.Content.ReadAsStringAsync();
 
+                    result = JsonConvert.DeserializeObject<GetBooksResponse>(stringResponse);
+                }
+                else
+                {
+                    throw new HttpRequestException(response.ReasonPhrase);
+                }
+            }
             return result;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Models.Model;
+using System;
 using System.Collections.Generic;
 
 namespace Library.UI.Model
@@ -13,7 +14,7 @@ namespace Library.UI.Model
 
         public string Category { get; set; } 
 
-        public int Pages { get; set; }
+        public ICollection<LanguageModel> Languages { get; set; }
 
         public enum Genre
         {
