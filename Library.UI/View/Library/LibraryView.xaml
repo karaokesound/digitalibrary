@@ -15,7 +15,7 @@
 
         <!--// BACKGROUND //-->
         <Border Grid.RowSpan="2"
-                Background=" #ebf5fb "
+                Background="Green "
                 CornerRadius="20" />
         <Border CornerRadius="20"
                 Height="75"
