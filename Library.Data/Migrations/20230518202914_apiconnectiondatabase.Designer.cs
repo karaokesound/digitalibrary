@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Data.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20230518125627_databasecorrection2")]
-    partial class databasecorrection2
+    [Migration("20230518202914_apiconnectiondatabase")]
+    partial class apiconnectiondatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,17 +25,54 @@ namespace Library.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BookModelLanguageModel", b =>
+                {
+                    b.Property<Guid>("BooksBookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LanguagesLanguageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BooksBookId", "LanguagesLanguageId");
+
+                    b.HasIndex("LanguagesLanguageId");
+
+                    b.ToTable("BookModelLanguageModel");
+                });
+
+            modelBuilder.Entity("Library.Models.Model.LanguageModel", b =>
+                {
+                    b.Property<Guid>("LanguageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LanguageId");
+
+                    b.ToTable("Languages", (string)null);
+                });
+
             modelBuilder.Entity("Library.UI.Model.AuthorModel", b =>
                 {
                     b.Property<Guid>("AuthorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("BirthYear")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DeathYear")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AuthorId");
@@ -55,9 +92,6 @@ namespace Library.Data.Migrations
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Pages")
-                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -104,6 +138,21 @@ namespace Library.Data.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("BookModelLanguageModel", b =>
+                {
+                    b.HasOne("Library.UI.Model.BookModel", null)
+                        .WithMany()
+                        .HasForeignKey("BooksBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Library.Models.Model.LanguageModel", null)
+                        .WithMany()
+                        .HasForeignKey("LanguagesLanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Library.UI.Model.BookModel", b =>
