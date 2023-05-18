@@ -1,5 +1,4 @@
 ﻿using Library.UI.Service.API.Dto;
-using Library.UI.Service.Data;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -7,21 +6,16 @@ using System.Threading.Tasks;
 
 namespace Library.UI.Service.API
 {
-    public class ApiBookBase : IApiBookBase
+    public class BookApiService : IBookApiService
     {
         private readonly HttpClient _http;
 
-        private readonly DataSeeder _dataSeeder;
-
-        public ApiBookBase(DataSeeder dataSeeder)
+        public BookApiService()
         {
             _http = new HttpClient()
             {
-                BaseAddress = new Uri("https://gutendex.com/books")
+                BaseAddress = new Uri("https://gutendex.com/")
             };
-
-            _dataSeeder = dataSeeder;
-            GetBooksAsync();
         }
 
         public async Task<GetBooksResponse> GetBooksAsync()
@@ -40,9 +34,6 @@ namespace Library.UI.Service.API
             {
                 throw new HttpRequestException(response.ReasonPhrase);
             }
-
-            BookDto[] apiBookBase = result.Results;
-            _dataSeeder.FillDatabase(apiBookBase);
 
             return result;
         }

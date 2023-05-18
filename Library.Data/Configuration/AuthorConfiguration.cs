@@ -10,6 +10,7 @@ namespace Library.Data.Configuration
         {
             builder.ToTable("Authors");
             builder.HasKey(a => a.AuthorId);
+            builder.Property(a => a.AuthorId).ValueGeneratedOnAdd();
             builder.Property(a => a.FirstName);
             builder.Property(a => a.LastName);
 

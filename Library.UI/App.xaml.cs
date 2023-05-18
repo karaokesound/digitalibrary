@@ -42,7 +42,7 @@ namespace Library.UI
             services.AddTransient<SignUpPanelViewModel>();
             services.AddTransient<SignInPanelViewModel>();
             services.AddTransient<LibraryViewModel>();
-            services.AddTransient<DataSeeder>();
+            
 
             // interfaces //
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
@@ -51,6 +51,8 @@ namespace Library.UI
             services.AddSingleton<IBaseRepository<BookModel>, BaseRepository<BookModel>>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IMappingService, MappingService>();
+            services.AddSingleton<IBookApiService, BookApiService>();
+            services.AddTransient<IDataSeeder, DataSeeder>();
         }
     }
 }

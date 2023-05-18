@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Library.UI.Service.API
 {
-    public interface IApiBookBase
+    public interface IBookApiService
     {
         Task<GetBooksResponse> GetBooksAsync();
     }

@@ -34,7 +34,7 @@ namespace Library.Data.Migrations
 
                     b.HasIndex("BooksBookId");
 
-                    b.ToTable("AuthorModelBookModel");
+                    b.ToTable("AuthorModelBookModel", (string)null);
                 });
 
             modelBuilder.Entity("Library.UI.Model.AuthorModel", b =>
