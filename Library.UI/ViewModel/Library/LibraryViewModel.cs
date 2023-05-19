@@ -4,8 +4,10 @@ using Library.UI.Service;
 using Library.UI.Services;
 using Library.UI.ViewModel.Library;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -50,9 +52,9 @@ namespace Library.UI.ViewModel
 
         public ICommand LibraryUpdateViewCommand { get; }
 
-        public ICommand GetBookBaseCommand { get; }
+        //public ICommand GetBookBaseCommand { get; }
 
-        public ICommand DisplayBookCommand { get; }
+        //public ICommand DisplayBookCommand { get; }
 
         private readonly IBaseRepository<BookModel> _baseRepository;
 
@@ -60,13 +62,23 @@ namespace Library.UI.ViewModel
 
         public LibraryViewModel(IBaseRepository<BookModel> baseRepository, IMappingService mappingService)
         {
-            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
-            BookList = new ObservableCollection<BookViewModel>();
-
             _baseRepository = baseRepository;
             _mappingService = mappingService;
-            GetBookBaseCommand = new GetBookBaseCommand(this, _mappingService);
-            DisplayBookCommand = new DisplayBookCommand(this, _mappingService, _baseRepository);
+            BookList = new ObservableCollection<BookViewModel>();
+            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
+            DisplayBooks();
+            //GetBookBaseCommand = new GetBookBaseCommand(this, _mappingService);
+            //DisplayBookCommand = new DisplayBookCommand(this, _mappingService, _baseRepository);
+        }
+
+        public void DisplayBooks()
+        {
+            List<BookModel> bookList = _baseRepository.GetAll().ToList();
+
+            foreach (BookModel book in bookList)
+            {
+                BookList.Add(_mappingService.BookModelToViewModel(book));
+            }
         }
 
         public enum Genre

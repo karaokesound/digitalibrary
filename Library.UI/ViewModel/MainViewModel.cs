@@ -49,7 +49,7 @@ namespace Library.UI.ViewModel
 			SignInPanelVM = signInPanelVM;
 			LibraryVM = libraryVM;
             _dataSeeder = dataSeeder;
-			_dataSeeder.SeedDataBase();
+			//_dataSeeder.SeedDataBase();
 
 			// login button //
 			SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new MappingService(new ValidationService()));

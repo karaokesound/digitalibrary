@@ -127,6 +127,7 @@
         <Setter Property="Background" Value="White" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="Width" Value="28" />
         <Setter Property="Height" Value="28" />
         <Setter Property="FontSize" Value="10" />
@@ -166,6 +167,56 @@
                                                         Duration="0:0:0:0.2" />
                                         <ColorAnimation Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)"
                                                         To="Black"
+                                                        Duration="0:0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--// NAVIGATION BUTTON //-->
+    <Style x:Key="navigationButton"
+           TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="0,0,0,5" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Width" Value="70" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            CornerRadius="10 0 0 0">
+                        <ContentPresenter ContentSource="Content"
+                                          TextBlock.FontSize="{TemplateBinding FontSize}"
+                                          TextBlock.TextAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                        To="#37474f"
+                                                        Duration="0:0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                        To="Transparent"
                                                         Duration="0:0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
