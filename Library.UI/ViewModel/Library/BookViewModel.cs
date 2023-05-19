@@ -1,8 +1,7 @@
-﻿using Library.UI.Model;
-using System.Collections.Generic;
+﻿using Library.Models.Model;
+using Library.UI.Model;
 using System;
-using static Library.UI.Model.BookModel;
-using Library.Models.Model;
+using System.Collections.Generic;
 
 namespace Library.UI.ViewModel.Library
 {

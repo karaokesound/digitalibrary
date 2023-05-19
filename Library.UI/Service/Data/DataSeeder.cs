@@ -7,7 +7,7 @@ using Library.UI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
+using static Library.UI.Model.BookModel;
 
 namespace Library.UI.Service.Data
 {
@@ -52,16 +52,12 @@ namespace Library.UI.Service.Data
 
 
                 // Adding Author first name and last name to Book object
-                var authorApi = bookApi.Authors;
-
-                if (authorApi == null)
+                if (bookApi.Authors == null)
                 {
-                    book.Author = new AuthorModel() { FirstName = "Unknown", LastName = "Unknown",
-                        BirthYear = 0, DeathYear = 0};
-                    
+                    book.Author = new AuthorModel() { FirstName = "Unknown", LastName = "Unknown", BirthYear = 0, DeathYear = 0 };
                 }
 
-                foreach (var authorDetails in authorApi)
+                foreach (var authorDetails in bookApi.Authors)
                 {
                     string[] nameSplit = authorDetails.Name.Split(',');
                     book.Author = new AuthorModel()
@@ -74,23 +70,31 @@ namespace Library.UI.Service.Data
                 }
 
                 // Adding Category to Book object
-                var categoryApi = bookApi.Subjects[0];
-                string[] categorySplit = categoryApi.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] categorySplit = bookApi.Subjects[0].TrimStart().Split(new string[] { "-- " }, StringSplitOptions.RemoveEmptyEntries);
                 int counter = categorySplit.Count();
-                book.Category = categorySplit[counter - 1];
-
-                // Adding Language to Book object
-                var languagesApi = bookApi.Languages;
-                List<LanguageModel> languageList = new List<LanguageModel>();
-
-                foreach (var language in languagesApi)
+                var comparedCategory = categorySplit[counter - 1];
+                string[] categories = Enum.GetNames(typeof(Genre));
+                for (int i = 0; i < categories.Length; i++)
                 {
-                    languageList.Add(new LanguageModel()
-                    {
-                        Language = language
-                    });
+                    categories[i] = categories[i].Replace('_', ' ');
                 }
-                book.Languages = languageList;
+
+                foreach (var category in categories)
+                {
+                    if (comparedCategory == category)
+                    {
+                        book.Category = category;
+                        break;
+                    }
+                    book.Category = "Other";
+                }
+
+
+                // Adding Language to Book object. The Language Object is a collection.
+                foreach (var apiLanguage in bookApi.Languages)
+                {
+                    book.Languages = new List<LanguageModel>() { new LanguageModel() { Language = apiLanguage } };
+                }
 
                 _baseRepository.Insert(book);
                 _baseRepository.Save();

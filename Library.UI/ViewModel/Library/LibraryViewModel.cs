@@ -85,44 +85,84 @@ namespace Library.UI.ViewModel
         {
             [Description("")]
             NOT_SET = 0,
-            [Description("Adventure")]
-            Adventure,
-            [Description("Classics")]
-            Classics,
-            [Description("Crime")]
-            Crime,
-            [Description("Fairy tales")]
-            Fairy_tales,
-            [Description("Fantasy")]
-            Fantasy,
+            [Description("Drama")]
+            Drama,
+            [Description("Fiction")]
+            Fiction,
+            [Description("Adventure stories")]
+            Adventure_stories,
+            [Description("Biography")]
+            Biography,
             [Description("Historical fiction")]
             Historical_fiction,
-            [Description("Horror")]
-            Horror,
-            [Description("Humour and satire")]
-            Humour_and_satire,
-            [Description("Literaly fiction")]
-            Literary_fiction,
-            [Description("Mystery")]
-            Mystery,
+            [Description("Juvenile fiction")]
+            Juvenile_fiction,
+            [Description("Autobiographical fiction")]
+            Autobiographical_fiction,
+            [Description("Comedies")]
+            Comedies,
+            [Description("Humor")]
+            Humor,
+            [Description("Feminist fiction")]
+            Feminist_fiction,
+            [Description("Horror tales")]
+            Horror_tales,
             [Description("Poetry")]
             Poetry,
-            [Description("Plays")]
-            Plays,
-            [Description("Romance")]
-            Romance,
-            [Description("Sci-fi")]
+            [Description("Ethics")]
+            Ethics,
+            [Description("Life")]
+            Life,
+            [Description("Stoics")]
+            Stoics,
+            [Description("Romances")]
+            Romances,
+            [Description("Epic literature")]
+            Epic_literature,
+            [Description("Science fiction")]
             Science_fiction,
-            [Description("Short stories")]
-            Short_stories,
-            [Description("Thrillers")]
-            Thrillers,
-            [Description("War")]
-            War,
-            [Description("Womens fiction")]
-            Womens_fiction,
-            [Description("Young adult")]
-            Young_adult
+            [Description("Domestic fiction")]
+            Domestic_fiction,
+            [Description("Christmas stories")]
+            Christmas_stories,
+            [Description("Ghost stories")]
+            Ghost_stories,
+            [Description("Love stories")]
+            Love_stories,
+            [Description("Mysticism")]
+            Mysticism,
+            [Description("Fantasy literature")]
+            Fantasy_literature,
+            [Description("Calculus")]
+            Calculus,
+            [Description("Political fiction")]
+            Political_fiction,
+            [Description("Detective and mystery")]
+            Detective_and_mystery_stories,
+            [Description("Sabotage")]
+            Sabotage,
+            [Description("Bible")]
+            Bible,
+            [Description("French essays")]
+            French_essays,
+            [Description("Philosophy")]
+            Philosophy,
+            [Description("Gothic fiction")]
+            Gothic_fiction,
+            [Description("American drama")]
+            American_drama,
+            [Description("Communism")]
+            Communism,
+            [Description("Socialism")]
+            Socialism,
+            [Description("Fantasy fiction")]
+            Fantasy_fiction,
+            [Description("Liberty")]
+            Liberty,
+            [Description("Satire")]
+            Satire,
+            [Description("Adultery")]
+            Adultery
         }
     }
 }

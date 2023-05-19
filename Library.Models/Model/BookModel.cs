@@ -12,31 +12,51 @@ namespace Library.UI.Model
 
         public AuthorModel Author { get; set; }
 
-        public string Category { get; set; } 
+        public string Category { get; set; }
 
         public ICollection<LanguageModel> Languages { get; set; }
 
         public enum Genre
         {
-            Adventure,
-            Classics,
-            Crime,
-            Fairy_tales,
-            Fantasy,
+            Drama,
+            Fiction,
+            Adventure_stories,
+            Biography,
             Historical_fiction,
-            Horror,
-            Humour_and_satire,
-            Literary_fiction,
-            Mystery,
+            Juvenile_fiction,
+            Autobiographical_fiction,
+            Comedies,
+            Humor,
+            Feminist_fiction,
+            Horror_tales,
             Poetry,
-            Plays,
-            Romance,
+            Ethics,
+            Life,
+            Stoics,
+            Romances,
+            Epic_literature,
             Science_fiction,
-            Short_stories,
-            Thrillers,
-            War,
-            Womens_fiction,
-            Young_adult,
+            Domestic_fiction,
+            Christmas_stories,
+            Ghost_stories,
+            Love_stories,
+            Mysticism,
+            Fantasy_literature,
+            Calculus,
+            Political_fiction,
+            Detective_and_mystery_stories,
+            Sabotage,
+            Bible,
+            French_essays,
+            Philosophy,
+            Gothic_fiction,
+            American_drama,
+            Communism,
+            Socialism,
+            Fantasy_fiction,
+            Liberty,
+            Satire,
+            Adultery
         }
     }
 }
