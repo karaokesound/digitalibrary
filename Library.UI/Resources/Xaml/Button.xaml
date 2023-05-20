@@ -124,10 +124,10 @@
     <!--// EXIT BUTTON //-->
     <Style x:Key="exitButton"
            TargetType="Button">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="Black" />
         <Setter Property="Width" Value="28" />
         <Setter Property="Height" Value="28" />
         <Setter Property="FontSize" Value="10" />
@@ -139,7 +139,8 @@
                             HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalAlignment}"
                             Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}">
+                            Height="{TemplateBinding Height}"
+                            CornerRadius="20">
                         <ContentPresenter ContentSource="Content"
                                           TextBlock.FontSize="{TemplateBinding FontSize}"
                                           TextBlock.TextAlignment="Center" />
@@ -151,9 +152,6 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="#5d6d7e"
-                                                        Duration="0:0:0:0.1" />
-                                        <ColorAnimation Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)"
                                                         To="White"
                                                         Duration="0:0:0:0.1" />
                                     </Storyboard>
@@ -163,10 +161,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="White"
-                                                        Duration="0:0:0:0.2" />
-                                        <ColorAnimation Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)"
-                                                        To="Black"
+                                                        To="Transparent"
                                                         Duration="0:0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -207,7 +202,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="#37474f"
+                                                        To="#1f618d"
                                                         Duration="0:0:0:0.2" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -218,6 +213,61 @@
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
                                                         To="Transparent"
                                                         Duration="0:0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--// SELECT CATEGORY //-->
+    <Style x:Key="categoryButton"
+           TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            CornerRadius="10 3 5 10">
+                        <ContentPresenter ContentSource="Content"
+                                          Content="Select category"
+                                          TextBlock.FontSize="{TemplateBinding FontSize}"
+                                          TextBlock.TextAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                        To="#fff59d"
+                                                        Duration="0:0:0:0.1" />
+                                        <ColorAnimation Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)"
+                                                        To="Black"
+                                                        Duration="0:0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                        To="Transparent"
+                                                        Duration="0:0:0:0.1" />
+                                        <ColorAnimation Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)"
+                                                        To="White"
+                                                        Duration="0:0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>

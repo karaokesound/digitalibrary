@@ -1,9 +1,6 @@
-﻿using Library.Data;
-using Library.UI.Model;
-using Library.UI.Service.API;
+﻿using Library.UI.Model;
 using Library.UI.Service.Data;
 using Library.UI.Services;
-using System.Linq;
 
 namespace Library.UI.ViewModel
 {
