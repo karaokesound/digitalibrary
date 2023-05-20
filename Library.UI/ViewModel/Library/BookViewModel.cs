@@ -51,6 +51,18 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
+        private int _downloads;
+        public int Downloads
+        {
+            get => _downloads;
+            set 
+            { 
+                _downloads = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private ICollection<LanguageModel> _languages;
         public ICollection<LanguageModel> Languages 
         {

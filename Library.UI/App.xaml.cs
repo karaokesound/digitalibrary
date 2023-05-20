@@ -1,4 +1,5 @@
 ﻿using Library.Data;
+using Library.Models.Model;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.API;
@@ -49,6 +50,7 @@ namespace Library.UI
             services.AddSingleton<IValidationService, ValidationService>();
             services.AddSingleton<IBaseRepository<UserModel>, BaseRepository<UserModel>>();
             services.AddSingleton<IBaseRepository<BookModel>, BaseRepository<BookModel>>();
+            services.AddSingleton<IBaseRepository<LanguageModel>, BaseRepository<LanguageModel>>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IMappingService, MappingService>();
             services.AddSingleton<IBookApiService, BookApiService>();

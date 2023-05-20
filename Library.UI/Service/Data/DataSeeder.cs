@@ -18,12 +18,15 @@ namespace Library.UI.Service.Data
         private readonly LibraryDbContext _libraryDbContext;
 
         private readonly IBookApiService _bookApiService;
+        private readonly IBaseRepository<LanguageModel> _langbaseRepository;
 
-        public DataSeeder(IBaseRepository<BookModel> baseRepository, LibraryDbContext libraryDbContext, IBookApiService bookApiService)
+        public DataSeeder(IBaseRepository<BookModel> baseRepository, LibraryDbContext libraryDbContext, 
+            IBookApiService bookApiService, IBaseRepository<LanguageModel> langbaseRepository)
         {
             _baseRepository = baseRepository;
             _libraryDbContext = libraryDbContext;
             _bookApiService = bookApiService;
+            _langbaseRepository = langbaseRepository;
         }
 
         public async void SeedDataBase()
@@ -37,17 +40,42 @@ namespace Library.UI.Service.Data
                 }
             }
 
+            if (_libraryDbContext.Languages.Any())
+            {
+                var languageList = _langbaseRepository.GetAll().ToList();
+                foreach (var language in languageList)
+                {
+                    _langbaseRepository.Delete(language);
+                }
+            }
+
             var bookBaseApi = await _bookApiService.GetBooksAsync();
             FillDataBase(bookBaseApi.Results);
         }
 
         public void FillDataBase(BookDto[] bookBaseApi)
         {
+            // Adding enum language list to database.
+            List<string> enumLanguageList = Enum.GetNames(typeof(LanguageModel.Languages)).ToList();
+            List<LanguageModel> languageList = new List<LanguageModel>();
+            foreach (string language in enumLanguageList)
+            {
+                languageList.Add(new LanguageModel() { Language = language });
+            }
+
+            foreach (LanguageModel languageModel in languageList)
+            {
+                _langbaseRepository.Insert(languageModel);
+                _langbaseRepository.Save();
+            }
+
+            // Inserting new book.
             foreach (var bookApi in bookBaseApi)
             {
                 BookModel book = new BookModel()
                 {
                     Title = bookApi.Title,
+                    Downloads = bookApi.Download_Count,
                 };
 
 
@@ -91,10 +119,20 @@ namespace Library.UI.Service.Data
 
 
                 // Adding Language to Book object. The Language Object is a collection.
-                foreach (var apiLanguage in bookApi.Languages)
+                List<LanguageModel> databaseLanguageList = _langbaseRepository.GetAll().ToList();
+                List<string> bookLanguageList = bookApi.Languages.ToList();
+                List<LanguageModel> matchedLanguages = new List<LanguageModel>();
+
+                foreach (var bookLanguage in bookLanguageList)
                 {
-                    book.Languages = new List<LanguageModel>() { new LanguageModel() { Language = apiLanguage } };
+                    var matchingLanguage = databaseLanguageList.FirstOrDefault(lang => lang.Language == bookLanguage);
+                    if (matchingLanguage != null)
+                    {
+                        matchedLanguages.Add(matchingLanguage);
+                    }
                 }
+
+                book.Languages = matchedLanguages;
 
                 _baseRepository.Insert(book);
                 _baseRepository.Save();

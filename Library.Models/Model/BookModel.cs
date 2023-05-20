@@ -16,6 +16,8 @@ namespace Library.UI.Model
 
         public ICollection<LanguageModel> Languages { get; set; }
 
+        public int Downloads { get; set; }
+
         public enum Genre
         {
             Drama,
