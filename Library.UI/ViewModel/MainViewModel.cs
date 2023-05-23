@@ -1,6 +1,8 @@
 ﻿using Library.UI.Model;
+using Library.UI.Service;
 using Library.UI.Service.Data;
 using Library.UI.Services;
+using System.Threading.Tasks;
 
 namespace Library.UI.ViewModel
 {
@@ -16,7 +18,20 @@ namespace Library.UI.ViewModel
 				OnPropertyChanged();
 			}
 		}
-		public AccountPanelViewModel AccountPanelVM { get; }
+
+        private bool _isUserAuthenticated;
+
+        public bool IsUserAuthenticated
+        {
+            get => _isUserAuthenticated;
+            set
+            {
+                _isUserAuthenticated = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public AccountPanelViewModel AccountPanelVM { get; }
 
         public SignUpPanelViewModel SignUpPanelVM { get; }
 
@@ -26,39 +41,46 @@ namespace Library.UI.ViewModel
 
         private readonly IDataSeeder _dataSeeder;
 
-		private bool _isUserAuthenticated;
+        private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
-        public bool IsUserAuthenticated
-		{
-			get => _isUserAuthenticated;
-			set 
-			{ 
-				_isUserAuthenticated = value;
-				OnPropertyChanged();
-			}
-		}
+        private readonly IMappingService _mappingService;
+
+        private readonly IDataFiltering _dataFiltering;
 
         public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
-			LibraryViewModel libraryVM, IDataSeeder dataSeeder)
+			LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
+			IDataFiltering dataFiltering)
         {
 			AccountPanelVM = accountPanelVM;
 			SignUpPanelVM = signUpPanelVM;
 			SignInPanelVM = signInPanelVM;
 			LibraryVM = libraryVM;
             _dataSeeder = dataSeeder;
-			_dataSeeder.SeedDataBase();
+            _bookBaseRepository = bookBaseRepository;
+            _mappingService = mappingService;
+            _dataFiltering = dataFiltering;
+			UpdateView();
 
-			// login button //
-			SelectedViewModel = new LibraryViewModel(new BaseRepository<BookModel>(), new MappingService(new ValidationService()));
-			SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
-			{
-				IsUserAuthenticated = isUserAuthenticated;
-				if (IsUserAuthenticated == true)
-				{
-					SelectedViewModel = new AccountPanelViewModel();
-				}
-				else return;
-			};
+            // login button //
+            //SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
+            //{
+            //	IsUserAuthenticated = isUserAuthenticated;
+            //	if (IsUserAuthenticated == true)
+            //	{
+            //		SelectedViewModel = new AccountPanelViewModel();
+            //	}
+            //	else return;
+            //};
+        }
+
+		public async Task SeedDatabase()
+		{
+			await _dataSeeder.SeedDataBase(); 
+		}
+
+		public void UpdateView()
+		{
+			SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
 		}
 		
 	

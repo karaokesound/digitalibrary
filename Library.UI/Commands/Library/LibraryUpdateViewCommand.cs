@@ -9,10 +9,10 @@ namespace Library.UI.Commands.Library
 
         public override void Execute(object parameter)
         {
-            if (parameter.ToString() == "Account")
-            {
-                _libraryVM.SelectedViewModel = new AccountPanelViewModel();
-            }
+            //if (parameter.ToString() == "Account")
+            //{
+            //    //_libraryVM.SelectedViewModel = new AccountPanelViewModel();
+            //}
         }
 
         public LibraryUpdateViewCommand(LibraryViewModel libraryVM)

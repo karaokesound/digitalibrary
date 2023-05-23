@@ -4,9 +4,11 @@ using Library.UI.Model;
 using Library.UI.Service.API;
 using Library.UI.Service.API.Dto;
 using Library.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using static Library.UI.Model.BookModel;
 
 namespace Library.UI.Service.Data
@@ -18,20 +20,28 @@ namespace Library.UI.Service.Data
         private readonly LibraryDbContext _libraryDbContext;
 
         private readonly IBookApiService _bookApiService;
-        private readonly IBaseRepository<LanguageModel> _langbaseRepository;
+
+        private readonly IBaseRepository<LanguageModel> _lngBaseRepository;
+
+        private readonly IBaseRepository<AuthorModel> _authBaseRepository;
+
+        private readonly IDataFiltering _dataFiltering;
 
         public DataSeeder(IBaseRepository<BookModel> baseRepository, LibraryDbContext libraryDbContext, 
-            IBookApiService bookApiService, IBaseRepository<LanguageModel> langbaseRepository)
+            IBookApiService bookApiService, IBaseRepository<LanguageModel> langBaseRepository, 
+            IBaseRepository<AuthorModel> authBaseRepository, IDataFiltering dataFiltering)
         {
             _baseRepository = baseRepository;
             _libraryDbContext = libraryDbContext;
             _bookApiService = bookApiService;
-            _langbaseRepository = langbaseRepository;
+            _lngBaseRepository = langBaseRepository;
+            _authBaseRepository = authBaseRepository;
+            _dataFiltering = dataFiltering;
         }
 
-        public async void SeedDataBase()
+        public async Task SeedDataBase()
         {
-            if (_libraryDbContext.Books.Any())
+            if (await _libraryDbContext.Books.AnyAsync())
             {
                 var bookList = _baseRepository.GetAll().ToList();
                 foreach (var book in bookList)
@@ -40,12 +50,21 @@ namespace Library.UI.Service.Data
                 }
             }
 
-            if (_libraryDbContext.Languages.Any())
+            if (await _libraryDbContext.Languages.AnyAsync())
             {
-                var languageList = _langbaseRepository.GetAll().ToList();
+                var languageList = _lngBaseRepository.GetAll().ToList();
                 foreach (var language in languageList)
                 {
-                    _langbaseRepository.Delete(language);
+                    _lngBaseRepository.Delete(language);
+                }
+            }
+
+            if (await _libraryDbContext.Authors.AnyAsync())
+            {
+                var authorList = _authBaseRepository.GetAll().ToList();
+                foreach (var author in authorList)
+                {
+                    _authBaseRepository.Delete(author);
                 }
             }
 
@@ -65,8 +84,8 @@ namespace Library.UI.Service.Data
 
             foreach (LanguageModel languageModel in languageList)
             {
-                _langbaseRepository.Insert(languageModel);
-                _langbaseRepository.Save();
+                _lngBaseRepository.Insert(languageModel);
+                _lngBaseRepository.Save();
             }
 
             // Inserting new book.
@@ -119,7 +138,7 @@ namespace Library.UI.Service.Data
 
 
                 // Adding Language to Book object. The Language Object is a collection.
-                List<LanguageModel> databaseLanguageList = _langbaseRepository.GetAll().ToList();
+                List<LanguageModel> databaseLanguageList = _lngBaseRepository.GetAll().ToList();
                 List<string> bookLanguageList = bookApi.Languages.ToList();
                 List<LanguageModel> matchedLanguages = new List<LanguageModel>();
 
@@ -137,6 +156,7 @@ namespace Library.UI.Service.Data
                 _baseRepository.Insert(book);
                 _baseRepository.Save();
             }
+            _dataFiltering.SortBooksAlphabetical();
         }
     }
 }

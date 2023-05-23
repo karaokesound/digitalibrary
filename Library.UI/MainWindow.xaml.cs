@@ -7,6 +7,9 @@ namespace Library.UI
     public partial class MainWindow : Window
     {
         private readonly MainViewModel _mainViewModel;
+
+        public MainViewModel MainViewModel => _mainViewModel;
+
         public MainWindow(MainViewModel mainViewModel)
         {
             InitializeComponent();

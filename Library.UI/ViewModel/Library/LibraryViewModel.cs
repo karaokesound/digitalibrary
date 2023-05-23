@@ -1,13 +1,11 @@
 ﻿using Library.UI.Commands.Library;
 using Library.UI.Model;
 using Library.UI.Service;
+using Library.UI.Service.Data;
 using Library.UI.Services;
 using Library.UI.ViewModel.Library;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -52,32 +50,37 @@ namespace Library.UI.ViewModel
 
         public ICommand LibraryUpdateViewCommand { get; }
 
-        //public ICommand GetBookBaseCommand { get; }
-
-        //public ICommand DisplayBookCommand { get; }
-
-        private readonly IBaseRepository<BookModel> _baseRepository;
-
         private readonly IMappingService _mappingService;
 
-        public LibraryViewModel(IBaseRepository<BookModel> baseRepository, IMappingService mappingService)
+        private readonly IDataFiltering _dataFiltering;
+
+        public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, 
+            IDataFiltering dataFiltering)
         {
-            _baseRepository = baseRepository;
             _mappingService = mappingService;
+            _dataFiltering = dataFiltering;
             BookList = new ObservableCollection<BookViewModel>();
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
             DisplayBooks();
-            //GetBookBaseCommand = new GetBookBaseCommand(this, _mappingService);
-            //DisplayBookCommand = new DisplayBookCommand(this, _mappingService, _baseRepository);
         }
 
         public void DisplayBooks()
         {
-            List<BookModel> bookList = _baseRepository.GetAll().ToList();
+            // w przyszłości będzie to wyglądać tak, że będą komendy dla danej komendy filtrującej i komenda będzie robiła
+            // wszystko co potrzeba, a następnie wysyłała dane do metody DisplayBooks(). Ta metoda w parametrze będzie
+            // przyjmować zmienną, która powinna być taka sama dla wszystkich komend, czyli BookModel(). Komendy będą odsyłać
+            // obiekty typu BookModel, a tutaj będzie pętla i zapisywanie do listy BookList.
 
-            foreach (BookModel book in bookList)
+            //var filteredBookList = _dataFiltering.SortBooksAlphabetical();
+            //foreach (var filteredBook in filteredBookList)
+            //{
+            //    BookList.Add(_mappingService.BookModelToViewModel(filteredBook));
+            //}
+
+            var filteredBookList = _dataFiltering.DisplayInsertedNumberOfBooks();
+            foreach (var filteredBook in filteredBookList)
             {
-                BookList.Add(_mappingService.BookModelToViewModel(book));
+                BookList.Add(_mappingService.BookModelToViewModel(filteredBook));
             }
         }
 

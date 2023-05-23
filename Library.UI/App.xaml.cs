@@ -15,7 +15,7 @@ namespace Library.UI
     {
         private readonly ServiceProvider _serviceProvider;
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected async override void OnStartup(StartupEventArgs e)
         {
             using (LibraryDbContext context = new LibraryDbContext())
             {
@@ -23,6 +23,7 @@ namespace Library.UI
             }
 
             MainWindow mainWindow = _serviceProvider.GetService<MainWindow>();
+            await mainWindow.MainViewModel.SeedDatabase();
             mainWindow?.Show();
         }
 
@@ -51,10 +52,12 @@ namespace Library.UI
             services.AddSingleton<IBaseRepository<UserModel>, BaseRepository<UserModel>>();
             services.AddSingleton<IBaseRepository<BookModel>, BaseRepository<BookModel>>();
             services.AddSingleton<IBaseRepository<LanguageModel>, BaseRepository<LanguageModel>>();
+            services.AddSingleton<IBaseRepository<AuthorModel>, BaseRepository<AuthorModel>>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IMappingService, MappingService>();
             services.AddSingleton<IBookApiService, BookApiService>();
             services.AddTransient<IDataSeeder, DataSeeder>();
+            services.AddTransient<IDataFiltering, DataFiltering>();
         }
     }
 }
