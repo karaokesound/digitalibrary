@@ -61,37 +61,42 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private BookQuantity _quantity;
+        public BookQuantity Quantity
+        {
+            get => _quantity;
+            set 
+            { 
+                _quantity = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand LibraryUpdateViewCommand { get; }
+
+        public ICommand SortBooksCommand { get; }
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataFiltering;
+        private readonly IDataSorting _dataSorting;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, 
-            IDataSorting dataFiltering)
+            IDataSorting dataSorting)
         {
             _mappingService = mappingService;
-            _dataFiltering = dataFiltering;
+            _dataSorting = dataSorting;
             BookList = new ObservableCollection<BookViewModel>();
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
+            SortBooksCommand = new SortBooksCommand(this, _dataSorting);
         }
 
-        public void DisplayBooks(List<BookModel> filteredBookList)
+        public void DisplayBooks(List<BookModel> sortedBookList)
         {
-            // w przyszłości będzie to wyglądać tak, że będą komendy dla danej komendy filtrującej i komenda będzie robiła
-            // wszystko co potrzeba, a następnie wysyłała dane do metody DisplayBooks(). Ta metoda w parametrze będzie
-            // przyjmować zmienną, która powinna być taka sama dla wszystkich komend, czyli BookModel(). Komendy będą odsyłać
-            // obiekty typu BookModel, a tutaj będzie pętla i zapisywanie do listy BookList.
+            BookList.Clear();
 
-            //var filteredBookList = _dataFiltering.SortBooksAlphabetical();
-            //foreach (var filteredBook in filteredBookList)
-            //{
-            //    BookList.Add(_mappingService.BookModelToViewModel(filteredBook));
-            //}
-
-            foreach (var filteredBook in filteredBookList)
+            foreach (var sortedBook in sortedBookList)
             {
-                BookList.Add(_mappingService.BookModelToViewModel(filteredBook));
+                BookList.Add(_mappingService.BookModelToViewModel(sortedBook));
             }
         }
 
@@ -181,16 +186,26 @@ namespace Library.UI.ViewModel
 
         public enum SortingMethod
         {
-            [Description("")]
+            [Description("Sort")]
             NOT_SET = 0,
             [Description("A-z")]
-            az,
+            Az,
             [Description("Downloads")]
-            downloads,
-            [Description("Amount...")]
-            amount,
+            Downloads
+        }
+
+        public enum BookQuantity
+        {
             [Description("All")]
-            all
+            NOT_SET = 0,
+            [Description("5")]
+            Five = 5,
+            [Description("10")]
+            Ten = 10,
+            [Description("20")]
+            Twenty = 20,
+            [Description("40")]
+            Fifty = 40
         }
     }
 }

@@ -8,24 +8,19 @@ namespace Library.UI.Commands.Library
     {
         private readonly LibraryViewModel _libraryViewModel;
 
-        private readonly IDataSorting _dataFiltering;
+        private readonly IDataSorting _dataSorting;
 
         public override void Execute(object parameter)
         {
-            if (_libraryViewModel.SortingMethods == LibraryViewModel.SortingMethod.az)
-            {
-                _libraryViewModel.DisplayBooks(_dataFiltering.SortBooksAlphabetically());
-            }
-            else if (_libraryViewModel.SortingMethods == LibraryViewModel.SortingMethod.all)
-            {
-                _libraryViewModel.DisplayBooks(_dataFiltering.DisplayAllBooks());
-            }
+            _libraryViewModel.DisplayBooks(_dataSorting.DisplaySelectedNumberOfBooks
+                (_libraryViewModel.SortingMethods, _libraryViewModel.Quantity));
         }
 
-        public SortBooksCommand(LibraryViewModel libraryViewModel, IDataSorting dataFiltering)
+        public SortBooksCommand(LibraryViewModel libraryViewModel, IDataSorting dataSorting)
         {
             _libraryViewModel = libraryViewModel;
-            _dataFiltering = dataFiltering;
+            _dataSorting = dataSorting;
+            Execute(libraryViewModel);
         }
     }
 }

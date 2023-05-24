@@ -1,14 +1,12 @@
 ﻿using Library.UI.Model;
+using Library.UI.ViewModel;
 using System.Collections.Generic;
 
 namespace Library.UI.Service.Data
 {
     public interface IDataSorting
     {
-        List<BookModel> SortBooksAlphabetically();
-
-        List<BookModel> DisplayInsertedNumberOfBooks();
-
-        List<BookModel> DisplayAllBooks();
+        List<BookModel> DisplaySelectedNumberOfBooks(LibraryViewModel.SortingMethod selectedMethod, 
+            LibraryViewModel.BookQuantity selectedQuantity);
     }
 }

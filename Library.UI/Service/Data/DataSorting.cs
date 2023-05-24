@@ -1,6 +1,7 @@
 ﻿using Library.Models.Model;
 using Library.UI.Model;
 using Library.UI.Services;
+using Library.UI.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,29 +23,39 @@ namespace Library.UI.Service.Data
             _lngBaseRepository = lngBaseRepository;
         }
 
-        public List<BookModel> SortBooksAlphabetically()
+        public List<BookModel> DisplaySelectedNumberOfBooks(LibraryViewModel.SortingMethod selectedMethod, 
+            LibraryViewModel.BookQuantity selectedQuantity)
         {
-            List<BookModel>_aplhabeticalBookList = new List<BookModel>();
-            var bookList = _bookBaseRepository.GetAll().ToList();
+            List<BookModel> bookList = new List<BookModel>();
+            bookList = _bookBaseRepository.GetAll().ToList();
 
-            return _aplhabeticalBookList = bookList.OrderBy(b => b.Title).ToList();
-        }
+            if (selectedQuantity == LibraryViewModel.BookQuantity.NOT_SET)
+            {
+                selectedQuantity = (LibraryViewModel.BookQuantity)999;
+            }
 
-        public List<BookModel> DisplayInsertedNumberOfBooks()
-        {
-            // This method should be used by herself or in combination with a filter method.
-            // For example: SortBooksAlphabetical() => DisplayInsertedNumberOfBooks(). This will cause showing (...)
-            // of books ordered alphabetical.
 
-            var bookList = SortBooksAlphabetically();
+            // app startup setup
+            if (selectedMethod == LibraryViewModel.SortingMethod.NOT_SET && selectedQuantity == LibraryViewModel.BookQuantity.NOT_SET)
+            {
+                bookList = bookList.Take(bookList.Count).ToList();
+            }
 
-            List<BookModel> shortenedList = new List<BookModel>();
-            return shortenedList = bookList.Take(10).ToList();
-        }
+            // combobox
+            else if (selectedMethod == LibraryViewModel.SortingMethod.NOT_SET)
+            {
+                bookList = bookList.Take((int)selectedQuantity).ToList();
+            }
+            else if (selectedMethod == LibraryViewModel.SortingMethod.Az)
+            {
+                bookList = bookList.OrderBy(b => b.Title).Take((int)selectedQuantity).ToList();
+            }
+            else if (selectedMethod == LibraryViewModel.SortingMethod.Downloads)
+            {
+                bookList = bookList.OrderByDescending(d => d.Downloads).Take((int)selectedQuantity).ToList();
+            }
 
-        public List<BookModel> DisplayAllBooks()
-        {
-            return _bookBaseRepository.GetAll().ToList();
+            return bookList;
         }
     }
 }
