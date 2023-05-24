@@ -38,6 +38,7 @@ namespace Library.UI
         {
             services.AddDbContext<LibraryDbContext>();
             services.AddHttpClient();
+
             services.AddTransient<MainWindow>();
             services.AddSingleton<MainViewModel>();
             services.AddTransient<AccountPanelViewModel>();
@@ -45,7 +46,6 @@ namespace Library.UI
             services.AddTransient<SignInPanelViewModel>();
             services.AddTransient<LibraryViewModel>();
             
-
             // interfaces //
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
             services.AddSingleton<IValidationService, ValidationService>();
@@ -57,7 +57,7 @@ namespace Library.UI
             services.AddSingleton<IMappingService, MappingService>();
             services.AddSingleton<IBookApiService, BookApiService>();
             services.AddTransient<IDataSeeder, DataSeeder>();
-            services.AddTransient<IDataFiltering, DataFiltering>();
+            services.AddTransient<IDataSorting, DataSorting>();
         }
     }
 }

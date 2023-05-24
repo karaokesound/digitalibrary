@@ -20,7 +20,6 @@ namespace Library.UI.ViewModel
 		}
 
         private bool _isUserAuthenticated;
-
         public bool IsUserAuthenticated
         {
             get => _isUserAuthenticated;
@@ -45,11 +44,11 @@ namespace Library.UI.ViewModel
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataFiltering _dataFiltering;
+        private readonly IDataSorting _dataFiltering;
 
         public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
 			LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-			IDataFiltering dataFiltering)
+			IDataSorting dataFiltering)
         {
 			AccountPanelVM = accountPanelVM;
 			SignUpPanelVM = signUpPanelVM;
@@ -78,11 +77,9 @@ namespace Library.UI.ViewModel
 			await _dataSeeder.SeedDataBase(); 
 		}
 
-		public void UpdateView()
-		{
-			SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
-		}
-		
-	
+        public void UpdateView()
+        {
+            SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
+        }
     }
 }

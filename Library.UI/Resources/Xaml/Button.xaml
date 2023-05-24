@@ -128,10 +128,11 @@
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Width" Value="28" />
         <Setter Property="Height" Value="28" />
-        <Setter Property="FontSize" Value="10" />
         <Setter Property="FontSize" Value="20" />
+        <Setter Property="Margin" Value="0 5 0 0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -178,11 +179,14 @@
            TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="BorderThickness" Value="0,0,0,5" />
+        <Setter Property="BorderThickness" Value="0 0 0 3" />
+        <Setter Property="BorderBrush" Value="White" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Width" Value="70" />
         <Setter Property="Height" Value="28" />
         <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="0 0 15 0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -190,7 +194,9 @@
                             VerticalAlignment="{TemplateBinding VerticalAlignment}"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
-                            CornerRadius="10 0 0 0">
+                            CornerRadius="10 0 0 0"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter ContentSource="Content"
                                           TextBlock.FontSize="{TemplateBinding FontSize}"
                                           TextBlock.TextAlignment="Center" />

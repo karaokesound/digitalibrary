@@ -15,10 +15,10 @@ namespace Library.UI.Commands.Account
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataFiltering _dataFiltering;
+        private readonly IDataSorting _dataFiltering;
 
         public AccountUpdateViewCommand(AccountPanelViewModel accountPanelVM, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IDataFiltering dataFiltering)
+            IDataSorting dataFiltering)
         {
             _accountPanelVM = accountPanelVM;
             _bookBaseRepository = bookBaseRepository;

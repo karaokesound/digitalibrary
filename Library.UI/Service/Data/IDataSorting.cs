@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 namespace Library.UI.Service.Data
 {
-    public interface IDataFiltering
+    public interface IDataSorting
     {
-        List<BookModel> SortBooksAlphabetical();
+        List<BookModel> SortBooksAlphabetically();
 
         List<BookModel> DisplayInsertedNumberOfBooks();
+
+        List<BookModel> DisplayAllBooks();
     }
 }

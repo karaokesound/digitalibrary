@@ -15,7 +15,7 @@ namespace Library.UI.ViewModel
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataFiltering _dataFiltering;
+        private readonly IDataSorting _dataFiltering;
 
         public BaseViewModel SelectedViewModel
         {
@@ -29,7 +29,7 @@ namespace Library.UI.ViewModel
 
         public ICommand AccountUpdateViewCommand { get; }
 
-        public AccountPanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataFiltering dataFiltering)
+        public AccountPanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataFiltering)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;

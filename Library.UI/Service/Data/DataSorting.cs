@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Library.UI.Service.Data
 {
-    public class DataFiltering : IDataFiltering
+    public class DataSorting : IDataSorting
     {
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
@@ -14,19 +14,17 @@ namespace Library.UI.Service.Data
 
         private readonly IBaseRepository<LanguageModel> _lngBaseRepository;
 
-        public List<BookModel> _aplhabeticalBookList;
-
-        public DataFiltering(IBaseRepository<BookModel> bookBaseRepository, IBaseRepository<AuthorModel> authBaseRepository,
+        public DataSorting(IBaseRepository<BookModel> bookBaseRepository, IBaseRepository<AuthorModel> authBaseRepository,
        IBaseRepository<LanguageModel> lngBaseRepository)
         {
             _bookBaseRepository = bookBaseRepository;
             _authBaseRepository = authBaseRepository;
             _lngBaseRepository = lngBaseRepository;
-            _aplhabeticalBookList = new List<BookModel>();
         }
 
-        public List<BookModel> SortBooksAlphabetical()
+        public List<BookModel> SortBooksAlphabetically()
         {
+            List<BookModel>_aplhabeticalBookList = new List<BookModel>();
             var bookList = _bookBaseRepository.GetAll().ToList();
 
             return _aplhabeticalBookList = bookList.OrderBy(b => b.Title).ToList();
@@ -38,9 +36,15 @@ namespace Library.UI.Service.Data
             // For example: SortBooksAlphabetical() => DisplayInsertedNumberOfBooks(). This will cause showing (...)
             // of books ordered alphabetical.
 
-            var bookList = SortBooksAlphabetical();
+            var bookList = SortBooksAlphabetically();
+
             List<BookModel> shortenedList = new List<BookModel>();
             return shortenedList = bookList.Take(10).ToList();
+        }
+
+        public List<BookModel> DisplayAllBooks()
+        {
+            return _bookBaseRepository.GetAll().ToList();
         }
     }
 }

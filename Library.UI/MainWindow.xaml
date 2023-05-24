@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
-        Height="550" Width="800">
+        Height="600" Width="950">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.6*" />

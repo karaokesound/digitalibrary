@@ -4,6 +4,7 @@ using Library.UI.Service;
 using Library.UI.Service.Data;
 using Library.UI.Services;
 using Library.UI.ViewModel.Library;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -48,23 +49,34 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private SortingMethod _sortingMethods;
+        public SortingMethod SortingMethods
+        {
+            get => _sortingMethods;
+            set 
+            { 
+                _sortingMethods = value;
+                OnPropertyChanged();
+                
+            }
+        }
+
         public ICommand LibraryUpdateViewCommand { get; }
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataFiltering _dataFiltering;
+        private readonly IDataSorting _dataFiltering;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, 
-            IDataFiltering dataFiltering)
+            IDataSorting dataFiltering)
         {
             _mappingService = mappingService;
             _dataFiltering = dataFiltering;
             BookList = new ObservableCollection<BookViewModel>();
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
-            DisplayBooks();
         }
 
-        public void DisplayBooks()
+        public void DisplayBooks(List<BookModel> filteredBookList)
         {
             // w przyszłości będzie to wyglądać tak, że będą komendy dla danej komendy filtrującej i komenda będzie robiła
             // wszystko co potrzeba, a następnie wysyłała dane do metody DisplayBooks(). Ta metoda w parametrze będzie
@@ -77,7 +89,6 @@ namespace Library.UI.ViewModel
             //    BookList.Add(_mappingService.BookModelToViewModel(filteredBook));
             //}
 
-            var filteredBookList = _dataFiltering.DisplayInsertedNumberOfBooks();
             foreach (var filteredBook in filteredBookList)
             {
                 BookList.Add(_mappingService.BookModelToViewModel(filteredBook));
@@ -166,6 +177,20 @@ namespace Library.UI.ViewModel
             Satire,
             [Description("Adultery")]
             Adultery
+        }
+
+        public enum SortingMethod
+        {
+            [Description("")]
+            NOT_SET = 0,
+            [Description("A-z")]
+            az,
+            [Description("Downloads")]
+            downloads,
+            [Description("Amount...")]
+            amount,
+            [Description("All")]
+            all
         }
     }
 }

@@ -14,6 +14,7 @@
             <!--// converters //-->
             <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
             <resources:StringEmptyConverter x:Key="stringEmptyConverter" />
+            <viewmodel:EnumToCollectionConverter x:Key="enumToCollConverter" />
 
             <!--// views //-->
             <DataTemplate DataType="{x:Type viewmodel:AccountPanelViewModel}">

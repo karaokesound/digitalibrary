@@ -25,11 +25,11 @@ namespace Library.UI.Service.Data
 
         private readonly IBaseRepository<AuthorModel> _authBaseRepository;
 
-        private readonly IDataFiltering _dataFiltering;
+        private readonly IDataSorting _dataFiltering;
 
-        public DataSeeder(IBaseRepository<BookModel> baseRepository, LibraryDbContext libraryDbContext, 
-            IBookApiService bookApiService, IBaseRepository<LanguageModel> langBaseRepository, 
-            IBaseRepository<AuthorModel> authBaseRepository, IDataFiltering dataFiltering)
+        public DataSeeder(IBaseRepository<BookModel> baseRepository, LibraryDbContext libraryDbContext,
+            IBookApiService bookApiService, IBaseRepository<LanguageModel> langBaseRepository,
+            IBaseRepository<AuthorModel> authBaseRepository, IDataSorting dataFiltering)
         {
             _baseRepository = baseRepository;
             _libraryDbContext = libraryDbContext;
@@ -41,6 +41,7 @@ namespace Library.UI.Service.Data
 
         public async Task SeedDataBase()
         {
+            // removes data from database if exist
             if (await _libraryDbContext.Books.AnyAsync())
             {
                 var bookList = _baseRepository.GetAll().ToList();
@@ -74,21 +75,22 @@ namespace Library.UI.Service.Data
 
         public void FillDataBase(BookDto[] bookBaseApi)
         {
-            // Adding enum language list to database.
+            // Adding enum language list to database
             List<string> enumLanguageList = Enum.GetNames(typeof(LanguageModel.Languages)).ToList();
             List<LanguageModel> languageList = new List<LanguageModel>();
-            foreach (string language in enumLanguageList)
+
+            foreach (string enumLanguage in enumLanguageList)
             {
-                languageList.Add(new LanguageModel() { Language = language });
+                languageList.Add(new LanguageModel() { Language = enumLanguage });
             }
 
-            foreach (LanguageModel languageModel in languageList)
+            foreach (LanguageModel language in languageList)
             {
-                _lngBaseRepository.Insert(languageModel);
+                _lngBaseRepository.Insert(language);
                 _lngBaseRepository.Save();
             }
 
-            // Inserting new book.
+            // Inserting new book
             foreach (var bookApi in bookBaseApi)
             {
                 BookModel book = new BookModel()
@@ -98,10 +100,15 @@ namespace Library.UI.Service.Data
                 };
 
 
-                // Adding Author first name and last name to Book object
+                // Adding Authors first name and last name to Book object
                 if (bookApi.Authors == null)
                 {
-                    book.Author = new AuthorModel() { FirstName = "Unknown", LastName = "Unknown", BirthYear = 0, DeathYear = 0 };
+                    book.Author = new AuthorModel() 
+                    { 
+                        FirstName = "Unknown", 
+                        LastName = "Unknown", 
+                        BirthYear = 0, 
+                        DeathYear = 0 };
                 }
 
                 foreach (var authorDetails in bookApi.Authors)
@@ -119,16 +126,18 @@ namespace Library.UI.Service.Data
                 // Adding Category to Book object
                 string[] categorySplit = bookApi.Subjects[0].TrimStart().Split(new string[] { "-- " }, StringSplitOptions.RemoveEmptyEntries);
                 int counter = categorySplit.Count();
-                var comparedCategory = categorySplit[counter - 1];
-                string[] categories = Enum.GetNames(typeof(Genre));
-                for (int i = 0; i < categories.Length; i++)
+
+                var category = categorySplit[counter - 1];
+                string[] enumCategories = Enum.GetNames(typeof(Genre));
+
+                for (int i = 0; i < enumCategories.Length; i++)
                 {
-                    categories[i] = categories[i].Replace('_', ' ');
+                    enumCategories[i] = enumCategories[i].Replace('_', ' ');
                 }
 
-                foreach (var category in categories)
+                foreach (var enumCategory in enumCategories)
                 {
-                    if (comparedCategory == category)
+                    if (category == enumCategory)
                     {
                         book.Category = category;
                         break;
@@ -156,7 +165,6 @@ namespace Library.UI.Service.Data
                 _baseRepository.Insert(book);
                 _baseRepository.Save();
             }
-            _dataFiltering.SortBooksAlphabetical();
         }
     }
 }
