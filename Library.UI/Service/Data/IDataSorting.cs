@@ -6,7 +6,7 @@ namespace Library.UI.Service.Data
 {
     public interface IDataSorting
     {
-        List<BookModel> DisplaySelectedNumberOfBooks(LibraryViewModel.SortingMethod selectedMethod, 
-            LibraryViewModel.BookQuantity selectedQuantity);
+        List<BookModel> SortBooks(LibraryViewModel.SortingMethod selectedMethod, 
+            LibraryViewModel.BookQuantity selectedQuantity, LibraryViewModel.Genre selectedCategory);
     }
 }

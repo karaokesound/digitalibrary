@@ -23,17 +23,21 @@ namespace Library.UI.Service.Data
             _lngBaseRepository = lngBaseRepository;
         }
 
-        public List<BookModel> DisplaySelectedNumberOfBooks(LibraryViewModel.SortingMethod selectedMethod, 
-            LibraryViewModel.BookQuantity selectedQuantity)
+        public List<BookModel> SortBooks(LibraryViewModel.SortingMethod selectedMethod, 
+            LibraryViewModel.BookQuantity selectedQuantity, LibraryViewModel.Genre selectedCategory)
         {
-            List<BookModel> bookList = new List<BookModel>();
-            bookList = _bookBaseRepository.GetAll().ToList();
-
             if (selectedQuantity == LibraryViewModel.BookQuantity.NOT_SET)
             {
                 selectedQuantity = (LibraryViewModel.BookQuantity)999;
             }
 
+            List<BookModel> bookList = new List<BookModel>();
+
+            if (selectedCategory == LibraryViewModel.Genre.NOT_SET)
+            {
+                bookList = _bookBaseRepository.GetAll().ToList();
+            }
+            bookList = _bookBaseRepository.GetAll().Where(c => c.Category == selectedCategory.ToString()).ToList();
 
             // app startup setup
             if (selectedMethod == LibraryViewModel.SortingMethod.NOT_SET && selectedQuantity == LibraryViewModel.BookQuantity.NOT_SET)
