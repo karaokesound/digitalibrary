@@ -41,13 +41,11 @@ namespace Library.UI.Service.API
 
                         if (string.IsNullOrEmpty(pageResult.Next))
                         {
-                            // Brak więcej wyników, opuść pętlę
                             break;
                         }
                     }
                     else
                     {
-                        // Brak więcej wyników, opuść pętlę
                         break;
                     }
                 }

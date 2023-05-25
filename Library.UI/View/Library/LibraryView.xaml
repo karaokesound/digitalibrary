@@ -118,6 +118,8 @@
                             Height="130"
                             Width="245"
                             CornerRadius="14" />
+                    <TextBlock Text="{Binding RandomBookList[0].Title,UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="25"/>
                     <Border Grid.Column="1"
                             Background="White"
                             Margin="0 0 0 0"
@@ -126,6 +128,9 @@
                             Height="130"
                             Width="245"
                             CornerRadius="14" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding RandomBookList[1].Title, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="25"/>
                     <Border Grid.Column="2"
                             Background="White"
                             Margin="10 0 0 0"
@@ -134,6 +139,9 @@
                             Height="130"
                             Width="245"
                             CornerRadius="14" />
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding RandomBookList[2].Title, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="25"/>
                 </Grid>
             </Grid>
 
@@ -170,7 +178,6 @@
                                              DisplayMemberPath="Description"
                                              SelectedValue="{Binding Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              Command="{Binding SortBooksCommand}"/>
-                    <Button Style="{StaticResource categoryButton}" />
                 </StackPanel>
 
 

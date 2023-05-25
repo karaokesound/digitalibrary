@@ -41,6 +41,8 @@ namespace Library.UI.Service.Data
 
         public async Task SeedDataBase()
         {
+            return;
+
             // removes data from database if exist
             if (await _libraryDbContext.Books.AnyAsync())
             {

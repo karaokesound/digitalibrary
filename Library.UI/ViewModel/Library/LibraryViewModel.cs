@@ -4,9 +4,11 @@ using Library.UI.Service;
 using Library.UI.Service.Data;
 using Library.UI.Services;
 using Library.UI.ViewModel.Library;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -34,6 +36,18 @@ namespace Library.UI.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private ObservableCollection<BookViewModel> _randomBookList;
+        public ObservableCollection<BookViewModel> RandomBookList
+        {
+            get => _randomBookList;
+            set 
+            { 
+                _randomBookList = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private Genre _genres;
         public Genre Genres
@@ -76,6 +90,8 @@ namespace Library.UI.ViewModel
 
         public ICommand SortBooksCommand { get; }
 
+        private readonly IBaseRepository<BookModel> _bookBaseRepository;
+
         private readonly IMappingService _mappingService;
 
         private readonly IDataSorting _dataSorting;
@@ -83,11 +99,14 @@ namespace Library.UI.ViewModel
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, 
             IDataSorting dataSorting)
         {
+            _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataSorting = dataSorting;
             BookList = new ObservableCollection<BookViewModel>();
-            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
+            RandomBookList = new ObservableCollection<BookViewModel>();
             SortBooksCommand = new SortBooksCommand(this, _dataSorting);
+            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
+            GenerateRandomBooks();
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)
@@ -100,9 +119,22 @@ namespace Library.UI.ViewModel
             }
         }
 
+        public void GenerateRandomBooks()
+        {
+            var mostPopularBooks = _bookBaseRepository.GetAll().Where(book => book.Downloads > 10000).ToList();
+
+            Random randomBook = new Random();
+
+            for (int i = 0; i < 3; i++)
+            {
+                int rnd = randomBook.Next(mostPopularBooks.Count);
+                RandomBookList.Add(_mappingService.BookModelToViewModel(mostPopularBooks[rnd]));
+            }
+        }
+
         public enum Genre
         {
-            [Description("")]
+            [Description("Category")]
             NOT_SET = 0,
             [Description("Drama")]
             Drama,
