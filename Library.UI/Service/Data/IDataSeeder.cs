@@ -1,4 +1,5 @@
 ﻿using Library.UI.Service.API.Dto;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Library.UI.Service.Data
@@ -7,6 +8,6 @@ namespace Library.UI.Service.Data
     {
         Task SeedDataBase();
 
-        void FillDataBase(BookDto[] bookBaseApi);
+        void FillDataBase(List<BookDto> bookBaseApi);
     }
 }

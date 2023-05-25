@@ -58,7 +58,6 @@ namespace Library.UI.ViewModel
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataFiltering = dataFiltering;
-			UpdateView();
 
             // login button //
             //SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
@@ -72,9 +71,11 @@ namespace Library.UI.ViewModel
             //};
         }
 
+        // This methood is initialized in App.xaml.cs. There is no need to initialize it in MainViewModel constructor.
 		public async Task SeedDatabase()
 		{
-			await _dataSeeder.SeedDataBase(); 
+			await _dataSeeder.SeedDataBase();
+            UpdateView();
 		}
 
         public void UpdateView()

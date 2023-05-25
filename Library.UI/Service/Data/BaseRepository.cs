@@ -1,6 +1,5 @@
 ﻿using Library.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,11 +23,6 @@ namespace Library.UI.Services
             _context = context;
             _dbSet = _context.Set<TEntity>();
         }
-
-        //public virtual IEnumerable<TEntity> GetWithRawSql(string query, params object[] parameters)
-        //{
-        //    return _dbSet.FromSqlRaw(query, parameters).ToList();
-        //}
 
         public virtual IEnumerable<TEntity> GetAll()
         {

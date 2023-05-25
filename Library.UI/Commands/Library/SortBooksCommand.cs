@@ -12,7 +12,7 @@ namespace Library.UI.Commands.Library
 
         public override void Execute(object parameter)
         {
-            _libraryViewModel.DisplayBooks(_dataSorting.DisplaySelectedNumberOfBooks
+            _libraryViewModel.DisplayBooks(_dataSorting.SortBooks
                 (_libraryViewModel.SortingMethods, _libraryViewModel.Quantity, _libraryViewModel.Genres));
         }
 

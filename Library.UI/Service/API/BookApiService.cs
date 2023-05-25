@@ -1,6 +1,8 @@
 ﻿using Library.UI.Service.API.Dto;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -18,25 +20,44 @@ namespace Library.UI.Service.API
             };
         }
 
-        public async Task<GetBooksResponse> GetBooksAsync()
+        public async Task<List<BookDto>> GetBooksAsync()
         {
-            var result = new GetBooksResponse();
-            var url = "/books/";
+            var books = new List<BookDto>();
+            var url = "/books/?page=";
 
-            var response = await _http.GetAsync(url);
-
-            if (response.IsSuccessStatusCode)
+            for (int pageNumber = 1; pageNumber <= 40; pageNumber++)
             {
-                var stringResponse = await response.Content.ReadAsStringAsync();
+                var response = await _http.GetAsync(url + pageNumber);
 
-                result = JsonConvert.DeserializeObject<GetBooksResponse>(stringResponse);
-            }
-            else
-            {
-                throw new HttpRequestException(response.ReasonPhrase);
+                if (response.IsSuccessStatusCode)
+                {
+                    var stringResponse = await response.Content.ReadAsStringAsync();
+                    var pageResult = JsonConvert.DeserializeObject<GetBooksResponse>(stringResponse);
+
+                    if (pageResult.Results.Length > 0)
+                    {
+                        books.AddRange(pageResult.Results);
+                        pageNumber++;
+
+                        if (string.IsNullOrEmpty(pageResult.Next))
+                        {
+                            // Brak więcej wyników, opuść pętlę
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        // Brak więcej wyników, opuść pętlę
+                        break;
+                    }
+                }
+                else
+                {
+                    throw new HttpRequestException(response.ReasonPhrase);
+                }
             }
 
-            return result;
+            return books;
         }
     }
 }

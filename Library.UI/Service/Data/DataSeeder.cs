@@ -15,7 +15,7 @@ namespace Library.UI.Service.Data
 {
     public class DataSeeder : IDataSeeder
     {
-        private readonly IBaseRepository<BookModel> _baseRepository;
+        private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly LibraryDbContext _libraryDbContext;
 
@@ -27,11 +27,11 @@ namespace Library.UI.Service.Data
 
         private readonly IDataSorting _dataFiltering;
 
-        public DataSeeder(IBaseRepository<BookModel> baseRepository, LibraryDbContext libraryDbContext,
+        public DataSeeder(IBaseRepository<BookModel> bookBaseRepository, LibraryDbContext libraryDbContext,
             IBookApiService bookApiService, IBaseRepository<LanguageModel> langBaseRepository,
             IBaseRepository<AuthorModel> authBaseRepository, IDataSorting dataFiltering)
         {
-            _baseRepository = baseRepository;
+            _bookBaseRepository = bookBaseRepository;
             _libraryDbContext = libraryDbContext;
             _bookApiService = bookApiService;
             _lngBaseRepository = langBaseRepository;
@@ -44,36 +44,32 @@ namespace Library.UI.Service.Data
             // removes data from database if exist
             if (await _libraryDbContext.Books.AnyAsync())
             {
-                var bookList = _baseRepository.GetAll().ToList();
+                var bookList = _bookBaseRepository.GetAll().ToList();
                 foreach (var book in bookList)
                 {
-                    _baseRepository.Delete(book);
-                }
-            }
+                    _bookBaseRepository.Delete(book);
 
-            if (await _libraryDbContext.Languages.AnyAsync())
-            {
+                }
                 var languageList = _lngBaseRepository.GetAll().ToList();
                 foreach (var language in languageList)
                 {
                     _lngBaseRepository.Delete(language);
                 }
-            }
-
-            if (await _libraryDbContext.Authors.AnyAsync())
-            {
                 var authorList = _authBaseRepository.GetAll().ToList();
                 foreach (var author in authorList)
                 {
                     _authBaseRepository.Delete(author);
                 }
+                _bookBaseRepository.Save();
+                _lngBaseRepository.Save();
+                _authBaseRepository.Save();
             }
 
             var bookBaseApi = await _bookApiService.GetBooksAsync();
-            FillDataBase(bookBaseApi.Results);
+            FillDataBase(bookBaseApi);
         }
 
-        public void FillDataBase(BookDto[] bookBaseApi)
+        public void FillDataBase(List<BookDto> bookBaseApi)
         {
             // Adding enum language list to database
             List<string> enumLanguageList = Enum.GetNames(typeof(LanguageModel.Languages)).ToList();
@@ -90,7 +86,8 @@ namespace Library.UI.Service.Data
                 _lngBaseRepository.Save();
             }
 
-            // Inserting new book
+
+            // Inserting New Book
             foreach (var bookApi in bookBaseApi)
             {
                 BookModel book = new BookModel()
@@ -100,46 +97,56 @@ namespace Library.UI.Service.Data
                 };
 
 
-                // Adding Authors first name and last name to Book object
-                if (bookApi.Authors == null)
-                {
-                    book.Author = new AuthorModel() 
-                    { 
-                        FirstName = "Unknown", 
-                        LastName = "Unknown", 
-                        BirthYear = 0, 
-                        DeathYear = 0 };
-                }
+                // Adding Author object
+                if (bookApi.Authors.Length == 0) continue;
 
                 foreach (var authorDetails in bookApi.Authors)
                 {
-                    string[] nameSplit = authorDetails.Name.Split(',');
-                    book.Author = new AuthorModel()
+                    if (authorDetails.Name == null) continue;
+                    if (authorDetails.Birth_Year == null) authorDetails.Birth_Year = 0;
+                    if (authorDetails.Death_Year == null) authorDetails.Death_Year = 0;
+
+                    string[] nameSplit = authorDetails.Name.Split(", ");
+                    
+                    if (nameSplit.Length == 1)
                     {
-                        FirstName = nameSplit[1],
-                        LastName = nameSplit[0],
-                        BirthYear = (int)authorDetails.Birth_Year,
-                        DeathYear = (int)authorDetails.Death_Year,
-                    };
+                        book.Author = new AuthorModel()
+                        {
+                            FirstName = nameSplit[0],
+                            LastName = " ",
+                            BirthYear = (int)authorDetails.Birth_Year,
+                            DeathYear = (int)authorDetails.Death_Year,
+                        };
+                    }
+                    else
+                    {
+                        book.Author = new AuthorModel()
+                        {
+                            FirstName = nameSplit[1],
+                            LastName = nameSplit[0],
+                            BirthYear = (int)authorDetails.Birth_Year,
+                            DeathYear = (int)authorDetails.Death_Year,
+                        };
+                    }
                 }
 
-                // Adding Category to Book object
-                string[] categorySplit = bookApi.Subjects[0].TrimStart().Split(new string[] { "-- " }, StringSplitOptions.RemoveEmptyEntries);
-                int counter = categorySplit.Count();
 
-                var category = categorySplit[counter - 1];
+                // Adding Category
                 string[] enumCategories = Enum.GetNames(typeof(Genre));
-
                 for (int i = 0; i < enumCategories.Length; i++)
                 {
                     enumCategories[i] = enumCategories[i].Replace('_', ' ');
                 }
 
+                string[] categorySplit = bookApi.Subjects[0].TrimStart().Split(new string[] { "-- " }, StringSplitOptions.RemoveEmptyEntries);
+                int counter = categorySplit.Count();
+                var bookCategory = categorySplit[counter - 1];
+
                 foreach (var enumCategory in enumCategories)
                 {
-                    if (category == enumCategory)
+                    if (bookCategory == enumCategory)
                     {
-                        book.Category = category;
+                        book.Category = bookCategory;
                         break;
                     }
                     book.Category = "Other";
@@ -162,8 +169,8 @@ namespace Library.UI.Service.Data
 
                 book.Languages = matchedLanguages;
 
-                _baseRepository.Insert(book);
-                _baseRepository.Save();
+                _bookBaseRepository.Insert(book);
+                _bookBaseRepository.Save();
             }
         }
     }

@@ -23,7 +23,7 @@ namespace Library.UI.Service.Data
             _lngBaseRepository = lngBaseRepository;
         }
 
-        public List<BookModel> SortBooks(LibraryViewModel.SortingMethod selectedMethod, 
+        public List<BookModel> SortBooks(LibraryViewModel.SortingMethod selectedMethod,
             LibraryViewModel.BookQuantity selectedQuantity, LibraryViewModel.Genre selectedCategory)
         {
             if (selectedQuantity == LibraryViewModel.BookQuantity.NOT_SET)
@@ -37,7 +37,11 @@ namespace Library.UI.Service.Data
             {
                 bookList = _bookBaseRepository.GetAll().ToList();
             }
-            bookList = _bookBaseRepository.GetAll().Where(c => c.Category == selectedCategory.ToString()).ToList();
+            else
+            {
+                bookList = _bookBaseRepository.GetAll().Where(c => c.Category == string.Join(" ", selectedCategory.ToString().Split('_'))).ToList();
+            }
+
 
             // app startup setup
             if (selectedMethod == LibraryViewModel.SortingMethod.NOT_SET && selectedQuantity == LibraryViewModel.BookQuantity.NOT_SET)
