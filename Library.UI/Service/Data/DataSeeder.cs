@@ -153,14 +153,15 @@ namespace Library.UI.Service.Data
                 }
 
 
-                // Adding Language to Book object. The Language Object is a collection.
+                // Adding Language Object (Language Object is a collection)
                 List<LanguageModel> databaseLanguageList = _lngBaseRepository.GetAll().ToList();
                 List<string> bookLanguageList = bookApi.Languages.ToList();
+
                 List<LanguageModel> matchedLanguages = new List<LanguageModel>();
 
                 foreach (var bookLanguage in bookLanguageList)
                 {
-                    var matchingLanguage = databaseLanguageList.FirstOrDefault(lang => lang.Language == bookLanguage);
+                    var matchingLanguage = databaseLanguageList.FirstOrDefault(language => language.Language == bookLanguage);
                     if (matchingLanguage != null)
                     {
                         matchedLanguages.Add(matchingLanguage);

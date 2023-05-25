@@ -11,16 +11,9 @@ namespace Library.UI.Service.Data
     {
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
-        private readonly IBaseRepository<AuthorModel> _authBaseRepository;
-
-        private readonly IBaseRepository<LanguageModel> _lngBaseRepository;
-
-        public DataSorting(IBaseRepository<BookModel> bookBaseRepository, IBaseRepository<AuthorModel> authBaseRepository,
-       IBaseRepository<LanguageModel> lngBaseRepository)
+        public DataSorting(IBaseRepository<BookModel> bookBaseRepository)
         {
             _bookBaseRepository = bookBaseRepository;
-            _authBaseRepository = authBaseRepository;
-            _lngBaseRepository = lngBaseRepository;
         }
 
         public List<BookModel> SortBooks(LibraryViewModel.SortingMethod selectedMethod,
