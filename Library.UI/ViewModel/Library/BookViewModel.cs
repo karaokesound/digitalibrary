@@ -63,13 +63,13 @@ namespace Library.UI.ViewModel.Library
         }
 
 
-        private ICollection<LanguageModel> _languages;
-        public ICollection<LanguageModel> Languages 
+        private ICollection<BookLanguageModel> _bookLanguages;
+        public ICollection<BookLanguageModel> BookLanguages 
         {
-            get => _languages;
+            get => _bookLanguages;
             set
             {
-                _languages = value;
+                _bookLanguages = value;
                 OnPropertyChanged();
             }
         }

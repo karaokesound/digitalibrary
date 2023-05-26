@@ -1,5 +1,4 @@
-﻿using Library.UI.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Library.Models.Model
@@ -10,7 +9,7 @@ namespace Library.Models.Model
 
         public string Language { get; set; }
 
-        public ICollection<BookModel> Books { get; set; }
+        public ICollection<BookLanguageModel> BookLanguages { get; set; }
 
         public enum Languages
         {

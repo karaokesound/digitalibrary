@@ -53,6 +53,7 @@ namespace Library.UI
             services.AddSingleton<IBaseRepository<BookModel>, BaseRepository<BookModel>>();
             services.AddSingleton<IBaseRepository<LanguageModel>, BaseRepository<LanguageModel>>();
             services.AddSingleton<IBaseRepository<AuthorModel>, BaseRepository<AuthorModel>>();
+            services.AddSingleton<IBaseRepository<BookLanguageModel>, BaseRepository<BookLanguageModel>>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IMappingService, MappingService>();
             services.AddSingleton<IBookApiService, BookApiService>();

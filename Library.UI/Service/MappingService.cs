@@ -16,7 +16,7 @@ namespace Library.UI.Services
                 Title = book.Title,
                 Category = book.Category,
                 Downloads = book.Downloads,
-                Languages = book.Languages,
+                BookLanguages = book.BookLanguages,
                 Author = new AuthorViewModel()
                 {
                     AuthorId = author.AuthorId,
@@ -36,7 +36,7 @@ namespace Library.UI.Services
                 Title = bookVM.Title,
                 Category = bookVM.Category,
                 Downloads = bookVM.Downloads,
-                Languages = bookVM.Languages,
+                BookLanguages = bookVM.BookLanguages,
                 Author = new AuthorModel()
                 {
                     AuthorId = authorVM.AuthorId,

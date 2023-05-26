@@ -4,7 +4,6 @@ using Library.UI.Model;
 using Library.UI.Service.API;
 using Library.UI.Service.API.Dto;
 using Library.UI.Services;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,28 +40,9 @@ namespace Library.UI.Service.Data
 
         public async Task SeedDataBase()
         {
-            // removes data from database if exist
-            if (await _libraryDbContext.Books.AnyAsync())
+            if (_libraryDbContext.Books.Any())
             {
-                var bookList = _bookBaseRepository.GetAll().ToList();
-                foreach (var book in bookList)
-                {
-                    _bookBaseRepository.Delete(book);
-
-                }
-                var languageList = _lngBaseRepository.GetAll().ToList();
-                foreach (var language in languageList)
-                {
-                    _lngBaseRepository.Delete(language);
-                }
-                var authorList = _authBaseRepository.GetAll().ToList();
-                foreach (var author in authorList)
-                {
-                    _authBaseRepository.Delete(author);
-                }
-                _bookBaseRepository.Save();
-                _lngBaseRepository.Save();
-                _authBaseRepository.Save();
+                return;
             }
 
             var bookBaseApi = await _bookApiService.GetBooksAsync();
@@ -153,7 +133,7 @@ namespace Library.UI.Service.Data
                 }
 
 
-                // Adding Language Object (Language Object is a collection)
+                // Adding Language Object (The Language Object is a collection)
                 List<LanguageModel> databaseLanguageList = _lngBaseRepository.GetAll().ToList();
                 List<string> bookLanguageList = bookApi.Languages.ToList();
 
@@ -168,7 +148,19 @@ namespace Library.UI.Service.Data
                     }
                 }
 
-                book.Languages = matchedLanguages;
+                List<BookLanguageModel> matchedBookLanguages = new List<BookLanguageModel>();
+
+                foreach (var language in matchedLanguages)
+                {
+                    var matched = new BookLanguageModel()
+                    {
+                        BookId = book.BookId,
+                        LanguageId = language.LanguageId
+                    };
+                    matchedBookLanguages.Add(matched);
+                }
+
+                book.BookLanguages = matchedBookLanguages;
 
                 _bookBaseRepository.Insert(book);
                 _bookBaseRepository.Save();

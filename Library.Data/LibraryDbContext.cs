@@ -11,6 +11,7 @@ namespace Library.Data
         public DbSet<BookModel> Books { get; set; }
         public DbSet<UserModel> Users { get; set; }
         public DbSet<LanguageModel> Languages { get; set; }
+        public DbSet<BookLanguageModel> BookLanguages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,6 +24,7 @@ namespace Library.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuthorConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(LanguageConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookLanguageConfiguration).Assembly);
         }
     }
 }

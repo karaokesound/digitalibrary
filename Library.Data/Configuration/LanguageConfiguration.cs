@@ -13,8 +13,6 @@ namespace Library.Data.Configuration
             builder.HasKey(l => l.LanguageId);
             builder.Property(l => l.LanguageId).ValueGeneratedOnAdd();
             builder.Property(l => l.Language);
-            builder.HasMany(b => b.Books)
-                .WithMany(l => l.Languages);
         }
     }
 }

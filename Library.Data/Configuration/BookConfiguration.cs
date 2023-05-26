@@ -15,10 +15,11 @@ namespace Library.Data.Configuration
             builder.Property(b => b.Downloads);
             builder.Property(b => b.Category)
                 .HasConversion<string>();
+
+            // one-to-many
             builder.HasOne(a => a.Author)
                 .WithMany(b => b.Books);
-            builder.HasMany(l => l.Languages)
-                .WithMany(b => b.Books);
+
         }
     }
 }

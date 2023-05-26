@@ -14,7 +14,7 @@ namespace Library.UI.Model
 
         public string Category { get; set; }
 
-        public ICollection<LanguageModel> Languages { get; set; }
+        public ICollection<BookLanguageModel> BookLanguages { get; set; }
 
         public int Downloads { get; set; }
 

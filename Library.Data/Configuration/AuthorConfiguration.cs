@@ -16,6 +16,7 @@ namespace Library.Data.Configuration
             builder.Property(a => a.BirthYear);
             builder.Property(a => a.DeathYear);
 
+            // many-to-one
             builder.HasMany(b => b.Books)
                 .WithOne(a => a.Author);
         }

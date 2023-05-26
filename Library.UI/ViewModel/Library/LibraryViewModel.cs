@@ -123,6 +123,8 @@ namespace Library.UI.ViewModel
         {
             var mostPopularBooks = _bookBaseRepository.GetAll().Where(book => book.Downloads > 10000).ToList();
 
+            if (mostPopularBooks == null || mostPopularBooks.Count == 0) return;
+
             Random randomBook = new Random();
 
             for (int i = 0; i < 3; i++)
