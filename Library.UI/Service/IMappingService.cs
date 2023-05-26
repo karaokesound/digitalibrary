@@ -6,9 +6,9 @@ namespace Library.UI.Service
 {
     public interface IMappingService
     {
-        public BookViewModel BookModelToViewModel(BookModel book);
+        public BookViewModel BookModelToViewModel(BookModel book, AuthorModel author);
 
-        public BookModel BookViewModelToModel(BookViewModel bookVM);
+        public BookModel BookViewModelToModel(BookViewModel bookVM, AuthorViewModel authorVM);
 
         public UserViewModel UserModelToViewModel(UserModel signUp);
 

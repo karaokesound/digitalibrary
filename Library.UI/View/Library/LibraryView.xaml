@@ -7,7 +7,7 @@
              d:DesignHeight="620" d:DesignWidth="920">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.12*" />
+            <RowDefinition Height="0.09*" />
             <!--// main row nr 1 //-->
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -49,24 +49,23 @@
 
             <!--// search //-->
             <TextBox Grid.Column="1"
-                     Style="{StaticResource searchBox}" 
-                     />
+                     Style="{StaticResource searchBox}" />
             <Border Grid.Column="1"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right"
-                    Margin="0 0 26 5"
+                    Margin="0 0 58 8"
                     Background="White"
                     Opacity="0.2"
                     CornerRadius="10"
-                    Height="30"
-                    Width="30" />
+                    Height="25"
+                    Width="25" />
             <Image Grid.Column="1"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Bottom"
-                   Margin="0 0 30 8"
+                   Margin="0 0 60.5 10"
                    Source="/Resources/Images/search.png"
-                   Width="20"
-                   Height="20"
+                   Width="17"
+                   Height="17"
                    RenderOptions.BitmapScalingMode="Fant"/>
 
             <!--// exit, minimize //-->
@@ -82,62 +81,77 @@
             </StackPanel>
         </Grid>
 
-        <!--// ROW 1 //-->
+        <!--// ROW 1 ROW 1 ROW 1 ROW 1 //-->
         <Grid Grid.Row="1"
-              Margin="15 0 15 15">
+              Margin="15 20 15 20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.75*" />
+                <RowDefinition Height="0.53*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!--// FOR YOU //-->
-            <Grid Margin="0 20 0 10">
+            <!--// FOR YOU - PANEL //-->
+            <Grid Margin="0 5 0 25">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!--// text //-->
+                <!--// for you - text //-->
                 <TextBlock Text="For you"
                            Foreground="White"
                            FontSize="20" />
 
-                <!--// books //-->
+                <!--// for you - books //-->
                 <Grid Grid.Row="1"
-                      VerticalAlignment="Center"
-                      Margin="0 5">
+                      Margin="0 10 0 0"
+                      Width="910"
+                      HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Border Background="White"
-                            HorizontalAlignment="Left"
-                            Margin="0 0 10 0"
+                            HorizontalAlignment="Center"
                             Opacity="0.4"
-                            Height="130"
-                            Width="245"
+                            Width="160"
                             CornerRadius="14" />
                     <TextBlock Text="{Binding RandomBookList[0].Title,UpdateSourceTrigger=PropertyChanged}"
                                FontSize="25"/>
                     <Border Grid.Column="1"
                             Background="White"
-                            Margin="0 0 0 0"
                             HorizontalAlignment="Center"
                             Opacity="0.4"
-                            Height="130"
-                            Width="245"
+                            Width="160"
                             CornerRadius="14" />
                     <TextBlock Grid.Column="1"
                                Text="{Binding RandomBookList[1].Title, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="25"/>
                     <Border Grid.Column="2"
                             Background="White"
-                            Margin="10 0 0 0"
-                            HorizontalAlignment="Left"
+                            HorizontalAlignment="Center"
                             Opacity="0.4"
-                            Height="130"
-                            Width="245"
+                            Width="160"
+                            CornerRadius="14" />
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding RandomBookList[2].Title, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="25"/>
+                    <Border Grid.Column="3"
+                            Background="White"
+                            HorizontalAlignment="Center"
+                            Opacity="0.4"
+                            Width="160"
+                            CornerRadius="14" />
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding RandomBookList[2].Title, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="25"/>
+                    <Border Grid.Column="4"
+                            Background="White"
+                            HorizontalAlignment="Center"
+                            Opacity="0.4"
+                            Width="160"
                             CornerRadius="14" />
                     <TextBlock Grid.Column="2"
                                Text="{Binding RandomBookList[2].Title, UpdateSourceTrigger=PropertyChanged}"
@@ -145,22 +159,22 @@
                 </Grid>
             </Grid>
 
-            <!--// TOP BOOKS //-->
-            <Grid Grid.Row="1">
+            <!--// TOP BOOKS - PANEL //-->
+            <Grid Grid.Row="1"
+                  Margin="0 10 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!--// top books //-->
+                <!--// top books - text//-->
                 <TextBlock Text="Top books"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Foreground="White"
-                           FontSize="20"
-                           Margin="0 0 0 5"/>
+                           FontSize="20" />
 
-                <!--// select category //-->
+                <!--// top books - comboboxes //-->
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right">
                     <library:CommandComboBox ItemsSource="{Binding SortingMethods, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
@@ -181,20 +195,23 @@
                 </StackPanel>
 
 
-                <!--// books listview //-->
+                <!--// top books - listview //-->
                 <ListView Grid.Row="1"
+                          Margin="0 10 0 0"
+                          VerticalAlignment="Bottom"
+                          Height="240"
                           ItemsSource="{Binding BookList, UpdateSourceTrigger=PropertyChanged}"
-                          MaxHeight="245"
                           ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Test"
-                                            DisplayMemberBinding="{Binding Title,UpdateSourceTrigger=PropertyChanged}">
-                            </GridViewColumn>
+                            <GridViewColumn Header="Title"
+                                            DisplayMemberBinding="{Binding Title,UpdateSourceTrigger=PropertyChanged}" />
                             <GridViewColumn Header="Category"
                                             DisplayMemberBinding="{Binding Category,UpdateSourceTrigger=PropertyChanged}"/>
                             <GridViewColumn Header="Author"
                                             DisplayMemberBinding="{Binding Author.FirstName,UpdateSourceTrigger=PropertyChanged}" />
+                            <GridViewColumn Header=""
+                                            DisplayMemberBinding="{Binding Author.LastName,UpdateSourceTrigger=PropertyChanged}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

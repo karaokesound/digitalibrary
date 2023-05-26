@@ -115,7 +115,7 @@ namespace Library.UI.ViewModel
 
             foreach (var sortedBook in sortedBookList)
             {
-                BookList.Add(_mappingService.BookModelToViewModel(sortedBook));
+                BookList.Add(_mappingService.BookModelToViewModel(sortedBook, sortedBook.Author));
             }
         }
 
@@ -128,7 +128,7 @@ namespace Library.UI.ViewModel
             for (int i = 0; i < 3; i++)
             {
                 int rnd = randomBook.Next(mostPopularBooks.Count);
-                RandomBookList.Add(_mappingService.BookModelToViewModel(mostPopularBooks[rnd]));
+                RandomBookList.Add(_mappingService.BookModelToViewModel(mostPopularBooks[rnd], mostPopularBooks[rnd].Author));
             }
         }
 

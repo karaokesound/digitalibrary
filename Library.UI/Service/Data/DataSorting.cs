@@ -11,9 +11,16 @@ namespace Library.UI.Service.Data
     {
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
-        public DataSorting(IBaseRepository<BookModel> bookBaseRepository)
+        private readonly IBaseRepository<AuthorModel> _authBaseRepository;
+
+        private readonly IBaseRepository<LanguageModel> _lngBaseRepository;
+
+        public DataSorting(IBaseRepository<BookModel> bookBaseRepository, IBaseRepository<AuthorModel> authBaseRepository,
+            IBaseRepository<LanguageModel> lngBaseRepository)
         {
             _bookBaseRepository = bookBaseRepository;
+            _authBaseRepository = authBaseRepository;
+            _lngBaseRepository = lngBaseRepository;
         }
 
         public List<BookModel> SortBooks(LibraryViewModel.SortingMethod selectedMethod,
@@ -25,11 +32,20 @@ namespace Library.UI.Service.Data
             }
 
             List<BookModel> bookList = new List<BookModel>();
+            List<AuthorModel> authorList = new List<AuthorModel>();
+            List<LanguageModel> languageList = new List<LanguageModel>();
+
+            bookList = _bookBaseRepository.GetAll().ToList();
+            authorList = _authBaseRepository.GetAll().ToList();
+            languageList = _lngBaseRepository.GetAll().ToList();
 
             if (selectedCategory == LibraryViewModel.Genre.NOT_SET)
             {
-                bookList = _bookBaseRepository.GetAll().ToList();
+                // If no category is selected, take the default bookList which is defined above.
+                bookList = bookList;
             }
+
+            // If a category is selected, only take books with that category.
             else
             {
                 bookList = _bookBaseRepository.GetAll().Where(c => c.Category == string.Join(" ", selectedCategory.ToString().Split('_'))).ToList();

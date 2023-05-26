@@ -29,8 +29,8 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-        private AuthorModel _author;
-        public AuthorModel Author 
+        private AuthorViewModel _author;
+        public AuthorViewModel Author 
         {
             get => _author;
             set
