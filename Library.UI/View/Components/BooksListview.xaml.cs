@@ -1,10 +1,11 @@
-﻿using System.Windows.Controls;
+﻿using Library.UI.ViewModel;
+using System.Windows.Controls;
 
-namespace Library.UI.Components
+namespace Library.UI.View.Components
 {
-    public partial class BooksListview : UserControl
+    public partial class BooksListView : UserControl
     {
-        public BooksListview()
+        public BooksListView()
         {
             InitializeComponent();
         }

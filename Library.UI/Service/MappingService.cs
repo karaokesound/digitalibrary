@@ -13,6 +13,7 @@ namespace Library.UI.Services
             return new BookViewModel()
             {
                 BookId = book.BookId,
+                BookCounter = book.BookCounter,
                 Title = book.Title,
                 Category = book.Category,
                 Downloads = book.Downloads,
@@ -33,6 +34,7 @@ namespace Library.UI.Services
             return new BookModel()
             {
                 BookId = bookVM.BookId,
+                BookCounter = bookVM.BookCounter,
                 Title = bookVM.Title,
                 Category = bookVM.Category,
                 Downloads = bookVM.Downloads,

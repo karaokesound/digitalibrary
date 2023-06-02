@@ -10,6 +10,7 @@ namespace Library.Data.Configuration
         {
             builder.ToTable("Books");
             builder.HasKey(b => b.BookId);
+            builder.Ignore(b => b.BookCounter);
             builder.Property(b => b.BookId).ValueGeneratedOnAdd();
             builder.Property(b => b.Title);
             builder.Property(b => b.Downloads);

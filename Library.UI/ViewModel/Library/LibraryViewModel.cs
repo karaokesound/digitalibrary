@@ -86,6 +86,18 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private int _bookCounter;
+        public int BookCounter
+        {
+            get => _bookCounter;
+            set
+            {
+                _bookCounter = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public ICommand LibraryUpdateViewCommand { get; }
 
         public ICommand SortBooksCommand { get; }
@@ -112,9 +124,13 @@ namespace Library.UI.ViewModel
         public void DisplayBooks(List<BookModel> sortedBookList)
         {
             BookList.Clear();
+            BookCounter = 0;
+            _bookCounter = 0;
 
             foreach (var sortedBook in sortedBookList)
             {
+                _bookCounter++;
+                sortedBook.BookCounter = _bookCounter;
                 BookList.Add(_mappingService.BookModelToViewModel(sortedBook, sortedBook.Author));
             }
         }
@@ -127,7 +143,7 @@ namespace Library.UI.ViewModel
 
             Random randomBook = new Random();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 int rnd = randomBook.Next(mostPopularBooks.Count);
                 RandomBookList.Add(_mappingService.BookModelToViewModel(mostPopularBooks[rnd], mostPopularBooks[rnd].Author));

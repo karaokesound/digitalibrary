@@ -8,6 +8,8 @@ namespace Library.UI.Model
     {
         public Guid BookId { get; set; }
 
+        public int BookCounter { get; set; }
+
         public string Title { get; set; }
 
         public AuthorModel Author { get; set; }

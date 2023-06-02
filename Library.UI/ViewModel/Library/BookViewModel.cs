@@ -18,6 +18,18 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
+        private int _bookCounter;
+        public int BookCounter
+        {
+            get => _bookCounter;
+            set 
+            { 
+                _bookCounter = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private string _title;
         public string Title 
         {
