@@ -46,6 +46,12 @@ namespace Library.UI.ViewModel
 
         private readonly IDataSorting _dataFiltering;
 
+        private readonly IUserAuthenticationService _userAuthenticationService;
+
+        private readonly IValidationService _validationService;
+
+        private readonly IUserRepository _userRepository;
+
         public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
 			LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
 			IDataSorting dataFiltering)
@@ -58,6 +64,9 @@ namespace Library.UI.ViewModel
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataFiltering = dataFiltering;
+            //_userAuthenticationService = userAuthenticationService;
+            //_validationService = validationService;
+            //_userRepository = userRepository;
 
             // login button //
             //SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
@@ -75,12 +84,12 @@ namespace Library.UI.ViewModel
 		public async Task SeedDatabase()
 		{
 			await _dataSeeder.SeedDataBase();
-            UpdateView();
+            //UpdateView();
 		}
 
-        public void UpdateView()
-        {
-            SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
-        }
+        //public void UpdateView()
+        //{
+        //    SelectedViewModel = new MainViewModel(AccountPanelVM, SignInPanelVM, SignUpPanelVM, LibraryVM, _dataSeeder, _bookBaseRepository, _mappingService, _dataFiltering)
+        //}
     }
 }
