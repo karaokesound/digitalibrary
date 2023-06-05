@@ -1,0 +1,142 @@
+﻿<UserControl x:Class="Library.UI.View.Components.TopBooksPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Library.UI.View.Components" xmlns:library="clr-namespace:Library.UI.Resources.Library"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.16*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--// TEXT//-->
+        <TextBlock Text="Top books"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Foreground="#f5eef8"
+                   FontSize="20" />
+
+        <!--// LISTVIEW, COMBOBOXES //-->
+        <Grid Grid.Row="1"
+              Margin="0 10 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--// table headers //-->
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            Margin="8.5 0 0 5"
+                            TextBlock.Foreground="#1c2833"
+                            TextBlock.FontWeight="Bold"
+                            VerticalAlignment="Bottom">
+                    <TextBlock Text="Pos."
+                               Width="40" />
+                    <TextBlock Text="Title"
+                               Width="250"/>
+                    <TextBlock Text="Category" 
+                               Width="150"/>
+                    <TextBlock Text="Author"
+                               Width="88"/>
+                </StackPanel>
+
+                <!--// comboboxes //-->
+                <StackPanel Orientation="Horizontal">
+                    <library:CommandComboBox Style="{DynamicResource SortingComboBox}" 
+                                             ItemsSource="{Binding SortingMethods, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                             SelectedValuePath="Value"
+                                             DisplayMemberPath="Description"
+                                             SelectedValue="{Binding SortingMethods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Command="{Binding SortBooksCommand}"/>
+                    <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
+                                             ItemsSource="{Binding Quantity, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                             SelectedValuePath="Value"
+                                             DisplayMemberPath="Description"
+                                             SelectedValue="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Command="{Binding SortBooksCommand}"/>
+                    <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
+                                             ItemsSource="{Binding Genres, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                             SelectedValuePath="Value"
+                                             DisplayMemberPath="Description"
+                                             SelectedValue="{Binding Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Command="{Binding SortBooksCommand}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!--// LISTVIEW //-->
+            <Grid Grid.Row="1">
+
+                <!--// listview background //-->
+                <Border CornerRadius="5"
+                        Background="White"
+                        Opacity="0.7" />
+
+                <!--// listview //-->
+                <ListView ItemsSource="{Binding BookList, UpdateSourceTrigger=PropertyChanged}"
+                          >
+                    <!--// template //-->
+                    <ListView.Template>
+                        <ControlTemplate TargetType="{x:Type ListView}">
+                            <Border CornerRadius="6">
+                                <ScrollViewer Style="{StaticResource FavsScrollViewer}">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+                    </ListView.Template>
+
+
+                    <!--// columns //-->
+                    <ListView.View>
+                        <GridView>
+
+                            <!--// pos. //-->
+                            <GridViewColumn Width="40">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Border BorderBrush="#263238"
+                                                    BorderThickness="0 0 0 2"
+                                                    Width="30"
+                                                    HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding BookCounter,UpdateSourceTrigger=PropertyChanged}"
+                                                       HorizontalAlignment="Center"
+                                                       FontSize="13"
+                                                       FontWeight="Bold"
+                                                       Foreground="#263238"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <!--// title //-->
+                            <GridViewColumn Width="250">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+                                                       Style="{StaticResource ListViewTextBlock}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <!--// category //-->
+                            <GridViewColumn Width="150"
+                                            DisplayMemberBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <!--// author //-->
+                            <GridViewColumn Width="150"
+                                            DisplayMemberBinding="{Binding Author.FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Author.LastName, UpdateSourceTrigger=PropertyChanged}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
