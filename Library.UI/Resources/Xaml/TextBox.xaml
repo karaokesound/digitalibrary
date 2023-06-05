@@ -140,7 +140,9 @@
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
     <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#a2d9ce"/>
     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="White"/>
-    <Style x:Key="signUpTextBox" TargetType="{x:Type TextBox}">
+    <Style x:Key="signUpTextBox"
+           x:Name="template"
+           TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="#e8f8f5"/>
         <Setter Property="BorderBrush" Value="#a2d9ce"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -205,6 +207,23 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
             </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--// SIGN IN / SIGN UP TEXTBLOCK //-->
+    <Style TargetType="{x:Type TextBlock}"
+           x:Key="signUpTextBlock">
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Setter Property="IsHitTestVisible" Value="True" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="20 0 0 0" />
+        <Setter Property="Foreground" Value="DarkGray" />
+        <Setter Property="Text" Value="Text" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=template}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 

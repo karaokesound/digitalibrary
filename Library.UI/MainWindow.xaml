@@ -20,7 +20,7 @@
         <!--// LEFT BACKGROUND //-->
         <Border Grid.ColumnSpan="2"
                 Background="White"
-                CornerRadius="20 0 0 20" />
+                CornerRadius="20 20 20 20" />
 
         <Image Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
                Stretch="UniformToFill"
