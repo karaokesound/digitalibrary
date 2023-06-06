@@ -93,8 +93,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border CornerRadius="5" 
-                            Background="  #5dade2  "
-                            Opacity="0.64"
+                            Background="#000066"
+                            Opacity="0.9"
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="0" 
                             Width="12" />
@@ -303,16 +303,16 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Rectangle Margin="2" 
-                               StrokeDashArray="1 2" 
-                               Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
-                               SnapsToDevicePixels="true" 
-                               StrokeThickness="1"/>
+                           StrokeDashArray="1 2" 
+                           Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
+                           SnapsToDevicePixels="true" 
+                           StrokeThickness="1"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     <SolidColorBrush x:Key="TextBox.Static.Background" Color="#FFFFFFFF"/>
-    
+
     <Style x:Key="ComboBoxEditableTextBox" TargetType="{x:Type TextBox}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="AllowDrop" Value="true"/>
@@ -325,24 +325,21 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <ScrollViewer x:Name="PART_ContentHost" 
-                                  Background="Transparent" 
-                                  Focusable="false" 
-                                  HorizontalScrollBarVisibility="Hidden" 
-                                  VerticalScrollBarVisibility="Hidden"/>
+                              Background="Yellow" 
+                              Focusable="false" 
+                              HorizontalScrollBarVisibility="Hidden" 
+                              VerticalScrollBarVisibility="Hidden"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!--// STATIC //-->
-    <LinearGradientBrush x:Key="ComboBox.Static.Background" EndPoint="0,1" StartPoint="0,0">
-        <GradientStop Color="#003366" Offset="0.0"/>
-        <GradientStop Color="#154360" Offset="1.0"/>
-    </LinearGradientBrush>
-    <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#2471a3"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#FF606060"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#0b2f24 " />
+    <SolidColorBrush x:Key="ComboBox.Static.Border" Color=" #375a4f"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="Black"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color=" #006699 "/>
-    <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#FFABADB3"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color=" #8d6e63 "/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent"/>
     
@@ -399,20 +396,19 @@
                             BorderBrush="{StaticResource ComboBox.Static.Border}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             SnapsToDevicePixels="true"
-                            Width="125"
-                            Height="35">
+                            Width="25"
+                            Height="25">
                         <Border x:Name="splitBorder" 
                                 CornerRadius="10" 
                                 BorderBrush="Transparent" 
                                 BorderThickness="2.5" 
                                 HorizontalAlignment="Right" 
-                                Margin="0" 
                                 SnapsToDevicePixels="true" 
                                 Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
                             <Path x:Name="arrow" 
                                   Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" 
                                   Fill="White"
-                                  HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -575,7 +571,7 @@
                             BorderThickness="2"
                             CornerRadius="7"
                             TextBlock.FontSize="13"
-                            TextBlock.Foreground="White">
+                            TextBlock.Foreground="Black">
                         <ScrollViewer x:Name="DropDownScrollViewer">
                             <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                                 <Canvas x:Name="canvas" 
@@ -651,7 +647,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Width" Value="28" />
         <Setter Property="Height" Value="28" />

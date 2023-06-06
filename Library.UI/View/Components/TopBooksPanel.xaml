@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Library.UI.View.Components" xmlns:library="clr-namespace:Library.UI.Resources.Library"
              mc:Ignorable="d" 
+             FontFamily="Rubik"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,7 +17,7 @@
         <TextBlock Text="Top books"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"
-                   Foreground="#f5eef8"
+                   Foreground="Black"
                    FontSize="20" />
 
         <!--// LISTVIEW, COMBOBOXES //-->
@@ -31,7 +32,7 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal"
                             Margin="8.5 0 0 5"
-                            TextBlock.Foreground="#1c2833"
+                            TextBlock.Foreground=" #1b2631 "
                             TextBlock.FontWeight="Bold"
                             VerticalAlignment="Bottom">
                     <TextBlock Text="Pos."
@@ -41,7 +42,7 @@
                     <TextBlock Text="Category" 
                                Width="150"/>
                     <TextBlock Text="Author"
-                               Width="88"/>
+                               Width="374"/>
                 </StackPanel>
 
                 <!--// comboboxes //-->
@@ -51,33 +52,35 @@
                                              SelectedValuePath="Value"
                                              DisplayMemberPath="Description"
                                              SelectedValue="{Binding SortingMethods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             Command="{Binding SortBooksCommand}"/>
+                                             Command="{Binding SortBooksCommand}" />
                     <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
                                              ItemsSource="{Binding Quantity, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
                                              SelectedValuePath="Value"
                                              DisplayMemberPath="Description"
                                              SelectedValue="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             Command="{Binding SortBooksCommand}"/>
+                                             Command="{Binding SortBooksCommand}"
+                                             Margin="0"/>
                     <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
                                              ItemsSource="{Binding Genres, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
                                              SelectedValuePath="Value"
                                              DisplayMemberPath="Description"
                                              SelectedValue="{Binding Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             Command="{Binding SortBooksCommand}"/>
+                                             Command="{Binding SortBooksCommand}" />
                 </StackPanel>
             </StackPanel>
 
             <!--// LISTVIEW //-->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1"
+                  Margin="0 3 0 0">
 
                 <!--// listview background //-->
                 <Border CornerRadius="5"
-                        Background="White"
-                        Opacity="0.7" />
+                        Background="  #1a237e  "
+                        Opacity="0.993" />
 
                 <!--// listview //-->
                 <ListView ItemsSource="{Binding BookList, UpdateSourceTrigger=PropertyChanged}"
-                          >
+                          TextBlock.Foreground="White">
                     <!--// template //-->
                     <ListView.Template>
                         <ControlTemplate TargetType="{x:Type ListView}">
@@ -95,19 +98,23 @@
                         <GridView>
 
                             <!--// pos. //-->
-                            <GridViewColumn Width="40">
+                            <GridViewColumn Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <Border BorderBrush="#263238"
-                                                    BorderThickness="0 0 0 2"
-                                                    Width="30"
+                                            <Border BorderBrush=" #303f9f "
+                                                    Background="#000066"
+                                                    BorderThickness="2.5"
+                                                    CornerRadius="8"
+                                                    Width="35"
+                                                    Height="25"
                                                     HorizontalAlignment="Center"/>
                                             <TextBlock Text="{Binding BookCounter,UpdateSourceTrigger=PropertyChanged}"
                                                        HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
                                                        FontSize="13"
                                                        FontWeight="Bold"
-                                                       Foreground="#263238"/>
+                                                       Foreground="White"/>
                                         </Grid>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>

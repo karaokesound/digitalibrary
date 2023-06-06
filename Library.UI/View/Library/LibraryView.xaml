@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" xmlns:library="clr-namespace:Library.UI.Resources.Library" xmlns:components="clr-namespace:Library.UI.View.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="620" d:DesignWidth="920">
+             d:DesignHeight="620" d:DesignWidth="920"
+             FontFamily="Rubik">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.09*" />
@@ -12,26 +13,27 @@
         </Grid.RowDefinitions>
 
         <!--// NAVIGATION BAR BACKGROUND //-->
-        <Border CornerRadius="20 20 0 0">
+        <Border CornerRadius="20 20 0 0"
+                MouseDown="Border_MouseDown">
             <Border.Background>
-                <ImageBrush ImageSource="https://img.freepik.com/free-vector/abstract-background-concept_23-2148486861.jpg?t=st=1683696169~exp=1683696769~hmac=a1a749e58621d6858d442da59f99ef6832bcb3dd9d72e1c0a192a85fd5712167"
+                <ImageBrush ImageSource="https://st2.depositphotos.com/1756201/8010/i/450/depositphotos_80108908-stock-photo-navy-blue-abstract-background.jpg"
                             Stretch="UniformToFill" />
             </Border.Background>
         </Border>
+        
 
         <!--// MAIN BACKGROUND //-->
         <Border CornerRadius="0 0 20 20"
                 Grid.Row="1">
             <Border.Background>
-                <ImageBrush ImageSource="https://img.freepik.com/free-vector/abstract-background-concept_23-2148486861.jpg?t=st=1683696169~exp=1683696769~hmac=a1a749e58621d6858d442da59f99ef6832bcb3dd9d72e1c0a192a85fd5712167"
-                            Stretch="UniformToFill" />
+                <ImageBrush ImageSource="https://wallpaperaccess.com/full/2312616.jpg"
+                            Stretch="UniformToFill" 
+                            RenderOptions.BitmapScalingMode="Fant"/>
             </Border.Background>
         </Border>
-        <Border Grid.Row="1"
-                CornerRadius="0 0 20 20"
-                Background="#2471a3"
-                Opacity="0.65">
-        </Border>
+        <Border Background=" #aed6f1 "
+                Opacity="0"
+                Grid.Row="1" />
 
         <!--// NAVIGATION BAR //-->
         <Grid Margin="15 0 15 0">

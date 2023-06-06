@@ -133,6 +133,10 @@ namespace Library.UI.ViewModel
                 sortedBook.BookCounter = _bookCounter;
                 BookList.Add(_mappingService.BookModelToViewModel(sortedBook, sortedBook.Author));
             }
+
+            //SortingMethods = SortingMethod.NOT_SET;
+            //Genres = Genre.NOT_SET;
+            //Quantity = BookQuantity.NOT_SET;
         }
 
         public void GenerateRandomBooks()
@@ -152,7 +156,7 @@ namespace Library.UI.ViewModel
 
         public enum Genre
         {
-            [Description("Category")]
+            [Description(" ")]
             NOT_SET = 0,
             [Description("Drama")]
             Drama,
@@ -236,7 +240,7 @@ namespace Library.UI.ViewModel
 
         public enum SortingMethod
         {
-            [Description("Sort")]
+            [Description(" ")]
             NOT_SET = 0,
             [Description("A-z")]
             Az,
@@ -246,7 +250,7 @@ namespace Library.UI.ViewModel
 
         public enum BookQuantity
         {
-            [Description("All")]
+            [Description(" ")]
             NOT_SET = 0,
             [Description("5")]
             Five = 5,

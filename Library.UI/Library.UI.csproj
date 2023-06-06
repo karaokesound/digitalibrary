@@ -19,8 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\boliviainteligente-byrCe8CiWl4-unsplash.jpg" />
     <None Remove="Resources\Images\e-book.png" />
     <None Remove="Resources\Images\search.png" />
+    <None Remove="Resources\Images\sort.png" />
     <None Remove="Resources\info.png" />
     <None Remove="Resources\location.png" />
     <None Remove="Resources\lock.png" />
@@ -34,6 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Images\boliviainteligente-byrCe8CiWl4-unsplash.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\e-book.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -53,6 +58,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\sort.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\user.png">
