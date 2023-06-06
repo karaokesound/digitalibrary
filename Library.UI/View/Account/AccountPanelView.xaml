@@ -7,63 +7,63 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.15*" />
+            <RowDefinition Height="0.09*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <!--// BACKGROUND //-->
-        <Border Grid.RowSpan="2"
-                Background=" #ebf5fb "
-                CornerRadius="20" />
-        <Border CornerRadius="20"
-                Height="75"
+        <!--// NAVIGATION BAR BACKGROUND //-->
+        <Border CornerRadius="20 20 0 0"
                 MouseDown="Border_MouseDown">
             <Border.Background>
-                <ImageBrush ImageSource="https://pngfreepic.com/wp-content/uploads/2022/08/Abstract-wave-png-49.png?v=1663404382"
+                <ImageBrush ImageSource="https://st2.depositphotos.com/1756201/8010/i/450/depositphotos_80108908-stock-photo-navy-blue-abstract-background.jpg"
                             Stretch="UniformToFill" />
             </Border.Background>
         </Border>
 
-        <!--// NAVIGATION BAR //-->
-        <StackPanel Orientation="Horizontal"
-                    TextBlock.Foreground="White"
-                    Margin="15 0 0 0">
-            <Button Content="Home"
-                    Style="{StaticResource registerButton}"
-                    Background="Transparent"
-                    Width="120"
-                    Margin="0 0 15 0"/>
-            <Button Content="Library"
-                    Command="{Binding AccountUpdateViewCommand}"
-                    CommandParameter="Library"
-                    Margin="0 0 15 0"
-                    Width="120"
-                    Style="{StaticResource registerButton}"
-                    Background="Transparent"/>
-            <Button Content="Settings"
-                    Width="120"
-                    Background="Transparent"
-                    Style="{StaticResource registerButton}" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="15">
-            <Button Content="-"
-                    FontWeight="Bold"
-                    Background="Transparent"
-                    Margin="0 0 15 0"
-                    Style="{StaticResource exitButton}"
-                    Click="MinimizeButton_Click"/>
-            <Button Content="X"
-                    Style="{StaticResource exitButton}"
-                    Click="ExitButton_Click"
-                    Background="Transparent"/>
-        </StackPanel>
 
-        <Grid Grid.Row="1">
-            <TextBlock Text="Account"
-                       FontSize="30" />
+        <!--// MAIN BACKGROUND //-->
+        <Border CornerRadius="0 0 20 20"
+                Grid.Row="1">
+            <Border.Background>
+                <ImageBrush ImageSource="https://wallpaperaccess.com/full/2312616.jpg"
+                            Stretch="UniformToFill" 
+                            RenderOptions.BitmapScalingMode="Fant"/>
+            </Border.Background>
+        </Border>
+        <Border Background=" #aed6f1 "
+                Opacity="0"
+                Grid.Row="1" />
+
+        <!--// NAVIGATION BAR //-->
+        <Grid Margin="15 0 15 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.26*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <!--// home, library //-->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                <Button Content="Home"
+                        Style="{StaticResource navigationButton}" />
+                <Button Content="Library"
+                        Command="{Binding AccountUpdateViewCommand}"
+                        CommandParameter="Library"
+                        Style="{StaticResource navigationButton}" />
+            </StackPanel>
+
+            <!--// exit, minimize //-->
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0 0 0 3">
+                <Button Content="-"
+                        Style="{StaticResource exitButton}"
+                        Click="MinimizeButton_Click"/>
+                <Button Content="X"
+                        Style="{StaticResource exitButton}"
+                        Click="ExitButton_Click" />
+            </StackPanel>
         </Grid>
 
         <!--// CONTENT CONTROL //-->

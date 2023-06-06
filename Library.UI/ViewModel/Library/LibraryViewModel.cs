@@ -117,7 +117,7 @@ namespace Library.UI.ViewModel
             BookList = new ObservableCollection<BookViewModel>();
             RandomBookList = new ObservableCollection<BookViewModel>();
             SortBooksCommand = new SortBooksCommand(this, _dataSorting);
-            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this);
+            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting);
             GenerateRandomBooks();
         }
 

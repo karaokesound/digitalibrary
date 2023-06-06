@@ -25,7 +25,7 @@
         <Image Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
                Stretch="UniformToFill"
                Margin="12 20 12 2" />
-        <Border Background="#f1c40f"
+        <Border Background=" #1565c0 "
                 Opacity="0.8"
                 CornerRadius="20 0 0 20" />
 
@@ -70,19 +70,24 @@
                               />
 
         <!--// EXIT, MINIMIZE BUTTON //-->
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="1"
+        <StackPanel Grid.Column="1"
+                    Orientation="Horizontal"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Top"
+                    Margin="0 11.5 13.5 0">
             <Button Content="-"
                     FontWeight="Bold"
+                    Foreground="Black"
                     Style="{StaticResource exitButton}"
+                    Visibility="{Binding IsElementVisible, Converter={StaticResource booleanToVisibilityConverter}}"
                     Margin="0 0 0 5"
                     Click="MinimizeButton_Click"/>
             <Button Content="X"
+                    Foreground="Black"
                     Style="{StaticResource exitButton}"
+                    Visibility="{Binding IsElementVisible, Converter={StaticResource booleanToVisibilityConverter}}"
                     Click="ExitButton_Click"
-                    Margin="15"  />
+                    Margin="0 0 0 3"/>
         </StackPanel>
 
         <!--// CONTENT CONTROL //-->

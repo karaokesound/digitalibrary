@@ -13,21 +13,20 @@
         </Grid.ColumnDefinitions>
 
         <!--// COLUMN 0 //-->
-        
         <!--// BACKGROUND //-->
-        <Border Grid.RowSpan="3"
-                Background="White"
+        <Border Background="White"
                 CornerRadius="20 0 0 20" />
-        <Image Grid.RowSpan="3"
-               Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
-               Stretch="UniformToFill"
-               Margin="12 20 12 2" />
-        <Border Grid.RowSpan="3"
-                Background="#f1c40f"
+        <Border CornerRadius="20 0 0 20">
+            <Border.Background>
+                <ImageBrush ImageSource="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
+                            Stretch="UniformToFill" />
+            </Border.Background>
+        </Border>
+        <Border Background=" #1565c0 "
                 Opacity="0.8"
                 CornerRadius="20 0 0 20" />
 
-        
+
         <!--// COLUMN 1 //-->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -39,36 +38,34 @@
             <!--// BACKGROUND //-->
             <Border Grid.RowSpan="3"
                 Background="White"
-                CornerRadius="2">
+                CornerRadius="0 20 20 0">
                 <Border.Effect>
                     <DropShadowEffect Direction="-75"
-                                  ShadowDepth="2"
-                                  BlurRadius="10"
-                                  Color="#222225"/>
+                                      ShadowDepth="2"
+                                      BlurRadius="10"
+                                      Color="#222225"/>
                 </Border.Effect>
             </Border>
 
             <!--// EXIT BUTTON //-->
-            <Button 
-                Content="X"
-                Command="{Binding ExitButtonCommand}"
-                Style="{StaticResource loginButton}"
-                Background="White"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                FontSize="10"
-                Margin="15"
-                Width="25"
-                Height="23"/>
+            <Button Content="X"
+                    Command="{Binding ExitButtonCommand}"
+                    Style="{StaticResource loginButton}"
+                    Background="White"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    FontSize="10"
+                    Margin="15"
+                    Width="25"
+                    Height="23"/>
 
             <!--// CREATE AN ACCOUNT TEXT //-->
-            <TextBlock 
-                   Text="Create an account"
-                Margin="0 12 0 0"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center" />
+            <TextBlock Text="Create an account"
+                       Margin="0 12 0 0"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
 
             <!--// USER INPUT (TEXTBOXES) //-->
             <StackPanel Grid.Row="1"
@@ -77,48 +74,48 @@
 
                 <!--// INFORMATION //-->
                 <Grid TextBlock.FontSize="16"
-                  HorizontalAlignment="Center">
+                      HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" 
-                                      SharedSizeGroup="image"/>
+                                          SharedSizeGroup="image"/>
                         <ColumnDefinition Width="250" 
-                                      SharedSizeGroup="textboxes"/>
+                                          SharedSizeGroup="textboxes"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <!--// username //-->
                     <Image Source="/Resources/Images/user.png"
-                       Height="20"
-                       Width="20"
-                       Margin="5 0 5 0"
-                       RenderOptions.BitmapScalingMode="Fant"/>
+                           Height="20"
+                           Width="20"
+                           Margin="5 0 5 0"
+                           RenderOptions.BitmapScalingMode="Fant"/>
 
                     <AdornerDecorator Grid.Column="1"
-                                  Margin="0 0 5 3">
+                                      Margin="0 0 5 3">
                         <TextBox Text="{Binding NewAccount.Username}"
-                             Style="{StaticResource signUpTextBox}">
+                                 Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"
-                                       FontSize="16"
-                                       Margin="10 0 0 0">Username</TextBlock>
+                                           FontSize="16"
+                                           Margin="10 0 0 0">Username</TextBlock>
                             </controls:WatermarkService.Watermark>
                         </TextBox>
                     </AdornerDecorator>
 
                     <Image Grid.Column="2"
-                       Source="/Resources/Images/info.png"
-                       Height="15"
-                       Width="15"
-                       RenderOptions.BitmapScalingMode="Fant"
-                       ToolTip="3-10 characters, only letters and digits (1369)"/>
+                           Source="/Resources/Images/info.png"
+                           Height="15"
+                           Width="15"
+                           RenderOptions.BitmapScalingMode="Fant"
+                           ToolTip="3-10 characters, only letters and digits (1369)"/>
                 </Grid>
 
                 <!--// INFORMATION (more) //-->
                 <Grid TextBlock.FontSize="16"
-                  HorizontalAlignment="Center">
+                      HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" 
-                                      SharedSizeGroup="image"/>
+                                          SharedSizeGroup="image"/>
                         <ColumnDefinition SharedSizeGroup="textboxes"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
@@ -135,144 +132,142 @@
 
                     <!--// password //-->
                     <Image Source="/Resources/Images/padlock.png"
-                       Height="20"
-                       Margin="5 10 5 0"
-                       RenderOptions.BitmapScalingMode="Fant" />
+                           Height="20"
+                           Margin="5 10 5 0"
+                           RenderOptions.BitmapScalingMode="Fant" />
                     <components:BindablePasswordBox 
-                    Grid.Column="1"
-                    Password="{Binding NewAccount.Password}"
-                    Margin="0 10 5 3"/>
+                        Grid.Column="1"
+                        Password="{Binding NewAccount.Password, Mode=TwoWay}"
+                        Margin="0 10 5 3"/>
                     <Image Grid.Column="2"
-                       Source="/Resources/Images/info.png"
-                       Height="15"
-                       Width="15"
-                       RenderOptions.BitmapScalingMode="Fant"
-                       Margin="0 10 0 0"
-                       ToolTip="6-15 characters, min. 1 digit (1369), 1 special character (#*$%)"/>
+                           Source="/Resources/Images/info.png"
+                           Height="15"
+                           Width="15"
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Margin="0 10 0 0"
+                           ToolTip="6-15 characters, min. 1 digit (1369), 1 special character (#*$%)"/>
 
                     <!--// first name //-->
                     <Image Grid.Row="1"
-                       Source="/Resources/Images/rounded-rectangle.png"
-                       Height="20"
-                       Margin="5 10 5 0"
-                       RenderOptions.BitmapScalingMode="Fant"/>
+                           Source="/Resources/Images/rounded-rectangle.png"
+                           Height="20"
+                           Margin="5 10 5 0"
+                           RenderOptions.BitmapScalingMode="Fant"/>
 
                     <AdornerDecorator Grid.Row="1"
-                                  Grid.Column="1"
-                                  Margin="0 10 5 3">
+                                      Grid.Column="1"
+                                      Margin="0 10 5 3">
                         <TextBox Text="{Binding NewAccount.FirstName}"
-                             Style="{StaticResource signUpTextBox}">
+                                 Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"
-                                       FontSize="16"
-                                       Margin="10 0 0 3">First Name</TextBlock>
+                                           FontSize="16"
+                                           Margin="10 0 0 3">First Name</TextBlock>
                             </controls:WatermarkService.Watermark>
                         </TextBox>
                     </AdornerDecorator>
 
                     <Image Grid.Column="2"
-                       Grid.Row="1"
-                       Source="/Resources/Images/info.png"
-                       Height="15"
-                       Width="15"
-                       RenderOptions.BitmapScalingMode="Fant"
-                       ToolTip="First name, Last name, City min. 2 characters, only letters"
-                       Margin="0 10 0 0" />
+                           Grid.Row="1"
+                           Source="/Resources/Images/info.png"
+                           Height="15"
+                           Width="15"
+                           RenderOptions.BitmapScalingMode="Fant"
+                           ToolTip="First name, Last name, City min. 2 characters, only letters"
+                           Margin="0 10 0 0" />
 
                     <!--// last name //-->
                     <Image Grid.Row="2"
-                       Source="/Resources/Images/rounded-rectangle.png"
-                       Height="20"
-                       Margin="5 10 5 0"
-                       RenderOptions.BitmapScalingMode="Fant"/>
+                           Source="/Resources/Images/rounded-rectangle.png"
+                           Height="20"
+                           Margin="5 10 5 0"
+                           RenderOptions.BitmapScalingMode="Fant"/>
 
                     <AdornerDecorator Grid.Row="2"
-                                  Grid.Column="1"
-                                  Margin="0 10 5 3">
+                                      Grid.Column="1"
+                                      Margin="0 10 5 3">
                         <TextBox Text="{Binding NewAccount.LastName}"
-                             Style="{StaticResource signUpTextBox}">
+                                 Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"
-                                       FontSize="16"
-                                       Margin="10 0 0 3">Last Name</TextBlock>
+                                           FontSize="16"
+                                           Margin="10 0 0 3">Last Name</TextBlock>
                             </controls:WatermarkService.Watermark>
                         </TextBox>
                     </AdornerDecorator>
 
                     <!--// email //-->
                     <Image Grid.Row="3"
-                       Source="/Resources/Images/mail.png"
-                       Height="20"
-                       Margin="5 10 5 0"
-                       RenderOptions.BitmapScalingMode="Fant"/>
+                           Source="/Resources/Images/mail.png"
+                           Height="20"
+                           Margin="5 10 5 0"
+                           RenderOptions.BitmapScalingMode="Fant"/>
 
                     <AdornerDecorator Grid.Row="3"
-                                  Grid.Column="1"
-                                  Margin="0 10 5 3">
+                                      Grid.Column="1"
+                                      Margin="0 10 5 3">
                         <TextBox Text="{Binding NewAccount.Email}"
-                             Style="{StaticResource signUpTextBox}">
+                                 Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"
-                                       FontSize="16"
-                                       Margin="10 0 0 3">Email</TextBlock>
+                                           FontSize="16"
+                                           Margin="10 0 0 3">Email</TextBlock>
                             </controls:WatermarkService.Watermark>
                         </TextBox>
                     </AdornerDecorator>
 
                     <Image Grid.Column="2"
-                       Grid.Row="3"
-                       Source="/Resources/Images/info.png"
-                       Height="15"
-                       Width="15"
-                       RenderOptions.BitmapScalingMode="Fant"
-                       ToolTip="youremail@domain.com"
-                       Margin="0 10 0 0" />
+                           Grid.Row="3"
+                           Source="/Resources/Images/info.png"
+                           Height="15"
+                           Width="15"
+                           RenderOptions.BitmapScalingMode="Fant"
+                           ToolTip="youremail@domain.com"
+                           Margin="0 10 0 0" />
 
                     <!--// city //-->
                     <Image Grid.Row="4"
-                       Source="/Resources/Images/location.png"
-                       Height="20"
-                       Margin="5 10 5 0"
-                       RenderOptions.BitmapScalingMode="Fant"/>
+                           Source="/Resources/Images/location.png"
+                           Height="20"
+                           Margin="5 10 5 0"
+                           RenderOptions.BitmapScalingMode="Fant"/>
 
                     <AdornerDecorator Grid.Row="4"
-                                  Grid.Column="1"
-                                  Margin="0 10 5 3">
+                                      Grid.Column="1"
+                                      Margin="0 10 5 3">
                         <TextBox Text="{Binding NewAccount.City}"
-                             Style="{StaticResource signUpTextBox}">
+                                 Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"
-                                       FontSize="16"
-                                       Margin="10 0 0 3">City</TextBlock>
+                                           FontSize="16"
+                                           Margin="10 0 0 3">City</TextBlock>
                             </controls:WatermarkService.Watermark>
                         </TextBox>
                     </AdornerDecorator>
 
                     <!--// library combobox //-->
                     <Image Grid.Row="5"
-                       Source="/Resources/Images/online-library.png"
-                       Height="20"
-                       Margin="5 10 5 0"
-                       RenderOptions.BitmapScalingMode="Fant"/>
+                           Source="/Resources/Images/online-library.png"
+                           Height="20"
+                           Margin="5 10 5 0"
+                           RenderOptions.BitmapScalingMode="Fant"/>
                     <ComboBox Grid.Row="5"
-                          Grid.Column="1"
-                          Margin="0 10 5 3"
-                          Height="25"
-                          ItemsSource="{Binding LibraryList}"
-                          SelectedValue="{Binding NewAccount.Library}">
+                              Grid.Column="1"
+                              Margin="0 10 5 3"
+                              Height="25"
+                              ItemsSource="{Binding LibraryList}"
+                              SelectedValue="{Binding NewAccount.Library}">
                     </ComboBox>
                 </Grid>
             </StackPanel>
 
-        
-
             <!--// REGISTER BUTTON //-->
             <Button Grid.Row="2"
                     VerticalAlignment="Top"
-                Content="Sign Up"
-                Command="{Binding RegisterButtonCommand}"
-                Style="{StaticResource registerButton}" />
+                    Content="Sign Up"
+                    Command="{Binding RegisterButtonCommand}"
+                    Style="{StaticResource registerButton}" />
         </Grid>
-      
+
     </Grid>
 </UserControl>

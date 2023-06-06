@@ -1,4 +1,5 @@
 ﻿using Library.UI.Command;
+using Library.UI.Service.Validation;
 using Library.UI.ViewModel;
 using System.Windows;
 
@@ -7,6 +8,8 @@ namespace Library.UI.Commands
     public class ExitButtonCommand : CommandBase
     {
         private readonly SignUpPanelViewModel _signUpPanelVM;
+
+        private readonly INotUsedElementHidingService _notUsedElementHidingService;
 
         public override void Execute(object parameter)
         {
@@ -25,13 +28,17 @@ namespace Library.UI.Commands
                 _signUpPanelVM.NewAccount.Email = string.Empty;
                 _signUpPanelVM.NewAccount.City = string.Empty;
                 _signUpPanelVM.NewAccount.Library = string.Empty;
+
+                _notUsedElementHidingService.AdjustElementVisibility(_signUpPanelVM.SignUpPanelVisibility);
+                _signUpPanelVM.RaiseSignUpButtClickedEvent();
             }
             else return;
         }
 
-        public ExitButtonCommand(SignUpPanelViewModel signUpPanelVM)
+        public ExitButtonCommand(SignUpPanelViewModel signUpPanelVM, INotUsedElementHidingService notUsedElementHidingService)
         {
             _signUpPanelVM = signUpPanelVM;
+            _notUsedElementHidingService = notUsedElementHidingService;
         }
     }
 }

@@ -41,7 +41,8 @@
 
             <!--// username //-->
             <AdornerDecorator>
-                <TextBox Style="{StaticResource signUpTextBox}">
+                <TextBox Style="{StaticResource signUpTextBox}"
+                         Text="{Binding LoggingUsernamePassword.Username}">
                     <controls:WatermarkService.Watermark>
                         <TextBlock VerticalAlignment="Center"
                                    FontSize="16"
@@ -53,7 +54,7 @@
             <!--// password //-->
             <components:BindablePasswordBox
                 x:Name="passwordBox"
-                Password="{Binding LoggingUsernamePassword.Password, Converter={StaticResource stringEmptyConverter}, ConverterParameter='Password', Mode=TwoWay,UpdateSourceTrigger=LostFocus}"
+                Password="{Binding LoggingUsernamePassword.Password, Mode=TwoWay}"
                 Width="250" />
         </StackPanel>
 
@@ -64,6 +65,6 @@
                 VerticalAlignment="Top"
                 Margin="0 20 0 0"
                 Command="{Binding LoginCommand}"
-                Style="{StaticResource registerButton}" />
+                Style="{StaticResource loginButton}" />
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
 ﻿using Library.UI.Command;
+using Library.UI.Service.Validation;
 using Library.UI.ViewModel;
 
 namespace Library.UI.Commands
@@ -7,16 +8,21 @@ namespace Library.UI.Commands
     {
         private readonly SignUpPanelViewModel _signUpPanelVM;
 
+        private readonly INotUsedElementHidingService _notUsedElementHidingService;
+
         public override void Execute(object parameter)
         {
             
             _signUpPanelVM.MainWindowButtonVisibility = false;
             _signUpPanelVM.SignUpPanelVisibility = true;
+            _notUsedElementHidingService.AdjustElementVisibility(_signUpPanelVM.SignUpPanelVisibility);
+            _signUpPanelVM.RaiseSignUpButtClickedEvent();
         }
 
-        public SignUpButtonCommand(SignUpPanelViewModel signUpPanelVM)
+        public SignUpButtonCommand(SignUpPanelViewModel signUpPanelVM, INotUsedElementHidingService notUsedElementHidingService)
         {
             _signUpPanelVM = signUpPanelVM;
+            _notUsedElementHidingService = notUsedElementHidingService;
         }
     }
 }

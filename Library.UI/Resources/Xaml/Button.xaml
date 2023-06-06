@@ -179,71 +179,9 @@
     <!--// LOGIN BUTTON //-->
     <Style TargetType="Button"
            x:Key="loginButton">
-        <Setter Property="Background" Value="#f39b56" />
-        <Setter Property="Foreground" Value="Black" />
-        <Setter Property="BorderBrush" Value="#212f3c" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="FontSize" Value="22" />
-        <Setter Property="Width" Value="120" />
-        <Setter Property="Height" Value="40" />
-        <Setter Property="Margin" Value="5" />
-        <!--// do not past Margin value to <Border></Border> //-->
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            CornerRadius="4">
-                        <ContentPresenter ContentSource="Content"
-                                          TextBlock.Foreground="{TemplateBinding Foreground}"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="#212f3c"
-                                                        Duration="0:0:0:0.1" />
-                                        <ColorAnimation Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)"
-                                                        To="White"
-                                                        Duration="0:0:0:0.1" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="Transparent"
-                                                        Duration="0:0:0:0.2" />
-                                        <ColorAnimation Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)"
-                                                        To="Black"
-                                                        Duration="0:0:0:0.2" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    
-    <!--// REGISTER BUTTON //-->
-    <Style TargetType="Button"
-           x:Key="registerButton">
-        <Setter Property="Background" Value=" #f8f9f9 " />
-        <Setter Property="Foreground" Value=" #17202a " />
-        <Setter Property="BorderBrush" Value="  #fad7a0  " />
+        <Setter Property="Background" Value="  #42a5f5 " />
+        <Setter Property="Foreground" Value="#17202a" />
+        <Setter Property="BorderBrush" Value=" #bbdefb  " />
         <Setter Property="BorderThickness" Value="4" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -275,7 +213,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To=" #a2d9ce "
+                                                        To=" #90caf9 "
                                                         Duration="0:0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -284,7 +222,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="#58d68d"
+                                                        To="#42a5f5"
                                                         Duration="0:0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -296,6 +234,63 @@
         </Setter>
     </Style>
 
+    <!--// REGISTER BUTTON //-->
+    <Style TargetType="Button"
+           x:Key="registerButton">
+        <Setter Property="Background" Value="  #1565c0  " />
+        <Setter Property="Foreground" Value="#17202a" />
+        <Setter Property="BorderBrush" Value="  #42a5f5    " />
+        <Setter Property="BorderThickness" Value="4" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="Height" Value="55" />
+        <Setter Property="Margin" Value="5" />
+        <!--// do not past Margin value to <Border></Border> //-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            CornerRadius="15">
+                        <ContentPresenter ContentSource="Content"
+                                          TextBlock.Foreground="{TemplateBinding Foreground}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                        To="  #e3f2fd   "
+                                                        Duration="0:0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                                        To="  #1565c0"
+                                                        Duration="0:0:0:0.1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
     <!--// COMBOBOX //-->
     <Style x:Key="FocusVisual">
