@@ -64,7 +64,7 @@
                               DataContext="{Binding SignInPanelVM}"/>
     
         <!--// SIGN UP PANEL //-->
-        <view:SignUpPanelView Grid.Column="1"
+        <view:SignUpPanelView Grid.ColumnSpan="2"
                               DataContext="{Binding SignUpPanelVM}"
                               Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}"
                               />
