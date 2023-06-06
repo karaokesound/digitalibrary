@@ -11,12 +11,14 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         Height="600" Width="950">
+    <!--// 1.1 //-->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.6*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+
         <!--// LEFT BACKGROUND //-->
         <Border Grid.ColumnSpan="2"
                 Background="White"
@@ -62,7 +64,7 @@
         <!--// SIGN IN PANEL //-->
         <view:SignInPanelView Grid.Column="1"
                               DataContext="{Binding SignInPanelVM}"/>
-    
+
         <!--// SIGN UP PANEL //-->
         <view:SignUpPanelView Grid.ColumnSpan="2"
                               DataContext="{Binding SignUpPanelVM}"
