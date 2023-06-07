@@ -68,7 +68,7 @@ namespace Library.UI.ViewModel
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataFiltering;
+        private readonly IDataSorting _dataSorting;
 
         private readonly INotUsedElementHidingService _notUsedElementHidingService;
 
@@ -80,7 +80,7 @@ namespace Library.UI.ViewModel
 
         public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
             LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IDataSorting dataFiltering, INotUsedElementHidingService notUsedElementHidingService, IUserAuthenticationService userAuthenticationService,
+            IDataSorting dataSorting, INotUsedElementHidingService notUsedElementHidingService, IUserAuthenticationService userAuthenticationService,
             IValidationService validationService, IUserRepository userRepository)
         {
             AccountPanelVM = accountPanelVM;
@@ -90,7 +90,7 @@ namespace Library.UI.ViewModel
             _dataSeeder = dataSeeder;
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
-            _dataFiltering = dataFiltering;
+            _dataSorting = dataSorting;
             _notUsedElementHidingService = notUsedElementHidingService;
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
@@ -103,6 +103,7 @@ namespace Library.UI.ViewModel
         public async Task SeedDatabase()
         {
             await _dataSeeder.SeedDataBase();
+            SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting);
         }
 
         public void ElementsVisibility()
@@ -128,7 +129,7 @@ namespace Library.UI.ViewModel
                 IsUserAuthenticated = isUserAuthenticated;
                 if (IsUserAuthenticated == true)
                 {
-                    SelectedViewModel = new AccountPanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
+                    SelectedViewModel = new AccountPanelViewModel(_bookBaseRepository, _mappingService, _dataSorting);
                 }
                 else return;
             };

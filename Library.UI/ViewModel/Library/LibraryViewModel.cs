@@ -15,6 +15,10 @@ namespace Library.UI.ViewModel
 {
     public class LibraryViewModel : BaseViewModel
     {
+        public delegate void SearchBoxInputChangedEvent(FilterBooksCommand filterBooksCommand);
+
+        public event SearchBoxInputChangedEvent SearchBoxInputChanged = null;
+
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
@@ -48,6 +52,17 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private string _searchBoxString;
+        public string SearchBoxString
+        {
+            get => _searchBoxString;
+            set 
+            { 
+                _searchBoxString = value;
+                RaiseSearchBoxEvent(value);
+                OnPropertyChanged();
+            }
+        }
 
         private Genre _genres;
         public Genre Genres
@@ -97,10 +112,11 @@ namespace Library.UI.ViewModel
             }
         }
 
-
         public ICommand LibraryUpdateViewCommand { get; }
 
         public ICommand SortBooksCommand { get; }
+
+        public ICommand FilterBooksCommand { get; }
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
@@ -117,8 +133,16 @@ namespace Library.UI.ViewModel
             BookList = new ObservableCollection<BookViewModel>();
             RandomBookList = new ObservableCollection<BookViewModel>();
             SortBooksCommand = new SortBooksCommand(this, _dataSorting);
+            FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting);
             GenerateRandomBooks();
+        }
+
+        public void RaiseSearchBoxEvent(string letter)
+        {
+            FilterBooksCommand filterCommand = new FilterBooksCommand(this, _bookBaseRepository);
+            filterCommand.Execute(letter);
+            SearchBoxInputChanged?.Invoke(filterCommand);
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)
@@ -133,10 +157,6 @@ namespace Library.UI.ViewModel
                 sortedBook.BookCounter = _bookCounter;
                 BookList.Add(_mappingService.BookModelToViewModel(sortedBook, sortedBook.Author));
             }
-
-            //SortingMethods = SortingMethod.NOT_SET;
-            //Genres = Genre.NOT_SET;
-            //Quantity = BookQuantity.NOT_SET;
         }
 
         public void GenerateRandomBooks()
