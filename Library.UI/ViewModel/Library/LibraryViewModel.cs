@@ -48,11 +48,36 @@ namespace Library.UI.ViewModel
         }
 
         private string _searchBoxInput;
-
         public string SearchBoxInput
         {
-            get { return _searchBoxInput; }
-            set { _searchBoxInput = value; }
+            get => _searchBoxInput;
+            set 
+            { 
+                _searchBoxInput = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private BookViewModel _selectedBook;
+        public BookViewModel SelectedBook
+        {
+            get => _selectedBook;
+            set 
+            { 
+                _selectedBook = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isBookSelected;
+        public bool IsBookSelected
+        {
+            get => _isBookSelected;
+            set 
+            { 
+                _isBookSelected = value;
+                OnPropertyChanged();
+            }
         }
 
         private int _bookCounter;
@@ -74,6 +99,8 @@ namespace Library.UI.ViewModel
 
         public ICommand FilterBooksCommand { get; }
 
+        public ICommand RentBookCommand { get; }
+
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly IMappingService _mappingService;
@@ -89,6 +116,7 @@ namespace Library.UI.ViewModel
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
             RandomBookList = new ObservableCollection<BookViewModel>();
+            RentBookCommand = new RentBookCommand(this, _bookBaseRepository);
             SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
             FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting);

@@ -80,6 +80,8 @@
 
                 <!--// listview //-->
                 <ListView ItemsSource="{Binding BookList, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValue="{Binding SelectedBook, UpdateSourceTrigger=PropertyChanged}"
+                          x:Name="booksListView"
                           TextBlock.Foreground="White">
                     <!--// template //-->
                     <ListView.Template>
@@ -140,6 +142,14 @@
                             <GridViewColumn Width="150"
                                             DisplayMemberBinding="{Binding Author.FirstName, UpdateSourceTrigger=PropertyChanged}" />
                             <GridViewColumn DisplayMemberBinding="{Binding Author.LastName, UpdateSourceTrigger=PropertyChanged}" />
+                            <GridViewColumn Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Rent"
+                                                Command="{Binding RentBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
