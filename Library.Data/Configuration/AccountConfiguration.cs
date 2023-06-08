@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Library.Data.Configuration
 {
-    public class UserConfiguration : IEntityTypeConfiguration<UserModel>
+    public class AccountConfiguration : IEntityTypeConfiguration<AccountModel>
     {
-        public void Configure(EntityTypeBuilder<UserModel> builder)
+        public void Configure(EntityTypeBuilder<AccountModel> builder)
         {
             builder.ToTable("Users");
-            builder.HasKey(user => user.UserId);
+            builder.HasKey(user => user.AccountId);
             builder.Property(user => user.Username);
             builder.Property(user => user.Password);
             builder.Property(user => user.FirstName)

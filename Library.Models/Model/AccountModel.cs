@@ -2,9 +2,9 @@
 
 namespace Library.UI.Model
 {
-    public class UserModel
+    public class AccountModel
     {
-        public Guid UserId { get; set; }
+        public Guid AccountId { get; set; }
 
         public string Username { get; set; }
 

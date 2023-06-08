@@ -12,13 +12,13 @@ namespace Library.UI.Commands
     {
         private readonly SignUpPanelViewModel _signUpPanelVM;
         private readonly IValidationService _validationService;
-        private readonly IBaseRepository<UserModel> _baseRepository;
+        private readonly IBaseRepository<AccountModel> _baseRepository;
 
         public override void Execute(object parameter)
         {
-            UserModel newAccount = new UserModel()
+            AccountModel newAccount = new AccountModel()
             {
-                UserId = Guid.NewGuid(),
+                AccountId = Guid.NewGuid(),
                 Username = _signUpPanelVM.NewAccount.Username,
                 Password = _signUpPanelVM.NewAccount.Password,
                 FirstName = _signUpPanelVM.NewAccount.FirstName,
@@ -53,7 +53,7 @@ namespace Library.UI.Commands
             _signUpPanelVM.NewAccount.Library = string.Empty;
         }
 
-        public RegisterButtonCommand(SignUpPanelViewModel signUpPanelVM, IValidationService validationService, IBaseRepository<UserModel> baseRepository)
+        public RegisterButtonCommand(SignUpPanelViewModel signUpPanelVM, IValidationService validationService, IBaseRepository<AccountModel> baseRepository)
         {
             _signUpPanelVM = signUpPanelVM;
             _validationService = validationService;

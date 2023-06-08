@@ -36,8 +36,8 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private UserViewModel _newAccount;
-        public UserViewModel NewAccount
+        private AccountViewModel _newAccount;
+        public AccountViewModel NewAccount
         {
             get { return _newAccount; }
             set
@@ -66,11 +66,11 @@ namespace Library.UI.ViewModel
 
         private readonly IValidationService _validationService;
 
-        private readonly IBaseRepository<UserModel> _baseRepository;
+        private readonly IBaseRepository<AccountModel> _baseRepository;
 
         private readonly INotUsedElementHidingService _notUsedElementHidingService;
 
-        public SignUpPanelViewModel(IValidationService validationService, IBaseRepository<UserModel> baseRepository,
+        public SignUpPanelViewModel(IValidationService validationService, IBaseRepository<AccountModel> baseRepository,
             INotUsedElementHidingService notUsedElementHidingService)
         {
             _validationService = validationService;
@@ -79,7 +79,7 @@ namespace Library.UI.ViewModel
             SignUpButtonCommand = new SignUpButtonCommand(this, _notUsedElementHidingService);
             ExitButtonCommand = new ExitButtonCommand(this, _notUsedElementHidingService);
             RegisterButtonCommand = new RegisterButtonCommand(this, _validationService, _baseRepository);
-            NewAccount = new UserViewModel(_validationService);
+            NewAccount = new AccountViewModel(_validationService);
             LibraryList = new ObservableCollection<string>();
             _libraryList.Add("Vice ELibrary");
             _libraryList.Add("NightC -DLibrary");

@@ -2,9 +2,9 @@
 
 namespace Library.UI.View
 {
-    public partial class SignUpView : UserControl
+    public partial class AccountView : UserControl
     {
-        public SignUpView()
+        public AccountView()
         {
             InitializeComponent();
         }

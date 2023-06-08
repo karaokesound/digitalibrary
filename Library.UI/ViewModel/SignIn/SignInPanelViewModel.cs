@@ -22,8 +22,8 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private UserViewModel _loggingUsernamePassword;
-        public UserViewModel LoggingUsernamePassword
+        private AccountViewModel _loggingUsernamePassword;
+        public AccountViewModel LoggingUsernamePassword
         {
             get => _loggingUsernamePassword;
             set 
@@ -61,7 +61,7 @@ namespace Library.UI.ViewModel
             _validationService = validationService;
             _userRepository = userRepository;
             _mappingService = mappingService;
-            LoggingUsernamePassword = new UserViewModel(_validationService);
+            LoggingUsernamePassword = new AccountViewModel(_validationService);
             LoginCommand = new LoginCommand(this, _userAuthenticationService, _validationService, _userRepository, _mappingService);
         }
 

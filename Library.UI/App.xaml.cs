@@ -43,7 +43,7 @@ namespace Library.UI
 
             services.AddTransient<MainWindow>();
             services.AddSingleton<MainViewModel>();
-            services.AddTransient<AccountPanelViewModel>();
+            services.AddTransient<ProfilePanelViewModel>();
             services.AddTransient<SignUpPanelViewModel>();
             services.AddTransient<SignInPanelViewModel>();
             services.AddTransient<LibraryViewModel>();
@@ -52,7 +52,7 @@ namespace Library.UI
             // interfaces //
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
             services.AddSingleton<IValidationService, ValidationService>();
-            services.AddSingleton<IBaseRepository<UserModel>, BaseRepository<UserModel>>();
+            services.AddSingleton<IBaseRepository<AccountModel>, BaseRepository<AccountModel>>();
             services.AddSingleton<IBaseRepository<BookModel>, BaseRepository<BookModel>>();
             services.AddSingleton<IBaseRepository<LanguageModel>, BaseRepository<LanguageModel>>();
             services.AddSingleton<IBaseRepository<AuthorModel>, BaseRepository<AuthorModel>>();

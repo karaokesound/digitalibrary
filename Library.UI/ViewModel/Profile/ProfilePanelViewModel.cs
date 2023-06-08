@@ -1,4 +1,4 @@
-﻿using Library.UI.Commands.Account;
+﻿using Library.UI.Commands.Profile;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Library.UI.ViewModel
 {
-    public class AccountPanelViewModel : BaseViewModel
+    public class ProfilePanelViewModel : BaseViewModel
     {
         private BaseViewModel _selectedViewModel;
 
@@ -27,14 +27,14 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public ICommand AccountUpdateViewCommand { get; }
+        public ICommand ProfileUpdateViewCommand { get; }
 
-        public AccountPanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataFiltering)
+        public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataFiltering)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataFiltering = dataFiltering;
-            AccountUpdateViewCommand = new AccountUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataFiltering);
+            ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataFiltering);
         }
     }
 }

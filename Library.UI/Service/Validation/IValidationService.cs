@@ -6,9 +6,9 @@ namespace Library.UI.Service
     public interface IValidationService
     {
         //amend test delete later//
-        public bool SignUpValidation(UserModel user);
+        public bool SignUpValidation(AccountModel user);
 
-        public bool SignInValidation(UserModel databaseUserModel, UserModel user);
+        public bool SignInValidation(AccountModel databaseUserModel, AccountModel user);
 
         public bool LoginErrorInfoValidation(string username);
 

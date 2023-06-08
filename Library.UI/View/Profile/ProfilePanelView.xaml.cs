@@ -4,9 +4,9 @@ using System.Windows.Input;
 
 namespace Library.UI.View
 {
-    public partial class AccountPanelView : UserControl
+    public partial class ProfilePanelView : UserControl
     {
-        public AccountPanelView()
+        public ProfilePanelView()
         {
             InitializeComponent();
         }

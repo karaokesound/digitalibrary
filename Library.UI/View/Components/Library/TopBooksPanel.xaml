@@ -48,23 +48,23 @@
                 <!--// comboboxes //-->
                 <StackPanel Orientation="Horizontal">
                     <library:CommandComboBox Style="{DynamicResource SortingComboBox}" 
-                                             ItemsSource="{Binding SortingMethods, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                             ItemsSource="{Binding SortingEnums.SortingMethods, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
                                              SelectedValuePath="Value"
                                              DisplayMemberPath="Description"
-                                             SelectedValue="{Binding SortingMethods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             SelectedValue="{Binding SortingEnums.SortingMethods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              Command="{Binding SortBooksCommand}" />
                     <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
-                                             ItemsSource="{Binding Quantity, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                             ItemsSource="{Binding SortingEnums.Quantity, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
                                              SelectedValuePath="Value"
                                              DisplayMemberPath="Description"
-                                             SelectedValue="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             SelectedValue="{Binding SortingEnums.Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              Command="{Binding SortBooksCommand}"
                                              Margin="0"/>
                     <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
-                                             ItemsSource="{Binding Genres, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                             ItemsSource="{Binding SortingEnums.Genres, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
                                              SelectedValuePath="Value"
                                              DisplayMemberPath="Description"
-                                             SelectedValue="{Binding Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             SelectedValue="{Binding SortingEnums.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              Command="{Binding SortBooksCommand}" />
                 </StackPanel>
             </StackPanel>

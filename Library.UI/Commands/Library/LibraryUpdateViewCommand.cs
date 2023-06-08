@@ -20,9 +20,9 @@ namespace Library.UI.Commands.Library
 
         public override void Execute(object parameter)
         {
-            if (parameter.ToString() == "Account")
+            if (parameter.ToString() == "Profile")
             {
-                _libraryVM.SelectedViewModel = new AccountPanelViewModel(_bookBaseRepository, _mappingService, _dataSorting);
+                _libraryVM.SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting);
             }
         }
 

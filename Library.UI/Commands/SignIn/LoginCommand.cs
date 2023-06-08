@@ -21,10 +21,10 @@ namespace Library.UI.Commands.SignIn
 
         public override void Execute(object parameter)
         {
-            UserViewModel loggingUserVM = _signInPanelVM.LoggingUsernamePassword;
+            AccountViewModel loggingUserVM = _signInPanelVM.LoggingUsernamePassword;
 
-            UserModel loggingUser = _mappingService.UserViewModelToModel(loggingUserVM);
-            UserModel dbUser = _userRepository.GetUserByUsername(loggingUser.Username) as UserModel;
+            AccountModel loggingUser = _mappingService.UserViewModelToModel(loggingUserVM);
+            AccountModel dbUser = _userRepository.GetUserByUsername(loggingUser.Username) as AccountModel;
             bool validation = _validationService.SignInValidation(dbUser, loggingUser);
             if (validation == false)
             {

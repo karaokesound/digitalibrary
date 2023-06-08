@@ -49,9 +49,9 @@
             <!--// home, library //-->
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Left">
-                <Button Content="Home"
+                <Button Content="Profile"
                         Command="{Binding LibraryUpdateViewCommand}"
-                        CommandParameter="Account"
+                        CommandParameter="Profile"
                         Style="{StaticResource navigationButton}" />
                 <Button Content="Library"
                         Style="{StaticResource navigationButton}" />

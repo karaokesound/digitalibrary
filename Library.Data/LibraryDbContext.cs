@@ -9,7 +9,7 @@ namespace Library.Data
     {
         public DbSet<AuthorModel> Authors { get; set; }
         public DbSet<BookModel> Books { get; set; }
-        public DbSet<UserModel> Users { get; set; }
+        public DbSet<AccountModel> Users { get; set; }
         public DbSet<LanguageModel> Languages { get; set; }
         public DbSet<BookLanguageModel> BookLanguages { get; set; }
 
@@ -20,7 +20,7 @@ namespace Library.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AccountConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AuthorConfiguration).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(LanguageConfiguration).Assembly);

@@ -10,8 +10,8 @@ namespace Library.UI.Service
 
         public BookModel BookViewModelToModel(BookViewModel bookVM, AuthorViewModel authorVM);
 
-        public UserViewModel UserModelToViewModel(UserModel signUp);
+        public AccountViewModel UserModelToViewModel(AccountModel signUp);
 
-        public UserModel UserViewModelToModel(UserViewModel signUpVM);
+        public AccountModel UserViewModelToModel(AccountViewModel signUpVM);
     }
 }

@@ -17,8 +17,8 @@
             <viewmodel:EnumToCollectionConverter x:Key="enumToCollConverter" />
 
             <!--// views //-->
-            <DataTemplate DataType="{x:Type viewmodel:AccountPanelViewModel}">
-                <view:AccountPanelView />
+            <DataTemplate DataType="{x:Type viewmodel:ProfilePanelViewModel}">
+                <view:ProfilePanelView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:SignUpPanelViewModel}">
                 <view:SignUpPanelView />

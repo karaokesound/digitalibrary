@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Library.UI.View.AccountPanelView"
+﻿<UserControl x:Class="Library.UI.View.ProfilePanelView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -44,10 +44,10 @@
             <!--// home, library //-->
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Left">
-                <Button Content="Home"
+                <Button Content="Profile"
                         Style="{StaticResource navigationButton}" />
                 <Button Content="Library"
-                        Command="{Binding AccountUpdateViewCommand}"
+                        Command="{Binding ProfileUpdateViewCommand}"
                         CommandParameter="Library"
                         Style="{StaticResource navigationButton}" />
             </StackPanel>

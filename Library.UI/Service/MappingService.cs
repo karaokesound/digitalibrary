@@ -49,11 +49,11 @@ namespace Library.UI.Services
         }
 
         // USER MAPPING SERVICE //
-        public UserViewModel UserModelToViewModel(UserModel signUp)
+        public AccountViewModel UserModelToViewModel(AccountModel signUp)
         {
-            return new UserViewModel(_validationService)
+            return new AccountViewModel(_validationService)
             {
-                UserId = signUp.UserId,
+                UserId = signUp.AccountId,
                 Username = signUp.Username,
                 Password = signUp.Password,
                 FirstName = signUp.FirstName,
@@ -64,11 +64,11 @@ namespace Library.UI.Services
             };
         }
 
-        public UserModel UserViewModelToModel(UserViewModel signUpVM)
+        public AccountModel UserViewModelToModel(AccountViewModel signUpVM)
         {
-            return new UserModel()
+            return new AccountModel()
             {
-                UserId = signUpVM.UserId,
+                AccountId = signUpVM.UserId,
                 Username = signUpVM.Username,
                 Password = signUpVM.Password,
                 FirstName = signUpVM.FirstName,

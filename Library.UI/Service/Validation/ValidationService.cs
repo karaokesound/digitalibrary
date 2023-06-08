@@ -14,7 +14,7 @@ namespace Library.UI.Services
         public Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
         public Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");
 
-        public bool SignUpValidation(UserModel user)
+        public bool SignUpValidation(AccountModel user)
         {
             if (string.IsNullOrEmpty(user.Username)
                 || !usernameValidationRegex.IsMatch(user.Username)
@@ -61,7 +61,7 @@ namespace Library.UI.Services
             return true;
         }
 
-        public bool SignInValidation(UserModel dbUser, UserModel loggingUser)
+        public bool SignInValidation(AccountModel dbUser, AccountModel loggingUser)
         {
             bool isValid = true;
 
@@ -71,7 +71,7 @@ namespace Library.UI.Services
                 MessageBox.Show("Enter your username and password", "Login");
                 isValid = false;
             }
-            else if (loggingUser.UserId == Guid.Empty && dbUser == null)
+            else if (loggingUser.AccountId == Guid.Empty && dbUser == null)
             {
                 MessageBox.Show("There is no user with this username. Try again", "Login");
                 isValid = false;

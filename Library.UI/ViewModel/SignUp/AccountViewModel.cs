@@ -3,7 +3,7 @@ using System;
 
 namespace Library.UI.ViewModel
 {
-    public class UserViewModel : ValidationBaseViewModel
+    public class AccountViewModel : ValidationBaseViewModel
     {
         private Guid _userId;
         public Guid UserId
@@ -196,7 +196,7 @@ namespace Library.UI.ViewModel
 
         private readonly IValidationService _validationService;
 
-        public UserViewModel(IValidationService validationService)
+        public AccountViewModel(IValidationService validationService)
         {
             _validationService = validationService;
         }

@@ -54,7 +54,7 @@ namespace Library.UI.ViewModel
         }
 
 
-        public AccountPanelViewModel AccountPanelVM { get; }
+        public ProfilePanelViewModel AccountPanelVM { get; }
 
         public SignUpPanelViewModel SignUpPanelVM { get; }
 
@@ -78,7 +78,7 @@ namespace Library.UI.ViewModel
 
         private readonly IUserRepository _userRepository;
 
-        public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
+        public MainViewModel(ProfilePanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
             LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataFiltering, INotUsedElementHidingService notUsedElementHidingService, IUserAuthenticationService userAuthenticationService,
             IValidationService validationService, IUserRepository userRepository)

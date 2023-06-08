@@ -5,11 +5,11 @@ using Library.UI.Service;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 
-namespace Library.UI.Commands.Account
+namespace Library.UI.Commands.Profile
 {
-    public class AccountUpdateViewCommand : CommandBase
+    public class ProfileUpdateViewCommand : CommandBase
     {
-        private readonly AccountPanelViewModel _accountPanelVM;
+        private readonly ProfilePanelViewModel _accountPanelVM;
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
@@ -17,7 +17,7 @@ namespace Library.UI.Commands.Account
 
         private readonly IDataSorting _dataFiltering;
 
-        public AccountUpdateViewCommand(AccountPanelViewModel accountPanelVM, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
+        public ProfileUpdateViewCommand(ProfilePanelViewModel accountPanelVM, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataFiltering)
         {
             _accountPanelVM = accountPanelVM;
