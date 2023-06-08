@@ -7,6 +7,7 @@ using Library.UI.Service.Data;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel;
+using Library.UI.ViewModel.Library;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -46,6 +47,7 @@ namespace Library.UI
             services.AddTransient<SignUpPanelViewModel>();
             services.AddTransient<SignInPanelViewModel>();
             services.AddTransient<LibraryViewModel>();
+            services.AddTransient<SortingEnums>();
             
             // interfaces //
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();

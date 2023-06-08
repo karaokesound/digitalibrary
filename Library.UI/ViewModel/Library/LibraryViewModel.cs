@@ -7,7 +7,6 @@ using Library.UI.ViewModel.Library;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -15,10 +14,6 @@ namespace Library.UI.ViewModel
 {
     public class LibraryViewModel : BaseViewModel
     {
-        public delegate void SearchBoxInputChangedEvent(FilterBooksCommand filterBooksCommand);
-
-        public event SearchBoxInputChangedEvent SearchBoxInputChanged = null;
-
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
@@ -52,53 +47,12 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private string _searchBoxString;
-        public string SearchBoxString
-        {
-            get => _searchBoxString;
-            set 
-            { 
-                _searchBoxString = value;
-                RaiseSearchBoxEvent(value);
-                OnPropertyChanged();
-            }
-        }
+        private string _searchBoxInput;
 
-        private Genre _genres;
-        public Genre Genres
+        public string SearchBoxInput
         {
-            get { return _genres; }
-            set
-            {
-                if (_genres != value)
-                {
-                    _genres = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private SortingMethod _sortingMethods;
-        public SortingMethod SortingMethods
-        {
-            get => _sortingMethods;
-            set 
-            { 
-                _sortingMethods = value;
-                OnPropertyChanged();
-                
-            }
-        }
-
-        private BookQuantity _quantity;
-        public BookQuantity Quantity
-        {
-            get => _quantity;
-            set 
-            { 
-                _quantity = value;
-                OnPropertyChanged();
-            }
+            get { return _searchBoxInput; }
+            set { _searchBoxInput = value; }
         }
 
         private int _bookCounter;
@@ -111,6 +65,8 @@ namespace Library.UI.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public SortingEnums SortingEnums { get; set; }
 
         public ICommand LibraryUpdateViewCommand { get; }
 
@@ -130,19 +86,13 @@ namespace Library.UI.ViewModel
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataSorting = dataSorting;
+            SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
             RandomBookList = new ObservableCollection<BookViewModel>();
-            SortBooksCommand = new SortBooksCommand(this, _dataSorting);
+            SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
             FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting);
             GenerateRandomBooks();
-        }
-
-        public void RaiseSearchBoxEvent(string letter)
-        {
-            FilterBooksCommand filterCommand = new FilterBooksCommand(this, _bookBaseRepository);
-            filterCommand.Execute(letter);
-            SearchBoxInputChanged?.Invoke(filterCommand);
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)
@@ -174,112 +124,28 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public enum Genre
+        public void DisplayFilteredBooks(List<BookAccuracy> filteredBookList)
         {
-            [Description(" ")]
-            NOT_SET = 0,
-            [Description("Drama")]
-            Drama,
-            [Description("Fiction")]
-            Fiction,
-            [Description("Adventure stories")]
-            Adventure_stories,
-            [Description("Biography")]
-            Biography,
-            [Description("Historical fiction")]
-            Historical_fiction,
-            [Description("Juvenile fiction")]
-            Juvenile_fiction,
-            [Description("Autobiographical fiction")]
-            Autobiographical_fiction,
-            [Description("Comedies")]
-            Comedies,
-            [Description("Humor")]
-            Humor,
-            [Description("Feminist fiction")]
-            Feminist_fiction,
-            [Description("Horror tales")]
-            Horror_tales,
-            [Description("Poetry")]
-            Poetry,
-            [Description("Ethics")]
-            Ethics,
-            [Description("Life")]
-            Life,
-            [Description("Stoics")]
-            Stoics,
-            [Description("Romances")]
-            Romances,
-            [Description("Epic literature")]
-            Epic_literature,
-            [Description("Science fiction")]
-            Science_fiction,
-            [Description("Domestic fiction")]
-            Domestic_fiction,
-            [Description("Christmas stories")]
-            Christmas_stories,
-            [Description("Ghost stories")]
-            Ghost_stories,
-            [Description("Love stories")]
-            Love_stories,
-            [Description("Mysticism")]
-            Mysticism,
-            [Description("Fantasy literature")]
-            Fantasy_literature,
-            [Description("Calculus")]
-            Calculus,
-            [Description("Political fiction")]
-            Political_fiction,
-            [Description("Detective and mystery")]
-            Detective_and_mystery_stories,
-            [Description("Sabotage")]
-            Sabotage,
-            [Description("Bible")]
-            Bible,
-            [Description("French essays")]
-            French_essays,
-            [Description("Philosophy")]
-            Philosophy,
-            [Description("Gothic fiction")]
-            Gothic_fiction,
-            [Description("American drama")]
-            American_drama,
-            [Description("Communism")]
-            Communism,
-            [Description("Socialism")]
-            Socialism,
-            [Description("Fantasy fiction")]
-            Fantasy_fiction,
-            [Description("Liberty")]
-            Liberty,
-            [Description("Satire")]
-            Satire,
-            [Description("Adultery")]
-            Adultery
-        }
+            BookList.Clear();
+            BookCounter = 0;
+            _bookCounter = 0;
 
-        public enum SortingMethod
-        {
-            [Description(" ")]
-            NOT_SET = 0,
-            [Description("A-z")]
-            Az,
-            [Description("Downloads")]
-            Downloads
-        }
+            foreach (var filteredBook in filteredBookList)
+            {
+                _bookCounter++;
 
-        public enum BookQuantity
-        {
-            [Description(" ")]
-            NOT_SET = 0,
-            [Description("5")]
-            Five = 5,
-            [Description("10")]
-            Ten = 10,
-            [Description("20")]
-            Twenty = 20,
-            [Description("40")]
-            Fifty = 40
+                BookModel filteredBookModel = new BookModel()
+                {
+                    BookId = filteredBook.Book.BookId,
+                    Title = filteredBook.Book.Title,
+                    Author = filteredBook.Book.Author,
+                    Category = filteredBook.Book.Category,
+                    BookLanguages = filteredBook.Book.BookLanguages,
+                    BookCounter = _bookCounter,
+                };
+
+                BookList.Add(_mappingService.BookModelToViewModel(filteredBookModel, filteredBookModel.Author));
+            }
         }
     }
 }
