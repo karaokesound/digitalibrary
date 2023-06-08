@@ -110,7 +110,6 @@ namespace Library.UI.Service.Data
                     }
                 }
 
-
                 // Adding Category
                 string[] enumCategories = Enum.GetNames(typeof(Genre));
                 for (int i = 0; i < enumCategories.Length; i++)

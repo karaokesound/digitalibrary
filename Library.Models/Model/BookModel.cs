@@ -8,17 +8,19 @@ namespace Library.UI.Model
     {
         public Guid BookId { get; set; }
 
-        public int BookCounter { get; set; }
-
         public string Title { get; set; }
 
-        public AuthorModel Author { get; set; }
+        public string? Quantity { get; set; }
 
         public string Category { get; set; }
 
-        public ICollection<BookLanguageModel> BookLanguages { get; set; }
+        public bool IsRented { get; set; }
 
         public int Downloads { get; set; }
+
+        public AuthorModel Author { get; set; }
+
+        public ICollection<BookLanguageModel> BookLanguages { get; set; }
 
         public enum Genre
         {

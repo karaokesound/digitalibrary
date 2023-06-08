@@ -103,9 +103,9 @@ namespace Library.UI.ViewModel
 
             foreach (var sortedBook in sortedBookList)
             {
-                _bookCounter++;
-                sortedBook.BookCounter = _bookCounter;
-                BookList.Add(_mappingService.BookModelToViewModel(sortedBook, sortedBook.Author));
+                BookViewModel sortedBookVM = _mappingService.BookModelToViewModel(sortedBook, sortedBook.Author);
+                sortedBookVM.BookCounter++;
+                BookList.Add(sortedBookVM);
             }
         }
 
@@ -132,8 +132,6 @@ namespace Library.UI.ViewModel
 
             foreach (var filteredBook in filteredBookList)
             {
-                _bookCounter++;
-
                 BookModel filteredBookModel = new BookModel()
                 {
                     BookId = filteredBook.Book.BookId,
@@ -141,10 +139,12 @@ namespace Library.UI.ViewModel
                     Author = filteredBook.Book.Author,
                     Category = filteredBook.Book.Category,
                     BookLanguages = filteredBook.Book.BookLanguages,
-                    BookCounter = _bookCounter,
                 };
 
-                BookList.Add(_mappingService.BookModelToViewModel(filteredBookModel, filteredBookModel.Author));
+                BookViewModel filteredBookVM = _mappingService.BookModelToViewModel(filteredBookModel, filteredBookModel.Author);
+                filteredBookVM.BookCounter++;
+
+                BookList.Add(filteredBookVM);
             }
         }
     }

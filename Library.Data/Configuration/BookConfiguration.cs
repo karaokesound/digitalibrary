@@ -10,14 +10,15 @@ namespace Library.Data.Configuration
         {
             builder.ToTable("Books");
             builder.HasKey(b => b.BookId);
-            builder.Ignore(b => b.BookCounter);
             builder.Property(b => b.BookId).ValueGeneratedOnAdd();
             builder.Property(b => b.Title);
-            builder.Property(b => b.Downloads);
-            builder.Property(b => b.Category)
+            builder.Property(b => b.Quantity);
+                builder.Property(b => b.Category)
                 .HasConversion<string>();
+            builder.Property(b => b.IsRented);
+            builder.Property(b => b.Downloads);
 
-            // one-to-many
+            // one-to-many relation
             builder.HasOne(a => a.Author)
                 .WithMany(b => b.Books);
 
