@@ -2,6 +2,7 @@
 using Library.UI.Model;
 using Library.UI.Services;
 using Library.UI.ViewModel;
+using Library.UI.ViewModel.Library;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,21 @@ namespace Library.UI.Service.Data
 
         private readonly IBaseRepository<BookLanguageModel> _bookLanguageBaseRepository;
 
+        private readonly SortingEnums _sortingEnums;
+
         public DataSorting(IBaseRepository<BookModel> bookBaseRepository, IBaseRepository<AuthorModel> authBaseRepository,
-            IBaseRepository<LanguageModel> lngBaseRepository, IBaseRepository<BookLanguageModel> bookLanguageBaseRepository)
+            IBaseRepository<LanguageModel> lngBaseRepository, IBaseRepository<BookLanguageModel> bookLanguageBaseRepository,
+            SortingEnums sortingEnums)
         {
             _bookBaseRepository = bookBaseRepository;
             _authBaseRepository = authBaseRepository;
             _lngBaseRepository = lngBaseRepository;
             _bookLanguageBaseRepository = bookLanguageBaseRepository;
+            _sortingEnums = sortingEnums;
         }
 
-        public List<BookModel> SortBooks(LibraryViewModel.SortingMethod selectedMethod,
-            LibraryViewModel.BookQuantity selectedQuantity, LibraryViewModel.Genre selectedCategory)
+        public List<BookModel> SortBooks(SortingEnums.SortingMethod selectedMethod, SortingEnums.BookQuantity selectedQuantity,
+            SortingEnums.Genre selectedCategory)
         {
             List<BookModel> bookList = new List<BookModel>();
             List<AuthorModel> authorList = new List<AuthorModel>();
@@ -40,7 +45,7 @@ namespace Library.UI.Service.Data
             languageList = _lngBaseRepository.GetAll().ToList();
             bookLanguageList = _bookLanguageBaseRepository.GetAll().ToList();
 
-            if (selectedCategory == LibraryViewModel.Genre.NOT_SET)
+            if (selectedCategory == SortingEnums.Genre.NOT_SET)
             {
                 // If no category is selected, takes the default bookList which is defined above.
             }
@@ -50,27 +55,27 @@ namespace Library.UI.Service.Data
                 bookList = _bookBaseRepository.GetAll().Where(c => c.Category == string.Join(" ", selectedCategory.ToString().Split('_'))).ToList();
             }
 
-            if (selectedQuantity == LibraryViewModel.BookQuantity.NOT_SET)
+            if (selectedQuantity == SortingEnums.BookQuantity.NOT_SET)
             {
-                selectedQuantity = (LibraryViewModel.BookQuantity)999;
+                selectedQuantity = (SortingEnums.BookQuantity)999;
             }
 
             // app startup setup
-            if (selectedMethod == LibraryViewModel.SortingMethod.NOT_SET && selectedQuantity == LibraryViewModel.BookQuantity.NOT_SET)
+            if (selectedMethod == SortingEnums.SortingMethod.NOT_SET && selectedQuantity == SortingEnums.BookQuantity.NOT_SET)
             {
                 bookList = bookList.Take(bookList.Count).ToList();
             }
 
             // combobox
-            else if (selectedMethod == LibraryViewModel.SortingMethod.NOT_SET)
+            else if (selectedMethod == SortingEnums.SortingMethod.NOT_SET)
             {
                 bookList = bookList.Take((int)selectedQuantity).ToList();
             }
-            else if (selectedMethod == LibraryViewModel.SortingMethod.Az)
+            else if (selectedMethod == SortingEnums.SortingMethod.Az)
             {
                 bookList = bookList.OrderBy(b => b.Title).Take((int)selectedQuantity).ToList();
             }
-            else if (selectedMethod == LibraryViewModel.SortingMethod.Downloads)
+            else if (selectedMethod == SortingEnums.SortingMethod.Downloads)
             {
                 bookList = bookList.OrderByDescending(d => d.Downloads).Take((int)selectedQuantity).ToList();
             }

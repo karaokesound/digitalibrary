@@ -1,12 +1,13 @@
 ﻿using Library.UI.Model;
 using Library.UI.ViewModel;
+using Library.UI.ViewModel.Library;
 using System.Collections.Generic;
 
 namespace Library.UI.Service.Data
 {
     public interface IDataSorting
     {
-        List<BookModel> SortBooks(LibraryViewModel.SortingMethod selectedMethod, 
-            LibraryViewModel.BookQuantity selectedQuantity, LibraryViewModel.Genre selectedCategory);
+        List<BookModel> SortBooks(SortingEnums.SortingMethod selectedMethod, SortingEnums.BookQuantity selectedQuantity,
+            SortingEnums.Genre selectedCategory);
     }
 }
