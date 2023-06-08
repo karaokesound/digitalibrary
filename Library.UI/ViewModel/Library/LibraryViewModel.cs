@@ -48,6 +48,15 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private string _searchBoxInput;
+
+        public string SearchBoxInput
+        {
+            get { return _searchBoxInput; }
+            set { _searchBoxInput = value; }
+        }
+
+
 
         private Genre _genres;
         public Genre Genres
@@ -97,10 +106,11 @@ namespace Library.UI.ViewModel
             }
         }
 
-
         public ICommand LibraryUpdateViewCommand { get; }
 
         public ICommand SortBooksCommand { get; }
+
+        public ICommand FilterBooksCommand { get; }
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
@@ -117,6 +127,7 @@ namespace Library.UI.ViewModel
             BookList = new ObservableCollection<BookViewModel>();
             RandomBookList = new ObservableCollection<BookViewModel>();
             SortBooksCommand = new SortBooksCommand(this, _dataSorting);
+            FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting);
             GenerateRandomBooks();
         }
@@ -133,10 +144,6 @@ namespace Library.UI.ViewModel
                 sortedBook.BookCounter = _bookCounter;
                 BookList.Add(_mappingService.BookModelToViewModel(sortedBook, sortedBook.Author));
             }
-
-            //SortingMethods = SortingMethod.NOT_SET;
-            //Genres = Genre.NOT_SET;
-            //Quantity = BookQuantity.NOT_SET;
         }
 
         public void GenerateRandomBooks()
@@ -151,6 +158,30 @@ namespace Library.UI.ViewModel
             {
                 int rnd = randomBook.Next(mostPopularBooks.Count);
                 RandomBookList.Add(_mappingService.BookModelToViewModel(mostPopularBooks[rnd], mostPopularBooks[rnd].Author));
+            }
+        }
+
+        public void DisplayFilteredBooks(List<BookAccuracy> filteredBookList)
+        {
+            BookList.Clear();
+            BookCounter = 0;
+            _bookCounter = 0;
+
+            foreach (var filteredBook in filteredBookList)
+            {
+                _bookCounter++;
+
+                BookModel filteredBookModel = new BookModel()
+                {
+                    BookId = filteredBook.Book.BookId,
+                    Title = filteredBook.Book.Title,
+                    Author = filteredBook.Book.Author,
+                    Category = filteredBook.Book.Category,
+                    BookLanguages = filteredBook.Book.BookLanguages,
+                    BookCounter = _bookCounter,
+                };
+
+                BookList.Add(_mappingService.BookModelToViewModel(filteredBookModel, filteredBookModel.Author));
             }
         }
 

@@ -123,15 +123,17 @@ namespace Library.UI.ViewModel
 
         public void LoggingValidation()
         {
-            SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
-            {
-                IsUserAuthenticated = isUserAuthenticated;
-                if (IsUserAuthenticated == true)
-                {
-                    SelectedViewModel = new AccountPanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
-                }
-                else return;
-            };
+            //SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
+            //{
+            //    IsUserAuthenticated = isUserAuthenticated;
+            //    if (IsUserAuthenticated == true)
+            //    {
+            //        SelectedViewModel = new AccountPanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
+            //    }
+            //    else return;
+            //};
+
+            SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
         }
     }
 }
