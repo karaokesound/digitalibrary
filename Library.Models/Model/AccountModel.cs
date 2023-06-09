@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace Library.UI.Model
 {
@@ -19,5 +21,9 @@ namespace Library.UI.Model
         public string City { get; set; }
 
         public string Library { get; set; }
+
+        public int MaxQntOfRentedBooks { get; set; }
+
+        public ICollection<Guid> RentedBooks { get; set; }
     }
 }

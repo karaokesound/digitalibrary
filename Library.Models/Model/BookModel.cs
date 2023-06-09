@@ -10,7 +10,7 @@ namespace Library.UI.Model
 
         public string Title { get; set; }
 
-        public string? Quantity { get; set; }
+        public int Quantity { get; set; }
 
         public string Category { get; set; }
 

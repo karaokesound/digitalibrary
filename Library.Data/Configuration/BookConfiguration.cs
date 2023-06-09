@@ -13,8 +13,8 @@ namespace Library.Data.Configuration
             builder.Property(b => b.BookId).ValueGeneratedOnAdd();
             builder.Property(b => b.Title);
             builder.Property(b => b.Quantity);
-                builder.Property(b => b.Category)
-                .HasConversion<string>();
+            builder.Property(b => b.Category)
+            .HasConversion<string>();
             builder.Property(b => b.IsRented);
             builder.Property(b => b.Downloads);
 

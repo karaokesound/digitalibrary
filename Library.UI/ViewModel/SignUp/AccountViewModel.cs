@@ -1,5 +1,7 @@
 ﻿using Library.UI.Service;
 using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace Library.UI.ViewModel
 {
@@ -101,7 +103,7 @@ namespace Library.UI.ViewModel
         }
 
         private string _lastName;
-        public string LastName 
+        public string LastName
         {
             get => _lastName;
             set
@@ -129,7 +131,7 @@ namespace Library.UI.ViewModel
         }
 
         private string _email;
-        public string Email 
+        public string Email
         {
             get => _email;
             set
@@ -153,7 +155,7 @@ namespace Library.UI.ViewModel
         }
 
         private string _city;
-        public string City 
+        public string City
         {
             get => _city;
             set
@@ -182,14 +184,35 @@ namespace Library.UI.ViewModel
         }
 
         private string _library;
-       
-
         public string Library
         {
             get => _library;
             set
             {
                 _library = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _maxQntOfRentedBooks;
+        public int MaxQntOfRentedBooks
+        {
+            get => _maxQntOfRentedBooks;
+            set 
+            { 
+                _maxQntOfRentedBooks = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private ICollection<Guid> _rentedBooks;
+        public ICollection<Guid> RentedBooks
+        {
+            get => _rentedBooks;
+            set
+            {
+                _rentedBooks = value;
                 OnPropertyChanged();
             }
         }

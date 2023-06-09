@@ -1,8 +1,10 @@
 ﻿using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
+using Library.UI.Service.SignIn;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace Library.UI.ViewModel
@@ -53,7 +55,6 @@ namespace Library.UI.ViewModel
             }
         }
 
-
         public ProfilePanelViewModel AccountPanelVM { get; }
 
         public SignUpPanelViewModel SignUpPanelVM { get; }
@@ -78,14 +79,19 @@ namespace Library.UI.ViewModel
 
         private readonly IUserRepository _userRepository;
 
+        private readonly ILoggedAccount _loggedAccount;
+
+        public Guid dupa;
+
         public MainViewModel(ProfilePanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
             LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataFiltering, INotUsedElementHidingService notUsedElementHidingService, IUserAuthenticationService userAuthenticationService,
-            IValidationService validationService, IUserRepository userRepository)
+            IValidationService validationService, IUserRepository userRepository, ILoggedAccount loggedAccount)
         {
             AccountPanelVM = accountPanelVM;
             SignUpPanelVM = signUpPanelVM;
             SignInPanelVM = signInPanelVM;
+            SignInPanelVM.InterceptLoggedUserId += SignInPanelVM_InterceptLoggedUserId;
             LibraryVM = libraryVM;
             _dataSeeder = dataSeeder;
             _bookBaseRepository = bookBaseRepository;
@@ -95,8 +101,14 @@ namespace Library.UI.ViewModel
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
+            _loggedAccount = loggedAccount;
             ElementsVisibility();
             LoggingValidation();
+        }
+
+        public void SignInPanelVM_InterceptLoggedUserId(System.Guid userId)
+        {
+            dupa = userId;
         }
 
         // This methood is initialized in App.xaml.cs. There is no need to initialize it in MainViewModel constructor.
@@ -123,17 +135,17 @@ namespace Library.UI.ViewModel
 
         public void LoggingValidation()
         {
-            //SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
-            //{
-            //    IsUserAuthenticated = isUserAuthenticated;
-            //    if (IsUserAuthenticated == true)
-            //    {
-            //        SelectedViewModel = new AccountPanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
-            //    }
-            //    else return;
-            //};
+            SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
+            {
+                IsUserAuthenticated = isUserAuthenticated;
+                if (IsUserAuthenticated == true)
+                {
+                    SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _loggedAccount, _userAuthenticationService, _validationService, _userRepository, SignInPanelVM);
+                }
+                else return;
+            };
 
-            SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
+            //SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
         }
     }
 }

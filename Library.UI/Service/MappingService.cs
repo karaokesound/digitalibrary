@@ -14,6 +14,8 @@ namespace Library.UI.Services
             {
                 BookId = book.BookId,
                 Title = book.Title,
+                Quantity = book.Quantity,
+                IsRented = book.IsRented,
                 Category = book.Category,
                 Downloads = book.Downloads,
                 BookLanguages = book.BookLanguages,
@@ -34,6 +36,8 @@ namespace Library.UI.Services
             {
                 BookId = bookVM.BookId,
                 Title = bookVM.Title,
+                Quantity = bookVM.Quantity,
+                IsRented = bookVM.IsRented,
                 Category = bookVM.Category,
                 Downloads = bookVM.Downloads,
                 BookLanguages = bookVM.BookLanguages,

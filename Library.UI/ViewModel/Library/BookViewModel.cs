@@ -29,7 +29,6 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-
         private string _title;
         public string Title 
         {
@@ -37,6 +36,50 @@ namespace Library.UI.ViewModel.Library
             set
             {
                 _title = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _quantity;
+        public int Quantity
+        {
+            get => _quantity;
+            set
+            {
+                _quantity = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _category;
+        public string Category
+        {
+            get => _category;
+            set
+            {
+                _category = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isRented;
+        public bool IsRented
+        {
+            get => _isRented;
+            set
+            {
+                _isRented = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _downloads;
+        public int Downloads
+        {
+            get => _downloads;
+            set
+            {
+                _downloads = value;
                 OnPropertyChanged();
             }
         }
@@ -51,29 +94,6 @@ namespace Library.UI.ViewModel.Library
                 OnPropertyChanged();
             }
         }
-
-        private string _category;
-        public string Category 
-        {
-            get => _category;
-            set
-            {
-                _category = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private int _downloads;
-        public int Downloads
-        {
-            get => _downloads;
-            set 
-            { 
-                _downloads = value;
-                OnPropertyChanged();
-            }
-        }
-
 
         private ICollection<BookLanguageModel> _bookLanguages;
         public ICollection<BookLanguageModel> BookLanguages 

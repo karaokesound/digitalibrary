@@ -4,6 +4,8 @@ using Library.UI.Service;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace Library.UI.Commands
@@ -16,6 +18,8 @@ namespace Library.UI.Commands
 
         public override void Execute(object parameter)
         {
+            List<Guid> rentedBooks = new List<Guid>();
+
             AccountModel newAccount = new AccountModel()
             {
                 AccountId = Guid.NewGuid(),
@@ -26,6 +30,8 @@ namespace Library.UI.Commands
                 Email = _signUpPanelVM.NewAccount.Email,
                 City = _signUpPanelVM.NewAccount.City,
                 Library = _signUpPanelVM.NewAccount.Library,
+                MaxQntOfRentedBooks = 5,
+                RentedBooks = rentedBooks,
             };
 
             ComboBoxItem selectedItem = parameter as ComboBoxItem;

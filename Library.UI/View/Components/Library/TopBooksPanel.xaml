@@ -94,7 +94,6 @@
                         </ControlTemplate>
                     </ListView.Template>
 
-
                     <!--// columns //-->
                     <ListView.View>
                         <GridView>
@@ -145,8 +144,17 @@
                             <GridViewColumn Width="80">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Rent"
-                                                Command="{Binding RentBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                                        <Grid Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Converter={StaticResource booleanToVisibilityConverter}}"
+                                              VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="Rent"
+                                                        Command="{Binding DataContext.RentBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                                                <TextBlock Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
+                                                           Foreground="Red"
+                                                           FontWeight="Bold"
+                                                           Margin="20 0 0 0"/>
+                                            </StackPanel>
+                                        </Grid>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

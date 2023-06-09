@@ -4,6 +4,7 @@ using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.API;
 using Library.UI.Service.Data;
+using Library.UI.Service.SignIn;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel;
@@ -63,6 +64,7 @@ namespace Library.UI
             services.AddTransient<IDataSeeder, DataSeeder>();
             services.AddTransient<IDataSorting, DataSorting>();
             services.AddTransient<INotUsedElementHidingService, NotUsedElementHidingService>();
+            services.AddSingleton<ILoggedAccount, LoggedAccount>();
         }
     }
 }

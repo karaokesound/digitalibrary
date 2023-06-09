@@ -1,7 +1,4 @@
-﻿using Library.UI.Model;
-using Library.UI.ViewModel;
-
-namespace Library.UI.Services
+﻿namespace Library.UI.Services
 {
     public class UserAuthenticationService : IUserAuthenticationService
     {
