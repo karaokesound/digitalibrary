@@ -101,6 +101,8 @@ namespace Library.UI.ViewModel
 
         public ICommand RentBookCommand { get; }
 
+        public ICommand ReturnBookCommand { get; }
+
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly IMappingService _mappingService;
@@ -131,11 +133,13 @@ namespace Library.UI.ViewModel
             _accountBookRepository = accountBookRepository;
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
+            FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
             RandomBookList = new ObservableCollection<BookViewModel>();
+            SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
             RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, _accountBaseRepository, 
                 _accountBookRepository);
-            SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
-            FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
+            ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository,
+                _dataSorting);
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
                 _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
             GenerateRandomBooks();
