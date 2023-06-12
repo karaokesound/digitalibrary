@@ -265,7 +265,7 @@
             <Button Grid.Row="2"
                     VerticalAlignment="Top"
                     Content="Sign Up"
-                    Command="{Binding RegisterButtonCommand}"
+                    Command="{Binding RegisterCommand}"
                     Style="{StaticResource registerButton}" />
         </Grid>
 

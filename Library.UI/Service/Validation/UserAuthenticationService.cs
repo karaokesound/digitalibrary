@@ -1,14 +1,20 @@
-﻿namespace Library.UI.Services
+﻿using System;
+
+namespace Library.UI.Services
 {
     public class UserAuthenticationService : IUserAuthenticationService
     {
         public bool IsUserAuthenticated { get; private set; }
-        public void Authentication(string loggingUsername, string databaseUsername, string loggingPassword,
-            string databasePassword)
+
+        public Guid UserId { get; private set; }
+
+        public void Authentication(string loggingUsername, string dbUsername, string loggingPassword,
+            string dbPassword, Guid dbId)
         {
-            if (loggingUsername == databaseUsername && loggingPassword == databasePassword)
+            if (loggingUsername == dbUsername && loggingPassword == dbPassword)
             {
                 IsUserAuthenticated = true;
+                UserId = dbId;
             }
             else IsUserAuthenticated = false;
         }

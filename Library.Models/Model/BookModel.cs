@@ -22,6 +22,8 @@ namespace Library.UI.Model
 
         public ICollection<BookLanguageModel> BookLanguages { get; set; }
 
+        public ICollection<AccountBookModel> AccountBooks { get; set; }
+
         public enum Genre
         {
             Drama,

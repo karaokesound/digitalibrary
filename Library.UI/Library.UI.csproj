@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Service\Library\**" />
-    <EmbeddedResource Remove="Service\Library\**" />
-    <None Remove="Service\Library\**" />
-    <Page Remove="Service\Library\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Commands\UpdateViewCommand.cs" />
   </ItemGroup>
 

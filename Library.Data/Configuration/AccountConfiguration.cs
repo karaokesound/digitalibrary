@@ -1,8 +1,6 @@
 ﻿using Library.UI.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Linq;
 
 namespace Library.Data.Configuration
 {
@@ -22,13 +20,7 @@ namespace Library.Data.Configuration
             builder.Property(u => u.City)
                 .IsRequired(false);
             builder.Property(u => u.Library);
-            builder.Property(u => u.MaxQntOfRentedBooks);
-            builder.Property(u => u.RentedBooks)
-                .HasConversion
-                (v => string.Join(',', v),
-                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(guidStr => Guid.Parse(guidStr))
-                .ToList());
+            builder.Property(u => u.MaxBookQntToRent);
         }
     }
 }

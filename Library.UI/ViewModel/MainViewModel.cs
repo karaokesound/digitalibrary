@@ -1,10 +1,8 @@
 ﻿using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
-using Library.UI.Service.SignIn;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace Library.UI.ViewModel
@@ -71,7 +69,7 @@ namespace Library.UI.ViewModel
 
         private readonly IDataSorting _dataFiltering;
 
-        private readonly INotUsedElementHidingService _notUsedElementHidingService;
+        private readonly IElementVisibilityService _elementVisibilityService;
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
@@ -79,36 +77,32 @@ namespace Library.UI.ViewModel
 
         private readonly IUserRepository _userRepository;
 
-        private readonly ILoggedAccount _loggedAccount;
+        private readonly IBaseRepository<AccountModel> _accountBaseRepository;
 
-        public Guid dupa;
+        private readonly IAccountBookRepository _accountBookRepository;
 
         public MainViewModel(ProfilePanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
             LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IDataSorting dataFiltering, INotUsedElementHidingService notUsedElementHidingService, IUserAuthenticationService userAuthenticationService,
-            IValidationService validationService, IUserRepository userRepository, ILoggedAccount loggedAccount)
+            IDataSorting dataFiltering, IElementVisibilityService elementVisibilityService, IUserAuthenticationService userAuthenticationService,
+            IValidationService validationService, IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository,
+            IAccountBookRepository accountBookRepository)
         {
             AccountPanelVM = accountPanelVM;
             SignUpPanelVM = signUpPanelVM;
             SignInPanelVM = signInPanelVM;
-            SignInPanelVM.InterceptLoggedUserId += SignInPanelVM_InterceptLoggedUserId;
             LibraryVM = libraryVM;
             _dataSeeder = dataSeeder;
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataFiltering = dataFiltering;
-            _notUsedElementHidingService = notUsedElementHidingService;
+            _elementVisibilityService = elementVisibilityService;
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
-            _loggedAccount = loggedAccount;
+            _accountBaseRepository = accountBaseRepository;
+            _accountBookRepository = accountBookRepository;
             ElementsVisibility();
             LoggingValidation();
-        }
-
-        public void SignInPanelVM_InterceptLoggedUserId(System.Guid userId)
-        {
-            dupa = userId;
         }
 
         // This methood is initialized in App.xaml.cs. There is no need to initialize it in MainViewModel constructor.
@@ -140,7 +134,8 @@ namespace Library.UI.ViewModel
                 IsUserAuthenticated = isUserAuthenticated;
                 if (IsUserAuthenticated == true)
                 {
-                    SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _loggedAccount, _userAuthenticationService, _validationService, _userRepository, SignInPanelVM);
+                    SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _userAuthenticationService,
+                        _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
                 }
                 else return;
             };

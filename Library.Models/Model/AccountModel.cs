@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Library.Models.Model;
+using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
 
 namespace Library.UI.Model
 {
@@ -22,8 +22,8 @@ namespace Library.UI.Model
 
         public string Library { get; set; }
 
-        public int MaxQntOfRentedBooks { get; set; }
+        public int MaxBookQntToRent { get; set; }
 
-        public ICollection<Guid> RentedBooks { get; set; }
+        public ICollection<AccountBookModel> AccountBooks { get; set; }
     }
 }

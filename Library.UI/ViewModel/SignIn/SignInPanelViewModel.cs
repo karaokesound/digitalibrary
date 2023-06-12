@@ -1,8 +1,6 @@
 ﻿using Library.UI.Commands.SignIn;
 using Library.UI.Service;
-using Library.UI.Service.SignIn;
 using Library.UI.Services;
-using System;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -12,10 +10,6 @@ namespace Library.UI.ViewModel
         public delegate void UserAuthenticationChangedEvent(bool userAuthentication);
 
         public event UserAuthenticationChangedEvent UserAuthenticationChanged = null!;
-
-        public delegate void InterceptLoggedUserIdEvent(Guid userId);
-
-        public event InterceptLoggedUserIdEvent InterceptLoggedUserId;
 
         private bool _signInPanelVisibility = true;
         public bool SignInPanelVisibility
@@ -60,23 +54,17 @@ namespace Library.UI.ViewModel
 
         private readonly IMappingService _mappingService;
 
-        private readonly ILoggedAccount _loggedAccount;
-
         public SignInPanelViewModel(IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
-            IUserRepository userRepository, IMappingService mappingService, ILoggedAccount loggedAccount)
+            IUserRepository userRepository, IMappingService mappingService)
         {
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
             _mappingService = mappingService;
-            _loggedAccount = loggedAccount;
             LoggingUsernamePassword = new AccountViewModel(_validationService);
-            LoginCommand = new LoginCommand(this, _userAuthenticationService, _validationService, _userRepository, _mappingService, 
-                _loggedAccount);
+            LoginCommand = new LoginCommand(this, _userAuthenticationService, _validationService, _userRepository, _mappingService);
         }
 
         public void RaiseUserAuthEvent() => UserAuthenticationChanged?.Invoke(_userAuthenticationService.IsUserAuthenticated);
-
-        public void RaiseInterceptLoggedUserIdEvent() => InterceptLoggedUserId?.Invoke(_loggedAccount.AccountId);
     }
 }

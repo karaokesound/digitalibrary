@@ -2,7 +2,6 @@
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
-using Library.UI.Service.SignIn;
 using Library.UI.Services;
 using Library.UI.ViewModel.Library;
 using System;
@@ -108,43 +107,39 @@ namespace Library.UI.ViewModel
 
         private readonly IDataSorting _dataSorting;
 
-        private readonly ILoggedAccount _loggedAccount;
-
         private readonly IUserAuthenticationService _userAuthenticationService;
 
         private readonly IValidationService _validationService;
 
         private readonly IUserRepository _userRepository;
 
-        public SignInPanelViewModel SignInPanelVM { get; set; }
+        private readonly IBaseRepository<AccountModel> _accountBaseRepository;
+
+        private readonly IAccountBookRepository _accountBookRepository;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IDataSorting dataSorting, ILoggedAccount loggedAccount, IUserAuthenticationService userAuthenticationService,
-            IValidationService validationService, IUserRepository userRepository, SignInPanelViewModel signInPanelViewModel)
+            IDataSorting dataSorting, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
+            IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataSorting = dataSorting;
-            _loggedAccount = loggedAccount;
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
-            SignInPanelVM = signInPanelViewModel;
-            SignInPanelVM.InterceptLoggedUserId += SignInPanelVM_InterceptLoggedUserId;
+            _accountBaseRepository = accountBaseRepository;
+            _accountBookRepository = accountBookRepository;
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
             RandomBookList = new ObservableCollection<BookViewModel>();
-            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService);
+            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, _accountBaseRepository, 
+                _accountBookRepository);
             SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
             FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
-            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _loggedAccount, _userAuthenticationService, _validationService, _userRepository, SignInPanelVM);
+            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
+                _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
             GenerateRandomBooks();
-            
-        }
-
-        private void SignInPanelVM_InterceptLoggedUserId(System.Guid userId)
-        {
-            var dupa = userId;
+            InterceptLoggedUserId();
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)
@@ -205,6 +200,11 @@ namespace Library.UI.ViewModel
 
                 BookList.Add(filteredBookVM);
             }
+        }
+
+        private void InterceptLoggedUserId()
+        {
+            _loggedAccountId = _userAuthenticationService.UserId;
         }
     }
 }

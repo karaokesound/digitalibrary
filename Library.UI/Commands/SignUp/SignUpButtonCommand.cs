@@ -8,7 +8,7 @@ namespace Library.UI.Commands
     {
         private readonly SignUpPanelViewModel _signUpPanelVM;
 
-        private readonly INotUsedElementHidingService _notUsedElementHidingService;
+        private readonly IElementVisibilityService _notUsedElementHidingService;
 
         public override void Execute(object parameter)
         {
@@ -19,7 +19,7 @@ namespace Library.UI.Commands
             _signUpPanelVM.RaiseSignUpButtClickedEvent();
         }
 
-        public SignUpButtonCommand(SignUpPanelViewModel signUpPanelVM, INotUsedElementHidingService notUsedElementHidingService)
+        public SignUpButtonCommand(SignUpPanelViewModel signUpPanelVM, IElementVisibilityService notUsedElementHidingService)
         {
             _signUpPanelVM = signUpPanelVM;
             _notUsedElementHidingService = notUsedElementHidingService;

@@ -1,6 +1,6 @@
 ﻿namespace Library.UI.Service.Validation
 {
-    public interface INotUsedElementHidingService
+    public interface IElementVisibilityService
     {
         public bool IsSignUpButtonClicked { get; }
 

@@ -60,7 +60,7 @@ namespace Library.UI.ViewModel
 
         public ICommand SignUpButtonCommand { get; }
 
-        public ICommand RegisterButtonCommand { get; }
+        public ICommand RegisterCommand { get; }
 
         public ICommand ExitButtonCommand { get; }
 
@@ -68,23 +68,23 @@ namespace Library.UI.ViewModel
 
         private readonly IBaseRepository<AccountModel> _baseRepository;
 
-        private readonly INotUsedElementHidingService _notUsedElementHidingService;
+        private readonly IElementVisibilityService _elementVisibilityService;
 
         public SignUpPanelViewModel(IValidationService validationService, IBaseRepository<AccountModel> baseRepository,
-            INotUsedElementHidingService notUsedElementHidingService)
+            IElementVisibilityService elementVisibilityService)
         {
             _validationService = validationService;
             _baseRepository = baseRepository;
-            _notUsedElementHidingService = notUsedElementHidingService;
-            SignUpButtonCommand = new SignUpButtonCommand(this, _notUsedElementHidingService);
-            ExitButtonCommand = new ExitButtonCommand(this, _notUsedElementHidingService);
-            RegisterButtonCommand = new RegisterButtonCommand(this, _validationService, _baseRepository);
+            _elementVisibilityService = elementVisibilityService;
+            SignUpButtonCommand = new SignUpButtonCommand(this, _elementVisibilityService);
+            ExitButtonCommand = new ExitButtonCommand(this, _elementVisibilityService);
+            RegisterCommand = new RegisterCommand(this, _validationService, _baseRepository);
             NewAccount = new AccountViewModel(_validationService);
             LibraryList = new ObservableCollection<string>();
             _libraryList.Add("Vice ELibrary");
             _libraryList.Add("NightC -DLibrary");
         }
 
-        public void RaiseSignUpButtClickedEvent() => SignUpButtonClicked?.Invoke(_notUsedElementHidingService.IsSignUpButtonClicked);
+        public void RaiseSignUpButtClickedEvent() => SignUpButtonClicked?.Invoke(_elementVisibilityService.IsSignUpButtonClicked);
     }
 }

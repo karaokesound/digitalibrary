@@ -9,7 +9,7 @@ namespace Library.UI.Commands
     {
         private readonly SignUpPanelViewModel _signUpPanelVM;
 
-        private readonly INotUsedElementHidingService _notUsedElementHidingService;
+        private readonly IElementVisibilityService _notUsedElementHidingService;
 
         public override void Execute(object parameter)
         {
@@ -17,6 +17,7 @@ namespace Library.UI.Commands
             string title = "Close";
             string message = "If you close this window, you will lost all data. Are you sure?";
             MessageBoxResult result = MessageBox.Show(message, title, messageBoxButtons, MessageBoxImage.Question);
+
             if (result == MessageBoxResult.Yes)
             {
                 _signUpPanelVM.SignUpPanelVisibility = false;
@@ -32,10 +33,11 @@ namespace Library.UI.Commands
                 _notUsedElementHidingService.AdjustElementVisibility(_signUpPanelVM.SignUpPanelVisibility);
                 _signUpPanelVM.RaiseSignUpButtClickedEvent();
             }
+
             else return;
         }
 
-        public ExitButtonCommand(SignUpPanelViewModel signUpPanelVM, INotUsedElementHidingService notUsedElementHidingService)
+        public ExitButtonCommand(SignUpPanelViewModel signUpPanelVM, IElementVisibilityService notUsedElementHidingService)
         {
             _signUpPanelVM = signUpPanelVM;
             _notUsedElementHidingService = notUsedElementHidingService;

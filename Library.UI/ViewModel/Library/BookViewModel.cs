@@ -1,5 +1,4 @@
 ﻿using Library.Models.Model;
-using Library.UI.Model;
 using System;
 using System.Collections.Generic;
 
@@ -102,6 +101,17 @@ namespace Library.UI.ViewModel.Library
             set
             {
                 _bookLanguages = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ICollection<AccountBookModel> _accountBooks;
+        public ICollection<AccountBookModel> AccountBooks
+        {
+            get => _accountBooks;
+            set
+            {
+                _accountBooks = value;
                 OnPropertyChanged();
             }
         }

@@ -21,7 +21,6 @@ namespace Library.Data.Configuration
             // one-to-many relation
             builder.HasOne(a => a.Author)
                 .WithMany(b => b.Books);
-
         }
     }
 }

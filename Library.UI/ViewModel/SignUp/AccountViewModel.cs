@@ -1,7 +1,7 @@
-﻿using Library.UI.Service;
+﻿using Library.Models.Model;
+using Library.UI.Service;
 using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
 
 namespace Library.UI.ViewModel
 {
@@ -206,13 +206,13 @@ namespace Library.UI.ViewModel
         }
 
 
-        private ICollection<Guid> _rentedBooks;
-        public ICollection<Guid> RentedBooks
+        private ICollection<AccountBookModel> _accountBooks;
+        public ICollection<AccountBookModel> AccountBooks
         {
-            get => _rentedBooks;
+            get => _accountBooks;
             set
             {
-                _rentedBooks = value;
+                _accountBooks = value;
                 OnPropertyChanged();
             }
         }

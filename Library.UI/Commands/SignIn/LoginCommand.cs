@@ -1,7 +1,6 @@
 ﻿using Library.UI.Command;
 using Library.UI.Model;
 using Library.UI.Service;
-using Library.UI.Service.SignIn;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 
@@ -19,8 +18,6 @@ namespace Library.UI.Commands.SignIn
 
         private readonly IMappingService _mappingService;
 
-        private readonly ILoggedAccount _loggedAccount;
-
         public override void Execute(object parameter)
         {
             AccountViewModel loggingUserVM = _signInPanelVM.LoggingUsernamePassword;
@@ -34,23 +31,18 @@ namespace Library.UI.Commands.SignIn
             }
 
             _userAuthenticationService.Authentication(loggingUser.Username, dbUser.Username, loggingUser.Password,
-                dbUser.Password);
+                dbUser.Password, dbUser.AccountId);
             _signInPanelVM.RaiseUserAuthEvent();
-
-            _loggedAccount.TakeAccountId(dbUser.AccountId);
-            _signInPanelVM.RaiseInterceptLoggedUserIdEvent();
         }
 
         public LoginCommand(SignInPanelViewModel signInPanelVM, IUserAuthenticationService userAuthenticationService,
-            IValidationService validationService, IUserRepository userRepository, IMappingService mappingService, 
-            ILoggedAccount loggedAccount)
+            IValidationService validationService, IUserRepository userRepository, IMappingService mappingService)
         {
             _signInPanelVM = signInPanelVM;
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
             _mappingService = mappingService;
-            _loggedAccount = loggedAccount;
         }
     }
 }
