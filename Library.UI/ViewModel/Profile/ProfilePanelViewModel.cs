@@ -64,8 +64,8 @@ namespace Library.UI.ViewModel
             _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
-            ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository,
-                _dataSorting);
+            //ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository,
+            //    _dataSorting);
             ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting,
                 _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
             TakeLoggedUserData();
