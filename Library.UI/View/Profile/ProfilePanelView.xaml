@@ -110,7 +110,6 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!--// settings //-->
                 <Border Background="White"
                         Opacity="0.25"
                         CornerRadius="7"
@@ -124,8 +123,7 @@
                         Height="80" />
                 <Button Content="Settings"
                         Style="{StaticResource SmallProfileButton}"/>
-                
-                <!--// returns //-->
+
                 <Border Grid.Column="1"
                         Background="White"
                         Opacity="0.25"
@@ -141,10 +139,8 @@
                         Height="80" />
                 <Button Grid.Column="1"
                         Content="Returns"
-                        Style="{StaticResource SmallProfileButton}"
-                        Command="{Binding ReturnBookCommand}"/>
+                        Style="{StaticResource SmallProfileButton}"/>
 
-                <!--// reservation //-->
                 <Border Grid.Column="2"
                         Background="White"
                         Opacity="0.25"
@@ -159,10 +155,9 @@
                         Width="125"
                         Height="80" />
                 <Button Grid.Column="2"
-                        Content="Reservation"
+                        Content="Xyz"
                         Style="{StaticResource SmallProfileButton}"/>
 
-                <!--// xyz //-->
                 <Border Grid.Column="3"
                         Background="White"
                         Opacity="0.25"

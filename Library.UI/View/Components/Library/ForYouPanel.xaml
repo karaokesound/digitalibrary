@@ -16,7 +16,7 @@
 
             <!--// for you - text //-->
             <TextBlock Text="For you"
-                       Foreground="Black"
+                       Foreground="White"
                        HorizontalAlignment="Left"
                        FontSize="20" />
 
@@ -24,6 +24,7 @@
             <Grid Grid.Row="1"
                   Margin="0 10 0 0"
                   Width="910"
+                  Height="110"
                   HorizontalAlignment="Center"
                   TextBlock.Foreground="White">
                 <Grid.ColumnDefinitions>
@@ -35,8 +36,8 @@
                 </Grid.ColumnDefinitions>
 
                 <!--// book 1 //-->
-                <Border Width="160"
-                        BorderBrush=" #1b2631 "
+                <Border Width="150"
+                        BorderBrush="White"
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
@@ -46,12 +47,13 @@
                                     AlignmentY="Top" />
                     </Border.Background>
                 </Border>
+                
                 <Grid>
-                    <Border Background=" #1b2631 "
+                    <Border Background="#1b2631"
                             Opacity="0.9"
                             VerticalAlignment="Bottom"
                             Height="20"
-                            Width="160"
+                            Width="140"
                             CornerRadius="0 0 14 14" />
                     <TextBlock Text="{Binding RandomBookList[0].Title, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="14"
@@ -63,8 +65,8 @@
 
                 <!--// book 2 //-->
                 <Border Grid.Column="1"
-                        Width="160"
-                        BorderBrush=" #1b2631 "
+                        Width="150"
+                        BorderBrush="White"
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
@@ -74,25 +76,26 @@
                                     AlignmentY="Top" />
                     </Border.Background>
                 </Border>
+                
                 <Grid Grid.Column="1">
-                    <Border Background=" #1b2631 "
+                    <Border Background="#1b2631"
                             Opacity="0.9"
                             VerticalAlignment="Bottom"
                             Height="20"
-                            Width="160"
+                            Width="140"
                             CornerRadius="0 0 14 14" />
                     <TextBlock Text="{Binding RandomBookList[1].Title, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="14"
                                VerticalAlignment="Bottom"
                                HorizontalAlignment="Center"
-                               Width="145"
+                               Width="135"
                                Margin="1.5 3 1.5 3"/>
                 </Grid>
 
                 <!--// book 3 //-->
                 <Border Grid.Column="2"
-                        Width="160"
-                        BorderBrush=" #1b2631 "
+                        Width="150"
+                        BorderBrush="White"
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
@@ -102,25 +105,26 @@
                                     AlignmentY="Top" />
                     </Border.Background>
                 </Border>
+                
                 <Grid Grid.Column="2">
-                    <Border Background=" #1b2631 "
+                    <Border Background="#1b2631"
                             Opacity="0.9"
                             VerticalAlignment="Bottom"
                             Height="20"
-                            Width="160"
+                            Width="140"
                             CornerRadius="0 0 14 14" />
                     <TextBlock Text="{Binding RandomBookList[2].Title, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="14"
                                VerticalAlignment="Bottom"
                                HorizontalAlignment="Center"
-                               Width="145"
+                               Width="135"
                                Margin="1.5 3 1.5 3"/>
                 </Grid>
 
                 <!--// book 4 //-->
                 <Border Grid.Column="3"
-                        Width="160"
-                        BorderBrush=" #1b2631 "
+                        Width="150"
+                        BorderBrush="White"
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
@@ -130,25 +134,26 @@
                                     AlignmentY="Top" />
                     </Border.Background>
                 </Border>
+                
                 <Grid Grid.Column="3">
-                    <Border Background=" #1b2631 "
+                    <Border Background="#1b2631"
                             Opacity="0.9"
                             VerticalAlignment="Bottom"
                             Height="20"
-                            Width="160"
+                            Width="140"
                             CornerRadius="0 0 14 14" />
                     <TextBlock Text="{Binding RandomBookList[3].Title, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="14"
                                VerticalAlignment="Bottom"
                                HorizontalAlignment="Center"
-                               Width="145"
+                               Width="135"
                                Margin="1.5 3 1.5 3"/>
                 </Grid>
 
                 <!--// book 5 //-->
                 <Border Grid.Column="4"
-                        Width="160"
-                        BorderBrush=" #1b2631"
+                        Width="150"
+                        BorderBrush="White"
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
@@ -158,18 +163,19 @@
                                     AlignmentY="Top" />
                     </Border.Background>
                 </Border>
+                
                 <Grid Grid.Column="4">
-                    <Border Background=" #1b2631 "
+                    <Border Background="#1b2631"
                             Opacity="0.9"
                             VerticalAlignment="Bottom"
                             Height="20"
-                            Width="160"
+                            Width="140"
                             CornerRadius="0 0 14 14" />
                     <TextBlock Text="{Binding RandomBookList[4].Title, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="14"
                                VerticalAlignment="Bottom"
                                HorizontalAlignment="Center"
-                               Width="145"
+                               Width="135"
                                Margin="1.5 3 1.5 3"/>
                 </Grid>
             </Grid>
