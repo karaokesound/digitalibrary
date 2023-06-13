@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.UI.Model;
+using System;
 
 namespace Library.UI.Services
 {
@@ -6,15 +7,18 @@ namespace Library.UI.Services
     {
         public bool IsUserAuthenticated { get; private set; }
 
+        public AccountModel LoggedUser { get; private set; }
+
         public Guid UserId { get; private set; }
 
         public void Authentication(string loggingUsername, string dbUsername, string loggingPassword,
-            string dbPassword, Guid dbId)
+            string dbPassword, AccountModel dbUser)
         {
             if (loggingUsername == dbUsername && loggingPassword == dbPassword)
             {
                 IsUserAuthenticated = true;
-                UserId = dbId;
+                UserId = dbUser.AccountId;
+                LoggedUser = dbUser;
             }
             else IsUserAuthenticated = false;
         }

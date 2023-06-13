@@ -13,7 +13,7 @@ namespace Library.UI.Commands.Library
 {
     public class ReturnBookCommand : CommandBase
     {
-        private readonly LibraryViewModel _libraryViewModel;
+        private readonly LibraryViewModel _profilePanelViewModel;
 
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
 
@@ -27,10 +27,10 @@ namespace Library.UI.Commands.Library
 
         public override void Execute(object parameter)
         {
-            BookViewModel selectedBookVM = _libraryViewModel.SelectedBook;
+            BookViewModel selectedBookVM = _profilePanelViewModel.SelectedBook;
             BookModel selectedBook = _mappingService.BookViewModelToModel(selectedBookVM, selectedBookVM.Author);
 
-            AccountModel dbLoggedUser = _accountBaseRepository.GetByID(_libraryViewModel.LoggedAccountId);
+            AccountModel dbLoggedUser = _accountBaseRepository.GetByID(_profilePanelViewModel.LoggedAccountId);
             BookModel dbSelecteedBook = _bookBaseRepository.GetByID(selectedBook.BookId);
 
             dbLoggedUser.MaxBookQntToRent += 1;
@@ -58,14 +58,14 @@ namespace Library.UI.Commands.Library
             _bookBaseRepository.Save();
 
             var sortedBooks = _dataSorting.SortBooks(SortingEnums.SortingMethod.NOT_SET, SortingEnums.BookQuantity.NOT_SET, SortingEnums.Genre.NOT_SET);
-            _libraryViewModel.DisplayBooks(sortedBooks);
+            _profilePanelViewModel.DisplayBooks(sortedBooks);
         }
 
-        public ReturnBookCommand(LibraryViewModel libraryViewModel, IBaseRepository<AccountModel> accountBaseRepository,
+        public ReturnBookCommand(ProfilePanelViewModel profilePanelViewModel, IBaseRepository<AccountModel> accountBaseRepository,
             IAccountBookRepository accountBookRepository, IMappingService mappingService, IBaseRepository<BookModel> bookBaseRepository,
             IDataSorting dataSorting)
         {
-            _libraryViewModel = libraryViewModel;
+            _profilePanelViewModel = profilePanelViewModel;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
             _mappingService = mappingService;

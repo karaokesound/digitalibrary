@@ -3,24 +3,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Library.UI.View.Components" xmlns:library="clr-namespace:Library.UI.Resources.Library"
+             xmlns:local="clr-namespace:Library.UI.View.Components" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:library="clr-namespace:Library.UI.Resources.Library"
              mc:Ignorable="d" 
              FontFamily="Rubik"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.16*" />
+            <RowDefinition Height="0.26*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--// TEXT//-->
-        <TextBlock Text="Top books"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Bottom"
-                   Foreground="Black"
-                   FontSize="20" />
+        <!--// TOP BOOKS TEXT, COMBOBOXES //-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.15*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <!--// LISTVIEW, COMBOBOXES //-->
+            <!--// top books //-->
+            <TextBlock Text="Top books"
+                       VerticalAlignment="Bottom"
+                       Foreground="White"
+                       FontSize="20" />
+
+            <!--// comboboxes //-->
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left">
+                <library:CommandComboBox Style="{DynamicResource SortingComboBox}" 
+                                         ItemsSource="{Binding SortingEnums.SortingMethods, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                         SelectedValuePath="Value"
+                                         DisplayMemberPath="Description"
+                                         SelectedValue="{Binding SortingEnums.SortingMethods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Command="{Binding SortBooksCommand}" />
+                <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
+                                         ItemsSource="{Binding SortingEnums.Quantity, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                         SelectedValuePath="Value"
+                                         DisplayMemberPath="Description"
+                                         SelectedValue="{Binding SortingEnums.Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Command="{Binding SortBooksCommand}"
+                                         Margin="0"/>
+                <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
+                                         ItemsSource="{Binding SortingEnums.Genres, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                         SelectedValuePath="Value"
+                                         DisplayMemberPath="Description"
+                                         SelectedValue="{Binding SortingEnums.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Command="{Binding SortBooksCommand}" />
+            </StackPanel>
+        </Grid>
+
+        <!--// LISTVIEW, SEARCHBOX //-->
         <Grid Grid.Row="1"
               Margin="0 10 0 0">
             <Grid.RowDefinitions>
@@ -31,42 +66,45 @@
             <!--// table headers //-->
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal"
-                            Margin="8.5 0 0 5"
-                            TextBlock.Foreground=" #1b2631 "
+                            TextBlock.Foreground="#85c1e9"
                             TextBlock.FontWeight="Bold"
                             VerticalAlignment="Bottom">
                     <TextBlock Text="Pos."
-                               Width="40" />
+                               Width="46"
+                               Margin="12 0 0 0"/>
                     <TextBlock Text="Title"
-                               Width="250"/>
+                               Width="229"
+                               Margin="0 0 0 0"/>
                     <TextBlock Text="Category" 
-                               Width="150"/>
+                               Width="108" />
                     <TextBlock Text="Author"
-                               Width="374"/>
+                               Width="108" />
                 </StackPanel>
 
-                <!--// comboboxes //-->
-                <StackPanel Orientation="Horizontal">
-                    <library:CommandComboBox Style="{DynamicResource SortingComboBox}" 
-                                             ItemsSource="{Binding SortingEnums.SortingMethods, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
-                                             SelectedValuePath="Value"
-                                             DisplayMemberPath="Description"
-                                             SelectedValue="{Binding SortingEnums.SortingMethods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             Command="{Binding SortBooksCommand}" />
-                    <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
-                                             ItemsSource="{Binding SortingEnums.Quantity, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
-                                             SelectedValuePath="Value"
-                                             DisplayMemberPath="Description"
-                                             SelectedValue="{Binding SortingEnums.Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             Command="{Binding SortBooksCommand}"
-                                             Margin="0"/>
-                    <library:CommandComboBox Style="{DynamicResource SortingComboBox}"
-                                             ItemsSource="{Binding SortingEnums.Genres, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
-                                             SelectedValuePath="Value"
-                                             DisplayMemberPath="Description"
-                                             SelectedValue="{Binding SortingEnums.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             Command="{Binding SortBooksCommand}" />
-                </StackPanel>
+                <!--// search box //-->
+                <Grid>
+                    <TextBox Style="{StaticResource searchBox}"
+                         Text="{Binding SearchBoxInput, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding FilterBooksCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                    <Border Margin="0 0 2 0"
+                            HorizontalAlignment="Right"
+                            Background="White"
+                            Opacity="0.2"
+                            CornerRadius="7"
+                            Height="25"
+                            Width="25" />
+                    <Image Margin="0 1 4.5 0"
+                           HorizontalAlignment="Right"
+                           Source="/Resources/Images/search.png"
+                           Width="17"
+                           Height="17"
+                           RenderOptions.BitmapScalingMode="Fant"/>
+                </Grid>
             </StackPanel>
 
             <!--// LISTVIEW //-->
@@ -75,8 +113,14 @@
 
                 <!--// listview background //-->
                 <Border CornerRadius="5"
-                        Background="  #1a237e  "
-                        Opacity="0.993" />
+                        Background="#0063B2" />
+                <Border>
+                    <Border.Background>
+                        <ImageBrush ImageSource="https://wallpaperaccess.com/full/221471.jpg"
+                                    RenderOptions.BitmapScalingMode="Fant"
+                                    Opacity="0.1"/>
+                    </Border.Background>
+                </Border>
 
                 <!--// listview //-->
                 <ListView ItemsSource="{Binding BookList, UpdateSourceTrigger=PropertyChanged}"
@@ -93,6 +137,22 @@
                             </Border>
                         </ControlTemplate>
                     </ListView.Template>
+                    <ListView.Resources>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Height" Value="46" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#488AC7" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="Background" Value="#2554C7" />
+                                    <Setter Property="BorderBrush" Value="#151B54" />
+                                    <Setter Property="BorderThickness" Value="2" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.Resources>
 
                     <!--// columns //-->
                     <ListView.View>
@@ -103,9 +163,9 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <Border BorderBrush=" #303f9f "
-                                                    Background="#000066"
-                                                    BorderThickness="2.5"
+                                            <Border BorderBrush="#151B54"
+                                                    Background="Transparent"
+                                                    BorderThickness="0 2 2.5 2"
                                                     CornerRadius="8"
                                                     Width="35"
                                                     Height="25"
@@ -122,26 +182,18 @@
                             </GridViewColumn>
 
                             <!--// title //-->
-                            <GridViewColumn Width="250">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
-                                                       Style="{StaticResource ListViewTextBlock}"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                            <GridViewColumn Width="230"
+                                            DisplayMemberBinding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
 
                             <!--// category //-->
-                            <GridViewColumn Width="150"
+                            <GridViewColumn Width="110"
                                             DisplayMemberBinding="{Binding Category, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <!--// author //-->
-                            <GridViewColumn Width="150"
+                            <GridViewColumn Width="100"
                                             DisplayMemberBinding="{Binding Author.FirstName, UpdateSourceTrigger=PropertyChanged}" />
                             <GridViewColumn DisplayMemberBinding="{Binding Author.LastName, UpdateSourceTrigger=PropertyChanged}" />
-                            <GridViewColumn Width="120">
+                            <GridViewColumn Width="130">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Grid Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Converter={StaticResource booleanToVisibilityConverter}}"
@@ -152,9 +204,11 @@
                                                 <Button Content="Return"
                                                         Command="{Binding DataContext.ReturnBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
                                                 <TextBlock Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
-                                                           Foreground="Red"
+                                                           Foreground="#43BFC7"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
                                                            FontWeight="Bold"
-                                                           Margin="20 0 10 0"/>
+                                                           FontSize="25" />
                                             </StackPanel>
                                         </Grid>
                                     </DataTemplate>

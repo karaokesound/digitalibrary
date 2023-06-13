@@ -31,7 +31,7 @@ namespace Library.UI.Commands.SignIn
             }
 
             _userAuthenticationService.Authentication(loggingUser.Username, dbUser.Username, loggingUser.Password,
-                dbUser.Password, dbUser.AccountId);
+                dbUser.Password, dbUser);
             _signInPanelVM.RaiseUserAuthEvent();
         }
 

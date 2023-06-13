@@ -1,4 +1,5 @@
-﻿using Library.UI.Commands.Profile;
+﻿using Library.UI.Commands.Library;
+using Library.UI.Commands.Profile;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
@@ -20,13 +21,26 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private AccountModel _loggedUser;
+        public AccountModel LoggedUser
+        {
+            get => _loggedUser;
+            set 
+            { 
+                _loggedUser = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand ProfileUpdateViewCommand { get; }
+
+        public ICommand ReturnBookCommand { get; }
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataFiltering;
+        private readonly IDataSorting _dataSorting;
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
@@ -38,20 +52,28 @@ namespace Library.UI.ViewModel
 
         private readonly IAccountBookRepository _accountBookRepository;
 
-        public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataFiltering,
+        public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
             IUserAuthenticationService userAuthenticationService, IValidationService validationService, IUserRepository userRepository,
             IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
-            _dataFiltering = dataFiltering;
+            _dataSorting = dataSorting;
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
-            ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataFiltering,
+            ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository,
+                _dataSorting);
+            ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting,
                 _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
+            TakeLoggedUserData();
+        }
+
+        public void TakeLoggedUserData()
+        {
+            LoggedUser = _userAuthenticationService.LoggedUser;
         }
     }
 }
