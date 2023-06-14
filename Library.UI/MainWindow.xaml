@@ -9,6 +9,7 @@
         WindowStyle="None" 
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
+        FontFamily="Titillium Web"
         Background="Transparent"
         Height="600" Width="950">
     <Grid>
@@ -20,14 +21,14 @@
         <!--// LEFT BACKGROUND //-->
         <Border Grid.ColumnSpan="2"
                 Background="White"
-                CornerRadius="20 20 20 20" />
+                CornerRadius="4 4 4 4" />
 
         <Image Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
                Stretch="UniformToFill"
                Margin="12 20 12 2" />
-        <Border Background=" #1565c0 "
-                Opacity="0.8"
-                CornerRadius="20 0 0 20" />
+        <Border Background="#052a4f"
+                Opacity="0.9"
+                CornerRadius="4 0 0 4" />
 
         <!--// LEFT SIDE //-->
         <Grid>
@@ -80,14 +81,14 @@
                     Foreground="Black"
                     Style="{StaticResource exitButton}"
                     Visibility="{Binding IsElementVisible, Converter={StaticResource booleanToVisibilityConverter}}"
-                    Margin="0 0 0 5"
+                    Margin="0 0 3 5"
                     Click="MinimizeButton_Click"/>
             <Button Content="X"
                     Foreground="Black"
                     Style="{StaticResource exitButton}"
                     Visibility="{Binding IsElementVisible, Converter={StaticResource booleanToVisibilityConverter}}"
                     Click="ExitButton_Click"
-                    Margin="0 0 0 3"/>
+                    Margin="0 0 0 4"/>
         </StackPanel>
 
         <!--// CONTENT CONTROL //-->

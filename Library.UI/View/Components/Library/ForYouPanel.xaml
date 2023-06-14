@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Library.UI.View.Components"
              mc:Ignorable="d" 
-             FontFamily="Rubik"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid>
@@ -16,9 +15,10 @@
 
             <!--// for you - text //-->
             <TextBlock Text="For you"
+                       FontFamily="Titillium Web Semibold"
                        Foreground="White"
                        HorizontalAlignment="Left"
-                       FontSize="20" />
+                       FontSize="22" />
 
             <!--// for you - books //-->
             <Grid Grid.Row="1"

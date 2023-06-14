@@ -95,12 +95,12 @@ namespace Library.UI.ViewModel
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataFiltering = dataFiltering;
-            _elementVisibilityService = elementVisibilityService;
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
+            _elementVisibilityService = elementVisibilityService;
             ElementsVisibility();
             LoggingValidation();
         }
@@ -135,12 +135,13 @@ namespace Library.UI.ViewModel
                 if (IsUserAuthenticated == true)
                 {
                     SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _userAuthenticationService,
-                        _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
+                        _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
                 }
                 else return;
             };
 
-            //SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
+            //SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _userAuthenticationService,
+            //            _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
         }
     }
 }

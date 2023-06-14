@@ -2,8 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:view="clr-namespace:Library.UI.View" xmlns:components="clr-namespace:Library.UI.View.Components"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:Library.UI.View.Components"
+             xmlns:componentsprofile="clr-namespace:Library.UI.View.Components.Profile"
              mc:Ignorable="d" 
+             FontFamily="Titillium Web"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -29,7 +32,8 @@
                 Opacity="0.9" />
 
         <!--// MAIN //-->
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1"
+              TextBlock.Foreground="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -51,14 +55,14 @@
                         CornerRadius="7"
                         Width="255"
                         Height="130" />
-                <Button Style="{StaticResource LargeProfileButton}" />
+                <Button Style="{StaticResource LargeProfileButton}"
+                        Content="{Binding NoOfRentedBooks, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                     <TextBlock Text="You have"
                                FontSize="22"
                                HorizontalAlignment="Center" />
-                    <TextBlock Text="{Binding NoOfRentedBooks, UpdateSourceTrigger=PropertyChanged}"
-                               FontSize="35"
+                    <TextBlock FontSize="35"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"/>
                     <TextBlock Text="books rented"
@@ -139,7 +143,8 @@
                         Height="80" />
                 <Button Grid.Column="1"
                         Content="Returns"
-                        Style="{StaticResource SmallProfileButton}"/>
+                        Style="{StaticResource SmallProfileButton}"
+                        Command="{Binding ReturnsPanelCommand}"/>
 
                 <Border Grid.Column="2"
                         Background="White"
@@ -155,7 +160,7 @@
                         Width="125"
                         Height="80" />
                 <Button Grid.Column="2"
-                        Content="Xyz"
+                        Content="Reservations"
                         Style="{StaticResource SmallProfileButton}"/>
 
                 <Border Grid.Column="3"
@@ -175,30 +180,10 @@
                         Content="Xyz"
                         Style="{StaticResource SmallProfileButton}"/>
             </Grid>
-
-            <ListView Grid.Row="1"
-                      ItemsSource="{Binding UserRentedBooks, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValue="{Binding SelectedBook, UpdateSourceTrigger=PropertyChanged}"
-                      Width="400"
-                      TextBlock.Foreground="Black">
-                <ListView.ItemTemplate>
-                    
-                    <DataTemplate>
-                        <Grid 
-                                              VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Book.Title, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock Text="{Binding AccountBook.Quantity, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button Content="Return"
-                                        Command="{Binding DataContext.ReturnBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
-                            </StackPanel>
-                        </Grid>
-                           
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            
         </Grid>
+
+        <componentsprofile:ReturnPanel Grid.Column="1"
+                                       Visibility="{Binding IsReturnsPanelVisible, Converter={StaticResource booleanToVisibilityConverter}}"/>
 
         <!--// CONTENT CONTROL //-->
         <ContentControl Content="{Binding SelectedViewModel}"

@@ -2,6 +2,7 @@
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
+using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel.Library;
 using System;
@@ -118,12 +119,13 @@ namespace Library.UI.ViewModel
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
 
         private readonly IAccountBookRepository _accountBookRepository;
-
+        private readonly IElementVisibilityService _elementVisibilityService;
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataSorting, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
-            IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository)
+            IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
+            IElementVisibilityService elementVisibilityService)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
@@ -133,6 +135,7 @@ namespace Library.UI.ViewModel
             _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
+            _elementVisibilityService = elementVisibilityService;
             _requestedBooks = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
@@ -140,10 +143,10 @@ namespace Library.UI.ViewModel
             RandomBookList = new ObservableCollection<BookViewModel>();
             SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
             RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, _accountBaseRepository, 
-                _accountBookRepository);
+                _accountBookRepository, _elementVisibilityService);
             AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _dataSorting, _mappingService);
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
-                _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
+                _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             GenerateRandomBooks();
             InterceptLoggedUserData();
         }

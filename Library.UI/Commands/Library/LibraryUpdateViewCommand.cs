@@ -2,6 +2,7 @@
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
+using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 
@@ -26,20 +27,21 @@ namespace Library.UI.Commands.Library
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
 
         private readonly IAccountBookRepository _accountBookRepository;
+        private readonly IElementVisibilityService _elementVisibilityService;
 
         public override void Execute(object parameter)
         {
             if (parameter.ToString() == "Profile")
             {
                 _libraryVM.SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, 
-                    _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
+                    _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             }
         }
 
         public LibraryUpdateViewCommand(LibraryViewModel libraryVM, IBaseRepository<BookModel> bookBaseRepository, 
             IMappingService mappingService, IDataSorting dataSorting, IUserAuthenticationService userAuthenticationService, 
             IValidationService validationService, IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository,
-            IAccountBookRepository accountBookRepository)
+            IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService)
         {
             _libraryVM = libraryVM;
             _bookBaseRepository = bookBaseRepository;
@@ -50,6 +52,7 @@ namespace Library.UI.Commands.Library
             _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
+            _elementVisibilityService = elementVisibilityService;
         }
     }
 }

@@ -15,16 +15,16 @@
         <!--// COLUMN 0 //-->
         <!--// BACKGROUND //-->
         <Border Background="White"
-                CornerRadius="20 0 0 20" />
-        <Border CornerRadius="20 0 0 20">
+                CornerRadius="4 0 0 4" />
+        <Border CornerRadius="4 0 0 4">
             <Border.Background>
                 <ImageBrush ImageSource="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
                             Stretch="UniformToFill" />
             </Border.Background>
         </Border>
-        <Border Background=" #1565c0 "
-                Opacity="0.8"
-                CornerRadius="20 0 0 20" />
+        <Border Background="#052a4f"
+                Opacity="0.9"
+                CornerRadius="4 0 0 4" />
 
 
         <!--// COLUMN 1 //-->
@@ -38,7 +38,7 @@
             <!--// BACKGROUND //-->
             <Border Grid.RowSpan="3"
                 Background="White"
-                CornerRadius="0 20 20 0">
+                CornerRadius="0 4 4 0">
                 <Border.Effect>
                     <DropShadowEffect Direction="-75"
                                       ShadowDepth="2"
@@ -50,14 +50,10 @@
             <!--// EXIT BUTTON //-->
             <Button Content="X"
                     Command="{Binding ExitButtonCommand}"
-                    Style="{StaticResource loginButton}"
-                    Background="White"
+                    Style="{StaticResource exitButton}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
-                    FontSize="10"
-                    Margin="15"
-                    Width="25"
-                    Height="23"/>
+                    Margin="0 11.7 13.5 0" />
 
             <!--// CREATE AN ACCOUNT TEXT //-->
             <TextBlock Text="Create an account"
@@ -84,7 +80,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!--// username //-->
-                    <Image Source="/Resources/Images/user.png"
+                    <Image Source="/Resources/Images/SignUp/user.png"
                            Height="20"
                            Width="20"
                            Margin="5 0 5 0"
@@ -103,7 +99,6 @@
                     </AdornerDecorator>
 
                     <Image Grid.Column="2"
-                           Source="/Resources/Images/info.png"
                            Height="15"
                            Width="15"
                            RenderOptions.BitmapScalingMode="Fant"
@@ -131,7 +126,7 @@
                     </Grid.RowDefinitions>
 
                     <!--// password //-->
-                    <Image Source="/Resources/Images/padlock.png"
+                    <Image Source="/Resources/Images/SignUp/padlock.png"
                            Height="20"
                            Margin="5 10 5 0"
                            RenderOptions.BitmapScalingMode="Fant" />
@@ -140,7 +135,6 @@
                         Password="{Binding NewAccount.Password, Mode=TwoWay}"
                         Margin="0 10 5 3"/>
                     <Image Grid.Column="2"
-                           Source="/Resources/Images/info.png"
                            Height="15"
                            Width="15"
                            RenderOptions.BitmapScalingMode="Fant"
@@ -149,7 +143,7 @@
 
                     <!--// first name //-->
                     <Image Grid.Row="1"
-                           Source="/Resources/Images/rounded-rectangle.png"
+                           Source="/Resources/Images/SignUp/rounded-rectangle.png"
                            Height="20"
                            Margin="5 10 5 0"
                            RenderOptions.BitmapScalingMode="Fant"/>
@@ -178,7 +172,7 @@
 
                     <!--// last name //-->
                     <Image Grid.Row="2"
-                           Source="/Resources/Images/rounded-rectangle.png"
+                           Source="/Resources/Images/SignUp/rounded-rectangle.png"
                            Height="20"
                            Margin="5 10 5 0"
                            RenderOptions.BitmapScalingMode="Fant"/>
@@ -198,7 +192,7 @@
 
                     <!--// email //-->
                     <Image Grid.Row="3"
-                           Source="/Resources/Images/mail.png"
+                           Source="/Resources/Images/SignUp/mail.png"
                            Height="20"
                            Margin="5 10 5 0"
                            RenderOptions.BitmapScalingMode="Fant"/>
@@ -227,7 +221,7 @@
 
                     <!--// city //-->
                     <Image Grid.Row="4"
-                           Source="/Resources/Images/location.png"
+                           Source="/Resources/Images/SignUp/location.png"
                            Height="20"
                            Margin="5 10 5 0"
                            RenderOptions.BitmapScalingMode="Fant"/>
@@ -247,7 +241,7 @@
 
                     <!--// library combobox //-->
                     <Image Grid.Row="5"
-                           Source="/Resources/Images/online-library.png"
+                           Source="/Resources/Images/SignUp/online-library.png"
                            Height="20"
                            Margin="5 10 5 0"
                            RenderOptions.BitmapScalingMode="Fant"/>

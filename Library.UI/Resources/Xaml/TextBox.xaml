@@ -7,9 +7,7 @@
     <SolidColorBrush x:Key="SearchTextBox.MouseOver.Border" Color="#FF7EB4EA"/>
     <SolidColorBrush x:Key="SearchTextBox.Focus.Border" Color="#FF569DE5"/>
     <Style x:Key="searchBox" TargetType="{x:Type TextBox}">
-        <Setter Property="Background" Value="#d4e8fc"/>
-        <Setter Property="BorderBrush" Value="{StaticResource SearchTextBox.Static.Border}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -17,22 +15,20 @@
         <Setter Property="AllowDrop" Value="true"/>
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-        <Setter Property="TextBlock.Foreground" Value="Black" />
+        <Setter Property="TextBlock.Foreground" Value="White" />
         <Setter Property="TextBlock.FontSize" Value="13" />
         <Setter Property="BorderThickness" Value="2.5" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="BorderBrush" Value="#212121" />
         <Setter Property="Width" Value="260" />
-        <Setter Property="Height" Value="30" />
+        <Setter Property="Height" Value="27" />
         <Setter Property="Margin" Value="0 0 0 3" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border x:Name="border" 
                             Background="{TemplateBinding Background}" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" 
                             Height="{TemplateBinding Height}"
                             SnapsToDevicePixels="True"
                             CornerRadius="7">
@@ -48,10 +44,10 @@
                             <Setter Property="Opacity" TargetName="border" Value="0.56"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource SearchTextBox.MouseOver.Border}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="White"/>
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource SearchTextBox.Focus.Border}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="White"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

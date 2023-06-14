@@ -12,11 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\boliviainteligente-byrCe8CiWl4-unsplash.jpg" />
-    <None Remove="Resources\Images\e-book.png" />
     <None Remove="Resources\Images\Profile\account.png" />
+    <None Remove="Resources\Images\Profile\back.png" />
+    <None Remove="Resources\Images\Profile\return.png" />
     <None Remove="Resources\Images\search.png" />
-    <None Remove="Resources\Images\sort.png" />
     <None Remove="Resources\info.png" />
     <None Remove="Resources\location.png" />
     <None Remove="Resources\lock.png" />
@@ -30,52 +29,40 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Images\boliviainteligente-byrCe8CiWl4-unsplash.jpg">
+    <Content Include="Resources\Images\Profile\back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\e-book.png">
+    <Content Include="Resources\Images\Profile\return.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\info.png">
+    <Content Include="Resources\Images\SignUp\location.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\location.png">
+    <Content Include="Resources\Images\SignUp\online-library.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\online-library.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\padlock.png">
+    <Content Include="Resources\Images\SignUp\padlock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Profile\account.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\rounded-rectangle.png">
+    <Content Include="Resources\Images\SignUp\rounded-rectangle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\search.png">
+    <Content Include="Resources\Images\Library\search.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\sort.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\user.png">
+    <Content Include="Resources\Images\SignUp\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Images\mail.png">
+    <Content Include="Resources\Images\SignUp\mail.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\lock.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\people.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\userlog.png">
+    <Content Include="Resources\Images\SignIn\people.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

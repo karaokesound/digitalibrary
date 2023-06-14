@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Library.UI.View.Components" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
-             xmlns:library="clr-namespace:Library.UI.Resources.Library"
+             xmlns:library="clr-namespace:Library.UI.Resources.Library" xmlns:controls="clr-namespace:Library.UI.Resources.Converters"
              mc:Ignorable="d" 
-             FontFamily="Rubik"
+             FontFamily="Kanit Light"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -24,9 +24,10 @@
 
             <!--// top books //-->
             <TextBlock Text="Top books"
+                       FontFamily="Titillium Web Semibold"
                        VerticalAlignment="Bottom"
                        Foreground="White"
-                       FontSize="20" />
+                       FontSize="22" />
 
             <!--// comboboxes //-->
             <StackPanel Grid.Column="1"
@@ -78,29 +79,50 @@
                     <TextBlock Text="Category" 
                                Width="108" />
                     <TextBlock Text="Author"
-                               Width="108" />
+                               Width="102" />
                 </StackPanel>
 
-                <!--// search box //-->
+                <!--// searchbox //-->
                 <Grid>
-                    <TextBox Style="{StaticResource searchBox}"
+                    <Border Background="White"
+                            Opacity="0.08"
+                            Width="260"
+                            Height="30"
+                            CornerRadius="7" />
+                    <Border BorderBrush="White"
+                            BorderThickness="2"
+                            Opacity="0.6"
+                            Width="262"
+                            Height="32"
+                            CornerRadius="7" />
+                    <AdornerDecorator Grid.Column="1"
+                                      Margin="0 0 5 0">
+                        <TextBox Style="{StaticResource searchBox}"
                          Text="{Binding SearchBoxInput, UpdateSourceTrigger=PropertyChanged}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding FilterBooksCommand, UpdateSourceTrigger=PropertyChanged}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                    <Border Margin="0 0 2 0"
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding FilterBooksCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        <controls:WatermarkService.Watermark>
+                                <TextBlock VerticalAlignment="Center"
+                                           FontSize="14.5"
+                                           FontWeight="Thin"
+                                           Foreground="White"
+                                           Margin="10 0 0 0">Search for your book</TextBlock>
+                            </controls:WatermarkService.Watermark>
+                        </TextBox>
+                    </AdornerDecorator>
+                    <Border Margin="0 0 4.5 0"
                             HorizontalAlignment="Right"
                             Background="White"
-                            Opacity="0.2"
+                            Opacity="0.4"
                             CornerRadius="7"
-                            Height="25"
-                            Width="25" />
-                    <Image Margin="0 1 4.5 0"
+                            Height="26"
+                            Width="26" />
+                    <Image Margin="0 2.5 7.7 0"
                            HorizontalAlignment="Right"
-                           Source="/Resources/Images/search.png"
+                           Source="/Resources/Images/Library/search.png"
                            Width="17"
                            Height="17"
                            RenderOptions.BitmapScalingMode="Fant"/>
@@ -113,7 +135,9 @@
 
                 <!--// listview background //-->
                 <Border CornerRadius="5"
-                        Background="#0063B2" />
+                        Background="#054F4F"
+                        BorderBrush="White"
+                        BorderThickness="0.5"/>
                 <Border>
                     <Border.Background>
                         <ImageBrush ImageSource="https://wallpaperaccess.com/full/221471.jpg"

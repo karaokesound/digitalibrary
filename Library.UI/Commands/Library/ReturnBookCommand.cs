@@ -3,6 +3,7 @@ using Library.UI.Command;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
+using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
@@ -23,9 +24,12 @@ namespace Library.UI.Commands.Library
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly IDataSorting _dataSorting;
+        private readonly IElementVisibilityService _elementVisibilityService;
 
         public override void Execute(object parameter)
         {
+            if (_profilePanelViewModel.SelectedBook == null) return;
+
             BookViewModel selectedBookVM = _profilePanelViewModel.SelectedBook.Book;
             BookModel selectedBook = _mappingService.BookViewModelToModel(selectedBookVM, selectedBookVM.Author);
 
@@ -34,34 +38,37 @@ namespace Library.UI.Commands.Library
 
             dbLoggedUser.MaxBookQntToRent += 1;
 
-            AccountBookModel rentedBook = _accountBookRepository.GetUserBookByID(dbLoggedUser.AccountId, selectedBook.BookId);
+            AccountBookModel returningBook = _accountBookRepository.GetUserBookByID(dbLoggedUser.AccountId, selectedBook.BookId);
 
-            if (rentedBook == null)
+            if (returningBook == null)
             {
                 MessageBox.Show("You didn't rent this book.");
                 return;
             }
 
-            rentedBook.Quantity -= 1;
+            returningBook.Quantity -= 1;
 
-            if (rentedBook.Quantity == 0)
+            if (returningBook.Quantity == 0)
             {
-                _accountBookRepository.DeleteUserBook(dbLoggedUser.AccountId, rentedBook.BookId);
+                _accountBookRepository.DeleteUserBook(dbLoggedUser.AccountId, returningBook.BookId);
 
                 dbSelecteedBook.IsRented = false;
                 dbSelecteedBook.Quantity += 1;
             }
+
+            
 
             _accountBaseRepository.Save();
             _accountBookRepository.Save();
             _bookBaseRepository.Save();
 
             _profilePanelViewModel.TakeLoggedUserData();
+            _profilePanelViewModel.RemoveUserRentedBook(dbSelecteedBook);
         }
 
         public ReturnBookCommand(ProfilePanelViewModel profilePanelViewModel, IBaseRepository<AccountModel> accountBaseRepository,
             IAccountBookRepository accountBookRepository, IMappingService mappingService, IBaseRepository<BookModel> bookBaseRepository,
-            IDataSorting dataSorting)
+            IDataSorting dataSorting, IElementVisibilityService elementVisibilityService)
         {
             _profilePanelViewModel = profilePanelViewModel;
             _accountBaseRepository = accountBaseRepository;
@@ -69,6 +76,7 @@ namespace Library.UI.Commands.Library
             _mappingService = mappingService;
             _bookBaseRepository = bookBaseRepository;
             _dataSorting = dataSorting;
+            _elementVisibilityService = elementVisibilityService;
         }
     }
 }

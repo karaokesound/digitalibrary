@@ -8,7 +8,7 @@
              xmlns:components="clr-namespace:Library.UI.View.Components"
              mc:Ignorable="d" 
              d:DesignHeight="620" d:DesignWidth="920"
-             FontFamily="Rubik">
+             FontFamily="Titillium Web">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*" />

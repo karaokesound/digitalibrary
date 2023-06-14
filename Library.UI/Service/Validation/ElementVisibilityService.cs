@@ -4,6 +4,10 @@
     {
         public bool IsSignUpButtonClicked { get; private set; }
 
+        public bool IsReturnsPanelClicked { get; private set; }
+
+        public bool IsListViewVisible { get; private set; }
+
         public void AdjustElementVisibility(bool isClicked)
         {
             if (isClicked == true)
@@ -12,6 +16,26 @@
                 return;
             }
             IsSignUpButtonClicked = false;
+        }
+
+        public void AdjustReturnsPanelVisibility(bool isClicked)
+        {
+            if (isClicked == true)
+            {
+                IsReturnsPanelClicked = true;
+                return;
+            }
+            IsReturnsPanelClicked = false;
+        }
+
+        public void AdjustListViewVisibility(bool isVisible)
+        {
+            if (isVisible == false)
+            {
+                IsListViewVisible = false;
+                return;
+            }
+            IsListViewVisible = true;
         }
     }
 }

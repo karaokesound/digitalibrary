@@ -15,9 +15,9 @@
         <!--// BACKGROUND //-->
         <Border Grid.RowSpan="4"
                 Background="White"
-                CornerRadius="20" />
+                CornerRadius="4" />
         <Image Grid.Row="1"
-               Source="/Resources/Images/people.png"
+               Source="/Resources/Images/SignIn/people.png"
                Stretch="UniformToFill"
                VerticalAlignment="Center"
                Height="200"

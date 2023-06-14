@@ -3,6 +3,7 @@ using Library.UI.Command;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
+using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
@@ -23,6 +24,7 @@ namespace Library.UI.Commands.Library
 
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
         private readonly IAccountBookRepository _accountBookRepository;
+        private readonly IElementVisibilityService _elementVisibilityService;
 
         public override void Execute(object parameter)
         {
@@ -82,7 +84,7 @@ namespace Library.UI.Commands.Library
             }
             else if (dbBook.AnyRequest == true && loggedUser.AccountId != dbBook.RequestUserId)
             {
-                MessageBox.Show("You can't rent this book. This book has reservation by another user");
+                MessageBox.Show("You can't rent this book. This book has reservation by another user"); return;
             }
             else
             {
@@ -117,6 +119,9 @@ namespace Library.UI.Commands.Library
                 }
             }
 
+            bool isProfileListViewVisible = false;
+            _elementVisibilityService.AdjustListViewVisibility(isProfileListViewVisible);
+
             _bookBaseRepository.Save();
             _accountBaseRepository.Save();
             _accountBookRepository.Save();
@@ -127,7 +132,8 @@ namespace Library.UI.Commands.Library
         }
 
         public RentBookCommand(LibraryViewModel libraryViewModel, IBaseRepository<BookModel> bookBaseRepository, IDataSorting dataSorting,
-            IMappingService mappingService, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository)
+            IMappingService mappingService, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
+            IElementVisibilityService elementVisibilityService)
         {
             _libraryViewModel = libraryViewModel;
             _bookBaseRepository = bookBaseRepository;
@@ -135,6 +141,7 @@ namespace Library.UI.Commands.Library
             _mappingService = mappingService;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
+            _elementVisibilityService = elementVisibilityService;
         }
     }
 }

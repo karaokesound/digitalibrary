@@ -4,6 +4,7 @@ using Library.UI.Commands.Profile;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
+using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel.Profile;
 using System;
@@ -50,8 +51,6 @@ namespace Library.UI.ViewModel
             }
         }
 
-        
-
         private UserBooksData _selectedBook;
         public UserBooksData SelectedBook
         {
@@ -59,6 +58,28 @@ namespace Library.UI.ViewModel
             set
             {
                 _selectedBook = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isReturnsPanelVisible = false;
+        public bool IsReturnsPanelVisible
+        {
+            get => _isReturnsPanelVisible;
+            set 
+            { 
+                _isReturnsPanelVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isListViewVisible = false;
+        public bool IsListViewVisible
+        {
+            get => _isListViewVisible;
+            set
+            {
+                _isListViewVisible = value;
                 OnPropertyChanged();
             }
         }
@@ -82,6 +103,10 @@ namespace Library.UI.ViewModel
 
         public ICommand ReturnBookCommand { get; }
 
+        public ICommand ReturnsPanelCommand { get; }
+
+        public ICommand ReturnButtonCommand { get; }
+
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly IMappingService _mappingService;
@@ -98,11 +123,12 @@ namespace Library.UI.ViewModel
 
         private readonly IAccountBookRepository _accountBookRepository;
 
+        private readonly IElementVisibilityService _elementVisibilityService;
         private List<BookModel> _requestedBooks;
 
         public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
             IUserAuthenticationService userAuthenticationService, IValidationService validationService, IUserRepository userRepository,
-            IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository)
+            IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
@@ -112,19 +138,36 @@ namespace Library.UI.ViewModel
             _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
+            _elementVisibilityService = elementVisibilityService;
             _requestedBooks = new List<BookModel>();
             UserRentedBooks = new ObservableCollection<UserBooksData>();
+            ReturnButtonCommand = new ReturnButtonCommand(this, _elementVisibilityService);
+            ReturnsPanelCommand = new ReturnsPanelCommand(this, _elementVisibilityService);
             ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository,
-                _dataSorting);
+                _dataSorting, _elementVisibilityService);
             ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting,
-                _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
+                _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             TakeLoggedUserData();
+        }
+
+        public void RemoveUserRentedBook(BookModel removingBook)
+        {
+            var matchingBook = UserRentedBooks.FirstOrDefault(b => b.Book.BookId == removingBook.BookId);
+            UserRentedBooks.Remove(matchingBook);
+
+            if (UserRentedBooks.Count == 0)
+            {
+                bool isListViewVisible = false;
+                _elementVisibilityService.AdjustListViewVisibility(isListViewVisible);
+                IsListViewVisible = _elementVisibilityService.IsListViewVisible;
+            }
         }
 
         public void TakeLoggedUserData()
         {
             UserRentedBooks.Clear();
             LoggedUser = _userAuthenticationService.LoggedUser;
+            IsListViewVisible = true;
 
             if (LoggedUser == null) return;
 
@@ -151,6 +194,13 @@ namespace Library.UI.ViewModel
                     Book = _mappingService.BookModelToViewModel(bookModel, bookModel.Author),
                     AccountBook = book
                 });
+            }
+
+            if (UserRentedBooks.Count == 0)
+            {
+                bool isListViewVisible = false;
+                _elementVisibilityService.AdjustListViewVisibility(isListViewVisible);
+                IsListViewVisible = _elementVisibilityService.IsListViewVisible;
             }
         }
     }
