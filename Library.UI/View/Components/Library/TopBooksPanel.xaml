@@ -33,7 +33,8 @@
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal"
                         VerticalAlignment="Bottom"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Margin="10 0 0 0">
                 <library:CommandComboBox Style="{DynamicResource SortingComboBox}" 
                                          ItemsSource="{Binding SortingEnums.SortingMethods, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
                                          SelectedValuePath="Value"
