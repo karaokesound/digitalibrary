@@ -57,7 +57,7 @@
                     <TextBlock Text="You have"
                                FontSize="22"
                                HorizontalAlignment="Center" />
-                    <TextBlock Text="2"
+                    <TextBlock Text="{Binding NoOfRentedBooks, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="35"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"/>
@@ -86,7 +86,7 @@
                     <TextBlock Text="You can rent"
                                FontSize="22"
                                HorizontalAlignment="Center" />
-                    <TextBlock Text="2"
+                    <TextBlock Text="{Binding NoOfLeftedBooksToRent, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="35"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"/>
@@ -175,6 +175,29 @@
                         Content="Xyz"
                         Style="{StaticResource SmallProfileButton}"/>
             </Grid>
+
+            <ListView Grid.Row="1"
+                      ItemsSource="{Binding UserRentedBooks, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding SelectedBook, UpdateSourceTrigger=PropertyChanged}"
+                      Width="400"
+                      TextBlock.Foreground="Black">
+                <ListView.ItemTemplate>
+                    
+                    <DataTemplate>
+                        <Grid 
+                                              VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Book.Title, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text="{Binding AccountBook.Quantity, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button Content="Return"
+                                        Command="{Binding DataContext.ReturnBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                            </StackPanel>
+                        </Grid>
+                           
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
         </Grid>
 
         <!--// CONTENT CONTROL //-->

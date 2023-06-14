@@ -72,6 +72,28 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
+        private bool _anyRequest;
+        public bool AnyRequest
+        {
+            get => _anyRequest;
+            set
+            {
+                _anyRequest = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _requestUserId;
+        public bool RequestUserId
+        {
+            get => _requestUserId;
+            set
+            {
+                _requestUserId = value;
+                OnPropertyChanged();
+            }
+        }
+
         private int _downloads;
         public int Downloads
         {

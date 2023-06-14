@@ -1,9 +1,16 @@
-﻿using Library.UI.Commands.Library;
+﻿using Library.Models.Model;
+using Library.UI.Commands.Library;
 using Library.UI.Commands.Profile;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
 using Library.UI.Services;
+using Library.UI.ViewModel.Profile;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -25,12 +32,51 @@ namespace Library.UI.ViewModel
         public AccountModel LoggedUser
         {
             get => _loggedUser;
-            set 
-            { 
+            set
+            {
                 _loggedUser = value;
                 OnPropertyChanged();
             }
         }
+
+        private ObservableCollection<UserBooksData> _userRentedBooks;
+        public ObservableCollection<UserBooksData> UserRentedBooks
+        {
+            get => _userRentedBooks;
+            set
+            {
+                _userRentedBooks = value;
+                OnPropertyChanged();
+            }
+        }
+
+        
+
+        private UserBooksData _selectedBook;
+        public UserBooksData SelectedBook
+        {
+            get => _selectedBook;
+            set
+            {
+                _selectedBook = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _noOfRentedBooks;
+        public int NoOfRentedBooks
+        {
+            get => _noOfRentedBooks;
+            set 
+            { 
+                _noOfRentedBooks = value;
+                NoOfLeftedBooksToRent = 5 - value;
+                OnPropertyChanged();
+                OnPropertyChanged("NoOfLeftedBooksToRent");
+            }
+        }
+
+        public int NoOfLeftedBooksToRent { get; set; }
 
         public ICommand ProfileUpdateViewCommand { get; }
 
@@ -52,6 +98,8 @@ namespace Library.UI.ViewModel
 
         private readonly IAccountBookRepository _accountBookRepository;
 
+        private List<BookModel> _requestedBooks;
+
         public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
             IUserAuthenticationService userAuthenticationService, IValidationService validationService, IUserRepository userRepository,
             IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository)
@@ -64,8 +112,10 @@ namespace Library.UI.ViewModel
             _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
-            //ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository,
-            //    _dataSorting);
+            _requestedBooks = new List<BookModel>();
+            UserRentedBooks = new ObservableCollection<UserBooksData>();
+            ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository,
+                _dataSorting);
             ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting,
                 _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
             TakeLoggedUserData();
@@ -73,7 +123,35 @@ namespace Library.UI.ViewModel
 
         public void TakeLoggedUserData()
         {
+            UserRentedBooks.Clear();
             LoggedUser = _userAuthenticationService.LoggedUser;
+
+            if (LoggedUser == null) return;
+
+            List<AccountBookModel> userRentedBooks = _accountBookRepository.GetAllUserBooksByID(LoggedUser.AccountId).ToList();
+            List<Guid> userRentedBooksID = userRentedBooks.Select(b => b.BookId).ToList();
+
+            NoOfRentedBooks = userRentedBooks.Count();
+            
+            var books = _userAuthenticationService._requestedBooks;
+
+            foreach (var book in books)
+            {
+                if (book.Quantity == 1 && book.AnyRequest == true) MessageBox.Show($"you can now rent {book.Title}");
+                book.AnyRequest = false;
+            }
+
+            // To ListView in ProfilePanelView.xaml
+            foreach (var book in userRentedBooks)
+            {
+                BookModel bookModel = _bookBaseRepository.GetByID(book.BookId);
+
+                UserRentedBooks.Add(new UserBooksData()
+                {
+                    Book = _mappingService.BookModelToViewModel(bookModel, bookModel.Author),
+                    AccountBook = book
+                });
+            }
         }
     }
 }

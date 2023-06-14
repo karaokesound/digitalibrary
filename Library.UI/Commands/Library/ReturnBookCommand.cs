@@ -6,14 +6,13 @@ using Library.UI.Service.Data;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
-using System;
 using System.Windows;
 
 namespace Library.UI.Commands.Library
 {
     public class ReturnBookCommand : CommandBase
     {
-        private readonly LibraryViewModel _profilePanelViewModel;
+        private readonly ProfilePanelViewModel _profilePanelViewModel;
 
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
 
@@ -27,50 +26,49 @@ namespace Library.UI.Commands.Library
 
         public override void Execute(object parameter)
         {
-            //BookViewModel selectedBookVM = _profilePanelViewModel.SelectedBook;
-            //BookModel selectedBook = _mappingService.BookViewModelToModel(selectedBookVM, selectedBookVM.Author);
+            BookViewModel selectedBookVM = _profilePanelViewModel.SelectedBook.Book;
+            BookModel selectedBook = _mappingService.BookViewModelToModel(selectedBookVM, selectedBookVM.Author);
 
-            //AccountModel dbLoggedUser = _accountBaseRepository.GetByID(_profilePanelViewModel.LoggedAccountId);
-            //BookModel dbSelecteedBook = _bookBaseRepository.GetByID(selectedBook.BookId);
+            AccountModel dbLoggedUser = _accountBaseRepository.GetByID(_profilePanelViewModel.LoggedUser.AccountId);
+            BookModel dbSelecteedBook = _bookBaseRepository.GetByID(selectedBook.BookId);
 
-            //dbLoggedUser.MaxBookQntToRent += 1;
+            dbLoggedUser.MaxBookQntToRent += 1;
 
-            //AccountBookModel rentedBook = _accountBookRepository.GetUserBooks(dbLoggedUser.AccountId, selectedBook.BookId);
+            AccountBookModel rentedBook = _accountBookRepository.GetUserBookByID(dbLoggedUser.AccountId, selectedBook.BookId);
 
-            //if (rentedBook == null)
-            //{
-            //    MessageBox.Show("You didn't rent this book.");
-            //    return;
-            //}
+            if (rentedBook == null)
+            {
+                MessageBox.Show("You didn't rent this book.");
+                return;
+            }
 
-            //rentedBook.Quantity -= 1;
+            rentedBook.Quantity -= 1;
 
-            //if (rentedBook.Quantity == 0)
-            //{
-            //    _accountBookRepository.DeleteUserBook(dbLoggedUser.AccountId, rentedBook.BookId);
+            if (rentedBook.Quantity == 0)
+            {
+                _accountBookRepository.DeleteUserBook(dbLoggedUser.AccountId, rentedBook.BookId);
 
-            //    dbSelecteedBook.IsRented = false;
-            //    dbSelecteedBook.Quantity += 1;
-            //}
+                dbSelecteedBook.IsRented = false;
+                dbSelecteedBook.Quantity += 1;
+            }
 
-            //_accountBaseRepository.Save();
-            //_accountBookRepository.Save();
-            //_bookBaseRepository.Save();
+            _accountBaseRepository.Save();
+            _accountBookRepository.Save();
+            _bookBaseRepository.Save();
 
-            //var sortedBooks = _dataSorting.SortBooks(SortingEnums.SortingMethod.NOT_SET, SortingEnums.BookQuantity.NOT_SET, SortingEnums.Genre.NOT_SET);
-            //_profilePanelViewModel.DisplayBooks(sortedBooks);
+            _profilePanelViewModel.TakeLoggedUserData();
         }
 
-        //public ReturnBookCommand(ProfilePanelViewModel profilePanelViewModel, IBaseRepository<AccountModel> accountBaseRepository,
-        //    IAccountBookRepository accountBookRepository, IMappingService mappingService, IBaseRepository<BookModel> bookBaseRepository,
-        //    IDataSorting dataSorting)
-        //{
-        //    _profilePanelViewModel = profilePanelViewModel;
-        //    _accountBaseRepository = accountBaseRepository;
-        //    _accountBookRepository = accountBookRepository;
-        //    _mappingService = mappingService;
-        //    _bookBaseRepository = bookBaseRepository;
-        //    _dataSorting = dataSorting;
-        //}
+        public ReturnBookCommand(ProfilePanelViewModel profilePanelViewModel, IBaseRepository<AccountModel> accountBaseRepository,
+            IAccountBookRepository accountBookRepository, IMappingService mappingService, IBaseRepository<BookModel> bookBaseRepository,
+            IDataSorting dataSorting)
+        {
+            _profilePanelViewModel = profilePanelViewModel;
+            _accountBaseRepository = accountBaseRepository;
+            _accountBookRepository = accountBookRepository;
+            _mappingService = mappingService;
+            _bookBaseRepository = bookBaseRepository;
+            _dataSorting = dataSorting;
+        }
     }
 }

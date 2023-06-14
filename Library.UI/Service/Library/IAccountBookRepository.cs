@@ -1,5 +1,4 @@
 ﻿using Library.Models.Model;
-using Library.UI.Model;
 using Library.UI.Services;
 using System;
 using System.Collections.Generic;
@@ -10,8 +9,10 @@ namespace Library.UI.Service
     {
         void DeleteUserBook(Guid accountId, Guid bookId);
 
-        int ReturnBookQuantity(Guid accountId, Guid bookId);
+        int ReturnAccountBookQuantity(Guid accountId, Guid bookId);
 
-        AccountBookModel GetUserBooks(Guid accountId, Guid bookId);
+        AccountBookModel GetUserBookByID(Guid accountId, Guid bookId);
+
+        List<AccountBookModel> GetAllUserBooksByID(Guid accountId);
     }
 }

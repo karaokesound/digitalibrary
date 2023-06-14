@@ -41,6 +41,7 @@ namespace Library.UI.Commands
             {
                 return;
             }
+
             _baseRepository.Insert(newAccount);
             _baseRepository.Save();
 

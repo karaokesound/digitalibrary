@@ -1,6 +1,7 @@
 ﻿using Library.Models.Model;
 using Library.UI.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Library.UI.Service.Library
@@ -19,7 +20,7 @@ namespace Library.UI.Service.Library
             }
         }
 
-        public virtual int ReturnBookQuantity(Guid accountId, Guid bookId)
+        public virtual int ReturnAccountBookQuantity(Guid accountId, Guid bookId)
         {
             var books = _dbSet.ToList();
 
@@ -30,12 +31,21 @@ namespace Library.UI.Service.Library
             return rentedBookQuantity;
         }
 
-        public AccountBookModel GetUserBooks(Guid accountId, Guid bookId)
+        public AccountBookModel GetUserBookByID(Guid accountId, Guid bookId)
         {
             var books = _dbSet.ToList();
 
             var searchedBook = books.FirstOrDefault(a => a.AccountId == accountId && a.BookId == bookId);
             return searchedBook;
+        }
+
+        public List<AccountBookModel> GetAllUserBooksByID(Guid accountId)
+        {
+            var books = _dbSet.ToList();
+
+            var userBooks = books.Where(u => u.AccountId == accountId).ToList();
+
+            return userBooks;
         }
     }
 }

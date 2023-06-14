@@ -16,6 +16,10 @@ namespace Library.UI.Model
 
         public bool IsRented { get; set; }
 
+        public bool AnyRequest{ get; set; }
+
+        public Guid RequestUserId { get; set; }
+
         public int Downloads { get; set; }
 
         public AuthorModel Author { get; set; }

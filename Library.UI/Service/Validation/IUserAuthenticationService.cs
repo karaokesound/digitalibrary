@@ -1,17 +1,20 @@
 ﻿using Library.UI.Model;
 using System;
+using System.Collections.Generic;
 
 namespace Library.UI.Services
 {
     public interface IUserAuthenticationService
     {
-        public bool IsUserAuthenticated { get; }
-
+        public Guid UserId { get; }
+        
         public AccountModel LoggedUser { get; }
 
-        public Guid UserId { get; }
+        public bool IsUserAuthenticated { get; }
+
+        public List<BookModel> _requestedBooks { get; }
 
         public void Authentication(string loggingUsername, string dbUsername, string loggingPassword,
-            string dbPassword, AccountModel dbUser);
+            string dbPassword, AccountModel dbUser, List<BookModel> requestedBooks);
     }
 }

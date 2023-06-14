@@ -201,8 +201,8 @@
                                             <StackPanel Orientation="Horizontal">
                                                 <Button Content="Rent"
                                                         Command="{Binding DataContext.RentBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
-                                                <Button Content="Return"
-                                                        Command="{Binding DataContext.ReturnBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                                                <Button Content="Request"
+                                                        Command="{Binding DataContext.AddRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
                                                 <TextBlock Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
                                                            Foreground="#43BFC7"
                                                            HorizontalAlignment="Center"

@@ -101,6 +101,8 @@ namespace Library.UI.ViewModel
 
         public ICommand RentBookCommand { get; }
 
+        public ICommand AddRequestCommand { get; }
+
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly IMappingService _mappingService;
@@ -117,6 +119,8 @@ namespace Library.UI.ViewModel
 
         private readonly IAccountBookRepository _accountBookRepository;
 
+        private List<BookModel> _requestedBooks;
+
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataSorting, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
             IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository)
@@ -129,6 +133,7 @@ namespace Library.UI.ViewModel
             _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
+            _requestedBooks = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
             FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
@@ -136,10 +141,11 @@ namespace Library.UI.ViewModel
             SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
             RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, _accountBaseRepository, 
                 _accountBookRepository);
+            AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _dataSorting, _mappingService);
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
                 _validationService, _userRepository, _accountBaseRepository, _accountBookRepository);
             GenerateRandomBooks();
-            InterceptLoggedUserId();
+            InterceptLoggedUserData();
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)
@@ -188,6 +194,7 @@ namespace Library.UI.ViewModel
                     Title = filteredBook.Book.Title,
                     Quantity = filteredBook.Book.Quantity,
                     IsRented = filteredBook.Book.IsRented,
+                    AnyRequest = filteredBook.Book.AnyRequest,
                     Author = filteredBook.Book.Author,
                     Category = filteredBook.Book.Category,
                     BookLanguages = filteredBook.Book.BookLanguages,
@@ -202,9 +209,10 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private void InterceptLoggedUserId()
+        private void InterceptLoggedUserData()
         {
             _loggedAccountId = _userAuthenticationService.UserId;
+            _requestedBooks = _userAuthenticationService._requestedBooks;
         }
     }
 }

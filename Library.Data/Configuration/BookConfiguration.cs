@@ -16,6 +16,8 @@ namespace Library.Data.Configuration
             builder.Property(b => b.Category)
             .HasConversion<string>();
             builder.Property(b => b.IsRented);
+            builder.Property(b => b.AnyRequest);
+            builder.Property(b => b.RequestUserId);
             builder.Property(b => b.Downloads);
 
             // one-to-many relation

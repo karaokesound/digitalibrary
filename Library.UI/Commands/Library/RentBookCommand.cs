@@ -27,8 +27,8 @@ namespace Library.UI.Commands.Library
         public override void Execute(object parameter)
         {
             AccountModel loggedUser = _accountBaseRepository.GetByID(_libraryViewModel.LoggedAccountId);
-            BookViewModel selectedBookVM = _libraryViewModel.BookList.FirstOrDefault(b => b.BookId == _libraryViewModel.SelectedBook.BookId);
 
+            BookViewModel selectedBookVM = _libraryViewModel.BookList.FirstOrDefault(b => b.BookId == _libraryViewModel.SelectedBook.BookId);
             BookModel selectedBook = _mappingService.BookViewModelToModel(selectedBookVM, selectedBookVM.Author);
             BookModel dbBook = _bookBaseRepository.GetByID(selectedBook.BookId);
 
@@ -45,34 +45,76 @@ namespace Library.UI.Commands.Library
                 return;
             }
 
-            int selectedBookQuantity = _accountBookRepository.ReturnBookQuantity(loggedUser.AccountId, selectedBook.BookId);
-
-            if (selectedBookQuantity == 0)
+            // Checking if logged user has rent any copy of this book before
+            if (dbBook.AnyRequest == true && loggedUser.AccountId == dbBook.RequestUserId)
             {
-                var newRentedBook = new AccountBookModel()
+                int selBookQuantityOnUserAccount = _accountBookRepository.ReturnAccountBookQuantity(loggedUser.AccountId, selectedBook.BookId);
+
+                if (selBookQuantityOnUserAccount == 0)
                 {
-                    AccountId = loggedUser.AccountId,
-                    BookId = selectedBook.BookId,
-                    Quantity = 1
-                };
+                    var newRentedBook = new AccountBookModel()
+                    {
+                        AccountId = loggedUser.AccountId,
+                        BookId = selectedBook.BookId,
+                        Quantity = 1
+                    };
 
-                _accountBookRepository.Insert(newRentedBook);
+                    _accountBookRepository.Insert(newRentedBook);
 
-                loggedUser.MaxBookQntToRent -= 1;
+                    loggedUser.MaxBookQntToRent -= 1;
 
-                dbBook.IsRented = true;
-                dbBook.Quantity -= 1;
+                    dbBook.IsRented = true;
+                    dbBook.Quantity -= 1;
+                    dbBook.AnyRequest = false;
+                }
+                else
+                {
+                    var existingRentedBook = _accountBookRepository.GetUserBookByID(loggedUser.AccountId, selectedBook.BookId);
+                    if (existingRentedBook != null)
+                    {
+                        existingRentedBook.Quantity += 1;
+                    }
+
+                    loggedUser.MaxBookQntToRent -= 1;
+                    dbBook.Quantity -= 1;
+                    dbBook.AnyRequest = false;
+                }
+            }
+            else if (dbBook.AnyRequest == true && loggedUser.AccountId != dbBook.RequestUserId)
+            {
+                MessageBox.Show("You can't rent this book. This book has reservation by another user");
             }
             else
             {
-                var existingRentedBook = _accountBookRepository.GetUserBooks(loggedUser.AccountId, selectedBook.BookId);
-                if (existingRentedBook != null)
-                {
-                    existingRentedBook.Quantity += 1;
-                }
+                int selectedBookQuantity = _accountBookRepository.ReturnAccountBookQuantity(loggedUser.AccountId, selectedBook.BookId);
 
-                loggedUser.MaxBookQntToRent -= 1;
-                dbBook.Quantity -= 1;
+                if (selectedBookQuantity == 0)
+                {
+                    var newRentedBook = new AccountBookModel()
+                    {
+                        AccountId = loggedUser.AccountId,
+                        BookId = selectedBook.BookId,
+                        Quantity = 1
+                    };
+
+                    _accountBookRepository.Insert(newRentedBook);
+
+                    loggedUser.MaxBookQntToRent -= 1;
+
+                    dbBook.IsRented = true;
+                    dbBook.Quantity -= 1;
+                }
+                else
+                {
+                    var existingRentedBook = _accountBookRepository.GetUserBookByID(loggedUser.AccountId, selectedBook.BookId);
+                    if (existingRentedBook != null)
+                    {
+                        existingRentedBook.Quantity += 1;
+                    }
+
+                    loggedUser.MaxBookQntToRent -= 1;
+                    dbBook.Quantity -= 1;
+                }
             }
 
             _bookBaseRepository.Save();
