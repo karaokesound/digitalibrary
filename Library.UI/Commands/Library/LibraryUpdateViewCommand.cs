@@ -27,6 +27,7 @@ namespace Library.UI.Commands.Library
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
 
         private readonly IAccountBookRepository _accountBookRepository;
+
         private readonly IElementVisibilityService _elementVisibilityService;
 
         public override void Execute(object parameter)

@@ -119,7 +119,9 @@ namespace Library.UI.ViewModel
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
 
         private readonly IAccountBookRepository _accountBookRepository;
+
         private readonly IElementVisibilityService _elementVisibilityService;
+
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
@@ -144,7 +146,7 @@ namespace Library.UI.ViewModel
             SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
             RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, _accountBaseRepository, 
                 _accountBookRepository, _elementVisibilityService);
-            AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _dataSorting, _mappingService);
+            AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
                 _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             GenerateRandomBooks();

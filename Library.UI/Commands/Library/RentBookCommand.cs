@@ -23,7 +23,9 @@ namespace Library.UI.Commands.Library
         private readonly IMappingService _mappingService;
 
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
+
         private readonly IAccountBookRepository _accountBookRepository;
+
         private readonly IElementVisibilityService _elementVisibilityService;
 
         public override void Execute(object parameter)
@@ -37,13 +39,18 @@ namespace Library.UI.Commands.Library
             // Database operations
             if (selectedBook.Quantity == 0)
             {
-                MessageBox.Show("You can't rent this book. We don't have any copies in the library. Send a request to rent this book if available.");
+                string wMessage = "There are no copies of this book in the library. You can make a reservation for this book. " +
+                    "We'll send you a message when it's available.";
+                string wCaption = "Warning";
+                MessageBox.Show(wMessage, wCaption);
                 return;
             }
 
             if (loggedUser.MaxBookQntToRent == 0)
             {
-                MessageBox.Show("Error. Too many books rented.");
+                string wMessage = "You have rented 5 books.You have to return one of them to be able to rent another one.";
+                string wCaption = "Warning";
+                MessageBox.Show(wMessage, wCaption);
                 return;
             }
 
@@ -84,7 +91,9 @@ namespace Library.UI.Commands.Library
             }
             else if (dbBook.AnyRequest == true && loggedUser.AccountId != dbBook.RequestUserId)
             {
-                MessageBox.Show("You can't rent this book. This book has reservation by another user"); return;
+                string wMessage = "This book has reservation made by another user. We will get you know when it's available.";
+                string wCaption = "Warning";
+                MessageBox.Show(wMessage, wCaption); return;
             }
             else
             {
@@ -118,6 +127,10 @@ namespace Library.UI.Commands.Library
                     dbBook.Quantity -= 1;
                 }
             }
+
+            string sMessage = $"You have rented {selectedBook.Title}. Go to Profile to manage your books.";
+            string sCaption = "Library";
+            MessageBox.Show(sMessage, sCaption);
 
             bool isProfileListViewVisible = false;
             _elementVisibilityService.AdjustListViewVisibility(isProfileListViewVisible);

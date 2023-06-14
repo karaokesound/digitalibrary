@@ -355,9 +355,9 @@
     <!--// REGISTER BUTTON //-->
     <Style TargetType="Button"
            x:Key="registerButton">
-        <Setter Property="Background" Value="  #1565c0  " />
+        <Setter Property="Background" Value="#1565c0" />
         <Setter Property="Foreground" Value="#17202a" />
-        <Setter Property="BorderBrush" Value="  #42a5f5    " />
+        <Setter Property="BorderBrush" Value="#42a5f5" />
         <Setter Property="BorderThickness" Value="4" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -449,9 +449,9 @@
 
     <!--// STATIC //-->
     <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#d4e8fc" />
-    <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#006699"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#E5E4E2"/>
     <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="White"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#006699"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="Green"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color=" #8d6e63 "/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent"/>
@@ -461,7 +461,7 @@
         <GradientStop Color="#003366" Offset="0.0"/>
         <GradientStop Color="#154360" Offset="1.0"/>
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color=" #a9cce3 "/>
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#a9cce3"/>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#FF000000"/>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="Red"/>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#FF7EB4EA"/>
@@ -500,17 +500,24 @@
         <Setter Property="IsTabStop" Value="false"/>
         <Setter Property="Focusable" Value="false"/>
         <Setter Property="ClickMode" Value="Press"/>
+        <Setter Property="Height" Value="20" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border x:Name="templateRoot" 
-                            CornerRadius="7" 
-                            Background="{StaticResource ComboBox.Static.Background}" 
-                            BorderBrush="{StaticResource ComboBox.Static.Border}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" 
-                            SnapsToDevicePixels="true"
-                            Width="26"
-                            Height="22">
+                    <Grid>
+                        <Border x:Name="templateRoot" 
+                                CornerRadius="7" 
+                                BorderBrush="{StaticResource ComboBox.Static.Border}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                SnapsToDevicePixels="true">
+                            <TextBlock x:Name="textBlock"
+                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content, Mode=OneWay}"
+                                       Visibility="Collapsed"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
                         <Border x:Name="splitBorder" 
                                 CornerRadius="7" 
                                 BorderBrush="Transparent" 
@@ -522,9 +529,10 @@
                                   Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" 
                                   HorizontalAlignment="Center" 
                                   VerticalAlignment="Center"
+                                  Margin="0 4 3 0"
                                   Fill="Black"/>
                         </Border>
-                    </Border>
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -735,7 +743,7 @@
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ComboBox.Static.Border}"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="BorderThickness" Value="10"/>
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="13" />
@@ -826,7 +834,7 @@
         <Setter Property="Height" Value="33" />
         <Setter Property="FontSize" Value="17" />
         <Setter Property="FontWeight" Value="Bold" />
-       
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">

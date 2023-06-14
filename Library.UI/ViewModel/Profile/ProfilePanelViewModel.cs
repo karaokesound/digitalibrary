@@ -124,6 +124,7 @@ namespace Library.UI.ViewModel
         private readonly IAccountBookRepository _accountBookRepository;
 
         private readonly IElementVisibilityService _elementVisibilityService;
+
         private List<BookModel> _requestedBooks;
 
         public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
@@ -143,8 +144,7 @@ namespace Library.UI.ViewModel
             UserRentedBooks = new ObservableCollection<UserBooksData>();
             ReturnButtonCommand = new ReturnButtonCommand(this, _elementVisibilityService);
             ReturnsPanelCommand = new ReturnsPanelCommand(this, _elementVisibilityService);
-            ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository,
-                _dataSorting, _elementVisibilityService);
+            ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository);
             ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting,
                 _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             TakeLoggedUserData();
@@ -180,11 +180,13 @@ namespace Library.UI.ViewModel
 
             foreach (var book in books)
             {
-                if (book.Quantity == 1 && book.AnyRequest == true) MessageBox.Show($"you can now rent {book.Title}");
+                string message = $"You made a reservation for {book.Title}. It is available now. Go to library to rent the book";
+                string caption = "Reservation";
+                if (book.Quantity == 1 && book.AnyRequest == true) MessageBox.Show(message, caption);
                 book.AnyRequest = false;
             }
 
-            // To ListView in ProfilePanelView.xaml
+            // Shows books in ListView in ProfilePanelView.xaml
             foreach (var book in userRentedBooks)
             {
                 BookModel bookModel = _bookBaseRepository.GetByID(book.BookId);

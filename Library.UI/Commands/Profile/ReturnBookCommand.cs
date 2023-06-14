@@ -2,14 +2,12 @@
 using Library.UI.Command;
 using Library.UI.Model;
 using Library.UI.Service;
-using Library.UI.Service.Data;
-using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
 using System.Windows;
 
-namespace Library.UI.Commands.Library
+namespace Library.UI.Commands.Profile
 {
     public class ReturnBookCommand : CommandBase
     {
@@ -22,9 +20,6 @@ namespace Library.UI.Commands.Library
         private readonly IMappingService _mappingService;
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
-
-        private readonly IDataSorting _dataSorting;
-        private readonly IElementVisibilityService _elementVisibilityService;
 
         public override void Execute(object parameter)
         {
@@ -42,7 +37,6 @@ namespace Library.UI.Commands.Library
 
             if (returningBook == null)
             {
-                MessageBox.Show("You didn't rent this book.");
                 return;
             }
 
@@ -56,7 +50,9 @@ namespace Library.UI.Commands.Library
                 dbSelecteedBook.Quantity += 1;
             }
 
-            
+            string message = $"You have returned {dbSelecteedBook.Title}";
+            string caption = "Profile";
+            MessageBox.Show(message, caption);
 
             _accountBaseRepository.Save();
             _accountBookRepository.Save();
@@ -67,16 +63,13 @@ namespace Library.UI.Commands.Library
         }
 
         public ReturnBookCommand(ProfilePanelViewModel profilePanelViewModel, IBaseRepository<AccountModel> accountBaseRepository,
-            IAccountBookRepository accountBookRepository, IMappingService mappingService, IBaseRepository<BookModel> bookBaseRepository,
-            IDataSorting dataSorting, IElementVisibilityService elementVisibilityService)
+            IAccountBookRepository accountBookRepository, IMappingService mappingService, IBaseRepository<BookModel> bookBaseRepository)
         {
             _profilePanelViewModel = profilePanelViewModel;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
             _mappingService = mappingService;
             _bookBaseRepository = bookBaseRepository;
-            _dataSorting = dataSorting;
-            _elementVisibilityService = elementVisibilityService;
         }
     }
 }

@@ -85,13 +85,12 @@
                 <!--// searchbox //-->
                 <Grid>
                     <Border Background="White"
-                            Opacity="0.08"
+                            Opacity="0.25"
                             Width="260"
                             Height="30"
                             CornerRadius="7" />
                     <Border BorderBrush="White"
-                            BorderThickness="2"
-                            Opacity="0.6"
+                            BorderThickness="0.8"
                             Width="262"
                             Height="32"
                             CornerRadius="7" />
@@ -137,7 +136,7 @@
                 <Border CornerRadius="5"
                         Background="#054F4F"
                         BorderBrush="White"
-                        BorderThickness="0.5"/>
+                        BorderThickness="0.7"/>
                 <Border>
                     <Border.Background>
                         <ImageBrush ImageSource="https://wallpaperaccess.com/full/221471.jpg"
