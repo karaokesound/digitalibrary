@@ -61,6 +61,39 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
+        private int _downloads;
+        public int Downloads
+        {
+            get => _downloads;
+            set
+            {
+                _downloads = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private float _rate;
+        public float Rate
+        {
+            get => _rate;
+            set 
+            { 
+                _rate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string[] _comments;
+        public string[] Comments
+        {
+            get => _comments;
+            set 
+            {
+                _comments = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _isRented;
         public bool IsRented
         {
@@ -90,17 +123,6 @@ namespace Library.UI.ViewModel.Library
             set
             {
                 _requestUserId = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private int _downloads;
-        public int Downloads
-        {
-            get => _downloads;
-            set
-            {
-                _downloads = value;
                 OnPropertyChanged();
             }
         }

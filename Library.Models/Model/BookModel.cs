@@ -1,4 +1,5 @@
 ﻿using Library.Models.Model;
+using Library.Models.Model.many_to_many;
 using System;
 using System.Collections.Generic;
 
@@ -14,15 +15,19 @@ namespace Library.UI.Model
 
         public string Category { get; set; }
 
+        public int Downloads { get; set; }
+
         public bool IsRented { get; set; }
 
         public bool AnyRequest{ get; set; }
 
         public Guid RequestUserId { get; set; }
 
-        public int Downloads { get; set; }
-
         public AuthorModel Author { get; set; }
+
+        public ICollection<BookGradeModel> BookGrade { get; set; }
+
+        public ICollection<CommentModel> Comments { get; set; }
 
         public ICollection<BookLanguageModel> BookLanguages { get; set; }
 

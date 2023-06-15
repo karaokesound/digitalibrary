@@ -216,10 +216,11 @@ namespace Library.UI.ViewModel
                     BookId = filteredBook.Book.BookId,
                     Title = filteredBook.Book.Title,
                     Quantity = filteredBook.Book.Quantity,
+                    Category = filteredBook.Book.Category,
+                    Downloads = filteredBook.Book.Downloads,
                     IsRented = filteredBook.Book.IsRented,
                     AnyRequest = filteredBook.Book.AnyRequest,
                     Author = filteredBook.Book.Author,
-                    Category = filteredBook.Book.Category,
                     BookLanguages = filteredBook.Book.BookLanguages,
                 };
 

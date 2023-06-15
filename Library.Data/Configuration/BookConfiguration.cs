@@ -15,14 +15,17 @@ namespace Library.Data.Configuration
             builder.Property(b => b.Quantity);
             builder.Property(b => b.Category)
             .HasConversion<string>();
+            builder.Property(b => b.Downloads);
             builder.Property(b => b.IsRented);
             builder.Property(b => b.AnyRequest);
             builder.Property(b => b.RequestUserId);
-            builder.Property(b => b.Downloads);
 
             // one-to-many relation
             builder.HasOne(a => a.Author)
                 .WithMany(b => b.Books);
+
+            builder.HasMany(c => c.Comments)
+                .WithOne(b => b.Book);
         }
     }
 }
