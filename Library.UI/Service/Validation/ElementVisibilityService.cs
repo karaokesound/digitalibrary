@@ -8,6 +8,8 @@
 
         public bool IsListViewVisible { get; private set; }
 
+        public bool AreBookDetailsVisible { get; private set; }
+
         public void AdjustElementVisibility(bool isClicked)
         {
             if (isClicked == true)
@@ -36,6 +38,16 @@
                 return;
             }
             IsListViewVisible = true;
+        }
+
+        public void AdjustBookDetailsVisibility(bool isClicked)
+        {
+            if (isClicked == true)
+            {
+                AreBookDetailsVisible = true;
+                return;
+            }
+            AreBookDetailsVisible = false;
         }
     }
 }

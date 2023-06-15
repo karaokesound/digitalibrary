@@ -59,17 +59,6 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private string _searchBoxInput;
-        public string SearchBoxInput
-        {
-            get => _searchBoxInput;
-            set
-            {
-                _searchBoxInput = value;
-                OnPropertyChanged();
-            }
-        }
-
         private BookViewModel _selectedBook;
         public BookViewModel SelectedBook
         {
@@ -77,6 +66,17 @@ namespace Library.UI.ViewModel
             set
             {
                 _selectedBook = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _searchBoxInput;
+        public string SearchBoxInput
+        {
+            get => _searchBoxInput;
+            set
+            {
+                _searchBoxInput = value;
                 OnPropertyChanged();
             }
         }
@@ -92,6 +92,18 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private bool _areBookDetailsVisible;
+        public bool AreBookDetailsVisible
+        {
+            get => _areBookDetailsVisible;
+            set 
+            { 
+                _areBookDetailsVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public SortingEnums SortingEnums { get; set; }
 
         public ICommand LibraryUpdateViewCommand { get; }
@@ -103,6 +115,10 @@ namespace Library.UI.ViewModel
         public ICommand RentBookCommand { get; }
 
         public ICommand AddRequestCommand { get; }
+
+        public ICommand LibraryReturnButtonCommand { get; }
+
+        public ICommand BookDoubleClickCommand { get; }
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
@@ -141,6 +157,8 @@ namespace Library.UI.ViewModel
             _requestedBooks = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
+            BookDoubleClickCommand = new BookDoubleClickCommand(this, _elementVisibilityService);
+            LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this, _elementVisibilityService);
             FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
             RandomBookList = new ObservableCollection<BookViewModel>();
             SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);

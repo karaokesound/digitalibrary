@@ -8,10 +8,14 @@
 
         public bool IsListViewVisible { get; }
 
+        public bool AreBookDetailsVisible { get; }
+
         public void AdjustElementVisibility(bool isClicked);
 
         public void AdjustReturnsPanelVisibility(bool isClicked);
 
         public void AdjustListViewVisibility(bool isEmpty);
+
+        public void AdjustBookDetailsVisibility(bool isClicked);
     }
 }

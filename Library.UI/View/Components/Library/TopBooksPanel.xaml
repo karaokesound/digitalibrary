@@ -5,13 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Library.UI.View.Components" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
-             xmlns:library="clr-namespace:Library.UI.Resources.Library" xmlns:controls="clr-namespace:Library.UI.Resources.Converters"
+             xmlns:library="clr-namespace:Library.UI.Resources.Library" 
+             xmlns:controls="clr-namespace:Library.UI.Resources.Converters" xmlns:componentslibrary="clr-namespace:Library.UI.View.Components.Library"
              mc:Ignorable="d" 
-             FontFamily="Kanit Light"
+             FontFamily="Titillium Web"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.26*" />
+            <RowDefinition Height="0.1*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -152,6 +153,11 @@
                           SelectedValue="{Binding SelectedBook, UpdateSourceTrigger=PropertyChanged}"
                           x:Name="booksListView"
                           TextBlock.Foreground="White">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding BookDoubleClickCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <!--// template //-->
                     <ListView.Template>
                         <ControlTemplate TargetType="{x:Type ListView}">
@@ -218,6 +224,8 @@
                             <GridViewColumn Width="100"
                                             DisplayMemberBinding="{Binding Author.FirstName, UpdateSourceTrigger=PropertyChanged}" />
                             <GridViewColumn DisplayMemberBinding="{Binding Author.LastName, UpdateSourceTrigger=PropertyChanged}" />
+                            
+                            <!--// buttons //-->
                             <GridViewColumn Width="130">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>

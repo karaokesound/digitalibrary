@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Library.UI.View.Components.Library.SelectedBookDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             FontFamily="Titillium Web"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <!--// MAIN BACKGROUND //-->
+        <Border Grid.RowSpan="2">
+            <Border.Background>
+                <ImageBrush ImageSource="https://i.pinimg.com/736x/78/be/5d/78be5dd68cde3f3616c7304c2b158a45.jpg"
+                            Stretch="UniformToFill" 
+                            RenderOptions.BitmapScalingMode="Fant"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.RowSpan="2"
+                Background="#052a4f"
+                Opacity="0.9" />
+
+        <Grid Margin="10 20 10 25"
+              TextBlock.Foreground="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Details"
+                       FontFamily="Titillium Web Semibold"
+                           FontSize="22" />
+            <Grid 
+                      HorizontalAlignment="Right"
+                  Margin="0 5 0 0">
+                <Image Source="/Resources/Images/Library/exit.png"
+                       RenderOptions.BitmapScalingMode="Fant"
+                       Width="27"
+                       Height="27" />
+                <Button Command="{Binding LibraryReturnButtonCommand}"
+                        Background="Transparent"
+                        Width="27"
+                        Height="27"/>
+                </Grid>
+                
+        </Grid>
+    </Grid>
+</UserControl>
