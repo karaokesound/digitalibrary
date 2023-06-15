@@ -56,16 +56,30 @@
                             VerticalAlignment="Center"
                             Margin="20 20 0 0"
                             TextBlock.Foreground="Green"
-                            TextBlock.FontFamily="Titillium Web Semibold">
+                            TextBlock.FontFamily="Titillium Web Semibold"
+                            Visibility="{Binding IsRentExitButtonVisible, Converter={StaticResource booleanToVisibilityConverter}}">
                     <TextBlock Text="Have you red this book?"
                                Margin="0 0 10 0"/>
                     <Button Content="YES"
                             Background="Transparent"
-                            Command="{Binding YesButtonCommand}"/>
+                            Command="{Binding YesNoButtonCommand}"
+                            CommandParameter="Yes"/>
                     <TextBlock Text=" / " />
                     <Button Content="NO"
                             Background="Transparent"
-                            Command="{Binding NoButtonCommand}"/>
+                            Command="{Binding YesNoButtonCommand}"
+                            CommandParameter="No"/>
+                </StackPanel>
+                
+                <!--// WHEN CLICKED "YES" //-->
+                <StackPanel Grid.Column="1"
+                            Margin="20 20 0 0"
+                            Width="40"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            TextBlock.FontFamily="Tilillium Web Semibold">
+                    <TextBlock Text="How do you feel about this book? Rate it from 0 to 10."
+                               Visibility="{Binding IsRatingEnable, Converter={StaticResource booleanToVisibilityConverter}}"/>
                 </StackPanel>
             </Grid>
 

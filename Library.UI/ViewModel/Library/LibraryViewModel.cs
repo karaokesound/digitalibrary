@@ -103,6 +103,28 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private bool _isRatingEnable = false;
+        public bool IsRatingEnable
+        {
+            get => _isRatingEnable;
+            set 
+            { 
+                _isRatingEnable = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // When user clicks "No" during question : "Have you red this book?" then this property is called.
+        private bool _isRentExitButtonVisible = true;
+        public bool IsRentExitButtonVisible
+        {
+            get => _isRentExitButtonVisible;
+            set
+            {
+                _isRentExitButtonVisible = value;
+                OnPropertyChanged();
+            }
+        }
 
         public SortingEnums SortingEnums { get; set; }
 
@@ -119,6 +141,8 @@ namespace Library.UI.ViewModel
         public ICommand LibraryReturnButtonCommand { get; }
 
         public ICommand BookDoubleClickCommand { get; }
+
+        public ICommand YesNoButtonCommand { get; }
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
@@ -157,6 +181,7 @@ namespace Library.UI.ViewModel
             _requestedBooks = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
+            YesNoButtonCommand = new YesNoButtonCommand(this);
             BookDoubleClickCommand = new BookDoubleClickCommand(this, _elementVisibilityService);
             LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this, _elementVisibilityService);
             FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
