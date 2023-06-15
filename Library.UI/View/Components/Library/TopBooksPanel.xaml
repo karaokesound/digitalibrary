@@ -70,7 +70,8 @@
                 <StackPanel Orientation="Horizontal"
                             TextBlock.Foreground="#85c1e9"
                             TextBlock.FontWeight="Bold"
-                            VerticalAlignment="Bottom">
+                            VerticalAlignment="Bottom"
+                            TextBlock.FontSize="14.5">
                     <TextBlock Text="Pos."
                                Width="46"
                                Margin="12 0 0 0"/>
@@ -166,11 +167,11 @@
                             <Setter Property="Height" Value="46" />
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#488AC7" />
-                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="#087F7F" />
+                                    <Setter Property="Foreground" Value="White" />
                                 </Trigger>
                                 <Trigger Property="IsFocused" Value="True">
-                                    <Setter Property="Background" Value="#2554C7" />
+                                    <Setter Property="Background" Value="#052a4f" />
                                     <Setter Property="BorderBrush" Value="#151B54" />
                                     <Setter Property="BorderThickness" Value="2" />
                                 </Trigger>
@@ -232,7 +233,7 @@
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center"
                                                            FontWeight="Bold"
-                                                           FontSize="25" />
+                                                           FontSize="30" />
                                             </StackPanel>
                                         </Grid>
                                     </DataTemplate>
