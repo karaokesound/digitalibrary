@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              FontFamily="Titillium Web"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
@@ -24,17 +24,26 @@
                 Background="#052a4f"
                 Opacity="0.9" />
 
+        <!--// BOOK DETAILS //-->
         <Grid Margin="10 20 10 25"
               TextBlock.Foreground="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="Details"
-                       FontFamily="Titillium Web Semibold"
+            
+            <!--// details text, book title //-->
+            <StackPanel>
+                <TextBlock Text="Details"
+                           FontFamily="Titillium Web Semibold"
                            FontSize="22" />
-            <Grid 
-                      HorizontalAlignment="Right"
+                <TextBlock Text="{Binding SelectedBook.Title, UpdateSourceTrigger=PropertyChanged}"
+                           Margin="0 0 0 20"/>
+            </StackPanel>
+            
+            
+            <!--// button //-->
+            <Grid HorizontalAlignment="Right"
                   Margin="0 5 0 0">
                 <Image Source="/Resources/Images/Library/exit.png"
                        RenderOptions.BitmapScalingMode="Fant"
@@ -45,7 +54,71 @@
                         Width="27"
                         Height="27"/>
                 </Grid>
+
+            <!--// more details //-->
+            <StackPanel Grid.Row="1">
                 
+                <!--// category //-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" SharedSizeGroup="caption" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Category:"
+                               Margin="0 0 15 4"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding SelectedBook.Category, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+
+                <!--// author, downloads, ratings, quantity //-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" SharedSizeGroup="caption" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <!--// author //-->
+                    <TextBlock Text="Author:"
+                               Margin="0 0 0 4"/>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal">
+                        <TextBlock Text="{Binding SelectedBook.Author.FirstName, UpdateSourceTrigger=PropertyChanged}"
+                                   Margin="0 0 4 0"/>
+                        <TextBlock Text="{Binding SelectedBook.Author.LastName, UpdateSourceTrigger=PropertyChanged}"  />
+                    </StackPanel>
+
+                    <!--// ratings //-->
+                    <TextBlock Grid.Row="1"
+                               Text="Ratings:"
+                               Margin="0 0 0 4"/>
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="1"
+                               Text="{Binding SelectedBook.Quantity}" />
+
+                    <!--// copies //-->
+                    <TextBlock Grid.Row="2"
+                               Text="Copies:"
+                               Margin="0 0 0 4"/>
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="2"
+                               Text="{Binding SelectedBook.Quantity, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <!--// downloads //-->
+                    <TextBlock Grid.Row="3"
+                               Text="Downloads:"
+                               Margin="0 0 0 4"/>
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="3"
+                               Text="{Binding SelectedBook.Downloads, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
