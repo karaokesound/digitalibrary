@@ -9,7 +9,8 @@ namespace Library.Data.Configuration.many_to_many
         public void Configure(EntityTypeBuilder<BookGradeModel> builder)
         {
             builder.ToTable("BookGrades");
-            builder.HasKey(bg => new { bg.BookId, bg.GradeId });
+            builder.HasKey(bg => bg.BookGradeId);
+            builder.Property(bg => bg.BookGradeId).ValueGeneratedOnAdd();
             builder.Property(bg => bg.GradeAuthorId);
 
             builder.HasOne(bg => bg.Book)

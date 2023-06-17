@@ -26,9 +26,11 @@ namespace Library.UI.Service.Data
 
         private readonly IDataSorting _dataFiltering;
 
+        private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
+
         public DataSeeder(IBaseRepository<BookModel> bookBaseRepository, LibraryDbContext libraryDbContext,
             IBookApiService bookApiService, IBaseRepository<LanguageModel> langBaseRepository,
-            IBaseRepository<AuthorModel> authBaseRepository, IDataSorting dataFiltering)
+            IBaseRepository<AuthorModel> authBaseRepository, IDataSorting dataFiltering, IBaseRepository<GradeModel> gradeBaseRepository)
         {
             _bookBaseRepository = bookBaseRepository;
             _libraryDbContext = libraryDbContext;
@@ -36,6 +38,7 @@ namespace Library.UI.Service.Data
             _lngBaseRepository = langBaseRepository;
             _authBaseRepository = authBaseRepository;
             _dataFiltering = dataFiltering;
+            _gradeBaseRepository = gradeBaseRepository;
         }
 
         public async Task SeedDataBase()
@@ -51,13 +54,13 @@ namespace Library.UI.Service.Data
 
         public void FillDataBase(List<BookDto> bookBaseApi)
         {
-            // Adding enum language list to database
-            List<string> enumLanguageList = Enum.GetNames(typeof(LanguageModel.Languages)).ToList();
+            // Adding Languages enum to database
+            List<string> languagesEnumList = Enum.GetNames(typeof(LanguageModel.Languages)).ToList();
             List<LanguageModel> languageList = new List<LanguageModel>();
 
-            foreach (string enumLanguage in enumLanguageList)
+            foreach (string languageEnum in languagesEnumList)
             {
-                languageList.Add(new LanguageModel() { Language = enumLanguage });
+                languageList.Add(new LanguageModel() { Language = languageEnum });
             }
 
             foreach (LanguageModel language in languageList)
@@ -66,6 +69,22 @@ namespace Library.UI.Service.Data
                 _lngBaseRepository.Save();
             }
 
+            // Adding Grades enum to database
+            List<int> gradesEnumValues = Enum.GetValues(typeof(GradeModel.Grades))
+                .Cast<int>()
+                .ToList();
+            List<GradeModel> gradeList = new List<GradeModel>();
+            
+            foreach (var gradeEnum in gradesEnumValues)
+            {
+                gradeList.Add(new GradeModel() { Grade = gradeEnum });
+            }
+
+            foreach (GradeModel grade in gradeList)
+            {
+                _gradeBaseRepository.Insert(grade);
+                _gradeBaseRepository.Save();
+            }
 
             // Inserting New Book
             foreach (var bookApi in bookBaseApi)

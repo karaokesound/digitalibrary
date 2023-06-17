@@ -1,5 +1,6 @@
 ﻿using Library.Data;
 using Library.Models.Model;
+using Library.Models.Model.many_to_many;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.API;
@@ -66,6 +67,8 @@ namespace Library.UI
             services.AddTransient<IElementVisibilityService, ElementVisibilityService>();
             services.AddTransient<IBaseRepository<AccountModel>, BaseRepository<AccountModel>>();
             services.AddTransient<IAccountBookRepository, AccountBookRepository>();
+            services.AddSingleton<IBaseRepository<BookGradeModel>, BaseRepository<BookGradeModel>>();
+            services.AddSingleton<IBaseRepository<GradeModel>, BaseRepository<GradeModel>>();
         }
     }
 }

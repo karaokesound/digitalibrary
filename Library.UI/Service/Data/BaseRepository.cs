@@ -37,6 +37,7 @@ namespace Library.UI.Services
 
         public virtual void Insert(TEntity obj)
         {
+            _context.ChangeTracker.Clear();
             _dbSet.Add(obj);
         }
 

@@ -1,4 +1,6 @@
-﻿using Library.UI.Commands.Library;
+﻿using Library.Models.Model;
+using Library.Models.Model.many_to_many;
+using Library.UI.Commands.Library;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
@@ -103,25 +105,35 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private bool _isRatingEnable = false;
-        public bool IsRatingEnable
+        private bool _areRatingStarsVisible = false;
+        public bool AreRatingStarsVisible
         {
-            get => _isRatingEnable;
+            get => _areRatingStarsVisible;
             set 
             { 
-                _isRatingEnable = value;
+                _areRatingStarsVisible = value;
                 OnPropertyChanged();
             }
         }
 
-        // When user clicks "No" during question : "Have you red this book?" then this property is called.
-        private bool _isRentExitButtonVisible = true;
-        public bool IsRentExitButtonVisible
+        private bool _isBookGradeVisible;
+        public bool IsBookGradeVisible
         {
-            get => _isRentExitButtonVisible;
-            set
-            {
-                _isRentExitButtonVisible = value;
+            get => _isBookGradeVisible;
+            set 
+            { 
+                _isBookGradeVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private float _bookGrade;
+        public float BookGrade
+        {
+            get => _bookGrade;
+            set 
+            { 
+                _bookGrade = value;
                 OnPropertyChanged();
             }
         }
@@ -144,6 +156,8 @@ namespace Library.UI.ViewModel
 
         public ICommand YesNoButtonCommand { get; }
 
+        public ICommand AddGradeCommand { get; }
+
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly IMappingService _mappingService;
@@ -162,12 +176,16 @@ namespace Library.UI.ViewModel
 
         private readonly IElementVisibilityService _elementVisibilityService;
 
+        private readonly IBaseRepository<BookGradeModel> _bookgradeBaseRepository;
+
+        private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
+
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataSorting, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
             IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
-            IElementVisibilityService elementVisibilityService)
+            IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
@@ -178,11 +196,14 @@ namespace Library.UI.ViewModel
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
             _elementVisibilityService = elementVisibilityService;
+            _bookgradeBaseRepository = bookgradeBaseRepository;
+            _gradeBaseRepository = gradeBaseRepository;
             _requestedBooks = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
+            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthenticationService, _gradeBaseRepository);
             YesNoButtonCommand = new YesNoButtonCommand(this);
-            BookDoubleClickCommand = new BookDoubleClickCommand(this, _elementVisibilityService);
+            BookDoubleClickCommand = new BookDoubleClickCommand(this, _elementVisibilityService, _bookgradeBaseRepository);
             LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this, _elementVisibilityService);
             FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
             RandomBookList = new ObservableCollection<BookViewModel>();
@@ -191,7 +212,8 @@ namespace Library.UI.ViewModel
                 _accountBookRepository, _elementVisibilityService);
             AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
-                _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
+                _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService, _bookgradeBaseRepository,
+                _gradeBaseRepository);
             GenerateRandomBooks();
             InterceptLoggedUserData();
         }
@@ -256,6 +278,39 @@ namespace Library.UI.ViewModel
 
                 BookList.Add(filteredBookVM);
             }
+        }
+
+        public void ShowBookGrade()
+        {
+            List<BookGradeModel> selectedBookgrades = new List<BookGradeModel>();
+
+            selectedBookgrades = _bookgradeBaseRepository.GetAll().Where(b => b.BookId == SelectedBook.BookId).ToList();
+
+            if (selectedBookgrades.Count() == 0)
+            {
+                BookGrade = 0;
+                return;
+            }
+
+            List<GradeModel> grades = new List<GradeModel>();
+            List<int> bookGrades = new List<int>();
+
+            int gradesSum = 0;
+            float average = 0;
+
+            foreach (var bookGrade in selectedBookgrades)
+            {
+                grades.Add(_gradeBaseRepository.GetByID(bookGrade.GradeId));
+            }
+
+            foreach (var g in grades)
+            {
+                gradesSum += g.Grade;
+            }
+
+            average = gradesSum / selectedBookgrades.Count();
+
+            BookGrade = average;
         }
 
         private void InterceptLoggedUserData()

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Library.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class commentsgrades : Migration
+    public partial class commentgradesmodels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,13 +47,14 @@ namespace Library.Data.Migrations
                 name: "BookGrades",
                 columns: table => new
                 {
+                    BookGradeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GradeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GradeAuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookGrades", x => new { x.BookId, x.GradeId });
+                    table.PrimaryKey("PK_BookGrades", x => x.BookGradeId);
                     table.ForeignKey(
                         name: "FK_BookGrades_Books_BookId",
                         column: x => x.BookId,
@@ -67,6 +68,11 @@ namespace Library.Data.Migrations
                         principalColumn: "GradeId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookGrades_BookId",
+                table: "BookGrades",
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookGrades_GradeId",

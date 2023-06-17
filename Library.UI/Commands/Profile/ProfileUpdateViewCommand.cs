@@ -1,4 +1,6 @@
-﻿using Library.UI.Command;
+﻿using Library.Models.Model;
+using Library.Models.Model.many_to_many;
+using Library.UI.Command;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
@@ -30,10 +32,15 @@ namespace Library.UI.Commands.Profile
 
         private readonly IElementVisibilityService _elementVisibilityService;
 
+        private readonly IBaseRepository<BookGradeModel> _bookgradeBaseRepository;
+
+        private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
+
         public ProfileUpdateViewCommand(ProfilePanelViewModel accountPanelVM, IBaseRepository<BookModel> bookBaseRepository, 
             IMappingService mappingService, IDataSorting dataFiltering, IUserAuthenticationService userAuthenticationService, 
             IValidationService validationService, IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository,
-            IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService)
+            IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository,
+            IBaseRepository<GradeModel> gradeBaseRepository)
         {
             _accountPanelVM = accountPanelVM;
             _bookBaseRepository = bookBaseRepository;
@@ -45,6 +52,8 @@ namespace Library.UI.Commands.Profile
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
             _elementVisibilityService = elementVisibilityService;
+            _bookgradeBaseRepository = bookgradeBaseRepository;
+            _gradeBaseRepository = gradeBaseRepository;
         }
 
         public override void Execute(object parameter)
@@ -52,7 +61,8 @@ namespace Library.UI.Commands.Profile
             if (parameter.ToString() == "Library")
             {
                 _accountPanelVM.SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering, 
-                    _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
+                    _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+                    _bookgradeBaseRepository, _gradeBaseRepository);
             }
         }
     }

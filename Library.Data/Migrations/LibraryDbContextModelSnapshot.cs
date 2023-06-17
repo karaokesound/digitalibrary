@@ -109,16 +109,22 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.Model.many_to_many.BookGradeModel", b =>
                 {
-                    b.Property<Guid>("BookId")
+                    b.Property<Guid>("BookGradeId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("GradeId")
+                    b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("GradeAuthorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("BookId", "GradeId");
+                    b.Property<Guid>("GradeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BookGradeId");
+
+                    b.HasIndex("BookId");
 
                     b.HasIndex("GradeId");
 

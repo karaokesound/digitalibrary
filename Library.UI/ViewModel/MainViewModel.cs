@@ -1,4 +1,6 @@
-﻿using Library.UI.Model;
+﻿using Library.Models.Model;
+using Library.Models.Model.many_to_many;
+using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
 using Library.UI.Service.Validation;
@@ -81,11 +83,15 @@ namespace Library.UI.ViewModel
 
         private readonly IAccountBookRepository _accountBookRepository;
 
+        private readonly IBaseRepository<BookGradeModel> _bookgradeBaseRepository;
+
+        private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
+
         public MainViewModel(ProfilePanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
             LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataFiltering, IElementVisibilityService elementVisibilityService, IUserAuthenticationService userAuthenticationService,
             IValidationService validationService, IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository,
-            IAccountBookRepository accountBookRepository)
+            IAccountBookRepository accountBookRepository, IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository)
         {
             AccountPanelVM = accountPanelVM;
             SignUpPanelVM = signUpPanelVM;
@@ -100,6 +106,8 @@ namespace Library.UI.ViewModel
             _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
+            _bookgradeBaseRepository = bookgradeBaseRepository;
+            _gradeBaseRepository = gradeBaseRepository;
             _elementVisibilityService = elementVisibilityService;
             ElementsVisibility();
             LoggingValidation();
@@ -135,7 +143,8 @@ namespace Library.UI.ViewModel
                 if (IsUserAuthenticated == true)
                 {
                     SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _userAuthenticationService,
-                        _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
+                        _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService, _bookgradeBaseRepository,
+                        _gradeBaseRepository);
                 }
                 else return;
             };

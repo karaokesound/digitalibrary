@@ -1,4 +1,5 @@
 ﻿using Library.Models.Model;
+using Library.Models.Model.many_to_many;
 using Library.UI.Commands.Library;
 using Library.UI.Commands.Profile;
 using Library.UI.Model;
@@ -125,11 +126,16 @@ namespace Library.UI.ViewModel
 
         private readonly IElementVisibilityService _elementVisibilityService;
 
+        private readonly IBaseRepository<BookGradeModel> _bookgradeBaseRepository;
+
+        private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
+
         private List<BookModel> _requestedBooks;
 
         public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
             IUserAuthenticationService userAuthenticationService, IValidationService validationService, IUserRepository userRepository,
-            IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService)
+            IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService,
+            IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
@@ -140,13 +146,16 @@ namespace Library.UI.ViewModel
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
             _elementVisibilityService = elementVisibilityService;
+            _bookgradeBaseRepository = bookgradeBaseRepository;
+            _gradeBaseRepository = gradeBaseRepository;
             _requestedBooks = new List<BookModel>();
             UserRentedBooks = new ObservableCollection<UserBooksData>();
             ReturnButtonCommand = new ReturnButtonCommand(this, _elementVisibilityService);
             ReturnsPanelCommand = new ReturnsPanelCommand(this, _elementVisibilityService);
             ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository);
-            ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting,
-                _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
+            ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService, 
+                _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService, _bookgradeBaseRepository,
+                _gradeBaseRepository);
             TakeLoggedUserData();
         }
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Data.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20230615202139_commentsgrades")]
-    partial class commentsgrades
+    [Migration("20230617112818_commentgradesmodels")]
+    partial class commentgradesmodels
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,16 +112,22 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.Models.Model.many_to_many.BookGradeModel", b =>
                 {
-                    b.Property<Guid>("BookId")
+                    b.Property<Guid>("BookGradeId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("GradeId")
+                    b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("GradeAuthorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("BookId", "GradeId");
+                    b.Property<Guid>("GradeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BookGradeId");
+
+                    b.HasIndex("BookId");
 
                     b.HasIndex("GradeId");
 

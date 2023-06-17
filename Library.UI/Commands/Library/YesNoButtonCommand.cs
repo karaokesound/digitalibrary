@@ -9,18 +9,21 @@ namespace Library.UI.Commands.Library
 
         public override void Execute(object parameter)
         {
-            if (parameter.ToString() == "Yes")
-            {
-                _libraryViewModel.IsRatingEnable = true;
-                _libraryViewModel.IsRentExitButtonVisible = false;
-                  
-            }
+            //if (parameter.ToString() == "No")
+            //{
+            //    _libraryViewModel.AreYesNoButtonsVisible = false;
+            //    _libraryViewModel.AreRatingStarsVisible = false;
+            //    _libraryViewModel.IsBookGradeVisible = true;
+            //    _libraryViewModel.ShowBookGrade();
+            //    return;
+            //}
 
-            if (parameter.ToString() == "No")
-            {
-                _libraryViewModel.IsRentExitButtonVisible = true;
-                _libraryViewModel.IsRatingEnable = false;
-            }
+            //if (parameter.ToString() == "Yes")
+            //{
+            //    _libraryViewModel.AreRatingStarsVisible = true;
+            //    _libraryViewModel.AreYesNoButtonsVisible = false;
+            //    return;
+            //}
         }
 
         public YesNoButtonCommand(LibraryViewModel libraryViewModel)

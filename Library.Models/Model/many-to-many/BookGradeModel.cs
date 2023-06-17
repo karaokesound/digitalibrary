@@ -5,6 +5,8 @@ namespace Library.Models.Model.many_to_many
 {
     public class BookGradeModel
     {
+        public Guid BookGradeId { get; set; }
+
         public Guid BookId { get; set; }
 
         public BookModel Book { get; set; }

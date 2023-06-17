@@ -32,7 +32,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!--// details text, book title, yesno buttons //-->
+            <!--// details text, book title, rating //-->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.3*" />
@@ -49,51 +49,81 @@
                                FontFamily="Titillium Web Semibold"
                                FontSize="14"/>
                 </StackPanel>
-
-                <!--// yes no buttons //-->
-                <StackPanel Grid.Column="1"
-                            Orientation="Horizontal"
-                            VerticalAlignment="Center"
-                            Margin="20 20 0 0"
-                            TextBlock.Foreground="Green"
-                            TextBlock.FontFamily="Titillium Web Semibold"
-                            Visibility="{Binding IsRentExitButtonVisible, Converter={StaticResource booleanToVisibilityConverter}}">
-                    <TextBlock Text="Have you red this book?"
-                               Margin="0 0 10 0"/>
-                    <Button Content="YES"
-                            Background="Transparent"
-                            Command="{Binding YesNoButtonCommand}"
-                            CommandParameter="Yes"/>
-                    <TextBlock Text=" / " />
-                    <Button Content="NO"
-                            Background="Transparent"
-                            Command="{Binding YesNoButtonCommand}"
-                            CommandParameter="No"/>
-                </StackPanel>
                 
-                <!--// WHEN CLICKED "YES" //-->
+                <!--// question, stars //-->
                 <StackPanel Grid.Column="1"
-                            Margin="20 20 0 0"
-                            Width="40"
+                            Margin="20 37 0 0"
                             VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            TextBlock.FontFamily="Tilillium Web Semibold">
-                    <TextBlock Text="How do you feel about this book? Rate it from 0 to 10."
-                               Visibility="{Binding IsRatingEnable, Converter={StaticResource booleanToVisibilityConverter}}"/>
+                            TextBlock.FontFamily="Tilillium Web Semibold"
+                            Visibility="{Binding AreRatingStarsVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                    <TextBlock Text="Did you read this book? Rate it from 0 to 10." />
+                    <StackPanel Orientation="Horizontal">
+                        <Grid>
+                            <Image Source="/Resources/Images/Library/star.png"
+                               Margin="0 5 0 0 "
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Width="15"/>
+                            <Button Width="15"
+                                    Background="Transparent"
+                                    CommandParameter="1"
+                                    Command="{Binding AddGradeCommand}" />
+                        </Grid>
+                        <Grid>
+                            <Image Source="/Resources/Images/Library/star.png"
+                               Margin="0 5 0 0 "
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Width="15"/>
+                            <Button Width="15"
+                                    Background="Transparent"
+                                    CommandParameter="2"
+                                    Command="{Binding AddGradeCommand}" />
+                        </Grid>
+                        <Grid>
+                            <Image Source="/Resources/Images/Library/star.png"
+                               Margin="0 5 0 0 "
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Width="15"/>
+                            <Button Width="15"
+                                    Background="Transparent"
+                                    CommandParameter="3"
+                                    Command="{Binding AddGradeCommand}" />
+                        </Grid>
+                        <Grid>
+                            <Image Source="/Resources/Images/Library/star.png"
+                               Margin="0 5 0 0 "
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Width="15"/>
+                            <Button Width="15"
+                                    Background="Transparent"
+                                    CommandParameter="4"
+                                    Command="{Binding AddGradeCommand}" />
+                        </Grid>
+                        <Grid>
+                            <Image Source="/Resources/Images/Library/star.png"
+                               Margin="0 5 0 0 "
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Width="15"/>
+                            <Button Width="15"
+                                    Background="Transparent"
+                                    CommandParameter="5"
+                                    Command="{Binding AddGradeCommand}" />
+                        </Grid>
+                    </StackPanel>
                 </StackPanel>
-            </Grid>
 
-            <!--// button //-->
-            <Grid HorizontalAlignment="Right"
+                <!--// return button //-->
+                <Grid Grid.Column="1"
+                    HorizontalAlignment="Right"
                   Margin="0 5 0 0">
-                <Image Source="/Resources/Images/Library/exit.png"
+                    <Image Source="/Resources/Images/Library/exit.png"
                        RenderOptions.BitmapScalingMode="Fant"
                        Width="27"
                        Height="27" />
-                <Button Command="{Binding LibraryReturnButtonCommand}"
+                    <Button Command="{Binding LibraryReturnButtonCommand}"
                         Background="Transparent"
                         Width="27"
                         Height="27"/>
+                </Grid>
             </Grid>
 
             <!--// more details //-->
@@ -104,11 +134,12 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" SharedSizeGroup="caption" />
+                        <ColumnDefinition Width="200" SharedSizeGroup="data"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="Category:"
-                               Margin="0 0 15 4"/>
+                               Margin="0 0 30 4"/>
                     <TextBlock Grid.Column="1"
                                Text="{Binding SelectedBook.Category, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
@@ -117,10 +148,10 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" SharedSizeGroup="caption" />
+                        <ColumnDefinition Width="*" SharedSizeGroup="data"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -136,29 +167,41 @@
                         <TextBlock Text="{Binding SelectedBook.Author.LastName, UpdateSourceTrigger=PropertyChanged}"  />
                     </StackPanel>
 
-                    <!--// ratings //-->
-                    <TextBlock Grid.Row="1"
-                               Text="Ratings:"
-                               Margin="0 0 0 4"/>
-                    <TextBlock Grid.Column="1"
-                               Grid.Row="1"
-                               Text="{Binding SelectedBook.Quantity}" />
-
                     <!--// copies //-->
-                    <TextBlock Grid.Row="2"
+                    <TextBlock Grid.Row="1"
                                Text="Copies:"
                                Margin="0 0 0 4"/>
                     <TextBlock Grid.Column="1"
-                               Grid.Row="2"
+                               Grid.Row="1"
                                Text="{Binding SelectedBook.Quantity, UpdateSourceTrigger=PropertyChanged}" />
 
                     <!--// downloads //-->
-                    <TextBlock Grid.Row="3"
+                    <TextBlock Grid.Row="2"
                                Text="Downloads:"
                                Margin="0 0 0 4"/>
                     <TextBlock Grid.Column="1"
-                               Grid.Row="3"
+                               Grid.Row="2"
                                Text="{Binding SelectedBook.Downloads, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Grid Grid.Column="2"
+                          Grid.RowSpan="3"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Left">
+                        <Border BorderBrush="White"
+                                BorderThickness="2.5"
+                                CornerRadius="20"
+                                Width="70"
+                                Height="55"/>
+                        <StackPanel TextBlock.FontSize="30"
+                                    TextBlock.Foreground="Orange"
+                                    Orientation="Horizontal"
+                                    Margin="2 5 0 0">
+                            <TextBlock Text="{Binding BookGrade, UpdateSourceTrigger=PropertyChanged}"
+                                       Visibility="{Binding IsBookGradeVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+                            <TextBlock Text="/" />
+                            <TextBlock Text="10" />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </StackPanel>
         </Grid>
