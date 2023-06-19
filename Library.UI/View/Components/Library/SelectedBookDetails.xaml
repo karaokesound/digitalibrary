@@ -8,12 +8,17 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.55*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
         <!--// MAIN BACKGROUND //-->
-        <Border Grid.RowSpan="2">
+        <Border Grid.RowSpan="2"
+                Grid.ColumnSpan="2">
             <Border.Background>
                 <ImageBrush ImageSource="https://i.pinimg.com/736x/78/be/5d/78be5dd68cde3f3616c7304c2b158a45.jpg"
                             Stretch="UniformToFill" 
@@ -21,156 +26,71 @@
             </Border.Background>
         </Border>
         <Border Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
                 Background="#052a4f"
                 Opacity="0.9" />
 
-        <!--// BOOK DETAILS //-->
-        <Grid Margin="10 20 10 25"
+        <!--// DETAILS TEXT, BOOK DETAILS //-->
+        <Grid Grid.RowSpan="2"
+              Margin="10 20 10 25"
               TextBlock.Foreground="White">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="0.7*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!--// details text, book title, rating //-->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.3*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <!--// details text, book title //-->
-                <StackPanel>
-                    <TextBlock Text="Details"
-                               FontFamily="Titillium Web Semibold"
-                               FontSize="22" />
-                    <TextBlock Text="{Binding SelectedBook.Title, UpdateSourceTrigger=PropertyChanged}"
-                               Margin="0 0 0 20"
-                               FontFamily="Titillium Web Semibold"
-                               FontSize="14"/>
-                </StackPanel>
-                
-                <!--// question, stars //-->
-                <StackPanel Grid.Column="1"
-                            Margin="20 37 0 0"
-                            VerticalAlignment="Center"
-                            TextBlock.FontFamily="Tilillium Web Semibold"
-                            Visibility="{Binding AreRatingStarsVisible, Converter={StaticResource booleanToVisibilityConverter}}">
-                    <TextBlock Text="Did you read this book? Rate it from 0 to 10." />
-                    <StackPanel Orientation="Horizontal">
-                        <Grid>
-                            <Image Source="/Resources/Images/Library/star.png"
-                               Margin="0 5 0 0 "
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Width="15"/>
-                            <Button Width="15"
-                                    Background="Transparent"
-                                    CommandParameter="1"
-                                    Command="{Binding AddGradeCommand}" />
-                        </Grid>
-                        <Grid>
-                            <Image Source="/Resources/Images/Library/star.png"
-                               Margin="0 5 0 0 "
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Width="15"/>
-                            <Button Width="15"
-                                    Background="Transparent"
-                                    CommandParameter="2"
-                                    Command="{Binding AddGradeCommand}" />
-                        </Grid>
-                        <Grid>
-                            <Image Source="/Resources/Images/Library/star.png"
-                               Margin="0 5 0 0 "
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Width="15"/>
-                            <Button Width="15"
-                                    Background="Transparent"
-                                    CommandParameter="3"
-                                    Command="{Binding AddGradeCommand}" />
-                        </Grid>
-                        <Grid>
-                            <Image Source="/Resources/Images/Library/star.png"
-                               Margin="0 5 0 0 "
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Width="15"/>
-                            <Button Width="15"
-                                    Background="Transparent"
-                                    CommandParameter="4"
-                                    Command="{Binding AddGradeCommand}" />
-                        </Grid>
-                        <Grid>
-                            <Image Source="/Resources/Images/Library/star.png"
-                               Margin="0 5 0 0 "
-                               RenderOptions.BitmapScalingMode="Fant"
-                               Width="15"/>
-                            <Button Width="15"
-                                    Background="Transparent"
-                                    CommandParameter="5"
-                                    Command="{Binding AddGradeCommand}" />
-                        </Grid>
-                    </StackPanel>
-                </StackPanel>
-
-                <!--// return button //-->
-                <Grid Grid.Column="1"
-                    HorizontalAlignment="Right"
-                  Margin="0 5 0 0">
-                    <Image Source="/Resources/Images/Library/exit.png"
-                       RenderOptions.BitmapScalingMode="Fant"
-                       Width="27"
-                       Height="27" />
-                    <Button Command="{Binding LibraryReturnButtonCommand}"
-                        Background="Transparent"
-                        Width="27"
-                        Height="27"/>
-                </Grid>
-            </Grid>
+            <!--// details text, book title //-->
+            <StackPanel>
+                <TextBlock Text="Details"
+                           FontFamily="Titillium Web Semibold"
+                           FontSize="22" />
+                <TextBlock Text="{Binding SelectedBook.Title, UpdateSourceTrigger=PropertyChanged}"
+                           FontFamily="Titillium Web Semibold"
+                           FontSize="14"/>
+            </StackPanel>
 
             <!--// more details //-->
-            <StackPanel Grid.Row="1"
-                        TextBlock.FontSize="13.5">
-
-                <!--// category //-->
+            <StackPanel Grid.Row="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" SharedSizeGroup="caption" />
-                        <ColumnDefinition Width="200" SharedSizeGroup="data"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
-                    <TextBlock Text="Category:"
-                               Margin="0 0 30 4"/>
-                    <TextBlock Grid.Column="1"
-                               Text="{Binding SelectedBook.Category, UpdateSourceTrigger=PropertyChanged}" />
-                </Grid>
-
-                <!--// author, downloads, ratings, quantity //-->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" SharedSizeGroup="caption" />
-                        <ColumnDefinition Width="*" SharedSizeGroup="data"/>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
 
                     <!--// author //-->
                     <TextBlock Text="Author:"
-                               Margin="0 0 0 4"/>
+                               Margin="0 0 0 7"/>
                     <StackPanel Grid.Column="1"
                                 Orientation="Horizontal">
                         <TextBlock Text="{Binding SelectedBook.Author.FirstName, UpdateSourceTrigger=PropertyChanged}"
                                    Margin="0 0 4 0"/>
                         <TextBlock Text="{Binding SelectedBook.Author.LastName, UpdateSourceTrigger=PropertyChanged}"  />
                     </StackPanel>
+                </Grid>
+
+                <!--// category, copies, downloads //-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" SharedSizeGroup="caption" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--// category //-->
+                    <TextBlock Text="Category:"
+                               Margin="0 0 30 7"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding SelectedBook.Category, UpdateSourceTrigger=PropertyChanged}" />
 
                     <!--// copies //-->
                     <TextBlock Grid.Row="1"
                                Text="Copies:"
-                               Margin="0 0 0 4"/>
+                               Margin="0 0 0 7"/>
                     <TextBlock Grid.Column="1"
                                Grid.Row="1"
                                Text="{Binding SelectedBook.Quantity, UpdateSourceTrigger=PropertyChanged}" />
@@ -178,32 +98,152 @@
                     <!--// downloads //-->
                     <TextBlock Grid.Row="2"
                                Text="Downloads:"
-                               Margin="0 0 0 4"/>
+                               Margin="0 0 0 7"/>
                     <TextBlock Grid.Column="1"
                                Grid.Row="2"
                                Text="{Binding SelectedBook.Downloads, UpdateSourceTrigger=PropertyChanged}" />
-
-                    <Grid Grid.Column="2"
-                          Grid.RowSpan="3"
-                          VerticalAlignment="Center"
-                          HorizontalAlignment="Left">
-                        <Border BorderBrush="White"
-                                BorderThickness="2.5"
-                                CornerRadius="20"
-                                Width="70"
-                                Height="55"/>
-                        <StackPanel TextBlock.FontSize="30"
-                                    TextBlock.Foreground="Orange"
-                                    Orientation="Horizontal"
-                                    Margin="2 5 0 0">
-                            <TextBlock Text="{Binding BookGrade, UpdateSourceTrigger=PropertyChanged}"
-                                       Visibility="{Binding IsBookGradeVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
-                            <TextBlock Text="/" />
-                            <TextBlock Text="10" />
-                        </StackPanel>
-                    </Grid>
                 </Grid>
             </StackPanel>
+        </Grid>
+
+        <!--// QUESTION, STARS //-->
+        <StackPanel Grid.Column="1"
+                    Grid.RowSpan="2"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="15 58 0 0"
+                    TextBlock.FontFamily="Tilillium Web Semibold"
+                    TextBlock.Foreground="White"
+                    Visibility="{Binding AreRatingStarsVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <TextBlock Text="Did you read this book? Rate it from 0 to 10."
+                       FontSize="13"
+                       Margin="1 0 0 0"/>
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                                    CommandParameter="1"
+                                    Command="{Binding AddGradeCommand}" />
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                                    CommandParameter="2"
+                                    Command="{Binding AddGradeCommand}" />
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                            CommandParameter="3"
+                            Command="{Binding AddGradeCommand}" />
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                            CommandParameter="4"
+                            Command="{Binding AddGradeCommand}" />
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                            CommandParameter="5"
+                            Command="{Binding AddGradeCommand}" />
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                            CommandParameter="6"
+                            Command="{Binding AddGradeCommand}" />
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                            CommandParameter="7"
+                            Command="{Binding AddGradeCommand}" />
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                            CommandParameter="8"
+                            Command="{Binding AddGradeCommand}" />
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                            CommandParameter="9"
+                            Command="{Binding AddGradeCommand}" />
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Library/star.png"
+                           Margin="0 5 0 0 "
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Width="20"/>
+                    <Button Style="{StaticResource StarButton}"
+                            CommandParameter="10"
+                            Command="{Binding AddGradeCommand}" />
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+
+        <!--// BOOK GRADE //-->
+        <Grid Grid.Column="1"
+              Grid.Row="1"
+              VerticalAlignment="Center"
+              Margin="15 0 0 0">
+            <Border BorderBrush="White"
+                    BorderThickness="3"
+                    Opacity="0.65"
+                    CornerRadius="100"
+                    HorizontalAlignment="Left"
+                    Width="65"
+                    Height="65"/>
+            <StackPanel TextBlock.FontSize="30"
+                            TextBlock.Foreground="Orange"
+                            Orientation="Horizontal">
+                <TextBlock Text="{Binding BookGrade, UpdateSourceTrigger=PropertyChanged}"
+                           Visibility="{Binding IsBookGradeVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+                </StackPanel>
+            </Grid>
+
+        <!--// RETURN BUTTON //-->
+        <Grid Grid.Column="1"
+              HorizontalAlignment="Right"
+              Margin="0 20 10 0">
+            <Image Source="/Resources/Images/Library/exit.png"
+                   RenderOptions.BitmapScalingMode="Fant"
+                   Width="27"
+                   Height="27" />
+            <Button Command="{Binding LibraryReturnButtonCommand}"
+                    Background="Transparent"
+                    Width="27"
+                    Height="27"/>
         </Grid>
     </Grid>
 </UserControl>

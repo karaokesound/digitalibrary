@@ -286,9 +286,12 @@ namespace Library.UI.ViewModel
 
             selectedBookgrades = _bookgradeBaseRepository.GetAll().Where(b => b.BookId == SelectedBook.BookId).ToList();
 
+            float average = 0;
+
             if (selectedBookgrades.Count() == 0)
             {
-                BookGrade = 0;
+                average = 0;
+                BookGrade = average;
                 return;
             }
 
@@ -296,7 +299,6 @@ namespace Library.UI.ViewModel
             List<int> bookGrades = new List<int>();
 
             int gradesSum = 0;
-            float average = 0;
 
             foreach (var bookGrade in selectedBookgrades)
             {

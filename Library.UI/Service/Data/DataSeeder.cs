@@ -74,7 +74,7 @@ namespace Library.UI.Service.Data
                 .Cast<int>()
                 .ToList();
             List<GradeModel> gradeList = new List<GradeModel>();
-            
+
             foreach (var gradeEnum in gradesEnumValues)
             {
                 gradeList.Add(new GradeModel() { Grade = gradeEnum });
@@ -107,7 +107,7 @@ namespace Library.UI.Service.Data
                     if (authorDetails.Death_Year == null) authorDetails.Death_Year = 0;
 
                     string[] nameSplit = authorDetails.Name.Split(", ");
-                    
+
                     if (nameSplit.Length == 1)
                     {
                         book.Author = new AuthorModel()
@@ -131,26 +131,36 @@ namespace Library.UI.Service.Data
                 }
 
                 // Adding Category
-                string[] enumCategories = Enum.GetNames(typeof(Genre));
+                string[] enumCategories = Enum.GetNames(typeof(Genre)).ToArray();
                 for (int i = 0; i < enumCategories.Length; i++)
                 {
                     enumCategories[i] = enumCategories[i].Replace('_', ' ');
                 }
 
-                string[] categorySplit = bookApi.Subjects[0].TrimStart().Split(new string[] { "-- " }, StringSplitOptions.RemoveEmptyEntries);
-                int counter = categorySplit.Count();
-                var bookCategory = categorySplit[counter - 1];
-
-                foreach (var enumCategory in enumCategories)
+                if (bookApi.Subjects.Length > 0)
                 {
-                    if (bookCategory == enumCategory)
+                    string[] categorySplit = bookApi.Subjects[0].TrimStart().Split(new string[] { "-- " }, StringSplitOptions.RemoveEmptyEntries);
+                    int counter = categorySplit.Count();
+
+                    if (counter > 0)
                     {
-                        book.Category = bookCategory;
-                        break;
+                        var bookCategory = categorySplit[counter - 1];
+
+                        foreach (var enumCategory in enumCategories)
+                        {
+                            if (bookCategory == enumCategory)
+                            {
+                                book.Category = bookCategory;
+                                break;
+                            }
+                            book.Category = "Other";
+                        }
                     }
+                }
+                else
+                {
                     book.Category = "Other";
                 }
-
 
                 // Adding Language Object (The Language Object is a collection)
                 List<LanguageModel> databaseLanguageList = _lngBaseRepository.GetAll().ToList();
@@ -188,7 +198,7 @@ namespace Library.UI.Service.Data
                 else if (bookApi.Download_Count < 20000 && bookApi.Download_Count >= 10000) book.Quantity = copiesQuantity.Next(10, 15);
                 else if (bookApi.Download_Count < 10000 && bookApi.Download_Count >= 5000) book.Quantity = copiesQuantity.Next(6, 10);
                 else if (bookApi.Download_Count < 5000) book.Quantity = copiesQuantity.Next(0, 5);
-                
+
                 _bookBaseRepository.Insert(book);
                 _bookBaseRepository.Save();
             }

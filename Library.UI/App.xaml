@@ -9,6 +9,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Xaml/Button.xaml" />
                 <ResourceDictionary Source="Resources/Xaml/TextBox.xaml" />
+                <ResourceDictionary Source="Resources/Xaml/ScrollBar.xaml" />
+                <ResourceDictionary Source="Resources/Xaml/ComboBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--// converters //-->
