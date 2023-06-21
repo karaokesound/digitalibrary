@@ -18,17 +18,32 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <!--// LEFT BACKGROUND //-->
+        <!--// RIGHT BACKGROUND //-->
         <Border Grid.ColumnSpan="2"
                 Background="White"
-                CornerRadius="4 4 4 4" />
+                CornerRadius="4 4 4 4">
+            <Border.Effect>
+                <DropShadowEffect Direction="75"
+                                  ShadowDepth="2"
+                                  BlurRadius="10"
+                                  Color="#222225"/>
+            </Border.Effect>
+            <Image Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
+                   Stretch="UniformToFill"
+                   Margin="12 20 12 2" />
+        </Border>
 
-        <Image Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
-               Stretch="UniformToFill"
-               Margin="12 20 12 2" />
+        <!--// LEFT BACKGROUND //-->
         <Border Background="#052a4f"
                 Opacity="0.9"
-                CornerRadius="4 0 0 4" />
+                CornerRadius="4 0 0 4">
+            <Border.Effect>
+                <DropShadowEffect Direction="-75"
+                                      ShadowDepth="2"
+                                      BlurRadius="10"
+                                      Color="#222225"/>
+            </Border.Effect>
+        </Border>
 
         <!--// LEFT SIDE //-->
         <Grid>
@@ -70,10 +85,10 @@
                               DataContext="{Binding SignInPanelVM}"/>
     
         <!--// SIGN UP PANEL //-->
-        <!--<view:SignUpPanelView Grid.ColumnSpan="2"
+        <view:SignUpPanelView Grid.ColumnSpan="2"
                               DataContext="{Binding SignUpPanelVM}"
                               Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}"
-                              />-->
+                              />
 
         <!--// EXIT, MINIMIZE BUTTON //-->
         <StackPanel Grid.Column="1"

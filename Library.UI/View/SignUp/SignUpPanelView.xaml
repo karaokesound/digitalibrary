@@ -37,8 +37,8 @@
 
             <!--// BACKGROUND //-->
             <Border Grid.RowSpan="3"
-                Background="White"
-                CornerRadius="0 4 4 0">
+                    Background="White"
+                    CornerRadius="0 4 4 0">
                 <Border.Effect>
                     <DropShadowEffect Direction="-75"
                                       ShadowDepth="2"

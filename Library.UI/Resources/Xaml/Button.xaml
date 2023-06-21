@@ -123,28 +123,25 @@
     <!--// LOGIN BUTTON //-->
     <Style TargetType="Button"
            x:Key="loginButton">
-        <Setter Property="Background" Value="#42a5f5" />
-        <Setter Property="Foreground" Value="#17202a" />
-        <Setter Property="BorderBrush" Value="#bbdefb" />
-        <Setter Property="BorderThickness" Value="4" />
+        <Setter Property="Background" Value="#008493" />
+        <Setter Property="Foreground" Value="#e2f1ff" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="22" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Width" Value="150" />
-        <Setter Property="Height" Value="55" />
+        <Setter Property="Width" Value="140" />
+        <Setter Property="Height" Value="50" />
         <Setter Property="Margin" Value="5" />
         <!--// do not past Margin value to <Border></Border> //-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
-                            CornerRadius="15">
+                            CornerRadius="7">
                         <ContentPresenter ContentSource="Content"
                                           TextBlock.Foreground="{TemplateBinding Foreground}"
                                           HorizontalAlignment="Center"
@@ -157,7 +154,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To=" #90caf9 "
+                                                        To=" #84d97c "
                                                         Duration="0:0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -166,7 +163,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="#42a5f5"
+                                                        To="#008493"
                                                         Duration="0:0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -181,28 +178,25 @@
     <!--// REGISTER BUTTON //-->
     <Style TargetType="Button"
            x:Key="registerButton">
-        <Setter Property="Background" Value="#1565c0" />
-        <Setter Property="Foreground" Value="#17202a" />
-        <Setter Property="BorderBrush" Value="#42a5f5" />
-        <Setter Property="BorderThickness" Value="4" />
+        <Setter Property="Background" Value="#008493" />
+        <Setter Property="Foreground" Value="#e2f1ff" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="22" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Width" Value="150" />
-        <Setter Property="Height" Value="55" />
+        <Setter Property="Width" Value="140" />
+        <Setter Property="Height" Value="50" />
         <Setter Property="Margin" Value="5" />
         <!--// do not past Margin value to <Border></Border> //-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
-                            CornerRadius="15">
+                            CornerRadius="7">
                         <ContentPresenter ContentSource="Content"
                                           TextBlock.Foreground="{TemplateBinding Foreground}"
                                           HorizontalAlignment="Center"
@@ -215,7 +209,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="  #e3f2fd   "
+                                                        To=" #d9a21b   "
                                                         Duration="0:0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -224,7 +218,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-                                                        To="  #1565c0"
+                                                        To="#008493"
                                                         Duration="0:0:0:0.1" />
                                     </Storyboard>
                                 </BeginStoryboard>
