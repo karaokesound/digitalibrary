@@ -50,8 +50,10 @@ namespace Library.UI
             services.AddTransient<SignInPanelViewModel>();
             services.AddTransient<LibraryViewModel>();
             services.AddTransient<SortingEnums>();
-            
+            services.AddTransient<NavigationPanelViewModel>();
+
             // interfaces //
+            services.AddSingleton<NavigationStore>();
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
             services.AddSingleton<IValidationService, ValidationService>();
             services.AddSingleton<IBaseRepository<AccountModel>, BaseRepository<AccountModel>>();

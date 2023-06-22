@@ -29,6 +29,14 @@ namespace Library.UI.Services
             else IsUserAuthenticated = false;
         }
 
+        public void UserLogout(bool isLogout)
+        {
+            if (isLogout == true)
+            {
+                IsUserAuthenticated = false;
+            }
+        }
+
         public UserAuthenticationService()
         {
             _requestedBooks = new List<BookModel>();

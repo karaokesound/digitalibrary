@@ -1,6 +1,6 @@
 ﻿using Library.Models.Model;
 using Library.Models.Model.many_to_many;
-using Library.UI.Commands.Library;
+using Library.UI.Commands;
 using Library.UI.Commands.Profile;
 using Library.UI.Model;
 using Library.UI.Service;
@@ -19,17 +19,6 @@ namespace Library.UI.ViewModel
 {
     public class ProfilePanelViewModel : BaseViewModel
     {
-        private BaseViewModel _selectedViewModel;
-        public BaseViewModel SelectedViewModel
-        {
-            get => _selectedViewModel;
-            set
-            {
-                _selectedViewModel = value;
-                OnPropertyChanged();
-            }
-        }
-
         private AccountModel _loggedUser;
         public AccountModel LoggedUser
         {
@@ -100,7 +89,9 @@ namespace Library.UI.ViewModel
 
         public int NoOfLeftedBooksToRent { get; set; }
 
-        public ICommand ProfileUpdateViewCommand { get; }
+        public ICommand NavigateLibraryCommand { get; }
+
+        public ICommand NavigateMainCommand { get; }
 
         public ICommand ReturnBookCommand { get; }
 
@@ -130,12 +121,16 @@ namespace Library.UI.ViewModel
 
         private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
 
+        private readonly NavigationStore _navigationStore;
+
+        private readonly NavigationPanelViewModel _navigationPanelVM;
+
         private List<BookModel> _requestedBooks;
 
         public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
             IUserAuthenticationService userAuthenticationService, IValidationService validationService, IUserRepository userRepository,
             IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService,
-            IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository)
+            IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository, NavigationStore navigationStore)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
@@ -148,15 +143,26 @@ namespace Library.UI.ViewModel
             _elementVisibilityService = elementVisibilityService;
             _bookgradeBaseRepository = bookgradeBaseRepository;
             _gradeBaseRepository = gradeBaseRepository;
+            _navigationStore = navigationStore;
             _requestedBooks = new List<BookModel>();
+            NavigateLibraryCommand = new NavigateCommand<LibraryViewModel>(new NavigationService<LibraryViewModel>
+                (navigationStore, () => new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting,
+                    _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+                    _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore)));
+            NavigateMainCommand = new LogoutCommand(_userAuthenticationService, this);
             UserRentedBooks = new ObservableCollection<UserBooksData>();
             ReturnButtonCommand = new ReturnButtonCommand(this, _elementVisibilityService);
             ReturnsPanelCommand = new ReturnsPanelCommand(this, _elementVisibilityService);
             ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository);
-            ProfileUpdateViewCommand = new ProfileUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService, 
-                _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService, _bookgradeBaseRepository,
-                _gradeBaseRepository);
             TakeLoggedUserData();
+        }
+
+        public void LogoutValidation()
+        {
+            if (_userAuthenticationService.IsUserAuthenticated == false)
+            {
+                _navigationPanelVM.NavigateToMainView();
+            }
         }
 
         public void RemoveUserRentedBook(BookModel removingBook)
@@ -174,11 +180,12 @@ namespace Library.UI.ViewModel
 
         public void TakeLoggedUserData()
         {
+            if (_userAuthenticationService.LoggedUser == null) return;
+
             UserRentedBooks.Clear();
+
             LoggedUser = _userAuthenticationService.LoggedUser;
             IsListViewVisible = true;
-
-            if (LoggedUser == null) return;
 
             List<AccountBookModel> userRentedBooks = _accountBookRepository.GetAllUserBooksByID(LoggedUser.AccountId).ToList();
             List<Guid> userRentedBooksID = userRentedBooks.Select(b => b.BookId).ToList();

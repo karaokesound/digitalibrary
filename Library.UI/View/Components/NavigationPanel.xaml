@@ -52,12 +52,14 @@
                         Margin="0 20 0 0">
                 <Button Content="Profile"
                         Style="{StaticResource navigationButton}"
-                        Command="{Binding LibraryUpdateViewCommand}"
-                        CommandParameter="Profile"
+                        Command="{Binding NavigateProfileCommand}"
                         Margin="0 0 0 20"/>
                 <Button Content="Library"
-                        Command="{Binding ProfileUpdateViewCommand}"
-                        CommandParameter="Library"
+                        Command="{Binding NavigateLibraryCommand}"
+                        Style="{StaticResource navigationButton}"
+                        Margin="0 0 0 20"/>
+                <Button Content="Logout"
+                        Command="{Binding NavigateMainCommand}"
                         Style="{StaticResource navigationButton}" />
             </StackPanel>
         </Grid>

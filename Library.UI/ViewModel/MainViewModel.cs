@@ -6,21 +6,15 @@ using Library.UI.Service.Data;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Library.UI.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        private BaseViewModel _selectedViewModel;
-        public BaseViewModel SelectedViewModel
-        {
-            get => _selectedViewModel;
-            set
-            {
-                _selectedViewModel = value;
-                OnPropertyChanged();
-            }
-        }
+        private readonly NavigationStore _navigationStore;
+
+        public BaseViewModel SelectedViewModel => _navigationStore.CurrentViewModel;
 
         private bool _isUserAuthenticated;
         public bool IsUserAuthenticated
@@ -55,7 +49,7 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public ProfilePanelViewModel AccountPanelVM { get; }
+        public ProfilePanelViewModel ProfilePanelVM { get; }
 
         public SignUpPanelViewModel SignUpPanelVM { get; }
 
@@ -63,13 +57,15 @@ namespace Library.UI.ViewModel
 
         public LibraryViewModel LibraryVM { get; }
 
+        public ICommand NavigateLoginCommand { get; }
+
         private readonly IDataSeeder _dataSeeder;
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataFiltering;
+        private readonly IDataSorting _dataSorting;
 
         private readonly IElementVisibilityService _elementVisibilityService;
 
@@ -87,20 +83,21 @@ namespace Library.UI.ViewModel
 
         private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
 
-        public MainViewModel(ProfilePanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
+        public MainViewModel(ProfilePanelViewModel profilePanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
             LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IDataSorting dataFiltering, IElementVisibilityService elementVisibilityService, IUserAuthenticationService userAuthenticationService,
+            IDataSorting dataSorting, IElementVisibilityService elementVisibilityService, IUserAuthenticationService userAuthenticationService,
             IValidationService validationService, IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository,
-            IAccountBookRepository accountBookRepository, IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository)
+            IAccountBookRepository accountBookRepository, IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository,
+            NavigationStore navigationStore)
         {
-            AccountPanelVM = accountPanelVM;
+            ProfilePanelVM = profilePanelVM;
             SignUpPanelVM = signUpPanelVM;
             SignInPanelVM = signInPanelVM;
             LibraryVM = libraryVM;
             _dataSeeder = dataSeeder;
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
-            _dataFiltering = dataFiltering;
+            _dataSorting = dataSorting;
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
@@ -108,9 +105,11 @@ namespace Library.UI.ViewModel
             _accountBookRepository = accountBookRepository;
             _bookgradeBaseRepository = bookgradeBaseRepository;
             _gradeBaseRepository = gradeBaseRepository;
+            _navigationStore = navigationStore;
             _elementVisibilityService = elementVisibilityService;
             ElementsVisibility();
             LoggingValidation();
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 
         // This methood is initialized in App.xaml.cs. There is no need to initialize it in MainViewModel constructor.
@@ -142,15 +141,17 @@ namespace Library.UI.ViewModel
                 IsUserAuthenticated = isUserAuthenticated;
                 if (IsUserAuthenticated == true)
                 {
-                    SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _userAuthenticationService,
+                    _navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
                         _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService, _bookgradeBaseRepository,
-                        _gradeBaseRepository);
+                        _gradeBaseRepository, _navigationStore);
                 }
                 else return;
             };
+        }
 
-            //SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _userAuthenticationService,
-            //            _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(SelectedViewModel));
         }
     }
 }

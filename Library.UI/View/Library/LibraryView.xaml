@@ -16,7 +16,7 @@
 
         <!--// NAVIGATION PANEL //-->
         <components:NavigationPanel />
-        
+
         <!--// MAIN BACKGROUND //-->
         <Border Grid.Column="1"
                 Opacity="1"
