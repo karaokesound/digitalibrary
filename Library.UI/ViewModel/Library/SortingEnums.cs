@@ -30,13 +30,13 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-        private BookQuantity _quantity;
-        public BookQuantity Quantity
+        private BookQuantity _copies;
+        public BookQuantity Copies
         {
-            get => _quantity;
+            get => _copies;
             set
             {
-                _quantity = value;
+                _copies = value;
                 OnPropertyChanged();
             }
         }

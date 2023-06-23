@@ -37,7 +37,7 @@ namespace Library.UI.Commands.Library
             BookModel dbBook = _bookBaseRepository.GetByID(selectedBook.BookId);
 
             // Database operations
-            if (selectedBook.Quantity == 0)
+            if (selectedBook.Copies == 0)
             {
                 string wMessage = "There are no copies of this book in the library. You can make a reservation for this book. " +
                     "We'll send you a message when it's available.";
@@ -73,7 +73,7 @@ namespace Library.UI.Commands.Library
                     loggedUser.MaxBookQntToRent -= 1;
 
                     dbBook.IsRented = true;
-                    dbBook.Quantity -= 1;
+                    dbBook.Copies -= 1;
                     dbBook.AnyRequest = false;
                 }
                 else
@@ -85,7 +85,7 @@ namespace Library.UI.Commands.Library
                     }
 
                     loggedUser.MaxBookQntToRent -= 1;
-                    dbBook.Quantity -= 1;
+                    dbBook.Copies -= 1;
                     dbBook.AnyRequest = false;
                 }
             }
@@ -113,7 +113,7 @@ namespace Library.UI.Commands.Library
                     loggedUser.MaxBookQntToRent -= 1;
 
                     dbBook.IsRented = true;
-                    dbBook.Quantity -= 1;
+                    dbBook.Copies -= 1;
                 }
                 else
                 {
@@ -124,7 +124,7 @@ namespace Library.UI.Commands.Library
                     }
 
                     loggedUser.MaxBookQntToRent -= 1;
-                    dbBook.Quantity -= 1;
+                    dbBook.Copies -= 1;
                 }
             }
 

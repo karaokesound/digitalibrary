@@ -17,7 +17,7 @@ namespace Library.UI.ViewModel
 
         public BaseViewModel SelectedViewModel => _navigationStore.CurrentViewModel;
 
-        private bool _isUserAuthenticated = true;
+        private bool _isUserAuthenticated;
         public bool IsUserAuthenticated
         {
             get => _isUserAuthenticated;
@@ -25,7 +25,13 @@ namespace Library.UI.ViewModel
             {
                 _isUserAuthenticated = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsUserAuthenticatedNegation));
             }
+        }
+
+        public bool IsUserAuthenticatedNegation
+        {
+            get => !IsUserAuthenticated;
         }
 
         private bool _isButtonClicked;
@@ -149,8 +155,6 @@ namespace Library.UI.ViewModel
                     _navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
                        _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
                        _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore);
-
-                    NavigationPanelVM.IsUserAuthenticated = true;
                 }
                 else return;
             };
@@ -161,7 +165,6 @@ namespace Library.UI.ViewModel
             NavigationPanelVM.UserLoggedOut += (isUserLoggedOut) =>
             {
                 IsUserAuthenticated = isUserLoggedOut;
-                NavigationPanelVM.AdjustVisibility();
             };
             
         }

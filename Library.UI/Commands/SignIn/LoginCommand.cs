@@ -1,9 +1,11 @@
 ﻿using Library.UI.Command;
+using Library.UI.Components;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace Library.UI.Commands.SignIn
 {
@@ -39,6 +41,8 @@ namespace Library.UI.Commands.SignIn
             _userAuthenticationService.Authentication(loggingUser.Username, dbUser.Username, loggingUser.Password,
                 dbUser.Password, dbUser, requestedBooks);
             _signInPanelVM.RaiseUserAuthEvent();
+
+            _signInPanelVM.ErasePasswordBox();
         }
 
         public LoginCommand(SignInPanelViewModel signInPanelVM, IUserAuthenticationService userAuthenticationService,

@@ -12,7 +12,7 @@ namespace Library.Data.Configuration
             builder.HasKey(b => b.BookId);
             builder.Property(b => b.BookId).ValueGeneratedOnAdd();
             builder.Property(b => b.Title);
-            builder.Property(b => b.Quantity);
+            builder.Property(b => b.Copies);
             builder.Property(b => b.Category)
             .HasConversion<string>();
             builder.Property(b => b.Downloads);

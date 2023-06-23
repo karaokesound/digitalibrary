@@ -64,18 +64,27 @@
                     VerticalAlignment="Center" />
         </Grid>
 
-        <navigation:NavigationPanel
-            DataContext="{Binding NavigationPanelVM}" />
+        <!--// NAVIGATION PANEL //-->
+        <Grid Visibility="{Binding IsUserAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}">
+            <navigation:NavigationPanel DataContext="{Binding NavigationPanelVM}" />
+        </Grid>
+       
 
         <!--// SIGN IN PANEL //-->
-        <view:SignInPanelView Grid.Column="2"
-                              DataContext="{Binding SignInPanelVM}"/>
+        <Grid Grid.Column="2"
+              Visibility="{Binding IsUserAuthenticatedNegation, Converter={StaticResource booleanToVisibilityConverter}}">
+            <view:SignInPanelView DataContext="{Binding SignInPanelVM}"/>
+        </Grid>
+       
 
         <!--// SIGN UP PANEL //-->
-        <view:SignUpPanelView Grid.ColumnSpan="3"
-                              DataContext="{Binding SignUpPanelVM}"
-                              Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}" />
+        <Grid Grid.ColumnSpan="3"
+              Visibility="{Binding IsUserAuthenticatedNegation, Converter={StaticResource booleanToVisibilityConverter}}">
+            <view:SignUpPanelView DataContext="{Binding SignUpPanelVM}"
+                                  Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}" />
 
+        </Grid>
+       
         <!--// EXIT, MINIMIZE BUTTON //-->
         <StackPanel Grid.Column="2"
                     Orientation="Horizontal"
@@ -99,8 +108,10 @@
 
        
         <!--// CONTENT CONTROL //-->
-        <ContentControl Content="{Binding SelectedViewModel}"
-                        Grid.Column="1"
-                        Grid.ColumnSpan="2" />
+        <Grid Grid.Column="1"
+              Grid.ColumnSpan="2"
+              Visibility="{Binding IsUserAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}">
+            <ContentControl Content="{Binding SelectedViewModel}" />
+        </Grid>
     </Grid>
 </Window>

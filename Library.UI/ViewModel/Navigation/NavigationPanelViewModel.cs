@@ -4,6 +4,7 @@ using Library.UI.Commands.Navigation;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
+using Library.UI.Service.Navigation;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using System.Windows.Input;
@@ -15,17 +16,6 @@ namespace Library.UI.ViewModel.Navigation
         public delegate void UserLoggedOutEvent(bool isLoggedOut);
 
         public event UserLoggedOutEvent UserLoggedOut = null;
-
-        private bool _isUserAuthenticated;
-        public bool IsUserAuthenticated
-        {
-            get => _isUserAuthenticated;
-            set 
-            { 
-                _isUserAuthenticated = value;
-                OnPropertyChanged();
-            }
-        }
 
         public ICommand NavigateProfileCommand { get; }
 
@@ -98,18 +88,6 @@ namespace Library.UI.ViewModel.Navigation
         public void RaiseUserLoggedOutEvent()
         {
             UserLoggedOut?.Invoke(_userAuthenticationService.IsUserAuthenticated);
-        }
-
-        public void AdjustVisibility()
-        {
-            bool isVisible = _userAuthenticationService.IsUserAuthenticated;
-            OnPropertyChanged(nameof(IsUserAuthenticated));
-
-            ProfilePanelVM.IsUserAuthenticatedP = isVisible;
-            LibraryVM.IsUserAuthenticatedL = isVisible;
-            OnPropertyChanged(nameof(ProfilePanelVM.IsUserAuthenticatedP));
-            OnPropertyChanged(nameof(LibraryVM.IsUserAuthenticatedL));
-            
         }
     }
 }

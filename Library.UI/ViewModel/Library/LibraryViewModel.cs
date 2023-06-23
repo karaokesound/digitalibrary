@@ -17,18 +17,6 @@ namespace Library.UI.ViewModel
 {
     public class LibraryViewModel : BaseViewModel
     {
-        private bool _isUserAuthenticated = true;
-        public bool IsUserAuthenticatedL
-        {
-            get => _isUserAuthenticated;
-            set
-            {
-                _isUserAuthenticated = value;
-                OnPropertyChanged();
-            }
-        }
-
-
         private Guid _loggedAccountId;
         public Guid LoggedAccountId
         {
@@ -141,8 +129,6 @@ namespace Library.UI.ViewModel
 
         public SortingEnums SortingEnums { get; set; }
 
-        public ICommand NavigateProfileCommand { get; }
-
         public ICommand SortBooksCommand { get; }
 
         public ICommand FilterBooksCommand { get; }
@@ -206,10 +192,6 @@ namespace Library.UI.ViewModel
             _requestedBooks = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
-            //NavigateProfileCommand = new NavigateCommand<ProfilePanelViewModel>(new NavigationService<ProfilePanelViewModel>(navigationStore,
-            //    () => new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
-            //            _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-            //            _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore)));
             AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthenticationService, 
                 _gradeBaseRepository);
             YesNoButtonCommand = new YesNoButtonCommand(this);
@@ -269,7 +251,7 @@ namespace Library.UI.ViewModel
                 {
                     BookId = filteredBook.Book.BookId,
                     Title = filteredBook.Book.Title,
-                    Quantity = filteredBook.Book.Quantity,
+                    Copies = filteredBook.Book.Copies,
                     Category = filteredBook.Book.Category,
                     Downloads = filteredBook.Book.Downloads,
                     IsRented = filteredBook.Book.IsRented,

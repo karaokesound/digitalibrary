@@ -1,5 +1,5 @@
 ﻿using Library.UI.Command;
-using Library.UI.Service;
+using Library.UI.Service.Navigation;
 using Library.UI.ViewModel;
 
 namespace Library.UI.Commands.Navigation

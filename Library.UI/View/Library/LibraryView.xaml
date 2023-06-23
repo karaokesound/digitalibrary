@@ -7,8 +7,7 @@
              xmlns:componentslibrary="clr-namespace:Library.UI.View.Components.Library"
              mc:Ignorable="d" 
              d:DesignHeight="620" d:DesignWidth="920"
-             FontFamily="Titillium Web"
-             Visibility="{Binding IsUserAuthenticatedL, Converter={StaticResource booleanToVisibilityConverter}, Mode=OneWay}">
+             FontFamily="Titillium Web">
     <Grid>
         <!--// MAIN BACKGROUND //-->
         <Border Grid.Column="1"

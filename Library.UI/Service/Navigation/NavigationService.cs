@@ -1,7 +1,7 @@
 ﻿using Library.UI.ViewModel;
 using System;
 
-namespace Library.UI.Service
+namespace Library.UI.Service.Navigation
 {
     public class NavigationService<TViewModel> where TViewModel : BaseViewModel
     {

@@ -18,17 +18,6 @@ namespace Library.UI.ViewModel
 {
     public class ProfilePanelViewModel : BaseViewModel
     {
-        private bool _isUserAuthenticated = true;
-        public bool IsUserAuthenticatedP
-        {
-            get => _isUserAuthenticated;
-            set
-            {
-                _isUserAuthenticated = value;
-                OnPropertyChanged();
-            }
-        }
-
         private AccountModel _loggedUser;
         public AccountModel LoggedUser
         {
@@ -99,10 +88,6 @@ namespace Library.UI.ViewModel
 
         public int NoOfLeftedBooksToRent { get; set; }
 
-        public ICommand NavigateLibraryCommand { get; }
-
-        public ICommand NavigateMainCommand { get; }
-
         public ICommand ReturnBookCommand { get; }
 
         public ICommand ReturnsPanelCommand { get; }
@@ -153,10 +138,6 @@ namespace Library.UI.ViewModel
             _gradeBaseRepository = gradeBaseRepository;
             _navigationStore = navigationStore;
             _requestedBooks = new List<BookModel>();
-            //NavigateLibraryCommand = new NavigateCommand<LibraryViewModel>(new NavigationService<LibraryViewModel>
-            //    (navigationStore, () => new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting,
-            //        _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-            //        _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore)));
             UserRentedBooks = new ObservableCollection<UserBooksData>();
             ReturnButtonCommand = new ReturnButtonCommand(this, _elementVisibilityService);
             ReturnsPanelCommand = new ReturnsPanelCommand(this, _elementVisibilityService);
@@ -197,7 +178,7 @@ namespace Library.UI.ViewModel
             {
                 string message = $"You made a reservation for {book.Title}. It is available now. Go to library to rent the book";
                 string caption = "Reservation";
-                if (book.Quantity == 1 && book.AnyRequest == true) MessageBox.Show(message, caption);
+                if (book.Copies == 1 && book.AnyRequest == true) MessageBox.Show(message, caption);
                 book.AnyRequest = false;
             }
 
