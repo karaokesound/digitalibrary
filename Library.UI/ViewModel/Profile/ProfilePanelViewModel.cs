@@ -191,7 +191,7 @@ namespace Library.UI.ViewModel
             {
                 string message = $"You made a reservation for {book.Title}. It is available now. Go to library to rent the book";
                 string caption = "Reservation";
-                if (book.Quantity == 1 && book.AnyRequest == true) MessageBox.Show(message, caption);
+                if (book.Copies == 1 && book.AnyRequest == true) MessageBox.Show(message, caption);
                 book.AnyRequest = false;
             }
 

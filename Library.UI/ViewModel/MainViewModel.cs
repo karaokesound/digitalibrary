@@ -137,20 +137,21 @@ namespace Library.UI.ViewModel
 
         public void LoggingValidation()
         {
-            SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
-            {
-                IsUserAuthenticated = isUserAuthenticated;
-                if (IsUserAuthenticated == true)
-                {
-                    SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _userAuthenticationService,
-                        _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService, _bookgradeBaseRepository,
-                        _gradeBaseRepository);
-                }
-                else return;
-            };
+            //SignInPanelVM.UserAuthenticationChanged += (isUserAuthenticated) =>
+            //{
+            //    IsUserAuthenticated = isUserAuthenticated;
+            //    if (IsUserAuthenticated == true)
+            //    {
+            //        SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _userAuthenticationService,
+            //            _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService, _bookgradeBaseRepository,
+            //            _gradeBaseRepository);
+            //    }
+            //    else return;
+            //};
 
-            //SelectedViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering, _userAuthenticationService,
-            //            _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
+            SelectedViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataFiltering,
+                  _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+                  _bookgradeBaseRepository, _gradeBaseRepository);
         }
     }
 }

@@ -262,7 +262,7 @@ namespace Library.UI.ViewModel
                 {
                     BookId = filteredBook.Book.BookId,
                     Title = filteredBook.Book.Title,
-                    Quantity = filteredBook.Book.Quantity,
+                    Copies = filteredBook.Book.Copies,
                     Category = filteredBook.Book.Category,
                     Downloads = filteredBook.Book.Downloads,
                     IsRented = filteredBook.Book.IsRented,

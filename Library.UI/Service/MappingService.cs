@@ -14,7 +14,7 @@ namespace Library.UI.Services
             {
                 BookId = book.BookId,
                 Title = book.Title,
-                Quantity = book.Quantity,
+                Copies = book.Copies,
                 IsRented = book.IsRented,
                 AnyRequest = book.AnyRequest,
                 Category = book.Category,
@@ -37,7 +37,7 @@ namespace Library.UI.Services
             {
                 BookId = bookVM.BookId,
                 Title = bookVM.Title,
-                Quantity = bookVM.Quantity,
+                Copies = bookVM.Copies,
                 IsRented = bookVM.IsRented,
                 AnyRequest = bookVM.AnyRequest,
                 Category = bookVM.Category,

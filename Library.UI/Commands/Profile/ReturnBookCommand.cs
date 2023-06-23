@@ -47,7 +47,7 @@ namespace Library.UI.Commands.Profile
                 _accountBookRepository.DeleteUserBook(dbLoggedUser.AccountId, returningBook.BookId);
 
                 dbSelecteedBook.IsRented = false;
-                dbSelecteedBook.Quantity += 1;
+                dbSelecteedBook.Copies += 1;
             }
 
             string message = $"You have returned {dbSelecteedBook.Title}";

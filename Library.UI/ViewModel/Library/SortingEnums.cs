@@ -132,7 +132,11 @@ namespace Library.UI.ViewModel.Library
             [Description("A-z")]
             Az,
             [Description("Downloads")]
-            Downloads
+            Downloads,
+            [Description("Copies")]
+            Copies,
+            [Description("Author")]
+            Author,
         }
 
         public enum BookQuantity

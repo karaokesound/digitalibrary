@@ -194,10 +194,10 @@ namespace Library.UI.Service.Data
                 // Declaration of a random number of copies of a given book
                 Random copiesQuantity = new Random();
 
-                if (bookApi.Download_Count >= 20000) book.Quantity = copiesQuantity.Next(15, 25);
-                else if (bookApi.Download_Count < 20000 && bookApi.Download_Count >= 10000) book.Quantity = copiesQuantity.Next(10, 15);
-                else if (bookApi.Download_Count < 10000 && bookApi.Download_Count >= 5000) book.Quantity = copiesQuantity.Next(6, 10);
-                else if (bookApi.Download_Count < 5000) book.Quantity = copiesQuantity.Next(0, 5);
+                if (bookApi.Download_Count >= 20000) book.Copies = copiesQuantity.Next(15, 25);
+                else if (bookApi.Download_Count < 20000 && bookApi.Download_Count >= 10000) book.Copies = copiesQuantity.Next(10, 15);
+                else if (bookApi.Download_Count < 10000 && bookApi.Download_Count >= 5000) book.Copies = copiesQuantity.Next(6, 10);
+                else if (bookApi.Download_Count < 5000) book.Copies = copiesQuantity.Next(0, 5);
 
                 _bookBaseRepository.Insert(book);
                 _bookBaseRepository.Save();

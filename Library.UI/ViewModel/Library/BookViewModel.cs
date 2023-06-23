@@ -40,7 +40,7 @@ namespace Library.UI.ViewModel.Library
         }
 
         private int _quantity;
-        public int Quantity
+        public int Copies
         {
             get => _quantity;
             set
