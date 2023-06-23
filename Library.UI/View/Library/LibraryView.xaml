@@ -3,20 +3,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:components="clr-namespace:Library.UI.View.Components" 
+             xmlns:components="clr-namespace:Library.UI.View.Components"
              xmlns:componentslibrary="clr-namespace:Library.UI.View.Components.Library"
              mc:Ignorable="d" 
              d:DesignHeight="620" d:DesignWidth="920"
-             FontFamily="Titillium Web">
+             FontFamily="Titillium Web"
+             Visibility="{Binding IsUserAuthenticatedL, Converter={StaticResource booleanToVisibilityConverter}, Mode=OneWay}">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <!--// NAVIGATION PANEL //-->
-        <components:NavigationPanel />
-
         <!--// MAIN BACKGROUND //-->
         <Border Grid.Column="1"
                 Opacity="1"
@@ -51,9 +44,5 @@
                 Grid.Row="1"
                 Margin="10 10 10 20" />
         </Grid>
-        
-        <!--// CONTENT CONTROL //-->
-        <ContentControl Grid.ColumnSpan="2"
-                        Content="{Binding SelectedViewModel}" />
     </Grid>
 </UserControl>

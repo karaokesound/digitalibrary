@@ -1,6 +1,5 @@
 ﻿using Library.Models.Model;
 using Library.Models.Model.many_to_many;
-using Library.UI.Commands;
 using Library.UI.Commands.Profile;
 using Library.UI.Model;
 using Library.UI.Service;
@@ -19,6 +18,17 @@ namespace Library.UI.ViewModel
 {
     public class ProfilePanelViewModel : BaseViewModel
     {
+        private bool _isUserAuthenticated = true;
+        public bool IsUserAuthenticatedP
+        {
+            get => _isUserAuthenticated;
+            set
+            {
+                _isUserAuthenticated = value;
+                OnPropertyChanged();
+            }
+        }
+
         private AccountModel _loggedUser;
         public AccountModel LoggedUser
         {
@@ -123,8 +133,6 @@ namespace Library.UI.ViewModel
 
         private readonly NavigationStore _navigationStore;
 
-        private readonly NavigationPanelViewModel _navigationPanelVM;
-
         private List<BookModel> _requestedBooks;
 
         public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
@@ -145,24 +153,15 @@ namespace Library.UI.ViewModel
             _gradeBaseRepository = gradeBaseRepository;
             _navigationStore = navigationStore;
             _requestedBooks = new List<BookModel>();
-            NavigateLibraryCommand = new NavigateCommand<LibraryViewModel>(new NavigationService<LibraryViewModel>
-                (navigationStore, () => new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting,
-                    _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                    _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore)));
-            NavigateMainCommand = new LogoutCommand(_userAuthenticationService, this);
+            //NavigateLibraryCommand = new NavigateCommand<LibraryViewModel>(new NavigationService<LibraryViewModel>
+            //    (navigationStore, () => new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting,
+            //        _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+            //        _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore)));
             UserRentedBooks = new ObservableCollection<UserBooksData>();
             ReturnButtonCommand = new ReturnButtonCommand(this, _elementVisibilityService);
             ReturnsPanelCommand = new ReturnsPanelCommand(this, _elementVisibilityService);
             ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository);
             TakeLoggedUserData();
-        }
-
-        public void LogoutValidation()
-        {
-            if (_userAuthenticationService.IsUserAuthenticated == false)
-            {
-                _navigationPanelVM.NavigateToMainView();
-            }
         }
 
         public void RemoveUserRentedBook(BookModel removingBook)

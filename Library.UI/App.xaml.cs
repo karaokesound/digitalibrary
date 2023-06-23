@@ -10,6 +10,7 @@ using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
+using Library.UI.ViewModel.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -26,8 +27,15 @@ namespace Library.UI
                 context.Database.EnsureCreated();
             }
 
+            base.OnStartup(e);
+
             MainWindow mainWindow = _serviceProvider.GetService<MainWindow>();
-            await mainWindow.MainViewModel.SeedDatabase();
+
+            if (mainWindow?.MainViewModel != null)
+            {
+                await mainWindow.MainViewModel.SeedDatabase();
+            }
+
             mainWindow?.Show();
         }
 

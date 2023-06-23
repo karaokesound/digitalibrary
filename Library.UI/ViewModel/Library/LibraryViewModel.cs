@@ -1,13 +1,11 @@
 ﻿using Library.Models.Model;
 using Library.Models.Model.many_to_many;
-using Library.UI.Commands;
 using Library.UI.Commands.Library;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
-using Library.UI.View.Components;
 using Library.UI.ViewModel.Library;
 using System;
 using System.Collections.Generic;
@@ -19,6 +17,18 @@ namespace Library.UI.ViewModel
 {
     public class LibraryViewModel : BaseViewModel
     {
+        private bool _isUserAuthenticated = true;
+        public bool IsUserAuthenticatedL
+        {
+            get => _isUserAuthenticated;
+            set
+            {
+                _isUserAuthenticated = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private Guid _loggedAccountId;
         public Guid LoggedAccountId
         {
@@ -173,8 +183,6 @@ namespace Library.UI.ViewModel
 
         private readonly NavigationStore _navigationStore;
 
-        private readonly NavigationPanelViewModel _navigationPanelVM;
-
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
@@ -198,10 +206,10 @@ namespace Library.UI.ViewModel
             _requestedBooks = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
-            NavigateProfileCommand = new NavigateCommand<ProfilePanelViewModel>(new NavigationService<ProfilePanelViewModel>(navigationStore,
-                () => new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
-                        _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                        _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore)));
+            //NavigateProfileCommand = new NavigateCommand<ProfilePanelViewModel>(new NavigationService<ProfilePanelViewModel>(navigationStore,
+            //    () => new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
+            //            _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+            //            _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore)));
             AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthenticationService, 
                 _gradeBaseRepository);
             YesNoButtonCommand = new YesNoButtonCommand(this);

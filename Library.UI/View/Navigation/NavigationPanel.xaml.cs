@@ -1,9 +1,8 @@
-﻿using Library.UI.ViewModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Library.UI.View.Components
+namespace Library.UI.View.Navigation
 {
     public partial class NavigationPanel : UserControl
     {

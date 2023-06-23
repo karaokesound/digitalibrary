@@ -2,7 +2,7 @@
 using Library.UI.Service;
 using Library.UI.ViewModel;
 
-namespace Library.UI.Commands
+namespace Library.UI.Commands.Navigation
 {
     public class NavigateCommand<TViewModel> : CommandBase
        where TViewModel : BaseViewModel
