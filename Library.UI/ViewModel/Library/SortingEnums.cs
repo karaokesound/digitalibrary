@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Library.UI.ViewModel.Library
 {
@@ -25,6 +26,18 @@ namespace Library.UI.ViewModel.Library
             set
             {
                 _sortingMethods = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+        private AlphabeticalSorting _alphabeticalSorting;
+        public AlphabeticalSorting AlphabeticalSortingMethod
+        {
+            get => _alphabeticalSorting;
+            set
+            {
+                _alphabeticalSorting = value;
                 OnPropertyChanged();
 
             }
@@ -135,8 +148,15 @@ namespace Library.UI.ViewModel.Library
             Downloads,
             [Description("Copies")]
             Copies,
-            [Description("Author")]
-            Author,
+        }
+
+        public enum AlphabeticalSorting
+        {
+            NOT_SET = 0,
+            [Description("Books")]
+            Books,
+            [Description("Authors")]
+            Authors
         }
 
         public enum BookQuantity

@@ -140,7 +140,8 @@ namespace Library.UI.Commands.Library
             _accountBookRepository.Save();
 
             // ViewModel operations
-            var sortedBooks = _dataSorting.SortBooks(SortingEnums.SortingMethod.NOT_SET, SortingEnums.BookQuantity.NOT_SET, SortingEnums.Genre.NOT_SET);
+            var sortedBooks = _dataSorting.SortBooks(SortingEnums.SortingMethod.NOT_SET, SortingEnums.BookQuantity.NOT_SET, SortingEnums.Genre.NOT_SET,
+                SortingEnums.AlphabeticalSorting.NOT_SET);
             _libraryViewModel.DisplayBooks(sortedBooks);
         }
 

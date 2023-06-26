@@ -34,13 +34,13 @@
         <!--// MAIN //-->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.7*" />
+                <RowDefinition Height="0.65*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <!--// FOR YOU - PANEL //-->
             <components:ForYouPanel 
-                Margin="10 20 10 25" />
+                Margin="10 20 10 20" />
 
             <componentslibrary:SelectedBookDetails
                 Visibility="{Binding AreBookDetailsVisible, 

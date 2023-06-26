@@ -33,10 +33,9 @@ namespace Library.UI.Service.Data
         }
 
         public List<BookModel> SortBooks(SortingEnums.SortingMethod selectedMethod, SortingEnums.BookQuantity selectedQuantity,
-            SortingEnums.Genre selectedCategory)
+            SortingEnums.Genre selectedCategory, SortingEnums.AlphabeticalSorting selectedAlphabetical)
         {
             List<BookModel> bookList = new List<BookModel>();
-            List<BookModel> bookList2 = new List<BookModel>();
             List<AuthorModel> authorList = new List<AuthorModel>();
             List<LanguageModel> languageList = new List<LanguageModel>();
             List<BookLanguageModel> bookLanguageList = new List<BookLanguageModel>();
@@ -45,15 +44,6 @@ namespace Library.UI.Service.Data
             authorList = _authBaseRepository.GetAll().ToList();
             languageList = _lngBaseRepository.GetAll().ToList();
             bookLanguageList = _bookLanguageBaseRepository.GetAll().ToList();
-
-            foreach (var book in bookList)
-            {
-                if (book.Author.LastName != " ")
-                {
-                    bookList2.Add(book);
-                }
-                else continue;
-            }
 
             if (selectedCategory == SortingEnums.Genre.NOT_SET)
             {
@@ -81,10 +71,6 @@ namespace Library.UI.Service.Data
             {
                 bookList = bookList.Take((int)selectedQuantity).ToList();
             }
-            else if (selectedMethod == SortingEnums.SortingMethod.Az)
-            {
-                bookList = bookList.OrderBy(b => b.Title).Take((int)selectedQuantity).ToList();
-            }
             else if (selectedMethod == SortingEnums.SortingMethod.Downloads)
             {
                 bookList = bookList.OrderByDescending(d => d.Downloads).Take((int)selectedQuantity).ToList();
@@ -93,7 +79,7 @@ namespace Library.UI.Service.Data
             {
                 bookList = bookList.OrderByDescending(b => b.Copies).Take((int)selectedQuantity).ToList();
             }
-            else if (selectedMethod == SortingEnums.SortingMethod.Author)
+            else if (selectedAlphabetical == SortingEnums.AlphabeticalSorting.Authors)
             {
                 bookList = bookList = bookList.OrderByDescending(b => b.Author.LastName != " ")
                    .ThenBy(b => b.Author.LastName)
@@ -101,6 +87,10 @@ namespace Library.UI.Service.Data
                    .Union(bookList.Where(b => b.Author.LastName == " "))
                    .Take((int)selectedQuantity)
                    .ToList();
+            }
+            else if (selectedAlphabetical == SortingEnums.AlphabeticalSorting.Books)
+            {
+                bookList = bookList.OrderBy(b => b.Title).Take((int)selectedQuantity).ToList();
             }
 
             return bookList;

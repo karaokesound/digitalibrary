@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -138,6 +139,28 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private ComboBoxItem _alphabeticalSortingMethod;
+        public ComboBoxItem AlphabeticalSortingMethod
+        {
+            get => _alphabeticalSortingMethod;
+            set
+            {
+                _alphabeticalSortingMethod = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isAzEnumSelected;
+        public bool IsAzEnumSelected
+        {
+            get => _isAzEnumSelected;
+            set 
+            { 
+                _isAzEnumSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
         public SortingEnums SortingEnums { get; set; }
 
         public ICommand LibraryUpdateViewCommand { get; }
@@ -214,6 +237,7 @@ namespace Library.UI.ViewModel
             LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
                 _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService, _bookgradeBaseRepository,
                 _gradeBaseRepository);
+
             GenerateRandomBooks();
             InterceptLoggedUserData();
         }
