@@ -11,7 +11,6 @@
     <Grid>
         <!--// MAIN BACKGROUND //-->
         <Border Grid.Column="1"
-                Opacity="1"
                 CornerRadius="0 4 4 0">
             <Border.Background>
                 <ImageBrush ImageSource="https://i.pinimg.com/736x/78/be/5d/78be5dd68cde3f3616c7304c2b158a45.jpg"
@@ -21,7 +20,7 @@
         </Border>
         <Border Grid.Column="1"
                 Background="#052a4f"
-                Opacity="0.9" />
+                Opacity="0.93" />
 
         <!--// MAIN //-->
         <Grid Grid.Column="1">

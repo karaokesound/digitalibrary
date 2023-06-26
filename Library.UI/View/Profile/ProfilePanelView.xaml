@@ -7,10 +7,14 @@
              mc:Ignorable="d" 
              FontFamily="Titillium Web"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
         <!--// MAIN BACKGROUND //-->
-        <Border Grid.Column="1"
-                Opacity="1"
+        <Border Grid.RowSpan="2"
                 CornerRadius="0 4 4 0">
             <Border.Background>
                 <ImageBrush ImageSource="https://i.pinimg.com/736x/78/be/5d/78be5dd68cde3f3616c7304c2b158a45.jpg"
@@ -18,34 +22,32 @@
                             RenderOptions.BitmapScalingMode="Fant"/>
             </Border.Background>
         </Border>
-        <Border Grid.Column="1"
+        <Border Grid.RowSpan="2"
                 Background="#052a4f"
-                Opacity="0.9" />
+                Opacity="0.93" />
 
-        <!--// MAIN //-->
-        <Grid Grid.Column="1"
-              TextBlock.Foreground="White">
+        <!--// ROW 1 //-->
+        <Grid TextBlock.Foreground="White"
+              VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
+            
+            <!--// BOOKS RENTED //-->
             <Grid>
                 <Border Background="White"
                         Opacity="0.25"
-                        CornerRadius="7"
+                        CornerRadius="3"
                         Width="255"
-                        Height="130" />
-                <Border BorderBrush="White"
-                        Opacity="0.7"
-                        BorderThickness="1.3"
-                        CornerRadius="7"
-                        Width="255"
-                        Height="130" />
+                        Height="130">
+                    <Border.Effect>
+                        <DropShadowEffect Direction="-75"
+                                  ShadowDepth="2"
+                                  BlurRadius="10"
+                                  Color="#222225"/>
+                    </Border.Effect>
+                </Border>
                 <Button Style="{StaticResource LargeProfileButton}"
                         Content="{Binding NoOfRentedBooks, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel HorizontalAlignment="Center"
@@ -63,18 +65,20 @@
                 </StackPanel>
             </Grid>
 
+            <!--// BOOKS TO RENT //-->
             <Grid Grid.Column="1">
                 <Border Background="White"
-                        CornerRadius="7"
+                        CornerRadius="3"
                         Opacity="0.25"
                         Width="255"
-                        Height="130" />
-                <Border BorderBrush="White"
-                        Opacity="0.7"
-                        BorderThickness="1.3"
-                        CornerRadius="7"
-                        Width="255"
-                        Height="130" />
+                        Height="130">
+                    <Border.Effect>
+                        <DropShadowEffect Direction="-75"
+                                  ShadowDepth="2"
+                                  BlurRadius="10"
+                                  Color="#222225"/>
+                    </Border.Effect>
+                </Border>
                 <Button Style="{StaticResource LargeProfileButton}" />
                 <StackPanel HorizontalAlignment="Center"
                             VerticalAlignment="Center">
@@ -91,89 +95,96 @@
                                HorizontalAlignment="Center"/>
                 </StackPanel>
             </Grid>
+        </Grid>
 
-            <Grid Grid.Row="1"
-                  Grid.ColumnSpan="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        <!--// ROW 2 //-->
+        <Grid Grid.Row="1"
+              Margin="65 0 65 0"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                <Border Background="White"
+            <!--// settings //-->
+            <Border Background="White"
                         Opacity="0.25"
-                        CornerRadius="7"
-                        Width="125"
-                        Height="80"/>
-                <Border BorderBrush="White"
-                        Opacity="0.7"
-                        BorderThickness="1.3"
-                        CornerRadius="7"
-                        Width="125"
-                        Height="80" />
-                <Button Content="Settings"
+                        CornerRadius="3"
+                        Width="150"
+                        Height="100">
+                <Border.Effect>
+                    <DropShadowEffect Direction="-75"
+                                  ShadowDepth="2"
+                                  BlurRadius="10"
+                                  Color="#222225"/>
+                </Border.Effect>
+            </Border>
+            <Button Content="Settings"
                         Style="{StaticResource SmallProfileButton}"/>
 
-                <Border Grid.Column="1"
+            <!--// returns //-->
+            <Border Grid.Column="1"
                         Background="White"
                         Opacity="0.25"
-                        CornerRadius="7"
-                        Width="125"
-                        Height="80"/>
-                <Border Grid.Column="1"
-                        BorderBrush="White"
-                        Opacity="0.7"
-                        BorderThickness="1.3"
-                        CornerRadius="7"
-                        Width="125"
-                        Height="80" />
-                <Button Grid.Column="1"
+                        CornerRadius="3"
+                        Width="150"
+                        Height="100">
+                <Border.Effect>
+                    <DropShadowEffect Direction="-75"
+                                  ShadowDepth="2"
+                                  BlurRadius="10"
+                                  Color="#222225"/>
+                </Border.Effect>
+            </Border>
+            <Button Grid.Column="1"
                         Content="Returns"
                         Style="{StaticResource SmallProfileButton}"
                         Command="{Binding ReturnsPanelCommand}"/>
 
-                <Border Grid.Column="2"
+            <!--// reservations //-->
+            <Border Grid.Column="2"
                         Background="White"
                         Opacity="0.25"
-                        CornerRadius="7"
-                        Width="125"
-                        Height="80"/>
-                <Border Grid.Column="2"
-                        BorderBrush="White"
-                        Opacity="0.7"
-                        BorderThickness="1.3"
-                        CornerRadius="7"
-                        Width="125"
-                        Height="80" />
-                <Button Grid.Column="2"
+                        CornerRadius="3"
+                        Width="150"
+                        Height="100">
+                <Border.Effect>
+                    <DropShadowEffect Direction="-75"
+                                  ShadowDepth="2"
+                                  BlurRadius="10"
+                                  Color="#222225"/>
+                </Border.Effect>
+            </Border>
+            <Button Grid.Column="2"
                         Content="Reservations"
                         Style="{StaticResource SmallProfileButton}"/>
 
-                <Border Grid.Column="3"
+            <!--// xyz //-->
+            <Border Grid.Column="3"
                         Background="White"
                         Opacity="0.25"
-                        CornerRadius="7"
-                        Width="125"
-                        Height="80"/>
-                <Border Grid.Column="3"
-                        BorderBrush="White"
-                        Opacity="0.7"
-                        BorderThickness="1.3"
-                        CornerRadius="7"
-                        Width="125"
-                        Height="80" />
-                <Button Grid.Column="3"
+                        CornerRadius="3"
+                        Width="150"
+                        Height="100">
+                <Border.Effect>
+                    <DropShadowEffect Direction="-75"
+                                  ShadowDepth="2"
+                                  BlurRadius="10"
+                                  Color="#222225"/>
+                </Border.Effect>
+            </Border>
+            <Button Grid.Column="3"
                         Content="Xyz"
                         Style="{StaticResource SmallProfileButton}"/>
-            </Grid>
         </Grid>
 
-        <componentsprofile:ReturnPanel Grid.Column="1"
-                                       Visibility="{Binding IsReturnsPanelVisible, Converter={StaticResource booleanToVisibilityConverter}}"/>
+        <!--<componentsprofile:ReturnPanel Grid.Column="1"
+                                       Visibility="{Binding IsReturnsPanelVisible, Converter={StaticResource booleanToVisibilityConverter}}"/>-->
     </Grid>
 </UserControl>

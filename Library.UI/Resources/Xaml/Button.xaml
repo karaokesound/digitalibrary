@@ -54,8 +54,8 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="True">
-                            <Setter Property="Width" Value="138" />
-                            <Setter Property="Height" Value="88" />
+                            <Setter Property="Width" Value="165" />
+                            <Setter Property="Height" Value="110" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

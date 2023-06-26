@@ -21,23 +21,28 @@
         </Grid.ColumnDefinitions>
         
         <!--// LEFT BACKGROUND //-->
-        <Border Grid.ColumnSpan="2"
+        <Border Grid.Column="1"
+                Grid.ColumnSpan="2"
                 Background="White"
                 CornerRadius="4 4 4 4" />
 
-        <Image Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
-               Stretch="UniformToFill"
-               Margin="12 20 12 2" />
-        <Border Background="#052a4f"
-                Opacity="0.9"
+        <Border Grid.ColumnSpan="2"
                 CornerRadius="4 0 0 4">
             <Border.Effect>
                 <DropShadowEffect Direction="-75"
-                                      ShadowDepth="2"
-                                      BlurRadius="10"
-                                      Color="#222225"/>
+                                  ShadowDepth="2"
+                                  BlurRadius="10"
+                                  Color="#222225"/>
             </Border.Effect>
-        </Border>
+            <Border.Background>
+                <ImageBrush ImageSource="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
+                            RenderOptions.BitmapScalingMode="Fant"/>
+            </Border.Background>
+            </Border>
+        <Border Grid.ColumnSpan="2"
+                Background="#052a4f"
+                Opacity="0.93"
+                CornerRadius="4 0 0 4" />
 
         <!--// LEFT SIDE //-->
         <Grid Grid.ColumnSpan="2">
