@@ -11,7 +11,7 @@ namespace Library.UI.Model
 
         public string Title { get; set; }
 
-        public int Quantity { get; set; }
+        public int Copies { get; set; }
 
         public string Category { get; set; }
 

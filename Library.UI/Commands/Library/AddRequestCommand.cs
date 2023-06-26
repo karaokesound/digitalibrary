@@ -19,7 +19,7 @@ namespace Library.UI.Commands.Library
 
         public override void Execute(object parameter)
         {
-            if (_libraryViewModel.SelectedBook.Quantity > 1)
+            if (_libraryViewModel.SelectedBook.Copies > 1)
             {
                 string wMessage = "This book is available. You don't have to make a reservation.";
                 string wCaption = "Library";
