@@ -3,7 +3,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:view="clr-namespace:Library.UI.View" xmlns:components="clr-namespace:Library.UI.Components"
+        xmlns:view="clr-namespace:Library.UI.View"
+        xmlns:navigation="clr-namespace:Library.UI.View.Navigation"
         mc:Ignorable="d"
         AllowsTransparency="True"
         WindowStyle="None" 
@@ -14,26 +15,19 @@
         Height="600" Width="950">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="0.25*" />
+            <ColumnDefinition Width="0.35*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <!--// RIGHT BACKGROUND //-->
+        <!--// LEFT BACKGROUND //-->
         <Border Grid.ColumnSpan="2"
                 Background="White"
-                CornerRadius="4 4 4 4">
-            <Border.Effect>
-                <DropShadowEffect Direction="75"
-                                  ShadowDepth="2"
-                                  BlurRadius="10"
-                                  Color="#222225"/>
-            </Border.Effect>
-            <Image Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
-                   Stretch="UniformToFill"
-                   Margin="12 20 12 2" />
-        </Border>
+                CornerRadius="4 4 4 4" />
 
-        <!--// LEFT BACKGROUND //-->
+        <Image Source="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
+               Stretch="UniformToFill"
+               Margin="12 20 12 2" />
         <Border Background="#052a4f"
                 Opacity="0.9"
                 CornerRadius="4 0 0 4">
@@ -46,7 +40,7 @@
         </Border>
 
         <!--// LEFT SIDE //-->
-        <Grid>
+        <Grid Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -80,18 +74,29 @@
                     VerticalAlignment="Center" />
         </Grid>
 
-        <!--// SIGN IN PANEL //-->
-        <view:SignInPanelView Grid.Column="1"
-                              DataContext="{Binding SignInPanelVM}"/>
-    
-        <!--// SIGN UP PANEL //-->
-        <view:SignUpPanelView Grid.ColumnSpan="2"
-                              DataContext="{Binding SignUpPanelVM}"
-                              Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}"
-                              />
+        <!--// NAVIGATION PANEL //-->
+        <Grid Visibility="{Binding IsUserAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}">
+            <navigation:NavigationPanel DataContext="{Binding NavigationPanelVM}" />
+        </Grid>
+       
 
+        <!--// SIGN IN PANEL //-->
+        <Grid Grid.Column="2"
+              Visibility="{Binding IsUserAuthenticatedNegation, Converter={StaticResource booleanToVisibilityConverter}}">
+            <view:SignInPanelView DataContext="{Binding SignInPanelVM}"/>
+        </Grid>
+       
+
+        <!--// SIGN UP PANEL //-->
+        <Grid Grid.ColumnSpan="3"
+              Visibility="{Binding IsUserAuthenticatedNegation, Converter={StaticResource booleanToVisibilityConverter}}">
+            <view:SignUpPanelView DataContext="{Binding SignUpPanelVM}"
+                                  Visibility="{Binding SignUpPanelVisibility, Converter={StaticResource booleanToVisibilityConverter}}" />
+
+        </Grid>
+       
         <!--// EXIT, MINIMIZE BUTTON //-->
-        <StackPanel Grid.Column="1"
+        <StackPanel Grid.Column="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
@@ -111,8 +116,12 @@
                     Margin="0 0 0 4"/>
         </StackPanel>
 
+       
         <!--// CONTENT CONTROL //-->
-        <ContentControl Content="{Binding SelectedViewModel}"
-                        Grid.ColumnSpan="2" />
+        <Grid Grid.Column="1"
+              Grid.ColumnSpan="2"
+              Visibility="{Binding IsUserAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}">
+            <ContentControl Content="{Binding SelectedViewModel}" />
+        </Grid>
     </Grid>
 </Window>
