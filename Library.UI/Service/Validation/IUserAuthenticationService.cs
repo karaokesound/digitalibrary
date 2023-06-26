@@ -6,15 +6,17 @@ namespace Library.UI.Services
 {
     public interface IUserAuthenticationService
     {
-        public Guid UserId { get; }
+        Guid UserId { get; }
         
-        public AccountModel LoggedUser { get; }
+        AccountModel LoggedUser { get; }
 
-        public bool IsUserAuthenticated { get; }
+        bool IsUserAuthenticated { get; }
 
-        public List<BookModel> _requestedBooks { get; }
+        List<BookModel> _requestedBooks { get; }
 
-        public void Authentication(string loggingUsername, string dbUsername, string loggingPassword,
+        void Authentication(string loggingUsername, string dbUsername, string loggingPassword,
             string dbPassword, AccountModel dbUser, List<BookModel> requestedBooks);
+
+        void UserLogout(bool isLogout);
     }
 }

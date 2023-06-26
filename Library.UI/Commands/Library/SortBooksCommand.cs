@@ -16,7 +16,7 @@ namespace Library.UI.Commands.Library
         public override void Execute(object parameter)
         {
             _libraryViewModel.DisplayBooks(_dataSorting.SortBooks
-                (_sortingEnums.SortingMethods, _sortingEnums.Quantity, _sortingEnums.Genres));
+                (_sortingEnums.SortingMethods, _sortingEnums.Copies, _sortingEnums.Genres));
         }
 
         public SortBooksCommand(LibraryViewModel libraryViewModel, IDataSorting dataSorting, SortingEnums sortingEnums)

@@ -71,5 +71,12 @@ namespace Library.UI.ViewModel
         }
 
         public void RaiseUserAuthEvent() => UserAuthenticationChanged?.Invoke(_userAuthenticationService.IsUserAuthenticated);
+
+        public void ErasePasswordBox()
+        {
+            LoggingUsernamePassword.Password = string.Empty;
+            LoggingUsernamePassword.Username = string.Empty;
+            OnPropertyChanged(nameof(LoggingUsernamePassword));
+        }
     }
 }

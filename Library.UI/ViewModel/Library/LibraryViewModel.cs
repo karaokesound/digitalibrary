@@ -28,17 +28,6 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private BaseViewModel _selectedViewModel;
-        public BaseViewModel SelectedViewModel
-        {
-            get => _selectedViewModel;
-            set
-            {
-                _selectedViewModel = value;
-                OnPropertyChanged();
-            }
-        }
-
         private ObservableCollection<BookViewModel> _bookList;
         public ObservableCollection<BookViewModel> BookList
         {
@@ -140,8 +129,6 @@ namespace Library.UI.ViewModel
 
         public SortingEnums SortingEnums { get; set; }
 
-        public ICommand LibraryUpdateViewCommand { get; }
-
         public ICommand SortBooksCommand { get; }
 
         public ICommand FilterBooksCommand { get; }
@@ -180,12 +167,15 @@ namespace Library.UI.ViewModel
 
         private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
 
+        private readonly NavigationStore _navigationStore;
+
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataSorting, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
             IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
-            IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository)
+            IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository, 
+            IBaseRepository<GradeModel> gradeBaseRepository, NavigationStore navigationStore)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
@@ -198,10 +188,12 @@ namespace Library.UI.ViewModel
             _elementVisibilityService = elementVisibilityService;
             _bookgradeBaseRepository = bookgradeBaseRepository;
             _gradeBaseRepository = gradeBaseRepository;
+            _navigationStore = navigationStore;
             _requestedBooks = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
-            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthenticationService, _gradeBaseRepository);
+            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthenticationService, 
+                _gradeBaseRepository);
             YesNoButtonCommand = new YesNoButtonCommand(this);
             BookDoubleClickCommand = new BookDoubleClickCommand(this, _elementVisibilityService, _bookgradeBaseRepository);
             LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this, _elementVisibilityService);
@@ -211,9 +203,6 @@ namespace Library.UI.ViewModel
             RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, _accountBaseRepository, 
                 _accountBookRepository, _elementVisibilityService);
             AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
-            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
-                _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService, _bookgradeBaseRepository,
-                _gradeBaseRepository);
             GenerateRandomBooks();
             InterceptLoggedUserData();
         }
