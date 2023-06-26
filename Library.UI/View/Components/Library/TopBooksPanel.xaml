@@ -11,7 +11,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.18*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -25,35 +25,53 @@
             <!--// top books //-->
             <TextBlock Text="Top books"
                        FontFamily="Titillium Web Semibold"
-                       VerticalAlignment="Bottom"
                        Foreground="White"
                        FontSize="22" />
 
             <!--// comboboxes //-->
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal"
-                        VerticalAlignment="Bottom"
                         HorizontalAlignment="Left"
                         Margin="10 0 0 0">
-                <resources:CommandComboBox Style="{DynamicResource SortingComboBox}" 
-                                         ItemsSource="{Binding SortingEnums.SortingMethods, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
-                                         SelectedValuePath="Value"
-                                         DisplayMemberPath="Description"
-                                         SelectedValue="{Binding SortingEnums.SortingMethods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         Command="{Binding SortBooksCommand}" />
+                <Grid VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.2*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <resources:CommandComboBox Style="{DynamicResource SortingComboBox}" 
+                                               ItemsSource="{Binding SortingEnums.SortingMethods, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                               SelectedValuePath="Value"
+                                               DisplayMemberPath="Description"
+                                               SelectedValue="{Binding SortingEnums.SortingMethods, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               Command="{Binding SortBooksCommand}"
+                                               Margin="0 6 0 0"/>
+                    <resources:CommandComboBox Grid.Row="1"
+                                               Style="{DynamicResource SortingComboBox}" 
+                                               ItemsSource="{Binding SortingEnums.AlphabeticalSortingMethod, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                               SelectedValuePath="Value"
+                                               DisplayMemberPath="Description"
+                                               SelectedValue="{Binding SortingEnums.AlphabeticalSortingMethod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               Command="{Binding SortBooksCommand}"
+                                               Visibility="{Binding IsAzEnumSelected,Converter={StaticResource booleanToVisibilityConverter}}"
+                                               Margin="0 3 0 0"/>
+                </Grid>
+
                 <resources:CommandComboBox Style="{DynamicResource SortingComboBox}"
-                                         ItemsSource="{Binding SortingEnums.Quantity, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
-                                         SelectedValuePath="Value"
-                                         DisplayMemberPath="Description"
-                                         SelectedValue="{Binding SortingEnums.Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         Command="{Binding SortBooksCommand}"
-                                         Margin="0"/>
+                                           ItemsSource="{Binding SortingEnums.Quantity, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                           SelectedValuePath="Value"
+                                           DisplayMemberPath="Description"
+                                           SelectedValue="{Binding SortingEnums.Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           Command="{Binding SortBooksCommand}"
+                                           VerticalAlignment="Top"
+                                           Margin="3 3.5 0 0"/>
                 <resources:CommandComboBox Style="{DynamicResource SortingComboBox}"
-                                         ItemsSource="{Binding SortingEnums.Genres, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
-                                         SelectedValuePath="Value"
-                                         DisplayMemberPath="Description"
-                                         SelectedValue="{Binding SortingEnums.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         Command="{Binding SortBooksCommand}" />
+                                           ItemsSource="{Binding SortingEnums.Genres, Converter={StaticResource enumToCollConverter}, Mode=OneTime}"
+                                           SelectedValuePath="Value"
+                                           DisplayMemberPath="Description"
+                                           SelectedValue="{Binding SortingEnums.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           Command="{Binding SortBooksCommand}"
+                                           VerticalAlignment="Top"
+                                           Margin="3 3.5 0 0"/>
             </StackPanel>
         </Grid>
 
@@ -246,7 +264,7 @@
                                                     <Button Background="Transparent"
                                                             Command="{Binding DataContext.AddRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
                                                 </Grid>
-                                                <TextBlock Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
+                                                <TextBlock Text="{Binding Copies, UpdateSourceTrigger=PropertyChanged}"
                                                            Foreground="#43BFC7"
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center"

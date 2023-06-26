@@ -28,7 +28,8 @@
 
         <!--// ROW 1 //-->
         <Grid TextBlock.Foreground="White"
-              VerticalAlignment="Center">
+              VerticalAlignment="Center"
+              Margin="0 30 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -99,7 +100,7 @@
 
         <!--// ROW 2 //-->
         <Grid Grid.Row="1"
-              Margin="65 0 65 0"
+              Margin="65 0 65 30"
               VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
