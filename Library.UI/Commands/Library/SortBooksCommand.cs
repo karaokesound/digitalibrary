@@ -35,7 +35,11 @@ namespace Library.UI.Commands.Library
                         (_sortingEnums.SortingMethods, _sortingEnums.Quantity, _sortingEnums.Genres, _sortingEnums.AlphabeticalSortingMethod));
                 }
             }
-            else _libraryViewModel.IsAzEnumSelected = false;
+            else
+            {
+                _libraryViewModel.IsAzEnumSelected = false;
+                _libraryViewModel.SortingEnums.AlphabeticalSortingMethod = SortingEnums.AlphabeticalSorting.NOT_SET;
+            }
         }
 
         public SortBooksCommand(LibraryViewModel libraryViewModel, IDataSorting dataSorting, SortingEnums sortingEnums)

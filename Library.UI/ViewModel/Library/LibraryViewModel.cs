@@ -127,6 +127,17 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private bool _isAzEnumSelected;
+        public bool IsAzEnumSelected
+        {
+            get => _isAzEnumSelected;
+            set 
+            { 
+                _isAzEnumSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
         public SortingEnums SortingEnums { get; set; }
 
         public ICommand SortBooksCommand { get; }
