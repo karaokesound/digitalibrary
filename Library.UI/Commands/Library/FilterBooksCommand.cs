@@ -36,7 +36,7 @@ namespace Library.UI.Commands.Library
 
                 int index = lowercaseTitle.IndexOf(searchText, StringComparison.OrdinalIgnoreCase);
 
-                if (index > 0)
+                if (index >= 0)
                 {
                     accurateBooks.Add(new BookAccuracy() { Book = book, Accuracy = index });
                 }
