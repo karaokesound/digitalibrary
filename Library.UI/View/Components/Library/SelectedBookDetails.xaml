@@ -93,7 +93,7 @@
                                Margin="0 0 0 7"/>
                     <TextBlock Grid.Column="1"
                                Grid.Row="1"
-                               Text="{Binding SelectedBook.Quantity, UpdateSourceTrigger=PropertyChanged}" />
+                               Text="{Binding SelectedBook.Copies, UpdateSourceTrigger=PropertyChanged}" />
 
                     <!--// downloads //-->
                     <TextBlock Grid.Row="2"
@@ -227,9 +227,8 @@
             <StackPanel TextBlock.FontSize="30"
                             TextBlock.Foreground="Orange"
                             Orientation="Horizontal">
-                <TextBlock Text="{Binding BookGrade, UpdateSourceTrigger=PropertyChanged}"
-                           Visibility="{Binding IsBookGradeVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
-                </StackPanel>
+                <TextBlock Text="{Binding SelectedBook.BookGrade, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
             </Grid>
 
         <!--// RETURN BUTTON //-->

@@ -75,7 +75,7 @@ namespace Library.UI.ViewModel.Navigation
             NavigateLibraryCommand = new NavigateCommand<LibraryViewModel>(new NavigationService<LibraryViewModel>
                 (navigationStore, () => new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting,
                     _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                    _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore)));
+                    _bookgradeBaseRepository, _gradeBaseRepository)));
 
             NavigateProfileCommand = new NavigateCommand<ProfilePanelViewModel>(new NavigationService<ProfilePanelViewModel>(navigationStore,
                () => new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,

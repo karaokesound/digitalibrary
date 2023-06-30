@@ -1,21 +1,25 @@
-﻿namespace Library.UI.Service.Validation
+﻿using Library.UI.ViewModel.Library;
+
+namespace Library.UI.Service.Validation
 {
     public interface IElementVisibilityService
     {
-        public bool IsSignUpButtonClicked { get; }
+        BookViewModel SelectedBook { get; }
 
-        public bool IsReturnsPanelClicked { get; }
+        bool IsSignUpButtonClicked { get; }
 
-        public bool IsListViewVisible { get; }
+        bool IsReturnsPanelClicked { get; }
 
-        public bool AreBookDetailsVisible { get; }
+        bool IsListViewVisible { get; }
 
-        public void AdjustElementVisibility(bool isClicked);
+        bool AreBookDetailsVisible { get; }
 
-        public void AdjustReturnsPanelVisibility(bool isClicked);
+        void ListViewSelectedBook(BookViewModel selectedBook);
 
-        public void AdjustListViewVisibility(bool isEmpty);
+        void AdjustElementVisibility(bool isClicked);
 
-        public void AdjustBookDetailsVisibility(bool isClicked);
+        void AdjustReturnsPanelVisibility(bool isClicked);
+
+        void AdjustListViewVisibility(bool isEmpty);
     }
 }

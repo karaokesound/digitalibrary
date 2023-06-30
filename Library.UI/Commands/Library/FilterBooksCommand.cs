@@ -1,5 +1,6 @@
 ﻿using Library.UI.Command;
 using Library.UI.Model;
+using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
@@ -15,9 +16,12 @@ namespace Library.UI.Commands.Library
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
+        private readonly IElementVisibilityService _elementVisibilityService;
+
         public override void Execute(object parameter)
         {
             _libraryViewModel.BookList.Clear();
+            _libraryViewModel.SelectedBook = _elementVisibilityService.SelectedBook;
 
             string searchText = _libraryViewModel.SearchBoxInput;
 
@@ -45,10 +49,12 @@ namespace Library.UI.Commands.Library
             _libraryViewModel.DisplayFilteredBooks(accurateBooks);
         }
 
-        public FilterBooksCommand(LibraryViewModel libraryViewModel, IBaseRepository<BookModel> bookBaseRepository)
+        public FilterBooksCommand(LibraryViewModel libraryViewModel, IBaseRepository<BookModel> bookBaseRepository,
+            IElementVisibilityService elementVisibilityService)
         {
             _libraryViewModel = libraryViewModel;
             _bookBaseRepository = bookBaseRepository;
+            _elementVisibilityService = elementVisibilityService;
         }
     }
 }

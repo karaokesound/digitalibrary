@@ -57,7 +57,12 @@ namespace Library.UI.ViewModel
             set
             {
                 _selectedBook = value;
+                ShowBookGrade();
                 OnPropertyChanged();
+
+                //It is to keep focus on a selected book when clicking on a SearchBox
+                if (value == null) return;
+                _elementVisibilityService.ListViewSelectedBook(value);
             }
         }
 
@@ -94,7 +99,7 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private bool _areRatingStarsVisible = false;
+        private bool _areRatingStarsVisible;
         public bool AreRatingStarsVisible
         {
             get => _areRatingStarsVisible;
@@ -112,17 +117,6 @@ namespace Library.UI.ViewModel
             set 
             { 
                 _isBookGradeVisible = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private float _bookGrade;
-        public float BookGrade
-        {
-            get => _bookGrade;
-            set 
-            { 
-                _bookGrade = value;
                 OnPropertyChanged();
             }
         }
@@ -162,11 +156,7 @@ namespace Library.UI.ViewModel
 
         private readonly IDataSorting _dataSorting;
 
-        private readonly IUserAuthenticationService _userAuthenticationService;
-
-        private readonly IValidationService _validationService;
-
-        private readonly IUserRepository _userRepository;
+        private readonly IUserAuthenticationService _userAuthService;
 
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
 
@@ -178,44 +168,40 @@ namespace Library.UI.ViewModel
 
         private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
 
-        private readonly NavigationStore _navigationStore;
-
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataSorting, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
             IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
             IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository, 
-            IBaseRepository<GradeModel> gradeBaseRepository, NavigationStore navigationStore)
+            IBaseRepository<GradeModel> gradeBaseRepository)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataSorting = dataSorting;
-            _userAuthenticationService = userAuthenticationService;
-            _validationService = validationService;
-            _userRepository = userRepository;
+            _userAuthService = userAuthenticationService;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
             _elementVisibilityService = elementVisibilityService;
             _bookgradeBaseRepository = bookgradeBaseRepository;
             _gradeBaseRepository = gradeBaseRepository;
-            _navigationStore = navigationStore;
             _requestedBooks = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
-            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthenticationService, 
+            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService, 
                 _gradeBaseRepository);
             YesNoButtonCommand = new YesNoButtonCommand(this);
-            BookDoubleClickCommand = new BookDoubleClickCommand(this, _elementVisibilityService, _bookgradeBaseRepository);
-            LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this, _elementVisibilityService);
-            FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository);
+            BookDoubleClickCommand = new BookDoubleClickCommand(this);
+            LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this);
+            FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository, _elementVisibilityService);
             RandomBookList = new ObservableCollection<BookViewModel>();
             SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
-            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, _accountBaseRepository, 
-                _accountBookRepository, _elementVisibilityService);
+            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, 
+                _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
             GenerateRandomBooks();
             InterceptLoggedUserData();
+            ShowBookGrade();
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)
@@ -267,37 +253,42 @@ namespace Library.UI.ViewModel
 
         public void ShowBookGrade()
         {
-            List<BookGradeModel> selectedBookgrades = new List<BookGradeModel>();
+            if (SelectedBook == null) return;
 
+            List<BookGradeModel> selectedBookgrades = new List<BookGradeModel>();
             selectedBookgrades = _bookgradeBaseRepository.GetAll().Where(b => b.BookId == SelectedBook.BookId).ToList();
 
-            float average = 0;
+            decimal average = 0;
 
             if (selectedBookgrades.Count() == 0)
             {
                 average = 0;
-                BookGrade = average;
+                SelectedBook.BookGrade = "No grades yet";
+                AreRatingStarsVisible = true;
                 return;
             }
-
-            List<GradeModel> grades = new List<GradeModel>();
-            List<int> bookGrades = new List<int>();
 
             int gradesSum = 0;
 
             foreach (var bookGrade in selectedBookgrades)
             {
-                grades.Add(_gradeBaseRepository.GetByID(bookGrade.GradeId));
+                var gradeModel = _gradeBaseRepository.GetByID(bookGrade.GradeId);
+                gradesSum += gradeModel.Grade;
             }
 
-            foreach (var g in grades)
+            average = (decimal)gradesSum / selectedBookgrades.Count;
+
+            SelectedBook.BookGrade = average.ToString("0.00");
+
+            // Adjust rating stars visibility
+            IEnumerable<BookGradeModel> userRate = _bookgradeBaseRepository.GetAll().Where(a => (a.GradeAuthorId == LoggedAccountId)
+            && (a.BookId == SelectedBook.BookId));
+
+            if (userRate.Count() == 0 || userRate == null)
             {
-                gradesSum += g.Grade;
+                AreRatingStarsVisible = true;
             }
-
-            average = gradesSum / selectedBookgrades.Count();
-
-            BookGrade = average;
+            AreRatingStarsVisible = false;
         }
 
         private void GenerateRandomBooks()
@@ -317,8 +308,8 @@ namespace Library.UI.ViewModel
 
         private void InterceptLoggedUserData()
         {
-            _loggedAccountId = _userAuthenticationService.UserId;
-            _requestedBooks = _userAuthenticationService._requestedBooks;
+            _loggedAccountId = _userAuthService.UserId;
+            _requestedBooks = _userAuthService._requestedBooks;
         }
     }
 }
