@@ -2,9 +2,6 @@
 using Library.UI.Service.Data;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
-using System.Reflection.Metadata.Ecma335;
-using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace Library.UI.Commands.Library
 {

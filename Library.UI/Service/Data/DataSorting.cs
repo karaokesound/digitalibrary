@@ -1,9 +1,7 @@
 ﻿using Library.Models.Model;
 using Library.UI.Model;
 using Library.UI.Services;
-using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -95,7 +93,5 @@ namespace Library.UI.Service.Data
 
             return bookList;
         }
-
-
     }
 }

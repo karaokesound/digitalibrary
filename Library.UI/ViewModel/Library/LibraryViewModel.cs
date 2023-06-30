@@ -235,21 +235,6 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public void GenerateRandomBooks()
-        {
-            var mostPopularBooks = _bookBaseRepository.GetAll().Where(book => book.Downloads > 10000).ToList();
-
-            if (mostPopularBooks == null || mostPopularBooks.Count == 0) return;
-
-            Random randomBook = new Random();
-
-            for (int i = 0; i < 5; i++)
-            {
-                int rnd = randomBook.Next(mostPopularBooks.Count);
-                RandomBookList.Add(_mappingService.BookModelToViewModel(mostPopularBooks[rnd], mostPopularBooks[rnd].Author));
-            }
-        }
-
         public void DisplayFilteredBooks(List<BookAccuracy> filteredBookList)
         {
             BookList.Clear();
@@ -313,6 +298,21 @@ namespace Library.UI.ViewModel
             average = gradesSum / selectedBookgrades.Count();
 
             BookGrade = average;
+        }
+
+        private void GenerateRandomBooks()
+        {
+            var mostPopularBooks = _bookBaseRepository.GetAll().Where(book => book.Downloads > 10000).ToList();
+
+            if (mostPopularBooks == null || mostPopularBooks.Count == 0) return;
+
+            Random randomBook = new Random();
+
+            for (int i = 0; i < 5; i++)
+            {
+                int rnd = randomBook.Next(mostPopularBooks.Count);
+                RandomBookList.Add(_mappingService.BookModelToViewModel(mostPopularBooks[rnd], mostPopularBooks[rnd].Author));
+            }
         }
 
         private void InterceptLoggedUserData()
