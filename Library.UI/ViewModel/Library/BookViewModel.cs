@@ -39,13 +39,13 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-        private int _quantity;
+        private int _copies;
         public int Copies
         {
-            get => _quantity;
+            get => _copies;
             set
             {
-                _quantity = value;
+                _copies = value;
                 OnPropertyChanged();
             }
         }
@@ -72,13 +72,13 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-        private float _rate;
-        public float Rate
+        private string _bookGrade;
+        public string BookGrade
         {
-            get => _rate;
+            get => _bookGrade;
             set 
             { 
-                _rate = value;
+                _bookGrade = value;
                 OnPropertyChanged();
             }
         }

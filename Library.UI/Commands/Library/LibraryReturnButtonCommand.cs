@@ -1,5 +1,4 @@
 ﻿using Library.UI.Command;
-using Library.UI.Service.Validation;
 using Library.UI.ViewModel;
 
 namespace Library.UI.Commands.Library
@@ -8,19 +7,15 @@ namespace Library.UI.Commands.Library
     {
         private readonly LibraryViewModel _libraryViewModel;
 
-        private readonly IElementVisibilityService _elementVisibilityService;
-
         public override void Execute(object parameter)
         {
-            bool areBookDetailsVisible = false;
-            _elementVisibilityService.AdjustBookDetailsVisibility(areBookDetailsVisible);
-            _libraryViewModel.AreBookDetailsVisible = _elementVisibilityService.AreBookDetailsVisible;
+            _libraryViewModel.AreBookDetailsVisible = false;
+            _libraryViewModel.SelectedBook = null;
         }
 
-        public LibraryReturnButtonCommand(LibraryViewModel libraryViewModel, IElementVisibilityService elementVisibilityService)
+        public LibraryReturnButtonCommand(LibraryViewModel libraryViewModel)
         {
             _libraryViewModel = libraryViewModel;
-            _elementVisibilityService = elementVisibilityService;
         }
     }
 }

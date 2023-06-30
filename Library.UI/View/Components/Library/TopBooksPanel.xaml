@@ -117,7 +117,7 @@
                     <AdornerDecorator Grid.Column="1"
                                       Margin="0 0 5 0">
                         <TextBox Style="{StaticResource searchBox}"
-                         Text="{Binding SearchBoxInput, UpdateSourceTrigger=PropertyChanged}">
+                                 Text="{Binding SearchBoxInput, UpdateSourceTrigger=PropertyChanged}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding FilterBooksCommand, UpdateSourceTrigger=PropertyChanged}"/>
@@ -168,6 +168,7 @@
                 <!--// listview //-->
                 <ListView ItemsSource="{Binding BookList, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValue="{Binding SelectedBook, UpdateSourceTrigger=PropertyChanged}"
+                          Focusable="False"
                           x:Name="booksListView"
                           TextBlock.Foreground="White">
                     <i:Interaction.Triggers>

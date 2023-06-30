@@ -152,12 +152,16 @@ namespace Library.UI.ViewModel
                 IsUserAuthenticated = isUserAuthenticated;
                 if (IsUserAuthenticated == true)
                 {
-                    _navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
-                       _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                       _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore);
+                    //_navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
+                    //   _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+                    //   _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore);
                 }
                 else return;
             };
+
+            _navigationStore.CurrentViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting,
+                    _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+                    _bookgradeBaseRepository, _gradeBaseRepository);
         }
 
         public void LogoutUser()
