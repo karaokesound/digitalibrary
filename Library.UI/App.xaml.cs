@@ -8,6 +8,7 @@ using Library.UI.Service.Data;
 using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Stores;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
 using Library.UI.ViewModel.Navigation;
@@ -61,6 +62,7 @@ namespace Library.UI
             services.AddTransient<NavigationPanelViewModel>();
 
             // interfaces //
+            services.AddSingleton<BooksStore>();
             services.AddSingleton<NavigationStore>();
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
             services.AddSingleton<IValidationService, ValidationService>();

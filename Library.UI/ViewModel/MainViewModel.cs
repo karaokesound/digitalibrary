@@ -5,6 +5,7 @@ using Library.UI.Service;
 using Library.UI.Service.Data;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Stores;
 using Library.UI.ViewModel.Navigation;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,6 +15,8 @@ namespace Library.UI.ViewModel
     public class MainViewModel : BaseViewModel
     {
         private readonly NavigationStore _navigationStore;
+
+        private readonly BooksStore _booksStore;
 
         public BaseViewModel SelectedViewModel => _navigationStore.CurrentViewModel;
 
@@ -97,13 +100,14 @@ namespace Library.UI.ViewModel
             IDataSorting dataSorting, IElementVisibilityService elementVisibilityService, IUserAuthenticationService userAuthenticationService,
             IValidationService validationService, IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository,
             IAccountBookRepository accountBookRepository, IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository,
-            NavigationStore navigationStore, NavigationPanelViewModel navigationPanelVM)
+            NavigationStore navigationStore, NavigationPanelViewModel navigationPanelVM, BooksStore booksStore)
         {
             ProfilePanelVM = profilePanelVM;
             SignUpPanelVM = signUpPanelVM;
             SignInPanelVM = signInPanelVM;
             LibraryVM = libraryVM;
             NavigationPanelVM = navigationPanelVM;
+            _booksStore = booksStore;
             _dataSeeder = dataSeeder;
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
@@ -120,6 +124,7 @@ namespace Library.UI.ViewModel
             ElementsVisibility();
             LoggingValidation();
             LogoutUser();
+
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 
@@ -161,7 +166,7 @@ namespace Library.UI.ViewModel
 
             _navigationStore.CurrentViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting,
                     _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                    _bookgradeBaseRepository, _gradeBaseRepository);
+                    _bookgradeBaseRepository, _gradeBaseRepository, _booksStore);
         }
 
         public void LogoutUser()

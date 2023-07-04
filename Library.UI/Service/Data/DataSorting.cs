@@ -1,7 +1,8 @@
-﻿using Library.Models.Model;
-using Library.UI.Model;
+﻿using Library.UI.Model;
 using Library.UI.Services;
+using Library.UI.Stores;
 using Library.UI.ViewModel.Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,21 +14,27 @@ namespace Library.UI.Service.Data
 
         private readonly IBaseRepository<AuthorModel> _authBaseRepository;
 
-        private readonly IBaseRepository<LanguageModel> _lngBaseRepository;
-
-        private readonly IBaseRepository<BookLanguageModel> _bookLanguageBaseRepository;
-
         private readonly SortingEnums _sortingEnums;
 
+        private readonly BooksStore _booksStore;
+
+        public List<BookModel> _currentBookList;
+
         public DataSorting(IBaseRepository<BookModel> bookBaseRepository, IBaseRepository<AuthorModel> authBaseRepository,
-            IBaseRepository<LanguageModel> lngBaseRepository, IBaseRepository<BookLanguageModel> bookLanguageBaseRepository,
-            SortingEnums sortingEnums)
+          SortingEnums sortingEnums, BooksStore booksStore)
         {
             _bookBaseRepository = bookBaseRepository;
             _authBaseRepository = authBaseRepository;
-            _lngBaseRepository = lngBaseRepository;
-            _bookLanguageBaseRepository = bookLanguageBaseRepository;
             _sortingEnums = sortingEnums;
+            _currentBookList = new List<BookModel>();
+            _booksStore = booksStore;
+
+            _booksStore.BookListChanged += OnBookListChanged;
+        }
+
+        private void OnBookListChanged(List<BookModel> list)
+        {
+            _currentBookList = list;
         }
 
         public List<BookModel> SortBooks(SortingEnums.SortingMethod selectedMethod, SortingEnums.BookQuantity selectedQuantity,
@@ -35,22 +42,21 @@ namespace Library.UI.Service.Data
         {
             List<BookModel> bookList = new List<BookModel>();
             List<AuthorModel> authorList = new List<AuthorModel>();
-            List<LanguageModel> languageList = new List<LanguageModel>();
-            List<BookLanguageModel> bookLanguageList = new List<BookLanguageModel>();
 
-            bookList = _bookBaseRepository.GetAll().ToList();
             authorList = _authBaseRepository.GetAll().ToList();
-            languageList = _lngBaseRepository.GetAll().ToList();
-            bookLanguageList = _bookLanguageBaseRepository.GetAll().ToList();
 
             if (selectedCategory == SortingEnums.Genre.NOT_SET)
             {
                 // If no category is selected, takes the default bookList which is defined above.
+                if (_currentBookList != null && _currentBookList.Count != 0) bookList = _currentBookList;
+                else bookList = _bookBaseRepository.GetAll().ToList();
             }
             else
             {
                 // If a category is selected, only take books with that category.
-                bookList = _bookBaseRepository.GetAll().Where(c => c.Category == string.Join(" ", selectedCategory.ToString().Split('_'))).ToList();
+                if (_currentBookList != null && _currentBookList.Count != 0) bookList = _currentBookList;
+                else bookList = _bookBaseRepository.GetAll().Where(c => c.Category == string.Join(" ", selectedCategory.ToString().Split('_'))).ToList();
+
             }
 
             if (selectedQuantity == SortingEnums.BookQuantity.NOT_SET)
@@ -79,7 +85,7 @@ namespace Library.UI.Service.Data
             }
             else if (selectedAlphabetical == SortingEnums.AlphabeticalSorting.Authors)
             {
-                bookList = bookList = bookList.OrderByDescending(b => b.Author.LastName != " ")
+                bookList = bookList.OrderByDescending(b => b.Author.LastName != " ")
                    .ThenBy(b => b.Author.LastName)
                    .ThenBy(b => b.Author.FirstName)
                    .Union(bookList.Where(b => b.Author.LastName == " "))
@@ -91,6 +97,7 @@ namespace Library.UI.Service.Data
                 bookList = bookList.OrderBy(b => b.Title).Take((int)selectedQuantity).ToList();
             }
 
+            _booksStore.CurrentBookList = bookList;
             return bookList;
         }
     }

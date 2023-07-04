@@ -6,6 +6,7 @@ using Library.UI.Service;
 using Library.UI.Service.Data;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Stores;
 using Library.UI.ViewModel.Library;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,17 @@ namespace Library.UI.ViewModel
             set
             {
                 _bookList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<BookModel> _filteredBookList;
+        public List<BookModel> FilteredBookList
+        {
+            get => _filteredBookList;
+            set
+            {
+                _filteredBookList = value;
                 OnPropertyChanged();
             }
         }
@@ -168,13 +180,15 @@ namespace Library.UI.ViewModel
 
         private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
 
+        private readonly BooksStore _booksStore;
+
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IDataSorting dataSorting, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
             IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
             IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository, 
-            IBaseRepository<GradeModel> gradeBaseRepository)
+            IBaseRepository<GradeModel> gradeBaseRepository, BooksStore booksStore)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
@@ -185,7 +199,9 @@ namespace Library.UI.ViewModel
             _elementVisibilityService = elementVisibilityService;
             _bookgradeBaseRepository = bookgradeBaseRepository;
             _gradeBaseRepository = gradeBaseRepository;
+            _booksStore = booksStore;
             _requestedBooks = new List<BookModel>();
+            FilteredBookList = new List<BookModel>();
             SortingEnums = new SortingEnums();
             BookList = new ObservableCollection<BookViewModel>();
             AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService, 
@@ -193,15 +209,22 @@ namespace Library.UI.ViewModel
             YesNoButtonCommand = new YesNoButtonCommand(this);
             BookDoubleClickCommand = new BookDoubleClickCommand(this);
             LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this);
-            FilterBooksCommand = new FilterBooksCommand(this, _bookBaseRepository, _elementVisibilityService);
+            SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums, _booksStore);
+            FilterBooksCommand = new FilterBooksCommand(this, _elementVisibilityService, _booksStore);
             RandomBookList = new ObservableCollection<BookViewModel>();
-            SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums);
             RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, 
                 _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
             GenerateRandomBooks();
             InterceptLoggedUserData();
             ShowBookGrade();
+
+            //_booksStore.BookListChanged += OnBookListChanged;
+        }
+
+        private void OnBookListChanged(List<BookModel> bookList)
+        {
+            //SortBooksCommand.Execute(bookList);
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)
@@ -210,10 +233,13 @@ namespace Library.UI.ViewModel
             BookCounter = 0;
             _bookCounter = 0;
 
+            if (sortedBookList == null) return;
+
             foreach (var sortedBook in sortedBookList)
             {
                 BookViewModel sortedBookVM = _mappingService.BookModelToViewModel(sortedBook, sortedBook.Author);
 
+                // Counter is to place book in order in a listview
                 _bookCounter++;
                 sortedBookVM.BookCounter = _bookCounter;
 
@@ -223,6 +249,7 @@ namespace Library.UI.ViewModel
 
         public void DisplayFilteredBooks(List<BookAccuracy> filteredBookList)
         {
+            FilteredBookList.Clear();
             BookList.Clear();
             BookCounter = 0;
             _bookCounter = 0;
@@ -243,7 +270,9 @@ namespace Library.UI.ViewModel
                 };
 
                 BookViewModel filteredBookVM = _mappingService.BookModelToViewModel(filteredBookModel, filteredBookModel.Author);
+                FilteredBookList.Add(filteredBookModel);
 
+                // Counter is to place book in order in a listview
                 _bookCounter++;
                 filteredBookVM.BookCounter = _bookCounter;
 

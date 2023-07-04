@@ -7,6 +7,7 @@ using Library.UI.Service.Data;
 using Library.UI.Service.Navigation;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Stores;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel.Navigation
@@ -51,14 +52,17 @@ namespace Library.UI.ViewModel.Navigation
 
         private readonly NavigationStore _navigationStore;
 
+        private readonly BooksStore _booksStore;
+
         public NavigationPanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
             IUserAuthenticationService userAuthenticationService, IValidationService validationService, IUserRepository userRepository,
             IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService,
             IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository, NavigationStore navigationStore,
-            LibraryViewModel libraryVM, ProfilePanelViewModel profilePanelVM)
+            LibraryViewModel libraryVM, ProfilePanelViewModel profilePanelVM, BooksStore booksStore)
         {
             LibraryVM = libraryVM;
             ProfilePanelVM = profilePanelVM;
+            _booksStore = booksStore;
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
             _dataSorting = dataSorting;
@@ -75,7 +79,7 @@ namespace Library.UI.ViewModel.Navigation
             NavigateLibraryCommand = new NavigateCommand<LibraryViewModel>(new NavigationService<LibraryViewModel>
                 (navigationStore, () => new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting,
                     _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                    _bookgradeBaseRepository, _gradeBaseRepository)));
+                    _bookgradeBaseRepository, _gradeBaseRepository, _booksStore)));
 
             NavigateProfileCommand = new NavigateCommand<ProfilePanelViewModel>(new NavigationService<ProfilePanelViewModel>(navigationStore,
                () => new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
