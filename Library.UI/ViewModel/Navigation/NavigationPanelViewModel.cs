@@ -3,7 +3,7 @@ using Library.Models.Model.many_to_many;
 using Library.UI.Commands.Navigation;
 using Library.UI.Model;
 using Library.UI.Service;
-using Library.UI.Service.Data;
+using Library.UI.Service.Library;
 using Library.UI.Service.Navigation;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
@@ -32,7 +32,7 @@ namespace Library.UI.ViewModel.Navigation
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataSorting;
+        private readonly IBookOperations _dataSorting;
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
@@ -52,13 +52,13 @@ namespace Library.UI.ViewModel.Navigation
 
         private readonly NavigationStore _navigationStore;
 
-        private readonly BooksStore _booksStore;
+        private readonly BookStore _booksStore;
 
-        public NavigationPanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
+        public NavigationPanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IBookOperations dataSorting,
             IUserAuthenticationService userAuthenticationService, IValidationService validationService, IUserRepository userRepository,
             IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService,
             IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository, NavigationStore navigationStore,
-            LibraryViewModel libraryVM, ProfilePanelViewModel profilePanelVM, BooksStore booksStore)
+            LibraryViewModel libraryVM, ProfilePanelViewModel profilePanelVM, BookStore booksStore)
         {
             LibraryVM = libraryVM;
             ProfilePanelVM = profilePanelVM;

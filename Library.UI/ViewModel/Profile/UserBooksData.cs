@@ -6,7 +6,6 @@ namespace Library.UI.ViewModel.Profile
     public class UserBooksData : BaseViewModel
     {
         public BookViewModel Book { get; set; }
-
         public AccountBookModel AccountBook { get; set; }
     }
 }

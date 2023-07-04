@@ -3,7 +3,7 @@ using Library.Models.Model.many_to_many;
 using Library.UI.Commands.Library;
 using Library.UI.Model;
 using Library.UI.Service;
-using Library.UI.Service.Data;
+using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.Stores;
@@ -166,7 +166,7 @@ namespace Library.UI.ViewModel
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataSorting;
+        private readonly IBookOperations _bookOperations;
 
         private readonly IUserAuthenticationService _userAuthService;
 
@@ -180,51 +180,45 @@ namespace Library.UI.ViewModel
 
         private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
 
-        private readonly BooksStore _booksStore;
+        private readonly BookStore _bookStore;
 
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IDataSorting dataSorting, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
+            IBookOperations bookOperations, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
             IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
             IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository, 
-            IBaseRepository<GradeModel> gradeBaseRepository, BooksStore booksStore)
+            IBaseRepository<GradeModel> gradeBaseRepository, BookStore bookStore)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
-            _dataSorting = dataSorting;
+            _bookOperations = bookOperations;
             _userAuthService = userAuthenticationService;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
             _elementVisibilityService = elementVisibilityService;
             _bookgradeBaseRepository = bookgradeBaseRepository;
             _gradeBaseRepository = gradeBaseRepository;
-            _booksStore = booksStore;
+            _bookStore = bookStore;
             _requestedBooks = new List<BookModel>();
+            BookList = new ObservableCollection<BookViewModel>();
             FilteredBookList = new List<BookModel>();
             SortingEnums = new SortingEnums();
-            BookList = new ObservableCollection<BookViewModel>();
             AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService, 
                 _gradeBaseRepository);
             YesNoButtonCommand = new YesNoButtonCommand(this);
             BookDoubleClickCommand = new BookDoubleClickCommand(this);
             LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this);
-            SortBooksCommand = new SortBooksCommand(this, _dataSorting, SortingEnums, _booksStore);
-            FilterBooksCommand = new FilterBooksCommand(this, _elementVisibilityService, _booksStore);
+            SortBooksCommand = new SortBooksCommand(this, _bookOperations, SortingEnums);
+            FilterBooksCommand = new FilterBooksCommand(this, _elementVisibilityService, _bookStore, _bookOperations);
             RandomBookList = new ObservableCollection<BookViewModel>();
-            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _dataSorting, _mappingService, 
+            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _bookOperations, _mappingService, 
                 _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
+
             GenerateRandomBooks();
             InterceptLoggedUserData();
             ShowBookGrade();
-
-            //_booksStore.BookListChanged += OnBookListChanged;
-        }
-
-        private void OnBookListChanged(List<BookModel> bookList)
-        {
-            //SortBooksCommand.Execute(bookList);
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)

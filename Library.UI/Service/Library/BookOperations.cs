@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Library.UI.Service.Data
+namespace Library.UI.Service.Library
 {
-    public class DataSorting : IDataSorting
+    public class BookOperations : IBookOperations
     {
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
@@ -16,45 +16,40 @@ namespace Library.UI.Service.Data
 
         private readonly SortingEnums _sortingEnums;
 
-        private readonly BooksStore _booksStore;
+        private readonly BookStore _booksStore;
 
         public List<BookModel> _currentBookList;
 
-        public DataSorting(IBaseRepository<BookModel> bookBaseRepository, IBaseRepository<AuthorModel> authBaseRepository,
-          SortingEnums sortingEnums, BooksStore booksStore)
+        public BookOperations(IBaseRepository<BookModel> bookBaseRepository, IBaseRepository<AuthorModel> authBaseRepository,
+          SortingEnums sortingEnums, BookStore booksStore)
         {
+            _currentBookList = new List<BookModel>();
             _bookBaseRepository = bookBaseRepository;
             _authBaseRepository = authBaseRepository;
             _sortingEnums = sortingEnums;
-            _currentBookList = new List<BookModel>();
+
             _booksStore = booksStore;
-
             _booksStore.BookListChanged += OnBookListChanged;
-        }
-
-        private void OnBookListChanged(List<BookModel> list)
-        {
-            _currentBookList = list;
         }
 
         public List<BookModel> SortBooks(SortingEnums.SortingMethod selectedMethod, SortingEnums.BookQuantity selectedQuantity,
             SortingEnums.Genre selectedCategory, SortingEnums.AlphabeticalSorting selectedAlphabetical)
         {
             List<BookModel> bookList = new List<BookModel>();
-            List<AuthorModel> authorList = new List<AuthorModel>();
 
+            List<AuthorModel> authorList = new List<AuthorModel>();
             authorList = _authBaseRepository.GetAll().ToList();
 
             if (selectedCategory == SortingEnums.Genre.NOT_SET)
             {
-                // If no category is selected, takes the default bookList which is defined above.
+                // If no category is selected
                 if (_currentBookList != null && _currentBookList.Count != 0) bookList = _currentBookList;
                 else bookList = _bookBaseRepository.GetAll().ToList();
             }
             else
             {
-                // If a category is selected, only take books with that category.
-                if (_currentBookList != null && _currentBookList.Count != 0) bookList = _currentBookList;
+                // If a category is selected
+                if (_currentBookList != null && _currentBookList.Count != 0) bookList = _currentBookList.Where(c => c.Category == string.Join(" ", selectedCategory.ToString().Split('_'))).ToList();
                 else bookList = _bookBaseRepository.GetAll().Where(c => c.Category == string.Join(" ", selectedCategory.ToString().Split('_'))).ToList();
 
             }
@@ -99,6 +94,31 @@ namespace Library.UI.Service.Data
 
             _booksStore.CurrentBookList = bookList;
             return bookList;
+        }
+
+        public List<BookAccuracy> FilterBooks(string searchBoxInput)
+        {
+            List<BookModel> matchingBooks = _booksStore.CurrentBookList.Where(b => b.Title.IndexOf(searchBoxInput, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+            List<BookAccuracy> filteredBookList = new List<BookAccuracy>();
+
+            foreach (BookModel book in matchingBooks)
+            {
+                string lowercaseTitle = book.Title.ToLower();
+
+                int index = lowercaseTitle.IndexOf(searchBoxInput, StringComparison.OrdinalIgnoreCase);
+
+                if (index >= 0)
+                {
+                    filteredBookList.Add(new BookAccuracy() { Book = book, Accuracy = index });
+                }
+            }
+
+            return filteredBookList;
+        }
+
+        private void OnBookListChanged(List<BookModel> list)
+        {
+            _currentBookList = list;
         }
     }
 }

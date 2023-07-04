@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Library.UI.Stores
 {
-    public class BooksStore
+    public class BookStore
     {
         public event Action<List<BookModel>> BookListChanged;
 
@@ -18,7 +18,7 @@ namespace Library.UI.Stores
             else BookListChanged?.Invoke(CurrentBookList);
         }
 
-        public BooksStore()
+        public BookStore()
         {
             CurrentBookList = new List<BookModel>();
             FilteredBookList = new List<BookModel>();

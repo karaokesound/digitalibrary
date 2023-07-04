@@ -3,7 +3,7 @@ using Library.Models.Model.many_to_many;
 using Library.UI.Commands.Profile;
 using Library.UI.Model;
 using Library.UI.Service;
-using Library.UI.Service.Data;
+using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel.Profile;
@@ -98,7 +98,7 @@ namespace Library.UI.ViewModel
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataSorting;
+        private readonly IBookOperations _dataSorting;
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
@@ -120,7 +120,7 @@ namespace Library.UI.ViewModel
 
         private List<BookModel> _requestedBooks;
 
-        public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IDataSorting dataSorting,
+        public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IBookOperations dataSorting,
             IUserAuthenticationService userAuthenticationService, IValidationService validationService, IUserRepository userRepository,
             IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService,
             IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository, NavigationStore navigationStore)

@@ -1,5 +1,6 @@
 ﻿using Library.UI.Command;
 using Library.UI.Model;
+using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Stores;
 using Library.UI.ViewModel;
@@ -16,14 +17,17 @@ namespace Library.UI.Commands.Library
 
         private readonly IElementVisibilityService _elementVisibilityService;
 
-        private readonly BooksStore _booksStore;
+        private readonly BookStore _booksStore;
+
+        private readonly IBookOperations _bookOperations;
 
         public FilterBooksCommand(LibraryViewModel libraryViewModel, IElementVisibilityService elementVisibilityService, 
-            BooksStore booksStore)
+            BookStore booksStore, IBookOperations bookOperations)
         {
             _libraryViewModel = libraryViewModel;
             _elementVisibilityService = elementVisibilityService;
             _booksStore = booksStore;
+            _bookOperations = bookOperations;
         }
 
         public override void Execute(object parameter)
@@ -31,36 +35,22 @@ namespace Library.UI.Commands.Library
             _libraryViewModel.BookList.Clear();
             _libraryViewModel.SelectedBook = _elementVisibilityService.SelectedBook;
 
-            string searchText = _libraryViewModel.SearchBoxInput;
-
-            if (string.IsNullOrEmpty(searchText) || string.IsNullOrWhiteSpace(searchText))
+            string searchBoxInput = _libraryViewModel.SearchBoxInput;
+            if (string.IsNullOrEmpty(searchBoxInput) || string.IsNullOrWhiteSpace(searchBoxInput))
             {
                 _libraryViewModel.DisplayBooks(_booksStore.CurrentBookList);
                 _booksStore.FilteredBookList.Clear();
                 return;
             }
 
-            List<BookModel> matchingBooks = _booksStore.CurrentBookList.Where(b => b.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
-            List<BookAccuracy> accurateBooks = new List<BookAccuracy>();
+            List<BookAccuracy> filteredBookList = _bookOperations.FilterBooks(searchBoxInput);
+            _libraryViewModel.DisplayFilteredBooks(filteredBookList);
 
-            foreach (BookModel book in matchingBooks)
+            // Refresh BookStore list
+            List<BookModel> filteredBookStoreList = new List<BookModel>();
+            foreach (BookAccuracy book in filteredBookList)
             {
-                string lowercaseTitle = book.Title.ToLower();
-
-                int index = lowercaseTitle.IndexOf(searchText, StringComparison.OrdinalIgnoreCase);
-
-                if (index >= 0)
-                {
-                    accurateBooks.Add(new BookAccuracy() { Book = book, Accuracy = index });
-                }
-            }
-            _libraryViewModel.DisplayFilteredBooks(accurateBooks);
-
-
-            List<BookModel> temporaryList = new List<BookModel>();
-            foreach (BookAccuracy book in accurateBooks)
-            {
-                BookModel tempBook = new BookModel()
+                BookModel bookModel = new BookModel()
                 {
                     BookId = book.Book.BookId,
                     Category = book.Book.Category,
@@ -74,10 +64,10 @@ namespace Library.UI.Commands.Library
                     IsRented = book.Book.IsRented,
                     AccountBooks = book.Book.AccountBooks
                 };
-                temporaryList.Add(tempBook);
+                filteredBookStoreList.Add(bookModel);
             }
-
-            _booksStore.FilteredBookList = temporaryList;
+            
+            _booksStore.FilteredBookList = filteredBookStoreList;
             _booksStore.OnBookListChanged();
         }
     }

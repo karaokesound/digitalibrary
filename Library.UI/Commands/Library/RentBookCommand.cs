@@ -2,7 +2,7 @@
 using Library.UI.Command;
 using Library.UI.Model;
 using Library.UI.Service;
-using Library.UI.Service.Data;
+using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.ViewModel;
@@ -18,7 +18,7 @@ namespace Library.UI.Commands.Library
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
-        private readonly IDataSorting _dataSorting;
+        private readonly IBookOperations _dataSorting;
 
         private readonly IMappingService _mappingService;
 
@@ -145,7 +145,7 @@ namespace Library.UI.Commands.Library
             _libraryViewModel.DisplayBooks(sortedBooks);
         }
 
-        public RentBookCommand(LibraryViewModel libraryViewModel, IBaseRepository<BookModel> bookBaseRepository, IDataSorting dataSorting,
+        public RentBookCommand(LibraryViewModel libraryViewModel, IBaseRepository<BookModel> bookBaseRepository, IBookOperations dataSorting,
             IMappingService mappingService, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
             IElementVisibilityService elementVisibilityService)
         {

@@ -1,7 +1,6 @@
 ﻿using Library.UI.Command;
 using Library.UI.Model;
-using Library.UI.Service.Data;
-using Library.UI.Stores;
+using Library.UI.Service.Library;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
 using System.Collections.Generic;
@@ -12,23 +11,19 @@ namespace Library.UI.Commands.Library
     {
         private readonly LibraryViewModel _libraryViewModel;
 
-        private readonly IDataSorting _dataSorting;
+        private readonly IBookOperations _dataSorting;
 
         private readonly SortingEnums _sortingEnums;
 
-        private readonly BooksStore _booksStore;
-
         public List<BookModel> CurrentBookList { get; set; }
 
-        public SortBooksCommand(LibraryViewModel libraryViewModel, IDataSorting dataSorting, SortingEnums sortingEnums,
-            BooksStore booksStore)
+        public SortBooksCommand(LibraryViewModel libraryViewModel, IBookOperations dataSorting, SortingEnums sortingEnums)
         {
             _libraryViewModel = libraryViewModel;
             _dataSorting = dataSorting;
             _sortingEnums = sortingEnums;
-            _booksStore = booksStore;
 
-            // shows books at the start of an application
+            // Shows books at the start of an application
             Execute(libraryViewModel);
         }
 
@@ -41,10 +36,7 @@ namespace Library.UI.Commands.Library
             {
                 _libraryViewModel.IsAzEnumSelected = true;
 
-                if (_libraryViewModel.SortingEnums.AlphabeticalSortingMethod == SortingEnums.AlphabeticalSorting.NOT_SET)
-                {
-                    return;
-                }
+                if (_libraryViewModel.SortingEnums.AlphabeticalSortingMethod == SortingEnums.AlphabeticalSorting.NOT_SET) return;
                 else
                 {
                     _libraryViewModel.DisplayBooks(_dataSorting.SortBooks(_sortingEnums.SortingMethods, _sortingEnums.Quantity,

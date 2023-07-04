@@ -2,11 +2,13 @@
 using Library.UI.ViewModel.Library;
 using System.Collections.Generic;
 
-namespace Library.UI.Service.Data
+namespace Library.UI.Service.Library
 {
-    public interface IDataSorting
+    public interface IBookOperations
     {
         List<BookModel> SortBooks(SortingEnums.SortingMethod selectedMethod, SortingEnums.BookQuantity selectedQuantity,
             SortingEnums.Genre selectedCategory, SortingEnums.AlphabeticalSorting selectedAlphabetical);
+
+        List<BookAccuracy> FilterBooks(string searchBoxInput);
     }
 }

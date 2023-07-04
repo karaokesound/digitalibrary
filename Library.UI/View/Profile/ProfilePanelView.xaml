@@ -185,7 +185,7 @@
                         Style="{StaticResource SmallProfileButton}"/>
         </Grid>
 
-        <!--<componentsprofile:ReturnPanel Grid.Column="1"
-                                       Visibility="{Binding IsReturnsPanelVisible, Converter={StaticResource booleanToVisibilityConverter}}"/>-->
+        <componentsprofile:ReturnPanel Grid.Column="1"
+                                       Visibility="{Binding IsReturnsPanelVisible, Converter={StaticResource booleanToVisibilityConverter}}"/>
     </Grid>
 </UserControl>

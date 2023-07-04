@@ -3,6 +3,7 @@ using Library.Models.Model.many_to_many;
 using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
+using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.Stores;
@@ -14,10 +15,6 @@ namespace Library.UI.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly NavigationStore _navigationStore;
-
-        private readonly BooksStore _booksStore;
-
         public BaseViewModel SelectedViewModel => _navigationStore.CurrentViewModel;
 
         private bool _isUserAuthenticated;
@@ -60,15 +57,10 @@ namespace Library.UI.ViewModel
         }
 
         public ProfilePanelViewModel ProfilePanelVM { get; }
-
         public SignUpPanelViewModel SignUpPanelVM { get; }
-
         public SignInPanelViewModel SignInPanelVM { get; }
-
         public LibraryViewModel LibraryVM { get; }
-
         public NavigationPanelViewModel NavigationPanelVM { get; }
-
         public ICommand NavigateLoginCommand { get; }
 
         private readonly IDataSeeder _dataSeeder;
@@ -77,7 +69,7 @@ namespace Library.UI.ViewModel
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataSorting;
+        private readonly IBookOperations _bookOperations;
 
         private readonly IElementVisibilityService _elementVisibilityService;
 
@@ -95,12 +87,16 @@ namespace Library.UI.ViewModel
 
         private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
 
+        private readonly NavigationStore _navigationStore;
+
+        private readonly BookStore _booksStore;
+
         public MainViewModel(ProfilePanelViewModel profilePanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
             LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IDataSorting dataSorting, IElementVisibilityService elementVisibilityService, IUserAuthenticationService userAuthenticationService,
+            IBookOperations bookOperations, IElementVisibilityService elementVisibilityService, IUserAuthenticationService userAuthenticationService,
             IValidationService validationService, IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository,
             IAccountBookRepository accountBookRepository, IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository,
-            NavigationStore navigationStore, NavigationPanelViewModel navigationPanelVM, BooksStore booksStore)
+            NavigationStore navigationStore, NavigationPanelViewModel navigationPanelVM, BookStore booksStore)
         {
             ProfilePanelVM = profilePanelVM;
             SignUpPanelVM = signUpPanelVM;
@@ -111,7 +107,7 @@ namespace Library.UI.ViewModel
             _dataSeeder = dataSeeder;
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
-            _dataSorting = dataSorting;
+            _bookOperations = bookOperations;
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
@@ -157,16 +153,16 @@ namespace Library.UI.ViewModel
                 IsUserAuthenticated = isUserAuthenticated;
                 if (IsUserAuthenticated == true)
                 {
-                    //_navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
-                    //   _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                    //   _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore);
+                    _navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _bookOperations, _userAuthenticationService,
+                       _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+                       _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore);
                 }
                 else return;
             };
 
-            _navigationStore.CurrentViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _dataSorting,
-                    _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                    _bookgradeBaseRepository, _gradeBaseRepository, _booksStore);
+            //_navigationStore.CurrentViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _bookOperations,
+            //        _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+            //        _bookgradeBaseRepository, _gradeBaseRepository, _booksStore);
         }
 
         public void LogoutUser()

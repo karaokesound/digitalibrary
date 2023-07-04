@@ -49,9 +49,11 @@ namespace Library.UI
 
         private void ConfigureServices(ServiceCollection services)
         {
+            // Db
             services.AddDbContext<LibraryDbContext>();
             services.AddHttpClient();
 
+            // ViewModels
             services.AddTransient<MainWindow>();
             services.AddSingleton<MainViewModel>();
             services.AddTransient<ProfilePanelViewModel>();
@@ -60,10 +62,10 @@ namespace Library.UI
             services.AddTransient<LibraryViewModel>();
             services.AddTransient<SortingEnums>();
             services.AddTransient<NavigationPanelViewModel>();
+            services.AddSingleton<BookStore>();
+            services.AddSingleton<NavigationStore>();
 
             // interfaces //
-            services.AddSingleton<BooksStore>();
-            services.AddSingleton<NavigationStore>();
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
             services.AddSingleton<IValidationService, ValidationService>();
             services.AddSingleton<IBaseRepository<AccountModel>, BaseRepository<AccountModel>>();
@@ -75,7 +77,7 @@ namespace Library.UI
             services.AddSingleton<IMappingService, MappingService>();
             services.AddSingleton<IBookApiService, BookApiService>();
             services.AddTransient<IDataSeeder, DataSeeder>();
-            services.AddTransient<IDataSorting, DataSorting>();
+            services.AddTransient<IBookOperations, BookOperations>();
             services.AddTransient<IElementVisibilityService, ElementVisibilityService>();
             services.AddTransient<IBaseRepository<AccountModel>, BaseRepository<AccountModel>>();
             services.AddTransient<IAccountBookRepository, AccountBookRepository>();
