@@ -1,6 +1,7 @@
 ﻿using Library.UI.Commands;
 using Library.UI.Model;
 using Library.UI.Service;
+using Library.UI.Service.SignUp;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using System.Collections.ObjectModel;
@@ -70,16 +71,19 @@ namespace Library.UI.ViewModel
 
         private readonly IElementVisibilityService _elementVisibilityService;
 
+        private readonly INotificationService _notificationService;
+
         public SignUpPanelViewModel(IValidationService validationService, IBaseRepository<AccountModel> baseRepository,
-            IElementVisibilityService elementVisibilityService)
+            IElementVisibilityService elementVisibilityService, INotificationService notificationService)
         {
             _validationService = validationService;
             _baseRepository = baseRepository;
             _elementVisibilityService = elementVisibilityService;
+            _notificationService = notificationService;
             SignUpButtonCommand = new SignUpButtonCommand(this, _elementVisibilityService);
             ExitButtonCommand = new ExitButtonCommand(this, _elementVisibilityService);
             RegisterCommand = new RegisterCommand(this, _validationService, _baseRepository);
-            NewAccount = new AccountViewModel(_validationService);
+            NewAccount = new AccountViewModel(_notificationService);
             LibraryList = new ObservableCollection<string>();
             _libraryList.Add("Vice ELibrary");
             _libraryList.Add("NightC -DLibrary");

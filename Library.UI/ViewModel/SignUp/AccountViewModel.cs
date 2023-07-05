@@ -1,5 +1,5 @@
 ﻿using Library.Models.Model;
-using Library.UI.Service;
+using Library.UI.Service.SignUp;
 using System;
 using System.Collections.Generic;
 
@@ -28,7 +28,7 @@ namespace Library.UI.ViewModel
                 OnPropertyChanged();
 
                 ClearErrors();
-                string notification = _validationService.UsernameErrorInfoValidation(_username);
+                string notification = _notificationService.UsernameErrorNotification(_username);
 
                 if (string.IsNullOrEmpty(_username))
                 {
@@ -58,7 +58,7 @@ namespace Library.UI.ViewModel
                 OnPropertyChanged();
 
                 ClearErrors();
-                string notification = _validationService.PasswordErrorInfoValidation(_password);
+                string notification = _notificationService.PasswordErrorNotification(_password);
 
                 if (string.IsNullOrEmpty(Password))
                 {
@@ -88,7 +88,7 @@ namespace Library.UI.ViewModel
                 OnPropertyChanged();
 
                 ClearErrors();
-                string notification = _validationService.OtherErrorInfoValidation(_firstName);
+                string notification = _notificationService.OtherErrorNotification(_firstName);
 
                 if (string.IsNullOrEmpty(_firstName))
                 {
@@ -118,7 +118,7 @@ namespace Library.UI.ViewModel
                 OnPropertyChanged();
 
                 ClearErrors();
-                string notification = _validationService.OtherErrorInfoValidation(_lastName);
+                string notification = _notificationService.OtherErrorNotification(_lastName);
 
                 if (string.IsNullOrEmpty(_lastName))
                 {
@@ -148,7 +148,7 @@ namespace Library.UI.ViewModel
                 OnPropertyChanged();
 
                 ClearErrors();
-                string notification = _validationService.EmailValidation(_email);
+                string notification = _notificationService.EmailErrorNotification(_email);
 
                 if (string.IsNullOrEmpty(_email))
                 {
@@ -175,7 +175,7 @@ namespace Library.UI.ViewModel
                 OnPropertyChanged();
 
                 ClearErrors();
-                string notification = _validationService.OtherErrorInfoValidation(_city);
+                string notification = _notificationService.OtherErrorNotification(_city);
 
                 if (string.IsNullOrEmpty(_city))
                 {
@@ -219,6 +219,9 @@ namespace Library.UI.ViewModel
 
 
         private ICollection<AccountBookModel> _accountBooks;
+
+        
+
         public ICollection<AccountBookModel> AccountBooks
         {
             get => _accountBooks;
@@ -229,11 +232,11 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private readonly IValidationService _validationService;
+        private readonly INotificationService _notificationService;
 
-        public AccountViewModel(IValidationService validationService)
+        public AccountViewModel(INotificationService notificationService)
         {
-            _validationService = validationService;
+            _notificationService = notificationService;
         }
     }
 }

@@ -6,6 +6,7 @@ using Library.UI.Service;
 using Library.UI.Service.API;
 using Library.UI.Service.Data;
 using Library.UI.Service.Library;
+using Library.UI.Service.SignUp;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using Library.UI.Stores;
@@ -83,6 +84,7 @@ namespace Library.UI
             services.AddTransient<IAccountBookRepository, AccountBookRepository>();
             services.AddSingleton<IBaseRepository<BookGradeModel>, BaseRepository<BookGradeModel>>();
             services.AddSingleton<IBaseRepository<GradeModel>, BaseRepository<GradeModel>>();
+            services.AddSingleton<INotificationService, NotificationService>();
         }
     }
 }

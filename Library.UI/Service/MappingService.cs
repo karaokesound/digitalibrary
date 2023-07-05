@@ -1,5 +1,6 @@
 ﻿using Library.UI.Model;
 using Library.UI.Service;
+using Library.UI.Service.SignUp;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
 
@@ -57,7 +58,7 @@ namespace Library.UI.Services
         // USER MAPPING SERVICE //
         public AccountViewModel UserModelToViewModel(AccountModel signUp)
         {
-            return new AccountViewModel(_validationService)
+            return new AccountViewModel(_notificationService)
             {
                 UserId = signUp.AccountId,
                 Username = signUp.Username,
@@ -85,11 +86,11 @@ namespace Library.UI.Services
             };
         }
 
-        private readonly IValidationService _validationService;
+        private readonly INotificationService _notificationService;
 
-        public MappingService(IValidationService validationService)
+        public MappingService(INotificationService notificationService)
         {
-            _validationService = validationService;
+            _notificationService = notificationService;
         }
     }
 }
