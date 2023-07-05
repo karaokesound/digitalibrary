@@ -12,16 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\Library\add%281%29.png" />
     <None Remove="Resources\Images\Library\add.png" />
-    <None Remove="Resources\Images\Library\book.png" />
-    <None Remove="Resources\Images\Library\exit.png" />
-    <None Remove="Resources\Images\Library\notebook.png" />
+    <None Remove="Resources\Images\Library\backright.png" />
     <None Remove="Resources\Images\Library\product-return.png" />
-    <None Remove="Resources\Images\Library\reserve%281%29.png" />
-    <None Remove="Resources\Images\Library\reserve.png" />
-    <None Remove="Resources\Images\Library\return%281%29.png" />
-    <None Remove="Resources\Images\Library\return%282%29.png" />
+    <None Remove="Resources\Images\Library\request.png" />
     <None Remove="Resources\Images\Library\star.png" />
     <None Remove="Resources\Images\Profile\account.png" />
     <None Remove="Resources\Images\Profile\back.png" />
@@ -40,34 +34,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Images\Library\add(1).png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Images\Library\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\Library\book.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\Library\exit.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\Library\notebook.png">
+    <Content Include="Resources\Images\Library\backright.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Library\product-return.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\Library\reserve(1).png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\Library\reserve.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\Library\return(1).png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\Library\return(2).png">
+    <Content Include="Resources\Images\Library\request.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Library\star.png">

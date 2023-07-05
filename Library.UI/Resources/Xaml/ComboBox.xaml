@@ -275,7 +275,7 @@
                    Placement="Bottom"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
                 <theme:SystemDropShadowChrome x:Name="shadow" 
-                                              Color="Transparent" 
+                                              Color="Black" 
                                               MinWidth="125" 
                                               MaxHeight="{TemplateBinding MaxDropDownHeight}">
 
@@ -298,7 +298,7 @@
                                                Fill="{Binding Background, ElementName=dropDownBorder}" 
                                                Height="{Binding ActualHeight, ElementName=dropDownBorder}"
                                                Width="{Binding ActualWidth, ElementName=dropDownBorder}"/>
-                                </Canvas>
+                                </Canvas> 
                                 <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                             </Grid>
                         </ScrollViewer>

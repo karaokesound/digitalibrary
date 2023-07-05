@@ -6,6 +6,7 @@ using Library.UI.Service;
 using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Stores;
 using Library.UI.ViewModel.Profile;
 using System;
 using System.Collections.Generic;

@@ -88,7 +88,7 @@
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Margin" Value="2 10 2 10" />
+                            <Setter Property="Margin" Value="5 10 2 10" />
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListViewItem">
@@ -115,8 +115,8 @@
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="350" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
 
                                 <!--// books //-->
@@ -134,8 +134,14 @@
                                 </StackPanel>
                                 
                                 <!--// return button //-->
-                                <Button Grid.Column="1"
-                                        Command="{Binding DataContext.ReturnBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                                <Grid Grid.Column="1">
+                                    <Image Source="/Resources/Images/Profile/return.png"
+                                           Height="30"
+                                           Width="50"/>
+                                    <Button Grid.Column="1"
+                                        Command="{Binding DataContext.ReturnBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                        Background="Transparent"/>
+                                </Grid>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

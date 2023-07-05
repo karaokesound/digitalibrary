@@ -180,9 +180,10 @@
                 <ControlTemplate>
                     <StackPanel>
                         <AdornedElementPlaceholder x:Name="placeholder" />
-                        <TextBlock Text="{Binding ElementName=placeholder, 
-                                Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
-                                   Margin="6 0 0 0"/>
+                        <TextBlock Text="{Binding ElementName=placeholder, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                                   Margin="5 0 0 0"
+                                   FontSize="12.5"
+                                   Foreground="OrangeRed"/>
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>

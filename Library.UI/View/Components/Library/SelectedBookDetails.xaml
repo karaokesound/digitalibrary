@@ -235,7 +235,7 @@
         <Grid Grid.Column="1"
               HorizontalAlignment="Right"
               Margin="0 20 10 0">
-            <Image Source="/Resources/Images/Library/exit.png"
+            <Image Source="/Resources/Images/Library/backright.png"
                    RenderOptions.BitmapScalingMode="Fant"
                    Width="27"
                    Height="27" />

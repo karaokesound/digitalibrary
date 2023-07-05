@@ -1,4 +1,5 @@
-﻿using Library.UI.ViewModel;
+﻿using Library.UI.Stores;
+using Library.UI.ViewModel;
 using System;
 
 namespace Library.UI.Service.Navigation
