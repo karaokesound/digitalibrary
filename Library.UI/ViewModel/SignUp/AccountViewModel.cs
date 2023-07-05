@@ -26,7 +26,9 @@ namespace Library.UI.ViewModel
             {
                 _username = value;
                 OnPropertyChanged();
-                bool validation = _validationService.LoginErrorInfoValidation(_username);
+
+                ClearErrors();
+                string notification = _validationService.UsernameErrorInfoValidation(_username);
 
                 if (string.IsNullOrEmpty(_username))
                 {
@@ -38,9 +40,9 @@ namespace Library.UI.ViewModel
                 {
                     AddError("Enter your username");
                 }
-                else if (validation == false)
+                else if (notification != string.Empty && notification != null)
                 {
-                    AddError("Incorrect username. Check requirements");
+                    AddError(notification);
                 }
                 else ClearErrors();
             }
@@ -54,7 +56,9 @@ namespace Library.UI.ViewModel
             {
                 _password = value;
                 OnPropertyChanged();
-                bool validation = _validationService.PasswordErrorInfoValidation(_password);
+
+                ClearErrors();
+                string notification = _validationService.PasswordErrorInfoValidation(_password);
 
                 if (string.IsNullOrEmpty(Password))
                 {
@@ -66,9 +70,9 @@ namespace Library.UI.ViewModel
                 {
                     AddError("Enter your password");
                 }
-                else if (Password.Length < 5 || validation == false)
+                else if (notification != null && notification != string.Empty)
                 {
-                    AddError("Incorrect password. Check requirements");
+                    AddError(notification);
                 }
                 else ClearErrors();
             }
@@ -82,7 +86,9 @@ namespace Library.UI.ViewModel
             {
                 _firstName = value;
                 OnPropertyChanged();
-                bool validation = _validationService.OtherErrorInfoValidation(_firstName);
+
+                ClearErrors();
+                string notification = _validationService.OtherErrorInfoValidation(_firstName);
 
                 if (string.IsNullOrEmpty(_firstName))
                 {
@@ -94,9 +100,9 @@ namespace Library.UI.ViewModel
                 {
                     AddError("Enter your first name");
                 }
-                else if (validation == false)
+                else if (notification != null && notification != string.Empty)
                 {
-                    AddError("Incorrect first name. Check requirements");
+                    AddError(notification);
                 }
                 else ClearErrors();
             }
@@ -110,7 +116,9 @@ namespace Library.UI.ViewModel
             {
                 _lastName = value;
                 OnPropertyChanged();
-                bool validation = _validationService.OtherErrorInfoValidation(_lastName);
+
+                ClearErrors();
+                string notification = _validationService.OtherErrorInfoValidation(_lastName);
 
                 if (string.IsNullOrEmpty(_lastName))
                 {
@@ -122,9 +130,9 @@ namespace Library.UI.ViewModel
                 {
                     AddError("Enter your last name");
                 }
-                else if (validation == false)
+                else if (notification != null && notification != string.Empty)
                 {
-                    AddError("Incorrect last name. Check requirements");
+                    AddError(notification);
                 }
                 else ClearErrors();
             }
@@ -138,7 +146,9 @@ namespace Library.UI.ViewModel
             {
                 _email = value;
                 OnPropertyChanged();
-                bool validation = _validationService.EmailValidation(_email);
+
+                ClearErrors();
+                string notification = _validationService.EmailValidation(_email);
 
                 if (string.IsNullOrEmpty(_email))
                 {
@@ -146,9 +156,10 @@ namespace Library.UI.ViewModel
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(_email) || validation == false)
+                
+                if (notification != null && notification != string.Empty)
                 {
-                    AddError("Incorrect email. Check requirements");
+                    AddError(notification);
                 }
                 else ClearErrors();
             }
@@ -163,7 +174,8 @@ namespace Library.UI.ViewModel
                 _city = value;
                 OnPropertyChanged();
 
-                bool validation = _validationService.OtherErrorInfoValidation(_city);
+                ClearErrors();
+                string notification = _validationService.OtherErrorInfoValidation(_city);
 
                 if (string.IsNullOrEmpty(_city))
                 {
@@ -175,9 +187,9 @@ namespace Library.UI.ViewModel
                 {
                     AddError("Enter your city");
                 }
-                else if (validation == false)
+                else if (notification != null && notification != string.Empty)
                 {
-                    AddError("Incorrect city name. Check requirements");
+                    AddError(notification);
                 }
                 else ClearErrors();
             }

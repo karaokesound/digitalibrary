@@ -2,6 +2,7 @@
 using Library.UI.Service;
 using Library.UI.ViewModel;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 
@@ -9,7 +10,9 @@ namespace Library.UI.Services
 {
     public class ValidationService : ValidationBaseViewModel, IValidationService
     {
-        public Regex usernameValidationRegex = new Regex(@"^[a-zA-Z0-9][a-zA-Z0-9]{1,8}[a-zA-Z0-9]$");
+        public string Notification { get; set; }
+
+        public Regex usernameValidationRegex = new Regex(@"^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{3,15}$");
         public Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]{0,23}[a-zA-Z]{1}$");
         public Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
         public Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");
@@ -17,8 +20,7 @@ namespace Library.UI.Services
         public bool SignUpValidation(AccountModel user)
         {
             if (string.IsNullOrEmpty(user.Username)
-                || !usernameValidationRegex.IsMatch(user.Username)
-                || user.Username.Length < 3)
+                || !usernameValidationRegex.IsMatch(user.Username))
             {
                 MessageBox.Show("Check that all fields are filled in correctly", "Sign Up");
                 return false;
@@ -65,7 +67,7 @@ namespace Library.UI.Services
         {
             bool isValid = true;
 
-            
+
             if (string.IsNullOrEmpty(loggingUser.Username) || string.IsNullOrEmpty(loggingUser.Password))
             {
                 MessageBox.Show("Enter your username and password", "Login");
@@ -93,24 +95,81 @@ namespace Library.UI.Services
             return isValid;
         }
 
-        public bool LoginErrorInfoValidation(string username)
+        public string UsernameErrorInfoValidation(string username)
         {
-            return usernameValidationRegex.IsMatch(username);
+            Regex unvalidSigns = new Regex(@"[!@#$%^&*(),.?""':{}|<>\[\]\s]");
+
+            if (username.Count() < 3)
+            {
+                Notification = "Username minimum 3 characters";
+            }
+            else if (username.Count() > 15)
+            {
+                Notification = "Username maximum 15 characters";
+            }
+            else if (username.Count() >= 3 && usernameValidationRegex.IsMatch(username) == false && unvalidSigns.IsMatch(username) == false)
+            {
+                Notification = "Minimum 1 digit";
+            }
+            else if (unvalidSigns.IsMatch(username) == true)
+            {
+                Notification = "Username must contain only letters and digits";
+            }
+            else Notification = "";
+
+            return Notification;
         }
 
-        public bool PasswordErrorInfoValidation(string password)
+        public string PasswordErrorInfoValidation(string password)
         {
-            return passwordValidationRegex.IsMatch(password);
+            string digitsPattern = @"[!@#$%^&*(),.?""':{}|<>\[\]\s]";
+            string specialCharsPattern = @"[^\w\s]";
+
+            if (password.Count() < 6)
+            {
+                Notification = "Password minimum 6 characters";
+            }
+            else if (password.Count() < 6 && !Regex.IsMatch(password, digitsPattern))
+            {
+                Notification = "Password must contain at least one digit";
+            }
+            else if (password.Count() < 6 && !Regex.IsMatch(password, specialCharsPattern))
+            {
+                Notification = "Password must contain at least one special mark";
+            }
+            else Notification = "";
+
+            return Notification;
         }
 
-        public bool EmailValidation(string email)
+        public string EmailValidation(string email)
         {
-            return emailValidationRegex.IsMatch(email);
+            if (!emailValidationRegex.IsMatch(email))
+            {
+                Notification = "This email doesn't exist. Check it and try again";
+            }
+            else Notification = "";
+
+            return Notification;
         }
 
-        public bool OtherErrorInfoValidation(string userData)
+        public string OtherErrorInfoValidation(string userInput)
         {
-            return firstLastNameCityValidationRegex.IsMatch(userData);
+            if (userInput.Count() < 2)
+            {
+                Notification = "You have to insert minimum 2 characters";
+            }
+            else if (userInput.Count() > 25)
+            {
+                Notification = "You can insert maximum 25 characters";
+            }
+            else if (userInput.Count() > 2 && userInput.Count() < 25 && !firstLastNameCityValidationRegex.IsMatch(userInput))
+            {
+                Notification = "You can insert only letters";
+            }
+            else Notification = "";
+
+            return Notification;
         }
     }
 }

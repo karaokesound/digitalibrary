@@ -88,7 +88,7 @@
 
                     <AdornerDecorator Grid.Column="1"
                                       Margin="0 0 5 3">
-                        <TextBox Text="{Binding NewAccount.Username}"
+                        <TextBox Text="{Binding NewAccount.Username, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"
@@ -132,7 +132,7 @@
                            RenderOptions.BitmapScalingMode="Fant" />
                     <components:BindablePasswordBox 
                         Grid.Column="1"
-                        Password="{Binding NewAccount.Password, Mode=TwoWay}"
+                        Password="{Binding NewAccount.Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         Margin="0 10 5 3"/>
                     <Image Grid.Column="2"
                            Height="15"
@@ -151,7 +151,7 @@
                     <AdornerDecorator Grid.Row="1"
                                       Grid.Column="1"
                                       Margin="0 10 5 3">
-                        <TextBox Text="{Binding NewAccount.FirstName}"
+                        <TextBox Text="{Binding NewAccount.FirstName, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"
@@ -180,7 +180,7 @@
                     <AdornerDecorator Grid.Row="2"
                                       Grid.Column="1"
                                       Margin="0 10 5 3">
-                        <TextBox Text="{Binding NewAccount.LastName}"
+                        <TextBox Text="{Binding NewAccount.LastName, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"
@@ -200,7 +200,7 @@
                     <AdornerDecorator Grid.Row="3"
                                       Grid.Column="1"
                                       Margin="0 10 5 3">
-                        <TextBox Text="{Binding NewAccount.Email}"
+                        <TextBox Text="{Binding NewAccount.Email, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"
@@ -229,7 +229,7 @@
                     <AdornerDecorator Grid.Row="4"
                                       Grid.Column="1"
                                       Margin="0 10 5 3">
-                        <TextBox Text="{Binding NewAccount.City}"
+                        <TextBox Text="{Binding NewAccount.City, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource signUpTextBox}">
                             <controls:WatermarkService.Watermark>
                                 <TextBlock VerticalAlignment="Center"

@@ -4,17 +4,18 @@ namespace Library.UI.Service
 {
     public interface IValidationService
     {
-        //amend test delete later//
+        string Notification { get; set; }
+
         public bool SignUpValidation(AccountModel user);
 
         public bool SignInValidation(AccountModel databaseUserModel, AccountModel user);
 
-        public bool LoginErrorInfoValidation(string username);
+        public string UsernameErrorInfoValidation(string username);
 
-        public bool PasswordErrorInfoValidation(string password);
+        public string PasswordErrorInfoValidation(string password);
 
-        public bool EmailValidation(string email);
+        public string EmailValidation(string email);
 
-        public bool OtherErrorInfoValidation(string userData);
+        public string OtherErrorInfoValidation(string userData);
     }
 }
