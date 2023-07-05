@@ -41,7 +41,6 @@
             </Border>
         <Border Grid.ColumnSpan="2"
                 Background="#052a4f"
-                Opacity="0.93"
                 CornerRadius="4 0 0 4" />
 
         <!--// LEFT SIDE //-->

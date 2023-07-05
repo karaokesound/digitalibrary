@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.AeroLite"
                     xmlns:resources="clr-namespace:Library.UI.Resources">
-    
+
     <!--// COMBOBOX //-->
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
@@ -275,7 +275,7 @@
                    Placement="Bottom"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
                 <theme:SystemDropShadowChrome x:Name="shadow" 
-                                              Color="Transparent" 
+                                              Color="Black" 
                                               MinWidth="125" 
                                               MaxHeight="{TemplateBinding MaxDropDownHeight}">
 

@@ -12,7 +12,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <!--// MAIN BACKGROUND //-->
         <Border Grid.RowSpan="2"
                 CornerRadius="0 4 4 0">
@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
             <!--// BOOKS RENTED //-->
             <Grid>
                 <Border Background="White"
@@ -185,7 +185,7 @@
                         Style="{StaticResource SmallProfileButton}"/>
         </Grid>
 
-        <componentsprofile:ReturnPanel Grid.Column="1"
+        <componentsprofile:ReturnPanel Grid.RowSpan="2"
                                        Visibility="{Binding IsReturnsPanelVisible, Converter={StaticResource booleanToVisibilityConverter}}"/>
     </Grid>
 </UserControl>

@@ -8,7 +8,7 @@ namespace Library.UI.Service.SignUp
         public string Notification { get; set; }
 
         public Regex usernameValidationRegex = new Regex(@"^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{3,15}$");
-        public Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]{0,23}[a-zA-Z]{1}$");
+        public Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]*[a-zA-Z]{1}$");
         public Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
         public Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");
 
@@ -26,7 +26,7 @@ namespace Library.UI.Service.SignUp
             }
             else if (username.Count() >= 3 && usernameValidationRegex.IsMatch(username) == false && unvalidSigns.IsMatch(username) == false)
             {
-                Notification = "Minimum 1 digit";
+                Notification = "Username minimum 1 digit";
             }
             else if (unvalidSigns.IsMatch(username) == true)
             {
@@ -39,18 +39,18 @@ namespace Library.UI.Service.SignUp
 
         public string PasswordErrorNotification(string password)
         {
-            string digitsPattern = @"[!@#$%^&*(),.?""':{}|<>\[\]\s]";
-            string specialCharsPattern = @"[^\w\s]";
+            string specialCharsPattern = @"[!@#$%^&*(),.?""':{}|<>\[\]\s]";
+            string digitsPattern = @"[^\w\s]";
 
             if (password.Count() < 6)
             {
                 Notification = "Password minimum 6 characters";
             }
-            else if (password.Count() < 6 && !Regex.IsMatch(password, digitsPattern))
+            else if (password.Count() < 6 && !Regex.IsMatch(password, specialCharsPattern))
             {
                 Notification = "Password must contain at least one digit";
             }
-            else if (password.Count() < 6 && !Regex.IsMatch(password, specialCharsPattern))
+            else if (password.Count() < 6 && !Regex.IsMatch(password, digitsPattern))
             {
                 Notification = "Password must contain at least one special mark";
             }
@@ -72,17 +72,19 @@ namespace Library.UI.Service.SignUp
 
         public string OtherErrorNotification(string userInput)
         {
-            if (userInput.Count() < 2)
+            string digitsPattern = @"\d";
+            
+            if (Regex.IsMatch(userInput, digitsPattern))
+            {
+                Notification = "You can insert only letters";
+            }
+            else if (userInput.Count() < 2)
             {
                 Notification = "You have to insert minimum 2 characters";
             }
             else if (userInput.Count() > 25)
             {
                 Notification = "You can insert maximum 25 characters";
-            }
-            else if (userInput.Count() > 2 && userInput.Count() < 25 && !firstLastNameCityValidationRegex.IsMatch(userInput))
-            {
-                Notification = "You can insert only letters";
             }
             else Notification = "";
 

@@ -51,7 +51,7 @@
                   Visibility="{Binding IsListViewVisible, Converter={StaticResource booleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                   VerticalAlignment="Top"
                   Width="500">
-                
+
                 <!--// background //-->
                 <Border Background="White"
                         Margin="0 15 0 0"
@@ -63,7 +63,7 @@
                           Margin="0 15 0 0"
                           TextBlock.Foreground="White"
                           TextBlock.FontSize="16">
-                    
+
                     <!--// listview template //-->
                     <ListView.Style>
                         <Style TargetType="ListView">
@@ -83,12 +83,12 @@
                             </Setter>
                         </Style>
                     </ListView.Style>
-                    
+
                     <!--// listview ITEM template //-->
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Margin" Value="2 10 2 10" />
+                            <Setter Property="Margin" Value="5 10 2 10" />
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListViewItem">
@@ -109,14 +109,14 @@
                             </Setter>
                         </Style>
                     </ListView.ItemContainerStyle>
-                    
+
                     <!--// listview items //-->
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="350" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
 
                                 <!--// books //-->
@@ -132,10 +132,16 @@
                                         <TextBlock Text=" copy" />
                                     </StackPanel>
                                 </StackPanel>
-                                
+
                                 <!--// return button //-->
-                                <Button Grid.Column="1"
-                                        Command="{Binding DataContext.ReturnBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                                <Grid Grid.Column="1">
+                                    <Image Source="/Resources/Images/Profile/return.png"
+                                           Height="30"
+                                           Width="50"/>
+                                    <Button Grid.Column="1"
+                                        Command="{Binding DataContext.ReturnBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                        Background="Transparent"/>
+                                </Grid>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

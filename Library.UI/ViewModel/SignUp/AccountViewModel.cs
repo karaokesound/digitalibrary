@@ -1,4 +1,5 @@
 ﻿using Library.Models.Model;
+using Library.UI.Components;
 using Library.UI.Service.SignUp;
 using System;
 using System.Collections.Generic;
@@ -58,15 +59,15 @@ namespace Library.UI.ViewModel
                 OnPropertyChanged();
 
                 ClearErrors();
-                string notification = _notificationService.PasswordErrorNotification(_password);
+                string notification = _notificationService.PasswordErrorNotification(_password.ToString());
 
-                if (string.IsNullOrEmpty(Password))
+                if (string.IsNullOrEmpty(Password.ToString()))
                 {
                     ClearErrors();
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(Password))
+                if (string.IsNullOrWhiteSpace(Password.ToString()))
                 {
                     AddError("Enter your password");
                 }
