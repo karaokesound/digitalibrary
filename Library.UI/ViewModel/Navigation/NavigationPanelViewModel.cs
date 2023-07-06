@@ -7,6 +7,7 @@ using Library.UI.Service.Library;
 using Library.UI.Service.Navigation;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Store;
 using Library.UI.Stores;
 using System.Windows.Input;
 

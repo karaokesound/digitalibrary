@@ -104,8 +104,8 @@ namespace Library.UI.ViewModel
         public bool AreBookDetailsVisible
         {
             get => _areBookDetailsVisible;
-            set 
-            { 
+            set
+            {
                 _areBookDetailsVisible = value;
                 OnPropertyChanged();
             }
@@ -115,8 +115,8 @@ namespace Library.UI.ViewModel
         public bool AreRatingStarsVisible
         {
             get => _areRatingStarsVisible;
-            set 
-            { 
+            set
+            {
                 _areRatingStarsVisible = value;
                 OnPropertyChanged();
             }
@@ -126,8 +126,8 @@ namespace Library.UI.ViewModel
         public bool IsBookGradeVisible
         {
             get => _isBookGradeVisible;
-            set 
-            { 
+            set
+            {
                 _isBookGradeVisible = value;
                 OnPropertyChanged();
             }
@@ -137,8 +137,8 @@ namespace Library.UI.ViewModel
         public bool IsAzEnumSelected
         {
             get => _isAzEnumSelected;
-            set 
-            { 
+            set
+            {
                 _isAzEnumSelected = value;
                 OnPropertyChanged();
             }
@@ -185,9 +185,9 @@ namespace Library.UI.ViewModel
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IBookOperations bookOperations, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
+            IBookOperations bookOperations, IUserAuthenticationService userAuthenticationService, IValidationService validationService,
             IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
-            IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository, 
+            IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository,
             IBaseRepository<GradeModel> gradeBaseRepository, BookStore bookStore)
         {
             _bookBaseRepository = bookBaseRepository;
@@ -204,7 +204,7 @@ namespace Library.UI.ViewModel
             BookList = new ObservableCollection<BookViewModel>();
             FilteredBookList = new List<BookModel>();
             SortingEnums = new SortingEnums();
-            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService, 
+            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService,
                 _gradeBaseRepository);
             YesNoButtonCommand = new YesNoButtonCommand(this);
             BookDoubleClickCommand = new BookDoubleClickCommand(this);
@@ -212,13 +212,24 @@ namespace Library.UI.ViewModel
             SortBooksCommand = new SortBooksCommand(this, _bookOperations, SortingEnums);
             FilterBooksCommand = new FilterBooksCommand(this, _elementVisibilityService, _bookStore, _bookOperations);
             RandomBookList = new ObservableCollection<BookViewModel>();
-            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _bookOperations, _mappingService, 
+            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _bookOperations, _mappingService,
                 _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
 
+            SetStartupBookList();
             GenerateRandomBooks();
             InterceptLoggedUserData();
             ShowBookGrade();
+        }
+
+        private void SetStartupBookList()
+        {
+            if (SearchBoxInput == null || SearchBoxInput.Length == 0)
+            {
+                _bookStore.CurrentBookList = _bookBaseRepository.GetAll().ToList();
+                //_bookStore.OnStartupBookListChanged();
+            }
+            else _bookStore.CurrentBookList = _bookStore.CurrentBookList;
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)

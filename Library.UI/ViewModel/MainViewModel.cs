@@ -6,6 +6,7 @@ using Library.UI.Service.Data;
 using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Store;
 using Library.UI.Stores;
 using Library.UI.ViewModel.Navigation;
 using System.Threading.Tasks;
@@ -89,21 +90,21 @@ namespace Library.UI.ViewModel
 
         private readonly NavigationStore _navigationStore;
 
-        private readonly BookStore _booksStore;
+        private readonly BookStore _bookStore;
 
         public MainViewModel(ProfilePanelViewModel profilePanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
             LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
             IBookOperations bookOperations, IElementVisibilityService elementVisibilityService, IUserAuthenticationService userAuthenticationService,
             IValidationService validationService, IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository,
             IAccountBookRepository accountBookRepository, IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository,
-            NavigationStore navigationStore, NavigationPanelViewModel navigationPanelVM, BookStore booksStore)
+            NavigationStore navigationStore, NavigationPanelViewModel navigationPanelVM, BookStore bookStore)
         {
             ProfilePanelVM = profilePanelVM;
             SignUpPanelVM = signUpPanelVM;
             SignInPanelVM = signInPanelVM;
             LibraryVM = libraryVM;
             NavigationPanelVM = navigationPanelVM;
-            _booksStore = booksStore;
+            _bookStore = bookStore;
             _dataSeeder = dataSeeder;
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
@@ -153,6 +154,9 @@ namespace Library.UI.ViewModel
                 IsUserAuthenticated = isUserAuthenticated;
                 if (IsUserAuthenticated == true)
                 {
+                    _navigationStore.CurrentViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _bookOperations,
+                            _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+                            _bookgradeBaseRepository, _gradeBaseRepository, _bookStore);
                     _navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _bookOperations, _userAuthenticationService,
                        _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
                        _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore);
@@ -171,7 +175,6 @@ namespace Library.UI.ViewModel
             {
                 IsUserAuthenticated = isUserLoggedOut;
             };
-            
         }
 
         private void OnCurrentViewModelChanged()
