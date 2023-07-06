@@ -23,8 +23,7 @@
             </Border.Background>
         </Border>
         <Border Grid.RowSpan="2"
-                Background="#052a4f"
-                Opacity="0.93" />
+                Background="#052a4f"/>
 
         <!--// ROW 1 //-->
         <Grid TextBlock.Foreground="White"

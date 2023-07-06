@@ -18,12 +18,13 @@
                 CornerRadius="4 0 0 4" />
         <Border CornerRadius="4 0 0 4">
             <Border.Background>
-                <ImageBrush ImageSource="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
-                            Stretch="UniformToFill" />
+                <ImageBrush ImageSource="https://c4.wallpaperflare.com/wallpaper/885/314/573/colorful-smoke-wallpaper-preview.jpg"
+                            Stretch="UniformToFill"
+                            RenderOptions.BitmapScalingMode="Fant"/>
             </Border.Background>
         </Border>
         <Border Background="#052a4f"
-                Opacity="0.9"
+                Opacity="0.25"
                 CornerRadius="4 0 0 4" />
 
 

@@ -19,8 +19,7 @@
             </Border.Background>
         </Border>
         <Border Grid.Column="1"
-                Background="#052a4f"
-                Opacity="0.93" />
+                Background="#052a4f"/>
 
         <!--// MAIN //-->
         <Grid Grid.Column="1">
