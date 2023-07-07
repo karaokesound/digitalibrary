@@ -159,9 +159,9 @@
                         BorderThickness="0.7"/>
                 <Border>
                     <Border.Background>
-                        <ImageBrush ImageSource="https://wallpaperaccess.com/full/221471.jpg"
+                        <ImageBrush ImageSource="https://c4.wallpaperflare.com/wallpaper/526/982/451/minimalism-simple-simple-background-abstract-wallpaper-preview.jpg"
                                     RenderOptions.BitmapScalingMode="Fant"
-                                    Opacity="0.1"/>
+                                    Opacity="0.03"/>
                     </Border.Background>
                 </Border>
 

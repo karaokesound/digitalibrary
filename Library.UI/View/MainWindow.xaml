@@ -35,12 +35,13 @@
                                   Color="#222225"/>
             </Border.Effect>
             <Border.Background>
-                <ImageBrush ImageSource="https://www.nicepng.com/png/detail/2-20943_drawing-bubble-underwater-vector-graphics.png"
+                <ImageBrush ImageSource="https://c4.wallpaperflare.com/wallpaper/25/81/104/digital-art-abstract-minimalism-black-wallpaper-preview.jpg"
                             RenderOptions.BitmapScalingMode="Fant"/>
             </Border.Background>
             </Border>
         <Border Grid.ColumnSpan="2"
                 Background="#052a4f"
+                Opacity="0.92"
                 CornerRadius="4 0 0 4" />
 
         <!--// LEFT SIDE //-->

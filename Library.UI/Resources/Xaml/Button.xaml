@@ -20,7 +20,7 @@
                             CornerRadius="7">
                         <ContentPresenter ContentSource="Content"
                                           TextBlock.Foreground="{TemplateBinding Foreground}"
-                                          TextBlock.FontSize="15"
+                                          TextBlock.FontSize="20"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"/>
                     </Border>
@@ -54,8 +54,8 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="True">
-                            <Setter Property="Width" Value="165" />
-                            <Setter Property="Height" Value="110" />
+                            <Setter Property="Width" Value="270" />
+                            <Setter Property="Height" Value="150" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

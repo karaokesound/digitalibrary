@@ -17,22 +17,19 @@
         </Grid.ColumnDefinitions>
 
         <!--// MAIN BACKGROUND //-->
-        <Border Grid.RowSpan="2"
-                Grid.ColumnSpan="2">
-            <Border.Background>
-                <ImageBrush ImageSource="https://i.pinimg.com/736x/78/be/5d/78be5dd68cde3f3616c7304c2b158a45.jpg"
-                            Stretch="UniformToFill" 
-                            RenderOptions.BitmapScalingMode="Fant"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.RowSpan="2"
-                Grid.ColumnSpan="2"
-                Background="#052a4f"
-                Opacity="0.9" />
+        <Border Grid.ColumnSpan="2"
+                Grid.RowSpan="2"
+                Background="White"
+                CornerRadius="0 4 4 0" />
+        <Border Grid.ColumnSpan="2"
+                Grid.RowSpan="2"
+                Opacity="0.97"
+                CornerRadius="0 4 4 0"
+                Background="#364f78"/>
 
         <!--// DETAILS TEXT, BOOK DETAILS //-->
         <Grid Grid.RowSpan="2"
-              Margin="10 20 10 25"
+              Margin="10 20 10 20"
               TextBlock.Foreground="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.7*" />
@@ -43,14 +40,17 @@
             <StackPanel>
                 <TextBlock Text="Details"
                            FontFamily="Titillium Web Semibold"
-                           FontSize="22" />
+                           FontSize="22"
+                           Margin="0 0 0 5"/>
                 <TextBlock Text="{Binding SelectedBook.Title, UpdateSourceTrigger=PropertyChanged}"
                            FontFamily="Titillium Web Semibold"
-                           FontSize="14"/>
+                           FontSize="16"/>
             </StackPanel>
 
             <!--// more details //-->
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="1"
+                        Margin="0 12 0 0"
+                        TextBlock.FontSize="13">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" SharedSizeGroup="caption" />
@@ -111,7 +111,7 @@
                     Grid.RowSpan="2"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
-                    Margin="15 58 0 0"
+                    Margin="15 64 0 0"
                     TextBlock.FontFamily="Tilillium Web Semibold"
                     TextBlock.Foreground="White"
                     Visibility="{Binding AreRatingStarsVisible, Converter={StaticResource booleanToVisibilityConverter}}">
@@ -213,23 +213,16 @@
         </StackPanel>
 
         <!--// BOOK GRADE //-->
-        <Grid Grid.Column="1"
-              Grid.Row="1"
-              VerticalAlignment="Center"
-              Margin="15 0 0 0">
-            <Border BorderBrush="White"
-                    BorderThickness="3"
-                    Opacity="0.65"
-                    CornerRadius="100"
-                    HorizontalAlignment="Left"
-                    Width="65"
-                    Height="65"/>
-            <StackPanel TextBlock.FontSize="30"
-                            TextBlock.Foreground="Orange"
-                            Orientation="Horizontal">
-                <TextBlock Text="{Binding SelectedBook.BookGrade, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-        </Grid>
+        <StackPanel Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    Margin="15 20 0 0"
+                    TextBlock.FontSize="25"
+                    TextBlock.Foreground="Orange">
+            <TextBlock Text="Rate"
+                       Visibility="{Binding AreRatingStarsVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+            <TextBlock Text="{Binding SelectedBook.BookGrade, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
 
         <!--// RETURN BUTTON //-->
         <Grid Grid.Column="1"

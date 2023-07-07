@@ -11,14 +11,11 @@
     <Grid>
         <!--// MAIN BACKGROUND //-->
         <Border Grid.Column="1"
-                CornerRadius="0 4 4 0">
-            <Border.Background>
-                <ImageBrush ImageSource="https://i.pinimg.com/736x/78/be/5d/78be5dd68cde3f3616c7304c2b158a45.jpg"
-                            Stretch="UniformToFill" 
-                            RenderOptions.BitmapScalingMode="Fant"/>
-            </Border.Background>
-        </Border>
+                Background="White"
+                CornerRadius="0 4 4 0" />
         <Border Grid.Column="1"
+                Opacity="0.97"
+                CornerRadius="0 4 4 0"
                 Background="#052a4f"/>
 
         <!--// MAIN //-->
@@ -39,7 +36,7 @@
             <!--// TOP BOOKS - PANEL //-->
             <components:TopBooksPanel 
                 Grid.Row="1"
-                Margin="10 10 10 20" />
+                Margin="10 15 10 0" />
         </Grid>
     </Grid>
 </UserControl>

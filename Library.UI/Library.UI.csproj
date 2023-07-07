@@ -18,7 +18,10 @@
     <None Remove="Resources\Images\Library\star.png" />
     <None Remove="Resources\Images\Profile\account.png" />
     <None Remove="Resources\Images\Profile\back.png" />
+    <None Remove="Resources\Images\Profile\empty-folder.png" />
+    <None Remove="Resources\Images\Profile\office.png" />
     <None Remove="Resources\Images\Profile\return.png" />
+    <None Remove="Resources\Images\Profile\thought.png" />
     <None Remove="Resources\Images\search.png" />
     <None Remove="Resources\info.png" />
     <None Remove="Resources\location.png" />
@@ -48,7 +51,16 @@
     <Content Include="Resources\Images\Profile\back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\Profile\empty-folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Profile\office.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\Profile\return.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Profile\thought.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\SignUp\location.png">

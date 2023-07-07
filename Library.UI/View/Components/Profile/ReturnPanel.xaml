@@ -12,27 +12,32 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
         <!--// MAIN BACKGROUND //-->
-        <Border Grid.RowSpan="2">
-            <Border.Background>
-                <ImageBrush ImageSource="https://i.pinimg.com/736x/78/be/5d/78be5dd68cde3f3616c7304c2b158a45.jpg"
-                            Stretch="UniformToFill" 
-                            RenderOptions.BitmapScalingMode="Fant"/>
-            </Border.Background>
-        </Border>
         <Border Grid.RowSpan="2"
-                Background="#052a4f"
-                Opacity="0.9" />
+                Grid.ColumnSpan="2"
+                Background="White"
+                CornerRadius="0 4 4 0" />
+        <Border Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Opacity="0.97"
+                CornerRadius="0 4 4 0"
+                Background="#052a4f"/>
 
         <!--// MAIN //-->
-        <Grid Margin="20">
+        <Grid Margin="10 20 10 20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <!--// MANAGE TEXT //-->
             <StackPanel>
-                <TextBlock Text="Returns"
+                <TextBlock Text="Manage"
                            Foreground="White"
                            FontSize="30"
                            HorizontalAlignment="Left"
@@ -47,22 +52,62 @@
 
             <!--// LISTVIEW //-->
             <Grid Grid.Row="1"
-                  HorizontalAlignment="Left"
                   Visibility="{Binding IsListViewVisible, Converter={StaticResource booleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                  VerticalAlignment="Top"
-                  Width="500">
+                  Margin="0 20 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Rented books"
+                           FontWeight="Bold"
+                           FontSize="22"
+                           Foreground="White" />
+                <StackPanel Grid.Row="1">
+                    <Grid>
+                        <Border Grid.Row="1"
+                        BorderBrush="White"
+                        BorderThickness="10"
+                        Opacity="0.15"
+                        CornerRadius="80"
+                        VerticalAlignment="Top"
+                        Height="160"
+                        Width="160" />
+                        <Image Grid.Row="1"
+                       Source="/Resources/Images/Profile/empty-folder.png"
+                       RenderOptions.BitmapScalingMode="Fant"
+                       Height="130"
+                       Width="130"
+                       Margin="0 12 0 0"
+                       VerticalAlignment="Top"
+                       Opacity="0.4"/>
+                    </Grid>
+                    <TextBlock Text="You can rent 5 more books yet. Go to Library to do this."
+                               Foreground="White"
+                               FontSize="13.5"
+                               Margin="0 40 0 0"/>
+                </StackPanel>
+               
 
                 <!--// background //-->
-                <Border Background="White"
-                        Margin="0 15 0 0"
+                <Border Grid.Row="1"
+                        Background="White"
                         Opacity="0.03"
-                        CornerRadius="7"/>
-                <ListView ItemsSource="{Binding UserRentedBooks}" 
+                        Visibility="Hidden"
+                        HorizontalAlignment="Left"
+                        CornerRadius="7"
+                        Margin="0 15 0 0"/>
+                <ListView Grid.Row="1"
+                          ItemsSource="{Binding UserRentedBooks}" 
                           SelectedValue="{Binding SelectedBook, UpdateSourceTrigger=PropertyChanged}"
+                          Visibility="Hidden"
                           Background="Transparent"
-                          Margin="0 15 0 0"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Margin="0 45 0 0"
+                          Width="380"
                           TextBlock.Foreground="White"
-                          TextBlock.FontSize="16">
+                          TextBlock.FontSize="15">
 
                     <!--// listview template //-->
                     <ListView.Style>
@@ -136,11 +181,12 @@
                                 <!--// return button //-->
                                 <Grid Grid.Column="1">
                                     <Image Source="/Resources/Images/Profile/return.png"
-                                           Height="30"
-                                           Width="50"/>
+                                           Width="30"/>
                                     <Button Grid.Column="1"
                                         Command="{Binding DataContext.ReturnBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
-                                        Background="Transparent"/>
+                                        Background="Transparent"
+                                            Width="30"
+                                            Height="30"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
@@ -149,10 +195,61 @@
             </Grid>
         </Grid>
 
+        <Grid Grid.Column="1"
+              Margin="10 20 10 20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <TextBlock Text="Your requests"
+                       FontWeight="Bold"
+                       FontSize="22"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       Margin="0 45 0 0"/>
+            
+            <StackPanel Grid.Row="1">
+                <Grid>
+                    <Border Grid.Row="1"
+                    BorderBrush="White"
+                    BorderThickness="10"
+                    Opacity="0.15"
+                    CornerRadius="80"
+                    VerticalAlignment="Top"
+                    Height="160"
+                    Width="160" />
+
+
+                   
+                    <Image Grid.Row="1"
+                Source="/Resources/Images/Profile/empty-folder.png"
+                   RenderOptions.BitmapScalingMode="Fant"
+                   Height="130"
+                   Width="130"
+                   Margin="0 13 0 0"
+                   VerticalAlignment="Top"
+                   Opacity="0.7"/>
+                </Grid>
+                <Grid>
+                    <Image Source="/Resources/Images/Profile/thought.png"
+                           Width="50"
+                           HorizontalAlignment="Left"
+                           Margin="20 0 0 20"/>
+                    <TextBlock Text="Go to Library and make a reservation for your awaited book."
+                               Foreground="White"
+                               FontSize="13.5"
+                               Margin="0 40 0 0"/>
+                </Grid>
+                
+            </StackPanel>
+        </Grid>
+
+
         <!--// RETURN BUTTON //-->
         <Grid Grid.Row="1"
               HorizontalAlignment="Left"
-              Margin="20">
+              Margin="10 10 10 10">
             <Image Source="/Resources/Images/Profile/back.png"
                    RenderOptions.BitmapScalingMode="Fant"
                    Width="30" />
