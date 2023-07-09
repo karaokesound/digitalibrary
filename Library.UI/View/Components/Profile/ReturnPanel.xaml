@@ -17,6 +17,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+       
+
         <!--// MAIN BACKGROUND //-->
         <Border Grid.RowSpan="2"
                 Grid.ColumnSpan="2"
@@ -27,6 +29,8 @@
                 Opacity="0.97"
                 CornerRadius="0 4 4 0"
                 Background="#052a4f"/>
+
+
 
         <!--// MAIN //-->
         <Grid Margin="10 20 10 20">
@@ -63,29 +67,51 @@
                            FontWeight="Bold"
                            FontSize="22"
                            Foreground="White" />
+
+                <Border Grid.Row="1"
+                        Opacity="0.1"
+                        CornerRadius="10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFFFFF" Offset="0"/>
+                            <GradientStop Color="#052a4f" Offset="1"/>
+                            </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
                 <StackPanel Grid.Row="1">
                     <Grid>
-                        <Border Grid.Row="1"
-                        BorderBrush="White"
-                        BorderThickness="10"
-                        Opacity="0.15"
-                        CornerRadius="80"
-                        VerticalAlignment="Top"
-                        Height="160"
-                        Width="160" />
+                        <Image Source="/Resources/Images/Profile/thinking(1).png"
+                               Width="125"
+                               Opacity="0.7"
+                               HorizontalAlignment="Left"
+                               Margin="45 10 45 0"/>
                         <Image Grid.Row="1"
-                       Source="/Resources/Images/Profile/empty-folder.png"
+                       Source="/Resources/Images/Profile/open-book.png"
                        RenderOptions.BitmapScalingMode="Fant"
                        Height="130"
                        Width="130"
-                       Margin="0 12 0 0"
+                       Margin="130 10 0 0"
+                               HorizontalAlignment="Center"
                        VerticalAlignment="Top"
-                       Opacity="0.4"/>
+                       Opacity="0.9"/>
                     </Grid>
-                    <TextBlock Text="You can rent 5 more books yet. Go to Library to do this."
+                    <Grid>
+                        <StackPanel>
+                            <Grid>
+                                <Border Height="25"
+                                Width="215"
+                                Opacity="0.3"
+                                HorizontalAlignment="Left"
+                                Background="White"
+                                Margin="0 55 0 0"/>
+                                <TextBlock Text="Go to Library to rent books."
                                Foreground="White"
-                               FontSize="13.5"
-                               Margin="0 40 0 0"/>
+                                           FontWeight="Bold"
+                               FontSize="18"
+                               Margin="0 55 0 0"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
                
 
@@ -208,40 +234,54 @@
                        Foreground="White"
                        VerticalAlignment="Center"
                        Margin="0 45 0 0"/>
-            
+
+            <Border Grid.Row="1"
+                        Opacity="0.1"
+                        CornerRadius="10">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#FFFFFF" Offset="0"/>
+                        <GradientStop Color="#052a4f" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
             <StackPanel Grid.Row="1">
+              
                 <Grid>
-                    <Border Grid.Row="1"
-                    BorderBrush="White"
-                    BorderThickness="10"
-                    Opacity="0.15"
-                    CornerRadius="80"
-                    VerticalAlignment="Top"
-                    Height="160"
-                    Width="160" />
-
-
-                   
+                    <Image Source="/Resources/Images/Profile/unknown.png"
+                               Width="120"
+                               Opacity="0.7"
+                               HorizontalAlignment="Left"
+                               Margin="75 15 45 0"/>
                     <Image Grid.Row="1"
-                Source="/Resources/Images/Profile/empty-folder.png"
-                   RenderOptions.BitmapScalingMode="Fant"
-                   Height="130"
-                   Width="130"
-                   Margin="0 13 0 0"
-                   VerticalAlignment="Top"
-                   Opacity="0.7"/>
+                       Source="/Resources/Images/Profile/open-book.png"
+                       RenderOptions.BitmapScalingMode="Fant"
+                       Height="130"
+                       Width="130"
+                       Margin="130 10 0 0"
+                               HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Opacity="0.9"/>
                 </Grid>
                 <Grid>
-                    <Image Source="/Resources/Images/Profile/thought.png"
-                           Width="50"
-                           HorizontalAlignment="Left"
-                           Margin="20 0 0 20"/>
-                    <TextBlock Text="Go to Library and make a reservation for your awaited book."
+                    <StackPanel>
+                        <Grid>
+                            <Border Height="25"
+                                Width="340"
+                                Opacity="0.3"
+                                HorizontalAlignment="Left"
+                                Background="White"
+                                    CornerRadius="5"
+                                Margin="0 55 0 0"/>
+                            <TextBlock Text="Your reserved books will be displayed here."
                                Foreground="White"
-                               FontSize="13.5"
-                               Margin="0 40 0 0"/>
+                                           FontWeight="Bold"
+                               FontSize="18"
+                               Margin="0 55 0 0"/>
+                        </Grid>
+                    </StackPanel>
                 </Grid>
-                
+
             </StackPanel>
         </Grid>
 

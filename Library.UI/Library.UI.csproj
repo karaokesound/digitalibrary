@@ -20,8 +20,13 @@
     <None Remove="Resources\Images\Profile\back.png" />
     <None Remove="Resources\Images\Profile\empty-folder.png" />
     <None Remove="Resources\Images\Profile\office.png" />
+    <None Remove="Resources\Images\Profile\open-book.png" />
     <None Remove="Resources\Images\Profile\return.png" />
+    <None Remove="Resources\Images\Profile\thinking%281%29.png" />
+    <None Remove="Resources\Images\Profile\thinking.png" />
     <None Remove="Resources\Images\Profile\thought.png" />
+    <None Remove="Resources\Images\Profile\unknown.png" />
+    <None Remove="Resources\Images\Profile\user.png" />
     <None Remove="Resources\Images\search.png" />
     <None Remove="Resources\info.png" />
     <None Remove="Resources\location.png" />
@@ -57,10 +62,25 @@
     <Content Include="Resources\Images\Profile\office.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\Profile\open-book.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\Profile\return.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\Profile\thinking(1).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Profile\thinking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\Profile\thought.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Profile\unknown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Profile\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\SignUp\location.png">
