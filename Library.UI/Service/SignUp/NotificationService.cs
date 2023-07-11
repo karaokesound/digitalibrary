@@ -9,7 +9,6 @@ namespace Library.UI.Service.SignUp
 
         public string digitsSpecialCharsPattern = @"^(?=.*[\s\d\p{P}])|.*[\.]$";
         public string specialCharsPattern = @"[\p{P}\p{S}\s]";
-
         public Regex usernameValidationRegex = new Regex(@"^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{3,15}$");
         public Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]*[a-zA-Z]{1}$");
         public Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
@@ -39,10 +38,13 @@ namespace Library.UI.Service.SignUp
             string specialCharsPattern = @"[!@#$%^&*(),.?""':{}|<>\[\]\s]";
             string digitsPattern = @"[^\w\s]";
             string lettersPattern = @"[a-zA-Z]";
+            string spacesPattern = @"\s+";
 
-
-
-            if (!Regex.IsMatch(password, specialCharsPattern))
+            if (Regex.IsMatch(password, spacesPattern))
+            {
+                Notification = "Wrong password";
+            }
+            else if (!Regex.IsMatch(password, specialCharsPattern))
             {
                 Notification = "Password must contain at least one digit";
             }
