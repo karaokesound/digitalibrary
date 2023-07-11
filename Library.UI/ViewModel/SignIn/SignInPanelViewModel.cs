@@ -3,6 +3,7 @@ using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.SignUp;
 using Library.UI.Services;
+using Library.UI.Stores;
 using System.Windows.Input;
 
 namespace Library.UI.ViewModel
@@ -48,6 +49,8 @@ namespace Library.UI.ViewModel
 
         public ICommand LoginCommand { get; }
 
+        public BookStore BookStore { get; set; }
+
         private readonly IUserAuthenticationService _userAuthenticationService;
 
         private readonly IValidationService _validationService;
@@ -60,9 +63,11 @@ namespace Library.UI.ViewModel
 
         private readonly INotificationService _notificationService;
 
+        private readonly AccountViewModel _accountVM;
+
         public SignInPanelViewModel(IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
             IUserRepository userRepository, IMappingService mappingService, IBaseRepository<BookModel> bookBaseRepository,
-            INotificationService notificationService)
+            INotificationService notificationService, AccountViewModel accountVM)
         {
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
@@ -70,9 +75,11 @@ namespace Library.UI.ViewModel
             _mappingService = mappingService;
             _bookBaseRepository = bookBaseRepository;
             _notificationService = notificationService;
+            _accountVM = accountVM;
+            BookStore = new BookStore(this, _bookBaseRepository);
             LoggingUsernamePassword = new AccountViewModel(_notificationService);
             LoginCommand = new LoginCommand(this, _userAuthenticationService, _validationService, _userRepository, _mappingService,
-                _bookBaseRepository);
+                _bookBaseRepository, _accountVM);
         }
 
         public void RaiseUserAuthEvent() => UserAuthenticationChanged?.Invoke(_userAuthenticationService.IsUserAuthenticated);

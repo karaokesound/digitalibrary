@@ -9,7 +9,7 @@ namespace Library.UI.Services
 {
     public class ValidationService : ValidationBaseViewModel, IValidationService
     {
-        public Regex usernameValidationRegex = new Regex(@"^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{3,15}$");
+        public Regex usernameValidationRegex = new Regex(@"^(?=.*[a-zA-Z])[a-zA-Z\d]{3,15}$");
         public Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]{0,23}[a-zA-Z]{1}$");
         public Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
         public Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");

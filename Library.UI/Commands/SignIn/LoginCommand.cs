@@ -21,6 +21,8 @@ namespace Library.UI.Commands.SignIn
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
+        private readonly AccountViewModel _accountVM;
+
         public override void Execute(object parameter)
         {
             AccountViewModel loggingUserVM = _signInPanelVM.LoggingUsernamePassword;
@@ -40,12 +42,15 @@ namespace Library.UI.Commands.SignIn
                 dbUser.Password, dbUser, requestedBooks);
             _signInPanelVM.RaiseUserAuthEvent();
 
-            _signInPanelVM.ErasePasswordBox();
+            _accountVM.Username = string.Empty;
+            _accountVM.Password = string.Empty;
+            _signInPanelVM.LoggingUsernamePassword.Username = string.Empty;
+            _signInPanelVM.LoggingUsernamePassword.Password = string.Empty;
         }
 
         public LoginCommand(SignInPanelViewModel signInPanelVM, IUserAuthenticationService userAuthenticationService,
             IValidationService validationService, IUserRepository userRepository, IMappingService mappingService, 
-            IBaseRepository<BookModel> bookBaseRepository)
+            IBaseRepository<BookModel> bookBaseRepository, AccountViewModel accountVM)
         {
             _signInPanelVM = signInPanelVM;
             _userAuthenticationService = userAuthenticationService;
@@ -53,6 +58,7 @@ namespace Library.UI.Commands.SignIn
             _userRepository = userRepository;
             _mappingService = mappingService;
             _bookBaseRepository = bookBaseRepository;
+            _accountVM = accountVM;
         }
     }
 }

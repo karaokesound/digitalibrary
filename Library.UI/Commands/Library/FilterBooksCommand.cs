@@ -17,17 +17,17 @@ namespace Library.UI.Commands.Library
 
         private readonly IElementVisibilityService _elementVisibilityService;
 
-        private readonly BookStore _booksStore;
+        private readonly BookStore _bookStore;
 
         private readonly IBookOperations _bookOperations;
 
         public FilterBooksCommand(LibraryViewModel libraryViewModel, IElementVisibilityService elementVisibilityService, 
-            BookStore booksStore, IBookOperations bookOperations)
+            BookStore bookStore, IBookOperations bookOperations)
         {
             _libraryViewModel = libraryViewModel;
             _elementVisibilityService = elementVisibilityService;
-            _booksStore = booksStore;
             _bookOperations = bookOperations;
+            _bookStore = bookStore;
         }
 
         public override void Execute(object parameter)
@@ -38,8 +38,8 @@ namespace Library.UI.Commands.Library
             string searchBoxInput = _libraryViewModel.SearchBoxInput;
             if (string.IsNullOrEmpty(searchBoxInput) || string.IsNullOrWhiteSpace(searchBoxInput))
             {
-                _libraryViewModel.DisplayBooks(_booksStore.CurrentBookList);
-                _booksStore.FilteredBookList.Clear();
+                _libraryViewModel.DisplayBooks(_bookStore.CurrentBookList);
+                _bookStore.FilteredBookList.Clear();
                 return;
             }
 
@@ -67,8 +67,8 @@ namespace Library.UI.Commands.Library
                 filteredBookStoreList.Add(bookModel);
             }
             
-            _booksStore.FilteredBookList = filteredBookStoreList;
-            _booksStore.OnBookListChanged();
+            _bookStore.FilteredBookList = filteredBookStoreList;
+            _bookStore.OnBookListChanged();
         }
     }
 }

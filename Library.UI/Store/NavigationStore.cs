@@ -1,7 +1,7 @@
 ﻿using Library.UI.ViewModel;
 using System;
 
-namespace Library.UI
+namespace Library.UI.Store
 {
     public class NavigationStore : BaseViewModel
     {

@@ -9,11 +9,13 @@ using Library.UI.Service.Library;
 using Library.UI.Service.SignUp;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Store;
 using Library.UI.Stores;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
 using Library.UI.ViewModel.Navigation;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Library.UI
@@ -24,6 +26,8 @@ namespace Library.UI
 
         protected async override void OnStartup(StartupEventArgs e)
         {
+            Process.GetCurrentProcess().CloseMainWindow();
+
             using (LibraryDbContext context = new LibraryDbContext())
             {
                 context.Database.EnsureCreated();
@@ -63,7 +67,8 @@ namespace Library.UI
             services.AddTransient<LibraryViewModel>();
             services.AddTransient<SortingEnums>();
             services.AddTransient<NavigationPanelViewModel>();
-            services.AddSingleton<BookStore>();
+            services.AddTransient<BookStore>();
+            services.AddTransient<AccountViewModel>();
             services.AddSingleton<NavigationStore>();
 
             // interfaces //

@@ -1,9 +1,8 @@
 ﻿using Library.UI.Command;
-using Library.UI.Model;
 using Library.UI.Service.Library;
+using Library.UI.Stores;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
-using System.Collections.Generic;
 
 namespace Library.UI.Commands.Library
 {
@@ -11,16 +10,16 @@ namespace Library.UI.Commands.Library
     {
         private readonly LibraryViewModel _libraryViewModel;
 
-        private readonly IBookOperations _dataSorting;
+        private readonly IBookOperations _bookOperations;
 
         private readonly SortingEnums _sortingEnums;
 
-        public List<BookModel> CurrentBookList { get; set; }
+        private readonly BookStore _bookStore;
 
-        public SortBooksCommand(LibraryViewModel libraryViewModel, IBookOperations dataSorting, SortingEnums sortingEnums)
+        public SortBooksCommand(LibraryViewModel libraryViewModel, IBookOperations bookOperations, SortingEnums sortingEnums)
         {
             _libraryViewModel = libraryViewModel;
-            _dataSorting = dataSorting;
+            _bookOperations = bookOperations;
             _sortingEnums = sortingEnums;
 
             // Shows books at the start of an application
@@ -29,7 +28,7 @@ namespace Library.UI.Commands.Library
 
         public override void Execute(object parameter)
         {
-            _libraryViewModel.DisplayBooks(_dataSorting.SortBooks(_sortingEnums.SortingMethods, _sortingEnums.Quantity,
+            _libraryViewModel.DisplayBooks(_bookOperations.SortBooks(_sortingEnums.SortingMethods, _sortingEnums.Quantity,
             _sortingEnums.Genres, _sortingEnums.AlphabeticalSortingMethod));
 
             if (_libraryViewModel.SortingEnums.SortingMethods == SortingEnums.SortingMethod.Az)
@@ -39,7 +38,7 @@ namespace Library.UI.Commands.Library
                 if (_libraryViewModel.SortingEnums.AlphabeticalSortingMethod == SortingEnums.AlphabeticalSorting.NOT_SET) return;
                 else
                 {
-                    _libraryViewModel.DisplayBooks(_dataSorting.SortBooks(_sortingEnums.SortingMethods, _sortingEnums.Quantity,
+                    _libraryViewModel.DisplayBooks(_bookOperations.SortBooks(_sortingEnums.SortingMethods, _sortingEnums.Quantity,
                         _sortingEnums.Genres, _sortingEnums.AlphabeticalSortingMethod));
                 }
             }

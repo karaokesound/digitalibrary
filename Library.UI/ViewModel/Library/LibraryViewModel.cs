@@ -227,9 +227,20 @@ namespace Library.UI.ViewModel
                 _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
 
+            SetStartupBookList();
             GenerateRandomBooks();
             InterceptLoggedUserData();
             ShowBookGrade();
+        }
+
+        private void SetStartupBookList()
+        {
+            if (SearchBoxInput == null || SearchBoxInput.Length == 0)
+            {
+                _bookStore.CurrentBookList = _bookBaseRepository.GetAll().ToList();
+                //_bookStore.OnStartupBookListChanged();
+            }
+            else _bookStore.CurrentBookList = _bookStore.CurrentBookList;
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)
