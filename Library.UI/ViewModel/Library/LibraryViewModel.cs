@@ -158,8 +158,6 @@ namespace Library.UI.ViewModel
 
         public ICommand BookDoubleClickCommand { get; }
 
-        public ICommand YesNoButtonCommand { get; }
-
         public ICommand AddGradeCommand { get; }
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
@@ -206,8 +204,7 @@ namespace Library.UI.ViewModel
             SortingEnums = new SortingEnums();
             AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService,
                 _gradeBaseRepository);
-            YesNoButtonCommand = new YesNoButtonCommand(this);
-            BookDoubleClickCommand = new BookDoubleClickCommand(this);
+            BookDoubleClickCommand = new BookDoubleClickCommand(this, _userAuthService, _bookgradeBaseRepository);
             LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this);
             SortBooksCommand = new SortBooksCommand(this, _bookOperations, SortingEnums);
             FilterBooksCommand = new FilterBooksCommand(this, _elementVisibilityService, _bookStore, _bookOperations);
@@ -318,11 +315,12 @@ namespace Library.UI.ViewModel
             IEnumerable<BookGradeModel> userRate = _bookgradeBaseRepository.GetAll().Where(a => (a.GradeAuthorId == LoggedAccountId)
             && (a.BookId == SelectedBook.BookId));
 
-            if (userRate.Count() == 0 || userRate == null)
+            if (userRate != null && userRate.Count() != 0)
             {
-                AreRatingStarsVisible = true;
+                AreRatingStarsVisible = false;
+                return;
             }
-            AreRatingStarsVisible = false;
+            AreRatingStarsVisible = true;
         }
 
         private void GenerateRandomBooks()

@@ -34,8 +34,7 @@ namespace Library.UI.Commands.Library
             List<GradeModel> dbGradeList = _gradeBaseRepository.GetAll().ToList();
             var matchedGrade = dbGradeList.FirstOrDefault(g => g.Grade == userGrade);
 
-            List<BookGradeModel> newBookGrades = new List<BookGradeModel>();
-
+            List<BookGradeModel> bookGrades = new List<BookGradeModel>();
             BookGradeModel newBookgrade = new BookGradeModel()
             {
                 BookGradeId = Guid.NewGuid(),
@@ -44,8 +43,8 @@ namespace Library.UI.Commands.Library
                 GradeAuthorId = loggedUserID
             };
 
-            newBookGrades.Add(newBookgrade);
-            selectedBook.BookGrade = newBookGrades;
+            bookGrades.Add(newBookgrade);
+            selectedBook.BookGrade = bookGrades;
 
             _bookgradeBaseRepository.Insert(newBookgrade);
             _bookgradeBaseRepository.Save();
