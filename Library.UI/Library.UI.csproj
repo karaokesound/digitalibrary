@@ -12,22 +12,36 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\Library\addbook.png" />
+    <None Remove="Resources\Images\Library\add.png" />
     <None Remove="Resources\Images\Library\backright.png" />
-    <None Remove="Resources\Images\Library\request.png" />
+    <None Remove="Resources\Images\Library\book.png" />
+    <None Remove="Resources\Images\Library\book1.png" />
+    <None Remove="Resources\Images\Library\book2.jpg" />
+    <None Remove="Resources\Images\Library\book3.jpg" />
+    <None Remove="Resources\Images\Library\book4.jpg" />
+    <None Remove="Resources\Images\Library\book5.jpg" />
+    <None Remove="Resources\Images\Library\listviewbackground.jpg" />
+    <None Remove="Resources\Images\Library\reservation.png" />
     <None Remove="Resources\Images\Library\star.png" />
-    <None Remove="Resources\Images\Profile\account.png" />
+    <None Remove="Resources\Images\Library\starup.png" />
+    <None Remove="Resources\Images\Library\wave5.png" />
+    <None Remove="Resources\Images\mainwindowbackground.jpg" />
+    <None Remove="Resources\Images\Navigation\navigationbackground.jpg" />
     <None Remove="Resources\Images\Profile\back.png" />
-    <None Remove="Resources\Images\Profile\empty-folder.png" />
-    <None Remove="Resources\Images\Profile\office.png" />
+    <None Remove="Resources\Images\Profile\check.png" />
+    <None Remove="Resources\Images\Profile\github.png" />
+    <None Remove="Resources\Images\Profile\giveback.png" />
+    <None Remove="Resources\Images\Profile\linkedin.png" />
     <None Remove="Resources\Images\Profile\open-book.png" />
-    <None Remove="Resources\Images\Profile\return.png" />
-    <None Remove="Resources\Images\Profile\thinking%281%29.png" />
     <None Remove="Resources\Images\Profile\thinking.png" />
-    <None Remove="Resources\Images\Profile\thought.png" />
     <None Remove="Resources\Images\Profile\unknown.png" />
     <None Remove="Resources\Images\Profile\user.png" />
+    <None Remove="Resources\Images\Profile\wave1.jpg" />
+    <None Remove="Resources\Images\Profile\wave2.jpg" />
+    <None Remove="Resources\Images\Profile\wave3.jpg" />
+    <None Remove="Resources\Images\Profile\wave4.jpg" />
     <None Remove="Resources\Images\search.png" />
+    <None Remove="Resources\Images\SignUp\mainwindowbackground.jpg" />
     <None Remove="Resources\info.png" />
     <None Remove="Resources\location.png" />
     <None Remove="Resources\lock.png" />
@@ -41,40 +55,70 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Images\Library\addbook.png">
+    <Content Include="Resources\Images\Library\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Library\backright.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\Library\request.png">
+    <Content Include="Resources\Images\Library\book.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Library\book1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Library\book2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Library\book3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Library\book4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Library\book5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Library\listviewbackground.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Library\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\Library\starup.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Library\reservation.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Library\wave5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\mainwindowbackground.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Navigation\navigationbackground.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\Profile\back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\Profile\empty-folder.png">
+    <Content Include="Resources\Images\Profile\check.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\Profile\office.png">
+    <Content Include="Resources\Images\Profile\github.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Profile\linkedin.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Profile\open-book.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\Profile\return.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\Profile\thinking(1).png">
+    <Content Include="Resources\Images\Profile\giveback.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Profile\thinking.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\Profile\thought.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Profile\unknown.png">
@@ -83,16 +127,25 @@
     <Content Include="Resources\Images\Profile\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\Profile\wave2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Profile\wave3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Profile\wave4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\SignUp\location.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\SignUp\mainwindowbackground.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\SignUp\online-library.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\SignUp\padlock.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Images\Profile\account.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\SignUp\rounded-rectangle.png">
@@ -111,6 +164,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\SignIn\people.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Images\Profile\wave1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

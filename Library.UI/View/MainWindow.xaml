@@ -35,7 +35,7 @@
                                   Color="#222225"/>
             </Border.Effect>
             <Border.Background>
-                <ImageBrush ImageSource="https://c4.wallpaperflare.com/wallpaper/25/81/104/digital-art-abstract-minimalism-black-wallpaper-preview.jpg"
+                <ImageBrush ImageSource="/Resources/Images/mainwindowbackground.jpg"
                             RenderOptions.BitmapScalingMode="Fant"/>
             </Border.Background>
             </Border>

@@ -17,7 +17,7 @@
                 Opacity="0.97"
                 CornerRadius="0 4 4 0"
                 Background="#052a4f"/>
-
+        
         <!--// MAIN //-->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

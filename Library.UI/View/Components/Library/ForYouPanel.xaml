@@ -42,7 +42,7 @@
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
-                        <ImageBrush ImageSource="https://i.pinimg.com/originals/36/90/ee/3690eea4c1aa0ae57265f07285eb92c3.png"
+                        <ImageBrush ImageSource="/Resources/Images/Library/book1.png"
                                     Opacity="0.9"
                                     Stretch="UniformToFill"
                                     AlignmentY="Top" />
@@ -71,7 +71,7 @@
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
-                        <ImageBrush ImageSource="https://m.media-amazon.com/images/I/71jLBXtWJWL._AC_UF1000,1000_QL80_.jpg"
+                        <ImageBrush ImageSource="/Resources/Images/Library/book2.jpg"
                                     Opacity="0.9"
                                     Stretch="UniformToFill"
                                     AlignmentY="Top" />
@@ -99,7 +99,7 @@
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
-                        <ImageBrush ImageSource="https://www.thoughtco.com/thmb/dbFTerm-8CCGlvFHiV9_yq58h_w=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/the-da-vinci-code-589f9cee3df78c4758a2d9e7.jpg"
+                        <ImageBrush ImageSource="/Resources/Images/Library/book3.jpg"
                                     Opacity="0.9"
                                     Stretch="UniformToFill"
                                     AlignmentY="Top" />
@@ -127,7 +127,7 @@
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
-                        <ImageBrush ImageSource="https://images-platform.99static.com//fju0F_42vCnKx7hIKOAdCIXLzoY=/fit-in/500x500/99designs-contests-attachments/57/57130/attachment_57130456"
+                        <ImageBrush ImageSource="/Resources/Images/Library/book4.jpg"
                                     Opacity="0.9"
                                     Stretch="UniformToFill"
                                     AlignmentY="Top" />
@@ -155,7 +155,7 @@
                         BorderThickness="2"
                         CornerRadius="14">
                     <Border.Background>
-                        <ImageBrush ImageSource="https://2f96be1b505f7f7a63c3-837c961929b51c21ec10b9658b068d6c.ssl.cf2.rackcdn.com/products/004595.jpg"
+                        <ImageBrush ImageSource="/Resources/Images/Library/book5.jpg"
                                     Opacity="0.9"
                                     Stretch="UniformToFill"
                                     AlignmentY="Top" />

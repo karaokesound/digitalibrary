@@ -69,7 +69,9 @@ namespace Library.UI.ViewModel
             set
             {
                 _isListViewVisible = value;
+                IsNoRentedBooksPanelVisible = !value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsNoRentedBooksPanelVisible");
             }
         }
 
@@ -87,6 +89,8 @@ namespace Library.UI.ViewModel
         }
 
         public int NoOfLeftedBooksToRent { get; set; }
+        public bool IsNoReqBooksPanelVisible { get; set; }
+        public bool IsNoRentedBooksPanelVisible { get; set; }
 
         public ICommand ReturnBookCommand { get; }
 

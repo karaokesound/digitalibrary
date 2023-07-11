@@ -15,17 +15,25 @@
             <ColumnDefinition Width="0.55*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
+        
         <!--// MAIN BACKGROUND //-->
-        <Border Grid.ColumnSpan="2"
-                Grid.RowSpan="2"
+        <Border Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
                 Background="White"
                 CornerRadius="0 4 4 0" />
-        <Border Grid.ColumnSpan="2"
-                Grid.RowSpan="2"
+        <Border Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
                 Opacity="0.97"
                 CornerRadius="0 4 4 0"
-                Background="#364f78"/>
+                Background="#052a4f"/>
+
+        <Image Grid.Column="1"
+               Grid.RowSpan="2"
+               VerticalAlignment="Center"
+               Source="/Resources/Images/Library/book.png"
+               Stretch="UniformToFill"
+               HorizontalAlignment="Right"
+               Width="250"/>
 
         <!--// DETAILS TEXT, BOOK DETAILS //-->
         <Grid Grid.RowSpan="2"
@@ -213,15 +221,46 @@
         </StackPanel>
 
         <!--// BOOK GRADE //-->
+        <Border Grid.Column="1"
+                Grid.Row="1"
+                CornerRadius="10"
+                Width="120"
+                Height="70"
+                Margin="17 10 0 0"
+                HorizontalAlignment="Left">
+            <Border.Background>
+                <ImageBrush ImageSource="/Resources/Images/Library/wave5.png" 
+                            RenderOptions.BitmapScalingMode="Fant"/>
+            </Border.Background>
+        </Border>
+       
+        <Border Grid.Column="1"
+                Grid.Row="1"
+                Opacity="0.8"
+                Background="  #9ccc65  "
+                CornerRadius="10"
+                Width="120"
+                Height="70"
+                Margin="17 10 0 0"
+                HorizontalAlignment="Left">
+        </Border>
+        <Image Grid.Column="1"
+               Grid.Row="1"
+               Source="/Resources/Images/Library/starup.png"
+               Height="45"
+               HorizontalAlignment="Left"
+               Margin="90 8 0 0"
+               VerticalAlignment="Center"/>
         <StackPanel Grid.Column="1"
                     Grid.Row="1"
                     VerticalAlignment="Center"
-                    Margin="15 20 0 0"
-                    TextBlock.FontSize="25"
-                    TextBlock.Foreground="Orange">
-            <TextBlock Text="Rate"
-                       Visibility="{Binding AreRatingStarsVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
-            <TextBlock Text="{Binding SelectedBook.BookGrade, UpdateSourceTrigger=PropertyChanged}" />
+                    Margin="29 5 0 0"
+                        TextBlock.Foreground="  #263238  "
+                        TextBlock.FontWeight="Bold">
+                <TextBlock Text="{Binding SelectedBook.BookGrade, UpdateSourceTrigger=PropertyChanged}"
+                           FontSize="22"/>
+                <TextBlock Text="{Binding GradeComment, UpdateSourceTrigger=PropertyChanged}"
+                           FontSize="12"/>
         </StackPanel>
 
         <!--// RETURN BUTTON //-->

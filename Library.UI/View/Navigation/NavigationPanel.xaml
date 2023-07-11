@@ -6,17 +6,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <!--// BACKGROUND //-->
-        <Border Background="#fbfcfe"
-                MouseDown="Border_MouseDown"
-                CornerRadius="4 0 0 4"/>
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="0.55*" />
+                <RowDefinition Height="0.45*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+
+            <!--// BACKGROUND //-->
+            <Border Grid.RowSpan="4"
+                    Background="#fbfcfe"
+                    MouseDown="Border_MouseDown"
+                    CornerRadius="4 0 0 4"/>
 
             <!--// EXIT, MINIMIZE //-->
             <StackPanel Orientation="Horizontal"
@@ -32,52 +34,42 @@
 
             <!--// USERNAME, AVATAR //-->
             <Border Grid.Row="1"
-                        BorderThickness="0 0 0 4"
-                        BorderBrush="Black"
-                        CornerRadius="0 4 4 0"
-                            Margin="0 0 0 35"
-                        Height="50"
-                            Width="160"
+                    CornerRadius="0 4 4 0"
+                    Margin="0 10 0 0"
+                    Height="155"
+                    Width="160"
                     VerticalAlignment="Bottom">
                 <Border.Background>
-                    <ImageBrush ImageSource="https://c4.wallpaperflare.com/wallpaper/267/779/729/mark-kirkpatrick-illustration-mountains-minimalism-wallpaper-preview.jpg"
+                    <ImageBrush ImageSource="/Resources/Images/Navigation/navigationbackground.jpg"
                                 Stretch="UniformToFill"
                                 RenderOptions.BitmapScalingMode="Fant" />
                 </Border.Background>
             </Border>
-            <Border Grid.Row="1"
-                    Opacity="0.8"
-                    Margin="0 10 0 0"
-                    VerticalAlignment="Top"
-                    Height="105">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
-                        <GradientStop Color=" #45b39d  " Offset="0"/>
-                        <GradientStop Color="#fbfcfe" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
 
+            <!--// username, avatar //-->
             <StackPanel Grid.Row="1"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="0 0 0 0">
+                        VerticalAlignment="Bottom">
                 <Image Source="/Resources/Images/Profile/user.png"
                        RenderOptions.BitmapScalingMode="Fant"
                        Height="80"
-                       Margin="0 0 0 20"/>
-                <TextBlock Text="Karaokesound"
+                       Margin="0 0 0 10"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Karaokesound"
                            FontSize="18"
                            FontWeight="Bold"
                            Foreground="White"
-                           Margin="0 0 0 0"/>
+                           Margin="0 0 5 0"/>
+                    <Image Source="/Resources/Images/Profile/check.png"
+                           Height="17"/>
+                </StackPanel>
             </StackPanel>
-            
 
             <!--// PANELS //-->
             <StackPanel Grid.Row="2"
                         HorizontalAlignment="Center"
-                        Margin="5 40 5 5">
+                        VerticalAlignment="Center"
+                        Margin="5 0 5 73">
                 <Button Content="Profile"
                         Style="{StaticResource navigationButton}"
                         Command="{Binding NavigateProfileCommand}"
@@ -89,6 +81,31 @@
                 <Button Content="Logout"
                         Command="{Binding LogoutCommand}"
                         Style="{StaticResource navigationButton}" />
+            </StackPanel>
+
+            <!--// GITHUB, LINKEDIN //-->
+            <StackPanel Grid.Row="3"
+                        Orientation="Horizontal"
+                        Margin="5 5 5 10">
+
+                <!--// linkedin //-->
+                <Grid>
+                    <Image Source="/Resources/Images/Profile/linkedin.png"
+                           Height="20"
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Margin="0 0 5 0"/>
+                    <Button Style="{StaticResource LinkButton}"
+                            Click="Linkedin_Click" />
+                </Grid>
+
+                <!--// github //-->
+                <Grid>
+                    <Image Source="/Resources/Images/Profile/github.png"
+                           Height="20"
+                           RenderOptions.BitmapScalingMode="Fant"/>
+                    <Button Style="{StaticResource LinkButton}"
+                            Click="Github_Click" />
+                </Grid>
             </StackPanel>
         </Grid>
     </Grid>

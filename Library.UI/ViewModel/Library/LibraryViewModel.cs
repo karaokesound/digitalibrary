@@ -104,8 +104,8 @@ namespace Library.UI.ViewModel
         public bool AreBookDetailsVisible
         {
             get => _areBookDetailsVisible;
-            set 
-            { 
+            set
+            {
                 _areBookDetailsVisible = value;
                 OnPropertyChanged();
             }
@@ -115,8 +115,8 @@ namespace Library.UI.ViewModel
         public bool AreRatingStarsVisible
         {
             get => _areRatingStarsVisible;
-            set 
-            { 
+            set
+            {
                 _areRatingStarsVisible = value;
                 OnPropertyChanged();
             }
@@ -126,8 +126,8 @@ namespace Library.UI.ViewModel
         public bool IsBookGradeVisible
         {
             get => _isBookGradeVisible;
-            set 
-            { 
+            set
+            {
                 _isBookGradeVisible = value;
                 OnPropertyChanged();
             }
@@ -137,9 +137,20 @@ namespace Library.UI.ViewModel
         public bool IsAzEnumSelected
         {
             get => _isAzEnumSelected;
-            set 
-            { 
+            set
+            {
                 _isAzEnumSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _gradeComment;
+        public string GradeComment
+        {
+            get => _gradeComment;
+            set
+            {
+                _gradeComment = value;
                 OnPropertyChanged();
             }
         }
@@ -185,9 +196,9 @@ namespace Library.UI.ViewModel
         private List<BookModel> _requestedBooks;
 
         public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IBookOperations bookOperations, IUserAuthenticationService userAuthenticationService, IValidationService validationService, 
+            IBookOperations bookOperations, IUserAuthenticationService userAuthenticationService, IValidationService validationService,
             IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
-            IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository, 
+            IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository,
             IBaseRepository<GradeModel> gradeBaseRepository, BookStore bookStore)
         {
             _bookBaseRepository = bookBaseRepository;
@@ -204,7 +215,7 @@ namespace Library.UI.ViewModel
             BookList = new ObservableCollection<BookViewModel>();
             FilteredBookList = new List<BookModel>();
             SortingEnums = new SortingEnums();
-            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService, 
+            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService,
                 _gradeBaseRepository);
             YesNoButtonCommand = new YesNoButtonCommand(this);
             BookDoubleClickCommand = new BookDoubleClickCommand(this);
@@ -212,7 +223,7 @@ namespace Library.UI.ViewModel
             SortBooksCommand = new SortBooksCommand(this, _bookOperations, SortingEnums);
             FilterBooksCommand = new FilterBooksCommand(this, _elementVisibilityService, _bookStore, _bookOperations);
             RandomBookList = new ObservableCollection<BookViewModel>();
-            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _bookOperations, _mappingService, 
+            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _bookOperations, _mappingService,
                 _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
             AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
 
@@ -224,6 +235,7 @@ namespace Library.UI.ViewModel
         public void DisplayBooks(List<BookModel> sortedBookList)
         {
             BookList.Clear();
+            GradeComment = "";
             BookCounter = 0;
             _bookCounter = 0;
 
@@ -286,7 +298,8 @@ namespace Library.UI.ViewModel
             if (selectedBookgrades.Count() == 0)
             {
                 average = 0;
-                SelectedBook.BookGrade = "No grades yet";
+                SelectedBook.BookGrade = "No grades";
+                GradeComment = "Be first to rate!";
                 AreRatingStarsVisible = true;
                 return;
             }
@@ -312,6 +325,13 @@ namespace Library.UI.ViewModel
                 AreRatingStarsVisible = true;
             }
             AreRatingStarsVisible = false;
+
+            if (average < 2 && average >= 0) GradeComment = "The Worst";
+            else if (average >= 2 && average < 5) GradeComment = "Bad";
+            else if (average >= 5 && average < 6) GradeComment = "Not Bad";
+            else if (average >= 6 && average < 8) GradeComment = "Good";
+            else if (average >= 8 && average < 10) GradeComment = "Very Good";
+            else GradeComment = "Extremely good";
         }
 
         private void GenerateRandomBooks()

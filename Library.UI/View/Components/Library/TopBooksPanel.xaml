@@ -159,9 +159,9 @@
                         BorderThickness="0.7"/>
                 <Border>
                     <Border.Background>
-                        <ImageBrush ImageSource="https://c4.wallpaperflare.com/wallpaper/526/982/451/minimalism-simple-simple-background-abstract-wallpaper-preview.jpg"
+                        <ImageBrush ImageSource="/Resources/Images/Library/listviewbackground.jpg"
                                     RenderOptions.BitmapScalingMode="Fant"
-                                    Opacity="0.03"/>
+                                    Opacity="0.05"/>
                     </Border.Background>
                 </Border>
 
@@ -251,18 +251,20 @@
                                         <Grid Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Converter={StaticResource booleanToVisibilityConverter}}"
                                               VerticalAlignment="Center">
                                             <StackPanel Orientation="Horizontal">
-                                                <Grid Margin="0 0 10 0">
-                                                    <Image Source="/Resources/Images/Library/addbook.png"
+                                                <Grid Margin="0 0 2 0">
+                                                    <Image Source="/Resources/Images/Library/add-button(1).png"
                                                            RenderOptions.BitmapScalingMode="Fant"
                                                            Width="30"/>
                                                     <Button Background="Transparent"
+                                                            Style="{StaticResource RoundedButton}"
                                                             Command="{Binding DataContext.RentBookCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
                                                 </Grid>
                                                 <Grid Margin="0 0 20 0">
-                                                    <Image Source="/Resources/Images/Library/request.png"
+                                                    <Image Source="/Resources/Images/Library/upload.png"
                                                            RenderOptions.BitmapScalingMode="Fant"
                                                            Width="30"/>
                                                     <Button Background="Transparent"
+                                                            Style="{StaticResource RoundedButton}"
                                                             Command="{Binding DataContext.AddRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
                                                 </Grid>
                                                 <TextBlock Text="{Binding Copies, UpdateSourceTrigger=PropertyChanged}"

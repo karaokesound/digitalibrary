@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -30,6 +31,24 @@ namespace Library.UI.View.Navigation
         {
             var minimizeWindow = Window.GetWindow(this);
             minimizeWindow.WindowState = WindowState.Minimized;
+        }
+
+        private void Linkedin_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://www.linkedin.com/in/patryk-karasiewicz-595741272/",
+                UseShellExecute = true
+            });
+        }
+
+        private void Github_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://github.com/karaokesound",
+                UseShellExecute = true
+            });
         }
     }
 }
