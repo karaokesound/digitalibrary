@@ -8,21 +8,27 @@ namespace Library.UI.Commands
     {
         private readonly SignUpPanelViewModel _signUpPanelVM;
 
-        private readonly INotUsedElementHidingService _notUsedElementHidingService;
+        private readonly IElementVisibilityService _notUsedElementHidingService;
+
+        private readonly SignInPanelViewModel _signInPanelVM;
 
         public override void Execute(object parameter)
         {
-            
+            _signInPanelVM.LoggingUsernamePassword.Username = string.Empty;
+            _signInPanelVM.LoggingUsernamePassword.Password = string.Empty;
+
             _signUpPanelVM.MainWindowButtonVisibility = false;
             _signUpPanelVM.SignUpPanelVisibility = true;
             _notUsedElementHidingService.AdjustElementVisibility(_signUpPanelVM.SignUpPanelVisibility);
             _signUpPanelVM.RaiseSignUpButtClickedEvent();
         }
 
-        public SignUpButtonCommand(SignUpPanelViewModel signUpPanelVM, INotUsedElementHidingService notUsedElementHidingService)
+        public SignUpButtonCommand(SignUpPanelViewModel signUpPanelVM, IElementVisibilityService notUsedElementHidingService,
+            SignInPanelViewModel signInPanelVM)
         {
             _signUpPanelVM = signUpPanelVM;
             _notUsedElementHidingService = notUsedElementHidingService;
+            _signInPanelVM = signInPanelVM;
         }
     }
 }

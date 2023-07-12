@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Library.UI.Resources.Library
+namespace Library.UI.Resources
 {
     public class CommandComboBox : ComboBox, ICommandSource
     {

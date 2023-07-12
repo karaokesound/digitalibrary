@@ -1,5 +1,4 @@
 ﻿using Library.Models.Model;
-using Library.UI.Model;
 using System;
 using System.Collections.Generic;
 
@@ -29,7 +28,6 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-
         private string _title;
         public string Title 
         {
@@ -37,6 +35,94 @@ namespace Library.UI.ViewModel.Library
             set
             {
                 _title = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _copies;
+        public int Copies
+        {
+            get => _copies;
+            set
+            {
+                _copies = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _category;
+        public string Category
+        {
+            get => _category;
+            set
+            {
+                _category = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _downloads;
+        public int Downloads
+        {
+            get => _downloads;
+            set
+            {
+                _downloads = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _bookGrade;
+        public string BookGrade
+        {
+            get => _bookGrade;
+            set 
+            { 
+                _bookGrade = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string[] _comments;
+        public string[] Comments
+        {
+            get => _comments;
+            set 
+            {
+                _comments = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isRented;
+        public bool IsRented
+        {
+            get => _isRented;
+            set
+            {
+                _isRented = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _anyRequest;
+        public bool AnyRequest
+        {
+            get => _anyRequest;
+            set
+            {
+                _anyRequest = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _requestUserId;
+        public bool RequestUserId
+        {
+            get => _requestUserId;
+            set
+            {
+                _requestUserId = value;
                 OnPropertyChanged();
             }
         }
@@ -52,29 +138,6 @@ namespace Library.UI.ViewModel.Library
             }
         }
 
-        private string _category;
-        public string Category 
-        {
-            get => _category;
-            set
-            {
-                _category = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private int _downloads;
-        public int Downloads
-        {
-            get => _downloads;
-            set 
-            { 
-                _downloads = value;
-                OnPropertyChanged();
-            }
-        }
-
-
         private ICollection<BookLanguageModel> _bookLanguages;
         public ICollection<BookLanguageModel> BookLanguages 
         {
@@ -82,6 +145,17 @@ namespace Library.UI.ViewModel.Library
             set
             {
                 _bookLanguages = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ICollection<AccountBookModel> _accountBooks;
+        public ICollection<AccountBookModel> AccountBooks
+        {
+            get => _accountBooks;
+            set
+            {
+                _accountBooks = value;
                 OnPropertyChanged();
             }
         }

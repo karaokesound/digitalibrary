@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="Library.UI.View.Navigation.NavigationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="0.45*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <!--// BACKGROUND //-->
+            <Border Grid.RowSpan="4"
+                    Background="#fbfcfe"
+                    MouseDown="Border_MouseDown"
+                    CornerRadius="4 0 0 4"/>
+
+            <!--// EXIT, MINIMIZE //-->
+            <StackPanel Orientation="Horizontal"
+                        Margin="5 5 5 5">
+                <Button Content="-"
+                        Style="{StaticResource exitButton}"
+                        Click="MinimizeButton_Click"
+                        Margin="0 0 3 0"/>
+                <Button Content="X"
+                        Style="{StaticResource exitButton}"
+                        Click="ExitButton_Click" />
+            </StackPanel>
+
+            <!--// USERNAME, AVATAR //-->
+            <Border Grid.Row="1"
+                    CornerRadius="0 4 4 0"
+                    Margin="0 10 0 0"
+                    Height="155"
+                    Width="160"
+                    VerticalAlignment="Bottom">
+                <Border.Background>
+                    <ImageBrush ImageSource="/Resources/Images/Navigation/navigationbackground.jpg"
+                                Stretch="UniformToFill"
+                                RenderOptions.BitmapScalingMode="Fant" />
+                </Border.Background>
+            </Border>
+
+            <!--// username, avatar //-->
+            <StackPanel Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom">
+                <Image Source="/Resources/Images/Profile/user.png"
+                       RenderOptions.BitmapScalingMode="Fant"
+                       Height="80"
+                       Margin="0 0 0 10"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Karaokesound"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0 0 5 0"/>
+                    <Image Source="/Resources/Images/Profile/check.png"
+                           Height="17"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!--// PANELS //-->
+            <StackPanel Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="5 0 5 73">
+                <Button Content="Profile"
+                        Style="{StaticResource navigationButton}"
+                        Command="{Binding NavigateProfileCommand}"
+                        Margin="0 0 0 20"/>
+                <Button Content="Library"
+                        Command="{Binding NavigateLibraryCommand}"
+                        Style="{StaticResource navigationButton}"
+                        Margin="0 0 0 20"/>
+                <Button Content="Logout"
+                        Command="{Binding LogoutCommand}"
+                        Style="{StaticResource navigationButton}" />
+            </StackPanel>
+
+            <!--// GITHUB, LINKEDIN //-->
+            <StackPanel Grid.Row="3"
+                        Orientation="Horizontal"
+                        Margin="5 5 5 10">
+
+                <!--// linkedin //-->
+                <Grid>
+                    <Image Source="/Resources/Images/Profile/linkedin.png"
+                           Height="20"
+                           RenderOptions.BitmapScalingMode="Fant"
+                           Margin="0 0 5 0"/>
+                    <Button Style="{StaticResource LinkButton}"
+                            Click="Linkedin_Click" />
+                </Grid>
+
+                <!--// github //-->
+                <Grid>
+                    <Image Source="/Resources/Images/Profile/github.png"
+                           Height="20"
+                           RenderOptions.BitmapScalingMode="Fant"/>
+                    <Button Style="{StaticResource LinkButton}"
+                            Click="Github_Click" />
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

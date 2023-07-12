@@ -1,5 +1,6 @@
 ﻿using Library.UI.Model;
 using Library.UI.Service;
+using Library.UI.Service.SignUp;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
 
@@ -13,8 +14,10 @@ namespace Library.UI.Services
             return new BookViewModel()
             {
                 BookId = book.BookId,
-                BookCounter = book.BookCounter,
                 Title = book.Title,
+                Copies = book.Copies,
+                IsRented = book.IsRented,
+                AnyRequest = book.AnyRequest,
                 Category = book.Category,
                 Downloads = book.Downloads,
                 BookLanguages = book.BookLanguages,
@@ -34,8 +37,10 @@ namespace Library.UI.Services
             return new BookModel()
             {
                 BookId = bookVM.BookId,
-                BookCounter = bookVM.BookCounter,
                 Title = bookVM.Title,
+                Copies = bookVM.Copies,
+                IsRented = bookVM.IsRented,
+                AnyRequest = bookVM.AnyRequest,
                 Category = bookVM.Category,
                 Downloads = bookVM.Downloads,
                 BookLanguages = bookVM.BookLanguages,
@@ -51,11 +56,11 @@ namespace Library.UI.Services
         }
 
         // USER MAPPING SERVICE //
-        public UserViewModel UserModelToViewModel(UserModel signUp)
+        public AccountViewModel UserModelToViewModel(AccountModel signUp)
         {
-            return new UserViewModel(_validationService)
+            return new AccountViewModel(_notificationService)
             {
-                UserId = signUp.UserId,
+                UserId = signUp.AccountId,
                 Username = signUp.Username,
                 Password = signUp.Password,
                 FirstName = signUp.FirstName,
@@ -66,11 +71,11 @@ namespace Library.UI.Services
             };
         }
 
-        public UserModel UserViewModelToModel(UserViewModel signUpVM)
+        public AccountModel UserViewModelToModel(AccountViewModel signUpVM)
         {
-            return new UserModel()
+            return new AccountModel()
             {
-                UserId = signUpVM.UserId,
+                AccountId = signUpVM.UserId,
                 Username = signUpVM.Username,
                 Password = signUpVM.Password,
                 FirstName = signUpVM.FirstName,
@@ -81,11 +86,11 @@ namespace Library.UI.Services
             };
         }
 
-        private readonly IValidationService _validationService;
+        private readonly INotificationService _notificationService;
 
-        public MappingService(IValidationService validationService)
+        public MappingService(INotificationService notificationService)
         {
-            _validationService = validationService;
+            _notificationService = notificationService;
         }
     }
 }

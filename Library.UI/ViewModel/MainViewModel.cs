@@ -1,24 +1,22 @@
-﻿using Library.UI.Model;
+﻿using Library.Models.Model;
+using Library.Models.Model.many_to_many;
+using Library.UI.Model;
 using Library.UI.Service;
 using Library.UI.Service.Data;
+using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Store;
+using Library.UI.Stores;
+using Library.UI.ViewModel.Navigation;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Library.UI.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        private BaseViewModel _selectedViewModel;
-        public BaseViewModel SelectedViewModel
-        {
-            get => _selectedViewModel;
-            set
-            {
-                _selectedViewModel = value;
-                OnPropertyChanged();
-            }
-        }
+        public BaseViewModel SelectedViewModel => _navigationStore.CurrentViewModel;
 
         private bool _isUserAuthenticated;
         public bool IsUserAuthenticated
@@ -28,7 +26,13 @@ namespace Library.UI.ViewModel
             {
                 _isUserAuthenticated = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsUserAuthenticatedNegation));
             }
+        }
+
+        public bool IsUserAuthenticatedNegation
+        {
+            get => !IsUserAuthenticated;
         }
 
         private bool _isButtonClicked;
@@ -53,14 +57,12 @@ namespace Library.UI.ViewModel
             }
         }
 
-
-        public AccountPanelViewModel AccountPanelVM { get; }
-
+        public ProfilePanelViewModel ProfilePanelVM { get; }
         public SignUpPanelViewModel SignUpPanelVM { get; }
-
         public SignInPanelViewModel SignInPanelVM { get; }
-
         public LibraryViewModel LibraryVM { get; }
+        public NavigationPanelViewModel NavigationPanelVM { get; }
+        public ICommand NavigateLoginCommand { get; }
 
         private readonly IDataSeeder _dataSeeder;
 
@@ -68,9 +70,9 @@ namespace Library.UI.ViewModel
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataFiltering;
+        private readonly IBookOperations _bookOperations;
 
-        private readonly INotUsedElementHidingService _notUsedElementHidingService;
+        private readonly IElementVisibilityService _elementVisibilityService;
 
         private readonly IUserAuthenticationService _userAuthenticationService;
 
@@ -78,25 +80,49 @@ namespace Library.UI.ViewModel
 
         private readonly IUserRepository _userRepository;
 
-        public MainViewModel(AccountPanelViewModel accountPanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
+        private readonly IBaseRepository<AccountModel> _accountBaseRepository;
+
+        private readonly IAccountBookRepository _accountBookRepository;
+
+        private readonly IBaseRepository<BookGradeModel> _bookgradeBaseRepository;
+
+        private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
+
+        private readonly NavigationStore _navigationStore;
+
+        private readonly BookStore _bookStore;
+
+        public MainViewModel(ProfilePanelViewModel profilePanelVM, SignUpPanelViewModel signUpPanelVM, SignInPanelViewModel signInPanelVM,
             LibraryViewModel libraryVM, IDataSeeder dataSeeder, IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
-            IDataSorting dataFiltering, INotUsedElementHidingService notUsedElementHidingService, IUserAuthenticationService userAuthenticationService,
-            IValidationService validationService, IUserRepository userRepository)
+            IBookOperations bookOperations, IElementVisibilityService elementVisibilityService, IUserAuthenticationService userAuthenticationService,
+            IValidationService validationService, IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository,
+            IAccountBookRepository accountBookRepository, IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository,
+            NavigationStore navigationStore, NavigationPanelViewModel navigationPanelVM, BookStore bookStore)
         {
-            AccountPanelVM = accountPanelVM;
+            ProfilePanelVM = profilePanelVM;
             SignUpPanelVM = signUpPanelVM;
             SignInPanelVM = signInPanelVM;
             LibraryVM = libraryVM;
+            NavigationPanelVM = navigationPanelVM;
+            _bookStore = bookStore;
             _dataSeeder = dataSeeder;
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
-            _dataFiltering = dataFiltering;
-            _notUsedElementHidingService = notUsedElementHidingService;
+            _bookOperations = bookOperations;
             _userAuthenticationService = userAuthenticationService;
             _validationService = validationService;
             _userRepository = userRepository;
+            _accountBaseRepository = accountBaseRepository;
+            _accountBookRepository = accountBookRepository;
+            _bookgradeBaseRepository = bookgradeBaseRepository;
+            _gradeBaseRepository = gradeBaseRepository;
+            _navigationStore = navigationStore;
+            _elementVisibilityService = elementVisibilityService;
             ElementsVisibility();
             LoggingValidation();
+            LogoutUser();
+
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 
         // This methood is initialized in App.xaml.cs. There is no need to initialize it in MainViewModel constructor.
@@ -128,10 +154,27 @@ namespace Library.UI.ViewModel
                 IsUserAuthenticated = isUserAuthenticated;
                 if (IsUserAuthenticated == true)
                 {
-                    SelectedViewModel = new AccountPanelViewModel(_bookBaseRepository, _mappingService, _dataFiltering);
+                    _navigationStore.CurrentViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _bookOperations,
+                            _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
+                            _bookgradeBaseRepository, _gradeBaseRepository, _bookStore);
+                    _navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _userAuthenticationService,
+                        _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
                 }
                 else return;
             };
+        }
+
+        public void LogoutUser()
+        {
+            NavigationPanelVM.UserLoggedOut += (isUserLoggedOut) =>
+            {
+                IsUserAuthenticated = isUserLoggedOut;
+            };
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(SelectedViewModel));
         }
     }
 }

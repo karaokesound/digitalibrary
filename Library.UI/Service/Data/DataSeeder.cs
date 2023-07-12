@@ -22,20 +22,16 @@ namespace Library.UI.Service.Data
 
         private readonly IBaseRepository<LanguageModel> _lngBaseRepository;
 
-        private readonly IBaseRepository<AuthorModel> _authBaseRepository;
-
-        private readonly IDataSorting _dataFiltering;
+        private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
 
         public DataSeeder(IBaseRepository<BookModel> bookBaseRepository, LibraryDbContext libraryDbContext,
-            IBookApiService bookApiService, IBaseRepository<LanguageModel> langBaseRepository,
-            IBaseRepository<AuthorModel> authBaseRepository, IDataSorting dataFiltering)
+            IBookApiService bookApiService, IBaseRepository<LanguageModel> langBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository)
         {
             _bookBaseRepository = bookBaseRepository;
             _libraryDbContext = libraryDbContext;
             _bookApiService = bookApiService;
             _lngBaseRepository = langBaseRepository;
-            _authBaseRepository = authBaseRepository;
-            _dataFiltering = dataFiltering;
+            _gradeBaseRepository = gradeBaseRepository;
         }
 
         public async Task SeedDataBase()
@@ -51,13 +47,13 @@ namespace Library.UI.Service.Data
 
         public void FillDataBase(List<BookDto> bookBaseApi)
         {
-            // Adding enum language list to database
-            List<string> enumLanguageList = Enum.GetNames(typeof(LanguageModel.Languages)).ToList();
+            // Adding Languages enum to database
+            List<string> languagesEnumList = Enum.GetNames(typeof(LanguageModel.Languages)).ToList();
             List<LanguageModel> languageList = new List<LanguageModel>();
 
-            foreach (string enumLanguage in enumLanguageList)
+            foreach (string languageEnum in languagesEnumList)
             {
-                languageList.Add(new LanguageModel() { Language = enumLanguage });
+                languageList.Add(new LanguageModel() { Language = languageEnum });
             }
 
             foreach (LanguageModel language in languageList)
@@ -66,6 +62,22 @@ namespace Library.UI.Service.Data
                 _lngBaseRepository.Save();
             }
 
+            // Adding Grades enum to database
+            List<int> gradesEnumValues = Enum.GetValues(typeof(GradeModel.Grades))
+                .Cast<int>()
+                .ToList();
+            List<GradeModel> gradeList = new List<GradeModel>();
+
+            foreach (var gradeEnum in gradesEnumValues)
+            {
+                gradeList.Add(new GradeModel() { Grade = gradeEnum });
+            }
+
+            foreach (GradeModel grade in gradeList)
+            {
+                _gradeBaseRepository.Insert(grade);
+                _gradeBaseRepository.Save();
+            }
 
             // Inserting New Book
             foreach (var bookApi in bookBaseApi)
@@ -74,6 +86,7 @@ namespace Library.UI.Service.Data
                 {
                     Title = bookApi.Title,
                     Downloads = bookApi.Download_Count,
+                    IsRented = false,
                 };
 
 
@@ -87,7 +100,7 @@ namespace Library.UI.Service.Data
                     if (authorDetails.Death_Year == null) authorDetails.Death_Year = 0;
 
                     string[] nameSplit = authorDetails.Name.Split(", ");
-                    
+
                     if (nameSplit.Length == 1)
                     {
                         book.Author = new AuthorModel()
@@ -110,28 +123,37 @@ namespace Library.UI.Service.Data
                     }
                 }
 
-
                 // Adding Category
-                string[] enumCategories = Enum.GetNames(typeof(Genre));
+                string[] enumCategories = Enum.GetNames(typeof(Genre)).ToArray();
                 for (int i = 0; i < enumCategories.Length; i++)
                 {
                     enumCategories[i] = enumCategories[i].Replace('_', ' ');
                 }
 
-                string[] categorySplit = bookApi.Subjects[0].TrimStart().Split(new string[] { "-- " }, StringSplitOptions.RemoveEmptyEntries);
-                int counter = categorySplit.Count();
-                var bookCategory = categorySplit[counter - 1];
-
-                foreach (var enumCategory in enumCategories)
+                if (bookApi.Subjects.Length > 0)
                 {
-                    if (bookCategory == enumCategory)
+                    string[] categorySplit = bookApi.Subjects[0].TrimStart().Split(new string[] { "-- " }, StringSplitOptions.RemoveEmptyEntries);
+                    int counter = categorySplit.Count();
+
+                    if (counter > 0)
                     {
-                        book.Category = bookCategory;
-                        break;
+                        var bookCategory = categorySplit[counter - 1];
+
+                        foreach (var enumCategory in enumCategories)
+                        {
+                            if (bookCategory == enumCategory)
+                            {
+                                book.Category = bookCategory;
+                                break;
+                            }
+                            book.Category = "Other";
+                        }
                     }
+                }
+                else
+                {
                     book.Category = "Other";
                 }
-
 
                 // Adding Language Object (The Language Object is a collection)
                 List<LanguageModel> databaseLanguageList = _lngBaseRepository.GetAll().ToList();
@@ -161,6 +183,14 @@ namespace Library.UI.Service.Data
                 }
 
                 book.BookLanguages = matchedBookLanguages;
+
+                // Declaration of a random number of copies of a given book
+                Random copiesQuantity = new Random();
+
+                if (bookApi.Download_Count >= 20000) book.Copies = copiesQuantity.Next(15, 25);
+                else if (bookApi.Download_Count < 20000 && bookApi.Download_Count >= 10000) book.Copies = copiesQuantity.Next(10, 15);
+                else if (bookApi.Download_Count < 10000 && bookApi.Download_Count >= 5000) book.Copies = copiesQuantity.Next(6, 10);
+                else if (bookApi.Download_Count < 5000) book.Copies = copiesQuantity.Next(0, 5);
 
                 _bookBaseRepository.Insert(book);
                 _bookBaseRepository.Save();

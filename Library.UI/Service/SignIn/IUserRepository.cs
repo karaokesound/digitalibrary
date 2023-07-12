@@ -2,8 +2,8 @@
 
 namespace Library.UI.Services
 {
-    public interface IUserRepository : IBaseRepository<UserModel>
+    public interface IUserRepository : IBaseRepository<AccountModel>
     {
-        UserModel GetUserByUsername(string username);
+        AccountModel GetUserByUsername(string username);
     }
 }

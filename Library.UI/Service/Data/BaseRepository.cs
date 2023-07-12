@@ -1,5 +1,6 @@
 ﻿using Library.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,6 +37,7 @@ namespace Library.UI.Services
 
         public virtual void Insert(TEntity obj)
         {
+            _context.ChangeTracker.Clear();
             _dbSet.Add(obj);
         }
 

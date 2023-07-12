@@ -22,6 +22,24 @@ namespace Library.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Library.Models.Model.AccountBookModel", b =>
+                {
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("AccountId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("AccountBooks", (string)null);
+                });
+
             modelBuilder.Entity("Library.Models.Model.BookLanguageModel", b =>
                 {
                     b.Property<Guid>("BookId")
@@ -37,6 +55,43 @@ namespace Library.Data.Migrations
                     b.ToTable("BooksLanguages", (string)null);
                 });
 
+            modelBuilder.Entity("Library.Models.Model.CommentModel", b =>
+                {
+                    b.Property<Guid>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CommentAuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Comments", (string)null);
+                });
+
+            modelBuilder.Entity("Library.Models.Model.GradeModel", b =>
+                {
+                    b.Property<Guid>("GradeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
+
+                    b.HasKey("GradeId");
+
+                    b.ToTable("Grades", (string)null);
+                });
+
             modelBuilder.Entity("Library.Models.Model.LanguageModel", b =>
                 {
                     b.Property<Guid>("LanguageId")
@@ -50,6 +105,69 @@ namespace Library.Data.Migrations
                     b.HasKey("LanguageId");
 
                     b.ToTable("Languages", (string)null);
+                });
+
+            modelBuilder.Entity("Library.Models.Model.many_to_many.BookGradeModel", b =>
+                {
+                    b.Property<Guid>("BookGradeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GradeAuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GradeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BookGradeId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("GradeId");
+
+                    b.ToTable("BookGrades", (string)null);
+                });
+
+            modelBuilder.Entity("Library.UI.Model.AccountModel", b =>
+                {
+                    b.Property<Guid>("AccountId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Library")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaxBookQntToRent")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AccountId");
+
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Library.UI.Model.AuthorModel", b =>
@@ -83,6 +201,9 @@ namespace Library.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("AnyRequest")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
@@ -90,8 +211,17 @@ namespace Library.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Copies")
+                        .HasColumnType("int");
+
                     b.Property<int>("Downloads")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsRented")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("RequestUserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -104,40 +234,23 @@ namespace Library.Data.Migrations
                     b.ToTable("Books", (string)null);
                 });
 
-            modelBuilder.Entity("Library.UI.Model.UserModel", b =>
+            modelBuilder.Entity("Library.Models.Model.AccountBookModel", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("Library.UI.Model.AccountModel", "Account")
+                        .WithMany("AccountBooks")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasOne("Library.UI.Model.BookModel", "Book")
+                        .WithMany("AccountBooks")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Navigation("Account");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Library")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users", (string)null);
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("Library.Models.Model.BookLanguageModel", b =>
@@ -159,6 +272,36 @@ namespace Library.Data.Migrations
                     b.Navigation("Language");
                 });
 
+            modelBuilder.Entity("Library.Models.Model.CommentModel", b =>
+                {
+                    b.HasOne("Library.UI.Model.BookModel", "Book")
+                        .WithMany("Comments")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Library.Models.Model.many_to_many.BookGradeModel", b =>
+                {
+                    b.HasOne("Library.UI.Model.BookModel", "Book")
+                        .WithMany("BookGrade")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Library.Models.Model.GradeModel", "Grade")
+                        .WithMany("BookGrade")
+                        .HasForeignKey("GradeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Grade");
+                });
+
             modelBuilder.Entity("Library.UI.Model.BookModel", b =>
                 {
                     b.HasOne("Library.UI.Model.AuthorModel", "Author")
@@ -170,9 +313,19 @@ namespace Library.Data.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("Library.Models.Model.GradeModel", b =>
+                {
+                    b.Navigation("BookGrade");
+                });
+
             modelBuilder.Entity("Library.Models.Model.LanguageModel", b =>
                 {
                     b.Navigation("BookLanguages");
+                });
+
+            modelBuilder.Entity("Library.UI.Model.AccountModel", b =>
+                {
+                    b.Navigation("AccountBooks");
                 });
 
             modelBuilder.Entity("Library.UI.Model.AuthorModel", b =>
@@ -182,7 +335,13 @@ namespace Library.Data.Migrations
 
             modelBuilder.Entity("Library.UI.Model.BookModel", b =>
                 {
+                    b.Navigation("AccountBooks");
+
+                    b.Navigation("BookGrade");
+
                     b.Navigation("BookLanguages");
+
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using Library.Models.Model;
+using Library.Models.Model.many_to_many;
 using System;
 using System.Collections.Generic;
 
@@ -8,17 +9,29 @@ namespace Library.UI.Model
     {
         public Guid BookId { get; set; }
 
-        public int BookCounter { get; set; }
-
         public string Title { get; set; }
 
-        public AuthorModel Author { get; set; }
+        public int Copies { get; set; }
 
         public string Category { get; set; }
 
+        public int Downloads { get; set; }
+
+        public bool IsRented { get; set; }
+
+        public bool AnyRequest{ get; set; }
+
+        public Guid RequestUserId { get; set; }
+
+        public AuthorModel Author { get; set; }
+
+        public ICollection<BookGradeModel> BookGrade { get; set; }
+
+        public ICollection<CommentModel> Comments { get; set; }
+
         public ICollection<BookLanguageModel> BookLanguages { get; set; }
 
-        public int Downloads { get; set; }
+        public ICollection<AccountBookModel> AccountBooks { get; set; }
 
         public enum Genre
         {

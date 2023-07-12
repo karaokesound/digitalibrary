@@ -10,17 +10,22 @@ namespace Library.Data.Configuration
         {
             builder.ToTable("Books");
             builder.HasKey(b => b.BookId);
-            builder.Ignore(b => b.BookCounter);
             builder.Property(b => b.BookId).ValueGeneratedOnAdd();
             builder.Property(b => b.Title);
-            builder.Property(b => b.Downloads);
+            builder.Property(b => b.Copies);
             builder.Property(b => b.Category)
-                .HasConversion<string>();
+            .HasConversion<string>();
+            builder.Property(b => b.Downloads);
+            builder.Property(b => b.IsRented);
+            builder.Property(b => b.AnyRequest);
+            builder.Property(b => b.RequestUserId);
 
-            // one-to-many
+            // one-to-many relation
             builder.HasOne(a => a.Author)
                 .WithMany(b => b.Books);
 
+            builder.HasMany(c => c.Comments)
+                .WithOne(b => b.Book);
         }
     }
 }

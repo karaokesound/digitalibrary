@@ -1,19 +1,45 @@
 ﻿using Library.UI.Model;
-using Library.UI.ViewModel;
+using System;
+using System.Collections.Generic;
 
 namespace Library.UI.Services
 {
     public class UserAuthenticationService : IUserAuthenticationService
     {
+        public Guid UserId { get; private set; }
+
+        public AccountModel LoggedUser { get; private set; }
+
         public bool IsUserAuthenticated { get; private set; }
-        public void Authentication(string loggingUsername, string databaseUsername, string loggingPassword,
-            string databasePassword)
+
+        public List<BookModel> _requestedBooks { get; private set; }
+
+        public void Authentication(string loggingUsername, string dbUsername, string loggingPassword,
+            string dbPassword, AccountModel dbUser, List<BookModel> requestedBooks)
         {
-            if (loggingUsername == databaseUsername && loggingPassword == databasePassword)
+            if (requestedBooks == null) requestedBooks = null;
+
+            if (loggingUsername == dbUsername && loggingPassword == dbPassword)
             {
+                UserId = dbUser.AccountId;
+                LoggedUser = dbUser;
                 IsUserAuthenticated = true;
+                _requestedBooks = requestedBooks;
             }
             else IsUserAuthenticated = false;
+        }
+
+        public void UserLogout(bool isLogout)
+        {
+            if (isLogout == true)
+            {
+                IsUserAuthenticated = false;
+            }
+        }
+
+        public UserAuthenticationService()
+        {
+            _requestedBooks = new List<BookModel>();
         }
     }
 }

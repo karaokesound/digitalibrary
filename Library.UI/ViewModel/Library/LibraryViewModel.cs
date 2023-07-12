@@ -1,13 +1,16 @@
-﻿using Library.UI.Commands.Library;
+﻿using Library.Models.Model;
+using Library.Models.Model.many_to_many;
+using Library.UI.Commands.Library;
 using Library.UI.Model;
 using Library.UI.Service;
-using Library.UI.Service.Data;
+using Library.UI.Service.Library;
+using Library.UI.Service.Validation;
 using Library.UI.Services;
+using Library.UI.Stores;
 using Library.UI.ViewModel.Library;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -15,13 +18,13 @@ namespace Library.UI.ViewModel
 {
     public class LibraryViewModel : BaseViewModel
     {
-        private BaseViewModel _selectedViewModel;
-        public BaseViewModel SelectedViewModel
+        private Guid _loggedAccountId;
+        public Guid LoggedAccountId
         {
-            get => _selectedViewModel;
+            get => _loggedAccountId;
             set
             {
-                _selectedViewModel = value;
+                _loggedAccountId = value;
                 OnPropertyChanged();
             }
         }
@@ -37,51 +40,51 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private List<BookModel> _filteredBookList;
+        public List<BookModel> FilteredBookList
+        {
+            get => _filteredBookList;
+            set
+            {
+                _filteredBookList = value;
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<BookViewModel> _randomBookList;
         public ObservableCollection<BookViewModel> RandomBookList
         {
             get => _randomBookList;
-            set 
-            { 
+            set
+            {
                 _randomBookList = value;
                 OnPropertyChanged();
             }
         }
 
-
-        private Genre _genres;
-        public Genre Genres
+        private BookViewModel _selectedBook;
+        public BookViewModel SelectedBook
         {
-            get { return _genres; }
+            get => _selectedBook;
             set
             {
-                if (_genres != value)
-                {
-                    _genres = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private SortingMethod _sortingMethods;
-        public SortingMethod SortingMethods
-        {
-            get => _sortingMethods;
-            set 
-            { 
-                _sortingMethods = value;
+                _selectedBook = value;
+                ShowBookGrade();
                 OnPropertyChanged();
-                
+
+                //It is to keep focus on a selected book when clicking on a SearchBox
+                if (value == null) return;
+                _elementVisibilityService.ListViewSelectedBook(value);
             }
         }
 
-        private BookQuantity _quantity;
-        public BookQuantity Quantity
+        private string _searchBoxInput;
+        public string SearchBoxInput
         {
-            get => _quantity;
-            set 
-            { 
-                _quantity = value;
+            get => _searchBoxInput;
+            set
+            {
+                _searchBoxInput = value;
                 OnPropertyChanged();
             }
         }
@@ -97,49 +100,250 @@ namespace Library.UI.ViewModel
             }
         }
 
+        private bool _areBookDetailsVisible;
+        public bool AreBookDetailsVisible
+        {
+            get => _areBookDetailsVisible;
+            set
+            {
+                _areBookDetailsVisible = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public ICommand LibraryUpdateViewCommand { get; }
+        private bool _areRatingStarsVisible;
+        public bool AreRatingStarsVisible
+        {
+            get => _areRatingStarsVisible;
+            set
+            {
+                _areRatingStarsVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isBookGradeVisible;
+        public bool IsBookGradeVisible
+        {
+            get => _isBookGradeVisible;
+            set
+            {
+                _isBookGradeVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isAzEnumSelected;
+        public bool IsAzEnumSelected
+        {
+            get => _isAzEnumSelected;
+            set
+            {
+                _isAzEnumSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _gradeComment;
+        public string GradeComment
+        {
+            get => _gradeComment;
+            set
+            {
+                _gradeComment = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public SortingEnums SortingEnums { get; set; }
 
         public ICommand SortBooksCommand { get; }
+
+        public ICommand FilterBooksCommand { get; }
+
+        public ICommand RentBookCommand { get; }
+
+        public ICommand AddRequestCommand { get; }
+
+        public ICommand LibraryReturnButtonCommand { get; }
+
+        public ICommand BookDoubleClickCommand { get; }
+
+        public ICommand AddGradeCommand { get; }
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         private readonly IMappingService _mappingService;
 
-        private readonly IDataSorting _dataSorting;
+        private readonly IBookOperations _bookOperations;
 
-        public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, 
-            IDataSorting dataSorting)
+        private readonly IUserAuthenticationService _userAuthService;
+
+        private readonly IBaseRepository<AccountModel> _accountBaseRepository;
+
+        private readonly IAccountBookRepository _accountBookRepository;
+
+        private readonly IElementVisibilityService _elementVisibilityService;
+
+        private readonly IBaseRepository<BookGradeModel> _bookgradeBaseRepository;
+
+        private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
+
+        private readonly BookStore _bookStore;
+
+        private List<BookModel> _requestedBooks;
+
+        public LibraryViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
+            IBookOperations bookOperations, IUserAuthenticationService userAuthenticationService, IValidationService validationService,
+            IUserRepository userRepository, IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository,
+            IElementVisibilityService elementVisibilityService, IBaseRepository<BookGradeModel> bookgradeBaseRepository,
+            IBaseRepository<GradeModel> gradeBaseRepository, BookStore bookStore)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
-            _dataSorting = dataSorting;
+            _bookOperations = bookOperations;
+            _userAuthService = userAuthenticationService;
+            _accountBaseRepository = accountBaseRepository;
+            _accountBookRepository = accountBookRepository;
+            _elementVisibilityService = elementVisibilityService;
+            _bookgradeBaseRepository = bookgradeBaseRepository;
+            _gradeBaseRepository = gradeBaseRepository;
+            _bookStore = bookStore;
+            _requestedBooks = new List<BookModel>();
             BookList = new ObservableCollection<BookViewModel>();
+            FilteredBookList = new List<BookModel>();
+            SortingEnums = new SortingEnums();
+            AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService,
+                _gradeBaseRepository);
+            BookDoubleClickCommand = new BookDoubleClickCommand(this);
+            LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this);
+            SortBooksCommand = new SortBooksCommand(this, _bookOperations, SortingEnums);
+            FilterBooksCommand = new FilterBooksCommand(this, _elementVisibilityService, _bookStore, _bookOperations);
             RandomBookList = new ObservableCollection<BookViewModel>();
-            SortBooksCommand = new SortBooksCommand(this, _dataSorting);
-            LibraryUpdateViewCommand = new LibraryUpdateViewCommand(this, _bookBaseRepository, _mappingService, _dataSorting);
+            RentBookCommand = new RentBookCommand(this, _bookBaseRepository, _bookOperations, _mappingService,
+                _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
+            AddRequestCommand = new AddRequestCommand(this, _bookBaseRepository, _mappingService);
+
+            SetStartupBookList();
             GenerateRandomBooks();
+            InterceptLoggedUserData();
+            ShowBookGrade();
+        }
+
+        private void SetStartupBookList()
+        {
+            if (SearchBoxInput == null || SearchBoxInput.Length == 0)
+            {
+                _bookStore.CurrentBookList = _bookBaseRepository.GetAll().ToList();
+                //_bookStore.OnStartupBookListChanged();
+            }
+            else _bookStore.CurrentBookList = _bookStore.CurrentBookList;
         }
 
         public void DisplayBooks(List<BookModel> sortedBookList)
         {
             BookList.Clear();
+            GradeComment = "";
             BookCounter = 0;
             _bookCounter = 0;
 
+            if (sortedBookList == null) return;
+
             foreach (var sortedBook in sortedBookList)
             {
-                _bookCounter++;
-                sortedBook.BookCounter = _bookCounter;
-                BookList.Add(_mappingService.BookModelToViewModel(sortedBook, sortedBook.Author));
-            }
+                BookViewModel sortedBookVM = _mappingService.BookModelToViewModel(sortedBook, sortedBook.Author);
 
-            //SortingMethods = SortingMethod.NOT_SET;
-            //Genres = Genre.NOT_SET;
-            //Quantity = BookQuantity.NOT_SET;
+                // Counter is to place book in order in a listview
+                _bookCounter++;
+                sortedBookVM.BookCounter = _bookCounter;
+
+                BookList.Add(sortedBookVM);
+            }
         }
 
-        public void GenerateRandomBooks()
+        public void DisplayFilteredBooks(List<BookAccuracy> filteredBookList)
+        {
+            FilteredBookList.Clear();
+            BookList.Clear();
+            BookCounter = 0;
+            _bookCounter = 0;
+
+            foreach (var filteredBook in filteredBookList)
+            {
+                BookModel filteredBookModel = new BookModel()
+                {
+                    BookId = filteredBook.Book.BookId,
+                    Title = filteredBook.Book.Title,
+                    Copies = filteredBook.Book.Copies,
+                    Category = filteredBook.Book.Category,
+                    Downloads = filteredBook.Book.Downloads,
+                    IsRented = filteredBook.Book.IsRented,
+                    AnyRequest = filteredBook.Book.AnyRequest,
+                    Author = filteredBook.Book.Author,
+                    BookLanguages = filteredBook.Book.BookLanguages,
+                };
+
+                BookViewModel filteredBookVM = _mappingService.BookModelToViewModel(filteredBookModel, filteredBookModel.Author);
+                FilteredBookList.Add(filteredBookModel);
+
+                // Counter is to place book in order in a listview
+                _bookCounter++;
+                filteredBookVM.BookCounter = _bookCounter;
+
+                BookList.Add(filteredBookVM);
+            }
+        }
+
+        public void ShowBookGrade()
+        {
+            if (SelectedBook == null) return;
+
+            List<BookGradeModel> selectedBookgrades = new List<BookGradeModel>();
+            selectedBookgrades = _bookgradeBaseRepository.GetAll().Where(b => b.BookId == SelectedBook.BookId).ToList();
+
+            decimal average = 0;
+
+            if (selectedBookgrades.Count() == 0)
+            {
+                average = 0;
+                SelectedBook.BookGrade = "No grades";
+                GradeComment = "Be first to rate!";
+                AreRatingStarsVisible = true;
+                return;
+            }
+
+            int gradesSum = 0;
+
+            foreach (var bookGrade in selectedBookgrades)
+            {
+                var gradeModel = _gradeBaseRepository.GetByID(bookGrade.GradeId);
+                gradesSum += gradeModel.Grade;
+            }
+
+            average = (decimal)gradesSum / selectedBookgrades.Count;
+
+            SelectedBook.BookGrade = average.ToString("0.00");
+
+            if (average < 2 && average >= 0) GradeComment = "The Worst";
+            else if (average >= 2 && average < 5) GradeComment = "Bad";
+            else if (average >= 5 && average < 6) GradeComment = "Not Bad";
+            else if (average >= 6 && average < 8) GradeComment = "Good";
+            else if (average >= 8 && average < 10) GradeComment = "Very Good";
+            else GradeComment = "Extremely good";
+
+            // Adjust rating stars visibility
+            IEnumerable<BookGradeModel> userRate = _bookgradeBaseRepository.GetAll().Where(a => (a.GradeAuthorId == LoggedAccountId)
+            && (a.BookId == SelectedBook.BookId));
+
+            if (userRate != null && userRate.Count() != 0)
+            {
+                AreRatingStarsVisible = false;
+                return;
+            }
+            AreRatingStarsVisible = true;
+        }
+
+        private void GenerateRandomBooks()
         {
             var mostPopularBooks = _bookBaseRepository.GetAll().Where(book => book.Downloads > 10000).ToList();
 
@@ -154,112 +358,10 @@ namespace Library.UI.ViewModel
             }
         }
 
-        public enum Genre
+        private void InterceptLoggedUserData()
         {
-            [Description(" ")]
-            NOT_SET = 0,
-            [Description("Drama")]
-            Drama,
-            [Description("Fiction")]
-            Fiction,
-            [Description("Adventure stories")]
-            Adventure_stories,
-            [Description("Biography")]
-            Biography,
-            [Description("Historical fiction")]
-            Historical_fiction,
-            [Description("Juvenile fiction")]
-            Juvenile_fiction,
-            [Description("Autobiographical fiction")]
-            Autobiographical_fiction,
-            [Description("Comedies")]
-            Comedies,
-            [Description("Humor")]
-            Humor,
-            [Description("Feminist fiction")]
-            Feminist_fiction,
-            [Description("Horror tales")]
-            Horror_tales,
-            [Description("Poetry")]
-            Poetry,
-            [Description("Ethics")]
-            Ethics,
-            [Description("Life")]
-            Life,
-            [Description("Stoics")]
-            Stoics,
-            [Description("Romances")]
-            Romances,
-            [Description("Epic literature")]
-            Epic_literature,
-            [Description("Science fiction")]
-            Science_fiction,
-            [Description("Domestic fiction")]
-            Domestic_fiction,
-            [Description("Christmas stories")]
-            Christmas_stories,
-            [Description("Ghost stories")]
-            Ghost_stories,
-            [Description("Love stories")]
-            Love_stories,
-            [Description("Mysticism")]
-            Mysticism,
-            [Description("Fantasy literature")]
-            Fantasy_literature,
-            [Description("Calculus")]
-            Calculus,
-            [Description("Political fiction")]
-            Political_fiction,
-            [Description("Detective and mystery")]
-            Detective_and_mystery_stories,
-            [Description("Sabotage")]
-            Sabotage,
-            [Description("Bible")]
-            Bible,
-            [Description("French essays")]
-            French_essays,
-            [Description("Philosophy")]
-            Philosophy,
-            [Description("Gothic fiction")]
-            Gothic_fiction,
-            [Description("American drama")]
-            American_drama,
-            [Description("Communism")]
-            Communism,
-            [Description("Socialism")]
-            Socialism,
-            [Description("Fantasy fiction")]
-            Fantasy_fiction,
-            [Description("Liberty")]
-            Liberty,
-            [Description("Satire")]
-            Satire,
-            [Description("Adultery")]
-            Adultery
-        }
-
-        public enum SortingMethod
-        {
-            [Description(" ")]
-            NOT_SET = 0,
-            [Description("A-z")]
-            Az,
-            [Description("Downloads")]
-            Downloads
-        }
-
-        public enum BookQuantity
-        {
-            [Description(" ")]
-            NOT_SET = 0,
-            [Description("5")]
-            Five = 5,
-            [Description("10")]
-            Ten = 10,
-            [Description("20")]
-            Twenty = 20,
-            [Description("40")]
-            Fifty = 40
+            _loggedAccountId = _userAuthService.UserId;
+            _requestedBooks = _userAuthService._requestedBooks;
         }
     }
 }

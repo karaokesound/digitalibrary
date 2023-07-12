@@ -1,6 +1,7 @@
 ﻿using Library.UI.Commands;
 using Library.UI.Model;
 using Library.UI.Service;
+using Library.UI.Service.SignUp;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
 using System.Collections.ObjectModel;
@@ -36,8 +37,8 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private UserViewModel _newAccount;
-        public UserViewModel NewAccount
+        private AccountViewModel _newAccount;
+        public AccountViewModel NewAccount
         {
             get { return _newAccount; }
             set
@@ -60,31 +61,37 @@ namespace Library.UI.ViewModel
 
         public ICommand SignUpButtonCommand { get; }
 
-        public ICommand RegisterButtonCommand { get; }
+        public ICommand RegisterCommand { get; }
 
         public ICommand ExitButtonCommand { get; }
 
         private readonly IValidationService _validationService;
 
-        private readonly IBaseRepository<UserModel> _baseRepository;
+        private readonly IBaseRepository<AccountModel> _baseRepository;
 
-        private readonly INotUsedElementHidingService _notUsedElementHidingService;
+        private readonly IElementVisibilityService _elementVisibilityService;
 
-        public SignUpPanelViewModel(IValidationService validationService, IBaseRepository<UserModel> baseRepository,
-            INotUsedElementHidingService notUsedElementHidingService)
+        private readonly INotificationService _notificationService;
+
+        private readonly SignInPanelViewModel _signInPanelVM;
+
+        public SignUpPanelViewModel(IValidationService validationService, IBaseRepository<AccountModel> baseRepository,
+            IElementVisibilityService elementVisibilityService, INotificationService notificationService, SignInPanelViewModel signInPanelVM)
         {
             _validationService = validationService;
             _baseRepository = baseRepository;
-            _notUsedElementHidingService = notUsedElementHidingService;
-            SignUpButtonCommand = new SignUpButtonCommand(this, _notUsedElementHidingService);
-            ExitButtonCommand = new ExitButtonCommand(this, _notUsedElementHidingService);
-            RegisterButtonCommand = new RegisterButtonCommand(this, _validationService, _baseRepository);
-            NewAccount = new UserViewModel(_validationService);
+            _elementVisibilityService = elementVisibilityService;
+            _notificationService = notificationService;
+            _signInPanelVM = signInPanelVM;
+            SignUpButtonCommand = new SignUpButtonCommand(this, _elementVisibilityService, _signInPanelVM);
+            ExitButtonCommand = new ExitButtonCommand(this, _elementVisibilityService);
+            RegisterCommand = new RegisterCommand(this, _validationService, _baseRepository);
+            NewAccount = new AccountViewModel(_notificationService);
             LibraryList = new ObservableCollection<string>();
             _libraryList.Add("Vice ELibrary");
             _libraryList.Add("NightC -DLibrary");
         }
 
-        public void RaiseSignUpButtClickedEvent() => SignUpButtonClicked?.Invoke(_notUsedElementHidingService.IsSignUpButtonClicked);
+        public void RaiseSignUpButtClickedEvent() => SignUpButtonClicked?.Invoke(_elementVisibilityService.IsSignUpButtonClicked);
     }
 }

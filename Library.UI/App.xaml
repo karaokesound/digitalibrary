@@ -3,12 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:resources="clr-namespace:Library.UI.Resources.Converters"
              xmlns:view="clr-namespace:Library.UI.View"
-             xmlns:viewmodel="clr-namespace:Library.UI.ViewModel">
+             xmlns:navigation="clr-namespace:Library.UI.View.Navigation"
+             xmlns:navigationvm="clr-namespace:Library.UI.ViewModel.Navigation"
+             xmlns:viewmodel="clr-namespace:Library.UI.ViewModel" 
+             xmlns:ui="clr-namespace:Library.UI">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Xaml/Button.xaml" />
                 <ResourceDictionary Source="Resources/Xaml/TextBox.xaml" />
+                <ResourceDictionary Source="Resources/Xaml/ScrollBar.xaml" />
+                <ResourceDictionary Source="Resources/Xaml/ComboBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--// converters //-->
@@ -17,8 +22,11 @@
             <viewmodel:EnumToCollectionConverter x:Key="enumToCollConverter" />
 
             <!--// views //-->
-            <DataTemplate DataType="{x:Type viewmodel:AccountPanelViewModel}">
-                <view:AccountPanelView />
+            <DataTemplate DataType="{x:Type navigationvm:NavigationPanelViewModel}">
+                <navigation:NavigationPanel />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:ProfilePanelViewModel}">
+                <view:ProfilePanelView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:SignUpPanelViewModel}">
                 <view:SignUpPanelView />
@@ -29,7 +37,6 @@
             <DataTemplate DataType="{x:Type viewmodel:LibraryViewModel}">
                 <view:LibraryView />
             </DataTemplate>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>
