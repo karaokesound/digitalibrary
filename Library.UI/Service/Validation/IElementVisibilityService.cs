@@ -8,8 +8,6 @@ namespace Library.UI.Service.Validation
 
         bool IsSignUpButtonClicked { get; }
 
-        bool IsReturnsPanelClicked { get; }
-
         bool IsListViewVisible { get; }
 
         bool AreBookDetailsVisible { get; }
@@ -17,8 +15,6 @@ namespace Library.UI.Service.Validation
         void ListViewSelectedBook(BookViewModel selectedBook);
 
         void AdjustElementVisibility(bool isClicked);
-
-        void AdjustReturnsPanelVisibility(bool isClicked);
 
         void AdjustListViewVisibility(bool isEmpty);
     }

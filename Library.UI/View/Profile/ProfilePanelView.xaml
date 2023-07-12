@@ -142,7 +142,7 @@
                 <!--// button //-->
                 <Button Content="Manage"
                         Style="{StaticResource ProfileButton}"
-                        Command="{Binding ReturnsPanelCommand}"/>
+                        Command="{Binding ManagePanelCommand}"/>
             </Grid>
 
             <!--// SETTINGS //-->
@@ -202,11 +202,15 @@
                     </Border.Effect>
                 </Border>
                 <Button Content="Guide"
-                        Style="{StaticResource GuideProfileButton}"/>
+                        Style="{StaticResource GuideProfileButton}"
+                        Command="{Binding GuidePanelCommand}"/>
             </Grid>
         </Grid>
 
-        <componentsprofile:ReturnPanel Grid.RowSpan="2"
-                                       Visibility="{Binding IsReturnsPanelVisible, Converter={StaticResource booleanToVisibilityConverter}}"/>
+        <componentsprofile:ManagePanel Grid.RowSpan="2"
+                                       Visibility="{Binding IsManagePanelVisible, Converter={StaticResource booleanToVisibilityConverter}}"/>
+
+        <componentsprofile:GuidePanel Grid.RowSpan="2"
+                                      Visibility="{Binding IsGuidePanelVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
     </Grid>
 </UserControl>

@@ -8,8 +8,6 @@ namespace Library.UI.Service.Validation
 
         public bool IsSignUpButtonClicked { get; private set; }
 
-        public bool IsReturnsPanelClicked { get; private set; }
-
         public bool IsListViewVisible { get; private set; }
 
         public bool AreBookDetailsVisible { get; private set; }
@@ -27,16 +25,6 @@ namespace Library.UI.Service.Validation
                 return;
             }
             IsSignUpButtonClicked = false;
-        }
-
-        public void AdjustReturnsPanelVisibility(bool isClicked)
-        {
-            if (isClicked == true)
-            {
-                IsReturnsPanelClicked = true;
-                return;
-            }
-            IsReturnsPanelClicked = false;
         }
 
         public void AdjustListViewVisibility(bool isVisible)

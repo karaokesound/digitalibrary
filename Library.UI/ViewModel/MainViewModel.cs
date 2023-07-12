@@ -157,16 +157,11 @@ namespace Library.UI.ViewModel
                     _navigationStore.CurrentViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _bookOperations,
                             _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
                             _bookgradeBaseRepository, _gradeBaseRepository, _bookStore);
-                    _navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _bookOperations, _userAuthenticationService,
-                       _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                       _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore);
+                    _navigationStore.CurrentViewModel = new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _userAuthenticationService,
+                        _accountBaseRepository, _accountBookRepository, _elementVisibilityService);
                 }
                 else return;
             };
-
-            //_navigationStore.CurrentViewModel = new LibraryViewModel(_bookBaseRepository, _mappingService, _bookOperations,
-            //        _userAuthenticationService, _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-            //        _bookgradeBaseRepository, _gradeBaseRepository, _booksStore);
         }
 
         public void LogoutUser()

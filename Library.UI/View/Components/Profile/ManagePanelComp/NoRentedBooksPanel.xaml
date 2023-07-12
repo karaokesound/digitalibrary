@@ -43,7 +43,7 @@
                 </Grid.RowDefinitions>
 
                 <!--// images //-->
-                <Image Source="/Resources/Images/Profile/thinking(1).png"
+                <Image Source="/Resources/Images/Profile/thinking.png"
                        Width="125"
                        Opacity="0.7"
                        HorizontalAlignment="Center" />

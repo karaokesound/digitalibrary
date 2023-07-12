@@ -1,5 +1,4 @@
 ﻿using Library.UI.Model;
-using Library.UI.Services;
 using Library.UI.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,10 +12,6 @@ namespace Library.UI.Stores
         public List<BookModel> CurrentBookList { get; set; }
 
         public List<BookModel> FilteredBookList { get; set; }
-
-        private readonly SignInPanelViewModel _signInPanelVM;
-
-        private readonly IBaseRepository<BookModel> _bookBaseRepository;
 
         public void OnBookListChanged()
         {
@@ -36,11 +31,10 @@ namespace Library.UI.Stores
             else return;
         }
 
-        public BookStore(SignInPanelViewModel signInPanelVM, IBaseRepository<BookModel> bookBaseRepository)
+        public BookStore(SignInPanelViewModel signInPanelVM)
         {
             CurrentBookList = new List<BookModel>();
             FilteredBookList = new List<BookModel>();
-            _bookBaseRepository = bookBaseRepository;
         }
     }
 }

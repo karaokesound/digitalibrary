@@ -63,7 +63,7 @@ namespace Library.UI
             services.AddSingleton<MainViewModel>();
             services.AddTransient<ProfilePanelViewModel>();
             services.AddTransient<SignUpPanelViewModel>();
-            services.AddTransient<SignInPanelViewModel>();
+            services.AddSingleton<SignInPanelViewModel>();
             services.AddTransient<LibraryViewModel>();
             services.AddTransient<SortingEnums>();
             services.AddTransient<NavigationPanelViewModel>();

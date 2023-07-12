@@ -3,7 +3,6 @@ using Library.Models.Model;
 using Library.UI.Model;
 using Library.UI.Service.API;
 using Library.UI.Service.API.Dto;
-using Library.UI.Service.Library;
 using Library.UI.Services;
 using System;
 using System.Collections.Generic;
@@ -23,22 +22,15 @@ namespace Library.UI.Service.Data
 
         private readonly IBaseRepository<LanguageModel> _lngBaseRepository;
 
-        private readonly IBaseRepository<AuthorModel> _authBaseRepository;
-
-        private readonly IBookOperations _dataFiltering;
-
         private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
 
         public DataSeeder(IBaseRepository<BookModel> bookBaseRepository, LibraryDbContext libraryDbContext,
-            IBookApiService bookApiService, IBaseRepository<LanguageModel> langBaseRepository,
-            IBaseRepository<AuthorModel> authBaseRepository, IBookOperations dataFiltering, IBaseRepository<GradeModel> gradeBaseRepository)
+            IBookApiService bookApiService, IBaseRepository<LanguageModel> langBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository)
         {
             _bookBaseRepository = bookBaseRepository;
             _libraryDbContext = libraryDbContext;
             _bookApiService = bookApiService;
             _lngBaseRepository = langBaseRepository;
-            _authBaseRepository = authBaseRepository;
-            _dataFiltering = dataFiltering;
             _gradeBaseRepository = gradeBaseRepository;
         }
 

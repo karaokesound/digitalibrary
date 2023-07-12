@@ -35,18 +35,16 @@ namespace Library.UI.Commands.Profile
 
             AccountBookModel returningBook = _accountBookRepository.GetUserBookByID(dbLoggedUser.AccountId, selectedBook.BookId);
 
-            if (returningBook == null)
-            {
-                return;
-            }
-
-            returningBook.Quantity -= 1;
-
-            if (returningBook.Quantity == 0)
+            if (returningBook.Quantity <= 1)
             {
                 _accountBookRepository.DeleteUserBook(dbLoggedUser.AccountId, returningBook.BookId);
 
                 dbSelecteedBook.IsRented = false;
+                dbSelecteedBook.Copies += 1;
+            }
+            else
+            {
+                returningBook.Quantity -= 1;
                 dbSelecteedBook.Copies += 1;
             }
 

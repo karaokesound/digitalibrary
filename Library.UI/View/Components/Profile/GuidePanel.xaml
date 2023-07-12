@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="Library.UI.View.Components.Profile.GuidePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Library.UI.View.Components.Profile"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.19*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <!--// MAIN BACKGROUND //-->
+        <Border Grid.RowSpan="3"
+                Background="White"
+                CornerRadius="0 4 4 0" />
+        <Border Grid.RowSpan="3"
+                Opacity="0.97"
+                CornerRadius="0 4 4 0"
+                Background="#052a4f"/>
+
+        <!--// MANAGE CAPTION //-->
+        <StackPanel Margin="10 20 10 0">
+            <TextBlock Text="Guide"
+                       Foreground="White"
+                       FontSize="30"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top" />
+            <Border BorderBrush="White"
+                    BorderThickness="0 0 0 1.5"
+                    HorizontalAlignment="Left"
+                    Margin="0 5 0 0"
+                    Opacity="0.7"
+                    Width="300"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1"
+              Margin="10 0 10 20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.75*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <TextBlock Text="This App:"
+                           Foreground="White"
+                           TextWrapping="Wrap"
+                           FontSize="22"
+                           FontWeight="Bold"/>
+                <StackPanel TextBlock.Foreground="White"
+                            TextBlock.FontSize="14">
+                    <TextBlock Text="- uses repositories to enable a communiction between database and viewmodels" />
+                    <TextBlock Text="- uses interfaces to prevent code repetition and make app more flexible" />
+                    <TextBlock Text="- uses events to ensure loose coupling between some components of the app" />
+                    <TextBlock Text="- uses stores to store state of an application" />
+                    <TextBlock Text="- uses DI to separate the concerns of constructing objects and using them, leading to loosely coupled application" />
+                    <TextBlock Text="- uses MSSQL database" />
+                    <TextBlock Text="- uses API to receive book base" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1"
+                        TextBlock.Foreground="White">
+                <TextBlock Text="Functionalities:"
+                           FontSize="22"
+                           FontWeight="Bold"/>
+                <StackPanel TextBlock.FontSize="14">
+                    <StackPanel>
+                        <TextBlock Text="- Renting books "/>
+                        <TextBlock Text="Go to Library => Select a book from a list => Click on a 'plus' button"
+                                   Margin="20 0 0 0"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="- Returning books back to the library "/>
+                        <TextBlock Text="Go to Profile => Manage => Select a book to return => Click on a button"
+                                   Margin="20 0 0 0"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="- Rating books "/>
+                        <TextBlock Text="Go to Library => Double click on a book from a list => Rate"
+                                   Margin="20 0 0 0"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="- Sorting and filtring through book base "/>
+                        <TextBlock Text="Go to Library => Sort books using comboboxes or filter results using textbox"
+                                   Margin="20 0 0 0"/>
+                    </StackPanel>
+                    <TextBlock Text="- Login/Sign Up validation and notification" />
+                    <TextBlock Text="- Navigation between views, logging out from the app" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <!--// RETURN BUTTON //-->
+        <Grid Grid.Row="2"
+              HorizontalAlignment="Left"
+              Margin="10 0 10 10">
+
+            <!--// image //-->
+            <Image Source="/Resources/Images/Profile/back.png"
+                   RenderOptions.BitmapScalingMode="Fant"
+                   Width="30" />
+
+            <!--// button //-->
+            <Button Command="{Binding ReturnButtonCommand}"
+                    Background="Transparent"
+                    Width="30"
+                    Height="30" />
+        </Grid>
+    </Grid>
+</UserControl>

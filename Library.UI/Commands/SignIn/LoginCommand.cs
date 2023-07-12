@@ -31,7 +31,7 @@ namespace Library.UI.Commands.SignIn
             AccountModel dbUser = _userRepository.GetUserByUsername(loggingUser.Username);
 
             bool validation = _validationService.SignInValidation(dbUser, loggingUser);
-            if (validation == false)
+            if (!validation)
             {
                 return;
             }

@@ -169,8 +169,6 @@ namespace Library.UI.ViewModel
 
         public ICommand BookDoubleClickCommand { get; }
 
-        public ICommand YesNoButtonCommand { get; }
-
         public ICommand AddGradeCommand { get; }
 
         private readonly IBaseRepository<BookModel> _bookBaseRepository;
@@ -217,7 +215,6 @@ namespace Library.UI.ViewModel
             SortingEnums = new SortingEnums();
             AddGradeCommand = new AddGradeCommand(this, _bookgradeBaseRepository, _bookBaseRepository, _userAuthService,
                 _gradeBaseRepository);
-            YesNoButtonCommand = new YesNoButtonCommand(this);
             BookDoubleClickCommand = new BookDoubleClickCommand(this);
             LibraryReturnButtonCommand = new LibraryReturnButtonCommand(this);
             SortBooksCommand = new SortBooksCommand(this, _bookOperations, SortingEnums);
@@ -327,22 +324,23 @@ namespace Library.UI.ViewModel
 
             SelectedBook.BookGrade = average.ToString("0.00");
 
-            // Adjust rating stars visibility
-            IEnumerable<BookGradeModel> userRate = _bookgradeBaseRepository.GetAll().Where(a => (a.GradeAuthorId == LoggedAccountId)
-            && (a.BookId == SelectedBook.BookId));
-
-            if (userRate.Count() == 0 || userRate == null)
-            {
-                AreRatingStarsVisible = true;
-            }
-            AreRatingStarsVisible = false;
-
             if (average < 2 && average >= 0) GradeComment = "The Worst";
             else if (average >= 2 && average < 5) GradeComment = "Bad";
             else if (average >= 5 && average < 6) GradeComment = "Not Bad";
             else if (average >= 6 && average < 8) GradeComment = "Good";
             else if (average >= 8 && average < 10) GradeComment = "Very Good";
             else GradeComment = "Extremely good";
+
+            // Adjust rating stars visibility
+            IEnumerable<BookGradeModel> userRate = _bookgradeBaseRepository.GetAll().Where(a => (a.GradeAuthorId == LoggedAccountId)
+            && (a.BookId == SelectedBook.BookId));
+
+            if (userRate != null && userRate.Count() != 0)
+            {
+                AreRatingStarsVisible = false;
+                return;
+            }
+            AreRatingStarsVisible = true;
         }
 
         private void GenerateRandomBooks()

@@ -123,7 +123,7 @@
                     TextBlock.FontFamily="Tilillium Web Semibold"
                     TextBlock.Foreground="White"
                     Visibility="{Binding AreRatingStarsVisible, Converter={StaticResource booleanToVisibilityConverter}}">
-            <TextBlock Text="Did you read this book? Rate it from 0 to 10."
+            <TextBlock Text="Have you read this book? Rate it from 0 to 10."
                        FontSize="13"
                        Margin="1 0 0 0"/>
             <StackPanel Orientation="Horizontal">

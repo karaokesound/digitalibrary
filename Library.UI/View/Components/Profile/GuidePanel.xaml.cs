@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Library.UI.View.Components.Profile
 {
     /// <summary>
-    /// Interaction logic for ReturnPanel.xaml
+    /// Interaction logic for GuidePanel.xaml
     /// </summary>
-    public partial class ReturnPanel : UserControl
+    public partial class GuidePanel : UserControl
     {
-        public ReturnPanel()
+        public GuidePanel()
         {
             InitializeComponent();
         }

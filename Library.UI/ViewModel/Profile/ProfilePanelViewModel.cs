@@ -1,12 +1,9 @@
 ﻿using Library.Models.Model;
-using Library.Models.Model.many_to_many;
 using Library.UI.Commands.Profile;
 using Library.UI.Model;
 using Library.UI.Service;
-using Library.UI.Service.Library;
 using Library.UI.Service.Validation;
 using Library.UI.Services;
-using Library.UI.Store;
 using Library.UI.ViewModel.Profile;
 using System;
 using System.Collections.Generic;
@@ -52,13 +49,24 @@ namespace Library.UI.ViewModel
             }
         }
 
-        private bool _isReturnsPanelVisible = false;
-        public bool IsReturnsPanelVisible
+        private bool _isManagePanelVisible = false;
+        public bool IsManagePanelVisible
         {
-            get => _isReturnsPanelVisible;
+            get => _isManagePanelVisible;
             set 
             { 
-                _isReturnsPanelVisible = value;
+                _isManagePanelVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isGuidePanelVisible = false;
+        public bool IsGuidePanelVisible
+        {
+            get => _isGuidePanelVisible;
+            set
+            {
+                _isGuidePanelVisible = value;
                 OnPropertyChanged();
             }
         }
@@ -90,12 +98,16 @@ namespace Library.UI.ViewModel
         }
 
         public int NoOfLeftedBooksToRent { get; set; }
+
         public bool IsNoReqBooksPanelVisible { get; set; }
+
         public bool IsNoRentedBooksPanelVisible { get; set; }
 
-        public ICommand ReturnBookCommand { get; }
+        public ICommand ManagePanelCommand { get; }
 
-        public ICommand ReturnsPanelCommand { get; }
+        public ICommand GuidePanelCommand { get; }
+
+        public ICommand ReturnBookCommand { get; }
 
         public ICommand ReturnButtonCommand { get; }
 
@@ -103,13 +115,7 @@ namespace Library.UI.ViewModel
 
         private readonly IMappingService _mappingService;
 
-        private readonly IBookOperations _dataSorting;
-
         private readonly IUserAuthenticationService _userAuthenticationService;
-
-        private readonly IValidationService _validationService;
-
-        private readonly IUserRepository _userRepository;
 
         private readonly IBaseRepository<AccountModel> _accountBaseRepository;
 
@@ -117,35 +123,23 @@ namespace Library.UI.ViewModel
 
         private readonly IElementVisibilityService _elementVisibilityService;
 
-        private readonly IBaseRepository<BookGradeModel> _bookgradeBaseRepository;
-
-        private readonly IBaseRepository<GradeModel> _gradeBaseRepository;
-
-        private readonly NavigationStore _navigationStore;
-
         private List<BookModel> _requestedBooks;
 
-        public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService, IBookOperations dataSorting,
-            IUserAuthenticationService userAuthenticationService, IValidationService validationService, IUserRepository userRepository,
-            IBaseRepository<AccountModel> accountBaseRepository, IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService,
-            IBaseRepository<BookGradeModel> bookgradeBaseRepository, IBaseRepository<GradeModel> gradeBaseRepository, NavigationStore navigationStore)
+        public ProfilePanelViewModel(IBaseRepository<BookModel> bookBaseRepository, IMappingService mappingService,
+            IUserAuthenticationService userAuthenticationService, IBaseRepository<AccountModel> accountBaseRepository, 
+            IAccountBookRepository accountBookRepository, IElementVisibilityService elementVisibilityService)
         {
             _bookBaseRepository = bookBaseRepository;
             _mappingService = mappingService;
-            _dataSorting = dataSorting;
             _userAuthenticationService = userAuthenticationService;
-            _validationService = validationService;
-            _userRepository = userRepository;
             _accountBaseRepository = accountBaseRepository;
             _accountBookRepository = accountBookRepository;
             _elementVisibilityService = elementVisibilityService;
-            _bookgradeBaseRepository = bookgradeBaseRepository;
-            _gradeBaseRepository = gradeBaseRepository;
-            _navigationStore = navigationStore;
             _requestedBooks = new List<BookModel>();
             UserRentedBooks = new ObservableCollection<UserBooksData>();
-            ReturnButtonCommand = new ReturnButtonCommand(this, _elementVisibilityService);
-            ReturnsPanelCommand = new ReturnsPanelCommand(this, _elementVisibilityService);
+            ManagePanelCommand = new ManagePanelCommand(this);
+            GuidePanelCommand = new GuidePanelCommand(this);
+            ReturnButtonCommand = new ReturnButtonCommand(this);
             ReturnBookCommand = new ReturnBookCommand(this, _accountBaseRepository, _accountBookRepository, _mappingService, _bookBaseRepository);
             TakeLoggedUserData();
         }
@@ -153,7 +147,15 @@ namespace Library.UI.ViewModel
         public void RemoveUserRentedBook(BookModel removingBook)
         {
             var matchingBook = UserRentedBooks.FirstOrDefault(b => b.Book.BookId == removingBook.BookId);
-            UserRentedBooks.Remove(matchingBook);
+
+            if (matchingBook != null)
+            {
+                if (matchingBook.AccountBook.Quantity >= 1)
+                {
+                    matchingBook.AccountBook.Quantity = matchingBook.AccountBook.Quantity;
+                }
+                else UserRentedBooks.Remove(matchingBook);
+            }
 
             if (UserRentedBooks.Count == 0)
             {

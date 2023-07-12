@@ -11,7 +11,9 @@ namespace Library.UI.Commands
     public class RegisterCommand : CommandBase
     {
         private readonly SignUpPanelViewModel _signUpPanelVM;
+
         private readonly IValidationService _validationService;
+
         private readonly IBaseRepository<AccountModel> _baseRepository;
 
         public override void Execute(object parameter)
@@ -37,7 +39,7 @@ namespace Library.UI.Commands
             }
 
             bool dataValidation = _validationService.SignUpValidation(newAccount);
-            if (dataValidation == false)
+            if (!dataValidation)
             {
                 return;
             }
@@ -56,7 +58,8 @@ namespace Library.UI.Commands
             _signUpPanelVM.NewAccount.Library = string.Empty;
         }
 
-        public RegisterCommand(SignUpPanelViewModel signUpPanelVM, IValidationService validationService, IBaseRepository<AccountModel> baseRepository)
+        public RegisterCommand(SignUpPanelViewModel signUpPanelVM, IValidationService validationService, 
+            IBaseRepository<AccountModel> baseRepository)
         {
             _signUpPanelVM = signUpPanelVM;
             _validationService = validationService;

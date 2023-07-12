@@ -14,6 +14,17 @@ namespace Library.UI.ViewModel
 
         public event UserAuthenticationChangedEvent UserAuthenticationChanged = null!;
 
+        private BaseViewModel _selectedViewModel;
+        public BaseViewModel SelectedViewModel
+        {
+            get => _selectedViewModel;
+            set
+            {
+                _selectedViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _signInPanelVisibility = true;
         public bool SignInPanelVisibility
         {
@@ -32,17 +43,6 @@ namespace Library.UI.ViewModel
             set 
             { 
                 _loggingUsernamePassword = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private BaseViewModel _selectedViewModel;
-        public BaseViewModel SelectedViewModel
-        {
-            get => _selectedViewModel;
-            set 
-            { 
-                _selectedViewModel = value;
                 OnPropertyChanged();
             }
         }
@@ -76,7 +76,7 @@ namespace Library.UI.ViewModel
             _bookBaseRepository = bookBaseRepository;
             _notificationService = notificationService;
             _accountVM = accountVM;
-            BookStore = new BookStore(this, _bookBaseRepository);
+            BookStore = new BookStore(this);
             LoggingUsernamePassword = new AccountViewModel(_notificationService);
             LoginCommand = new LoginCommand(this, _userAuthenticationService, _validationService, _userRepository, _mappingService,
                 _bookBaseRepository, _accountVM);

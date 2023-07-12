@@ -5,9 +5,7 @@ using Library.UI.Service.Validation;
 using Library.UI.Stores;
 using Library.UI.ViewModel;
 using Library.UI.ViewModel.Library;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Library.UI.Commands.Library
 {

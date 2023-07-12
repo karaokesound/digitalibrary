@@ -14,19 +14,16 @@ namespace Library.UI.Service.Library
 
         private readonly IBaseRepository<AuthorModel> _authBaseRepository;
 
-        private readonly SortingEnums _sortingEnums;
-
         private readonly BookStore _booksStore;
 
         public List<BookModel> _currentBookList;
 
         public BookOperations(IBaseRepository<BookModel> bookBaseRepository, IBaseRepository<AuthorModel> authBaseRepository,
-          SortingEnums sortingEnums, BookStore booksStore)
+            BookStore booksStore)
         {
             _currentBookList = new List<BookModel>();
             _bookBaseRepository = bookBaseRepository;
             _authBaseRepository = authBaseRepository;
-            _sortingEnums = sortingEnums;
 
             _booksStore = booksStore;
             _booksStore.BookListChanged += OnBookListChanged;

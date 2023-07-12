@@ -83,9 +83,8 @@ namespace Library.UI.ViewModel.Navigation
                     _bookgradeBaseRepository, _gradeBaseRepository, _booksStore)));
 
             NavigateProfileCommand = new NavigateCommand<ProfilePanelViewModel>(new NavigationService<ProfilePanelViewModel>(navigationStore,
-               () => new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _dataSorting, _userAuthenticationService,
-                       _validationService, _userRepository, _accountBaseRepository, _accountBookRepository, _elementVisibilityService,
-                       _bookgradeBaseRepository, _gradeBaseRepository, _navigationStore)));
+               () => new ProfilePanelViewModel(_bookBaseRepository, _mappingService, _userAuthenticationService,
+                        _accountBaseRepository, _accountBookRepository, _elementVisibilityService)));
 
             LogoutCommand = new LogoutCommand(this, _userAuthenticationService);
         }

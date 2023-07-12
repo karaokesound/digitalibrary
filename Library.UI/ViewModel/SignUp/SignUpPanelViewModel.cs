@@ -73,14 +73,17 @@ namespace Library.UI.ViewModel
 
         private readonly INotificationService _notificationService;
 
+        private readonly SignInPanelViewModel _signInPanelVM;
+
         public SignUpPanelViewModel(IValidationService validationService, IBaseRepository<AccountModel> baseRepository,
-            IElementVisibilityService elementVisibilityService, INotificationService notificationService)
+            IElementVisibilityService elementVisibilityService, INotificationService notificationService, SignInPanelViewModel signInPanelVM)
         {
             _validationService = validationService;
             _baseRepository = baseRepository;
             _elementVisibilityService = elementVisibilityService;
             _notificationService = notificationService;
-            SignUpButtonCommand = new SignUpButtonCommand(this, _elementVisibilityService);
+            _signInPanelVM = signInPanelVM;
+            SignUpButtonCommand = new SignUpButtonCommand(this, _elementVisibilityService, _signInPanelVM);
             ExitButtonCommand = new ExitButtonCommand(this, _elementVisibilityService);
             RegisterCommand = new RegisterCommand(this, _validationService, _baseRepository);
             NewAccount = new AccountViewModel(_notificationService);

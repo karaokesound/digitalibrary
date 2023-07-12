@@ -8,10 +8,15 @@ namespace Library.UI.Service.SignUp
         public string Notification { get; set; }
 
         public string digitsSpecialCharsPattern = @"^(?=.*[\s\d\p{P}])|.*[\.]$";
+
         public string specialCharsPattern = @"[\p{P}\p{S}\s]";
+
         public Regex usernameValidationRegex = new Regex(@"^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d]{3,15}$");
+
         public Regex firstLastNameCityValidationRegex = new Regex(@"^[a-zA-Z]{1}[a-zA-Z]*[a-zA-Z]{1}$");
+
         public Regex passwordValidationRegex = new Regex(@"^(?=.*\d)(?=.*\W)(?!.*\s)(?!.*\s$).{6,15}$");
+
         public Regex emailValidationRegex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$");
 
         public string UsernameErrorNotification(string username)
